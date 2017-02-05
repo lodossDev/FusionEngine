@@ -506,38 +506,43 @@ namespace FusionEngine
                     Vector2 x1 = new Vector2(entityBox.GetRect().Right, 0);
                     Vector2 x2 = new Vector2(targetBox.GetRect().Right, 0);
 
-                    Vector2 z1 = new Vector2(0, eDepthBox.GetRect().Bottom);
-                    Vector2 z2 = new Vector2(0, tDepthBox.GetRect().Bottom);
+                    Vector2 z1 = new Vector2(eDepthBox.GetRect().Top, eDepthBox.GetRect().Bottom);
+                    Vector2 z2 = new Vector2(tDepthBox.GetRect().Top, tDepthBox.GetRect().Bottom);
 
                     float distX = Vector2.Distance(x1, x2);
                     float distZ = Vector2.Distance(z1, z2);
 
-                    if ((distX > 60) && distZ <= 5 
+                    if ((distX > 60) && distZ <= 0
                                 && entityBox.Intersects(targetBox)
                                 && eDepthBox.Intersects(tDepthBox)) {
 
                         Debug.WriteLine("OBJECT: " + target.GetName() + " : " + distX);
 
-                        target.isGrabbed = true;
+                        
                         target.SetAnimationState(Animation.State.STANCE);
                         entity.SetAnimationState(Animation.State.GRAB_HOLD1);
 
-                        if (entity.GetDirX() > 0) {
-                            target.SetIsLeft(true);
-                            target.SetPosX(entity.GetPosX() + entityBox.GetWidth());
-                        }
+                        if (!target.isGrabbed) { 
+                            if (entity.GetDirX() > 0) {
+                                target.SetIsLeft(true);
+                                target.SetPosX(entity.GetPosX() + entityBox.GetWidth());
+                            }
 
-                        if (entity.GetDirX() < 0) {
-                            target.SetIsLeft(false);
-                            target.SetPosX(entity.GetPosX() - entityBox.GetWidth());
-                        }
+                            if (entity.GetDirX() < 0) {
+                                target.SetIsLeft(false);
+                                target.SetPosX(entity.GetPosX() - entityBox.GetWidth());
+                            }
 
-                        if (entityBox.GetRect().Bottom > targetBox.GetRect().Bottom) {
-                            target.MoveZ(15);
+                            if (entityBox.GetRect().Bottom > targetBox.GetRect().Bottom) {
+                                target.MoveZ(15);
+                            }
+
+                            target.isGrabbed = true;
                         }
 
                         target.ResetX();
                         target.ResetZ();
+                        
 
                     } else if (!(distX > 150 && distX < 180) && distZ > 30){
                         target.isGrabbed = false;

@@ -529,11 +529,11 @@ namespace FusionEngine
 
             x1.Normalize();
 
-            Vector2 s1 = new Vector2(ryo.GetBoundsBox().GetRect().Right, 0);
-            Vector2 s2 = new Vector2(taskMaster.GetBoundsBox().GetRect().Right, 0);
+            Vector2 s1 = new Vector2(ryo.GetBoundsBox().GetRect().Left, ryo.GetBoundsBox().GetRect().Right);
+            Vector2 s2 = new Vector2(taskMaster.GetBoundsBox().GetRect().Left, taskMaster.GetBoundsBox().GetRect().Right);
 
-            Vector2 z1 = new Vector2(ryo.GetDepthBox().GetRect().Bottom, 0);
-            Vector2 z2 = new Vector2(taskMaster.GetDepthBox().GetRect().Bottom, 0);
+            Vector2 z1 = new Vector2(ryo.GetDepthBox().GetRect().Top, ryo.GetDepthBox().GetRect().Bottom);
+            Vector2 z2 = new Vector2(taskMaster.GetDepthBox().GetRect().Top, taskMaster.GetDepthBox().GetRect().Bottom);
 
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);

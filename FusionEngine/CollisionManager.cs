@@ -514,7 +514,8 @@ namespace FusionEngine
 
                     if ((distX > 60) && distZ <= 0
                                 && entityBox.Intersects(targetBox)
-                                && eDepthBox.Intersects(tDepthBox)) {
+                                && eDepthBox.Intersects(tDepthBox)
+                                && entity.GetDirX() != target.GetDirX()) {
 
                         Debug.WriteLine("OBJECT: " + target.GetName() + " : " + distX);
 

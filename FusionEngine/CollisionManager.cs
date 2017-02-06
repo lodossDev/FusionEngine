@@ -493,6 +493,7 @@ namespace FusionEngine
                 return;
             }
 
+            float newx, newz, x, targetx, targetz;
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
@@ -503,19 +504,19 @@ namespace FusionEngine
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
 
-                    Vector2 x1 = new Vector2(entityBox.GetRect().Right, 0);
-                    Vector2 x2 = new Vector2(targetBox.GetRect().Right, 0);
+                    Vector2 x1 = new Vector2(entity.GetPosX(), 0);
+                    Vector2 x2 = new Vector2(target.GetPosX(), 0);
 
-                    Vector2 z1 = new Vector2(eDepthBox.GetRect().Top, eDepthBox.GetRect().Bottom);
-                    Vector2 z2 = new Vector2(tDepthBox.GetRect().Top, tDepthBox.GetRect().Bottom);
+                    Vector2 z1 = new Vector2(0, entity.GetPosZ());
+                    Vector2 z2 = new Vector2(0, target.GetPosZ() - 5);
 
                     float distX = Vector2.Distance(x1, x2);
                     float distZ = Vector2.Distance(z1, z2);
+                    int dz = tDepthBox.GetRect().Bottom;
 
-                    if ((distX > 60) && distZ <= 0
-                                && entityBox.Intersects(targetBox)
-                                && eDepthBox.Intersects(tDepthBox)
-                                && entity.GetDirX() != target.GetDirX()) {
+                    if ((distX >= entityBox.GetWidth() - 40  && distX < entityBox.GetWidth() + 20) && distZ <= (tDepthBox.GetHeight()) 
+                            && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
+                                    || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))) {
 
                         Debug.WriteLine("OBJECT: " + target.GetName() + " : " + distX);
 
@@ -523,30 +524,37 @@ namespace FusionEngine
                         target.SetAnimationState(Animation.State.STANCE);
                         entity.SetAnimationState(Animation.State.GRAB_HOLD1);
 
-                        if (!target.isGrabbed) { 
-                            if (entity.GetDirX() > 0) {
-                                target.SetIsLeft(true);
-                                target.SetPosX(entity.GetPosX() + entityBox.GetWidth());
-                            }
+                       // if (!target.isGrabbed) { 
+                            x = (entityBox.GetRect().X + targetBox.GetRect().X) / 2;
+                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (entityBox.GetWidth() / 2) : -(entityBox.GetWidth()  / 2));
+                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
+                            //z1 = z2 = (ent->z + other->z) / 2;
+                            newz = targetz = (entity.GetPosZ() + target.GetPosZ()) / 2;
 
-                            if (entity.GetDirX() < 0) {
-                                target.SetIsLeft(false);
-                                target.SetPosX(entity.GetPosX() - entityBox.GetWidth());
-                            }
+                            entity.SetPosX(newx);
+                            //entity.SetPosZ(newz);
 
-                            if (entityBox.GetRect().Bottom > targetBox.GetRect().Bottom) {
-                                target.MoveZ(15);
-                            }
-
+                            target.SetPosX(targetx);
+                            target.SetPosZ(targetz + eDepthBox.GetHeight());
+                            target.SetPosY(-100);
+                            target.link = entity;
                             target.isGrabbed = true;
+                        //}
+                        
+                        target.layer_id = entity.GetEntityId() + 1;
+
+                        while (eDepthBox.GetRect().Bottom > dz) {
+                            target.SetPosZ(target.GetPosZ() + 0.6f);
+                            dz ++;
                         }
 
                         target.ResetX();
                         target.ResetZ();
-                        
 
-                    } else if (!(distX > 150 && distX < 180) && distZ > 30){
+                    } else if (!(distX >= entityBox.GetWidth() - 40  && distX < entityBox.GetWidth() + 20) && distZ > 30){
                         target.isGrabbed = false;
+                        target.layer_id = 0;
+                        target.link = entity;
                     } 
                 }
             }

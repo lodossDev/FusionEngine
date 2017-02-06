@@ -140,8 +140,11 @@ namespace FusionEngine
                     }
                 }
 
-                if (float.IsNaN(direction.X)) velocity.X = 0f;
-                if (float.IsNaN(direction.Y)) velocity.Y = 0f;
+                if (float.IsNaN(direction.X)) direction.X = 0f;
+                if (float.IsNaN(direction.Y)) direction.Y = 0f;
+
+                if (float.IsNaN(velocity.X)) velocity.X = 0f;
+                if (float.IsNaN(velocity.Y)) velocity.Y = 0f;
 
                 entity.MoveX(velocity.X, direction.X);
                 entity.MoveZ(velocity.Y, direction.Y);

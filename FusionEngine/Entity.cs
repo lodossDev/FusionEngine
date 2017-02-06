@@ -79,7 +79,10 @@ namespace FusionEngine {
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadSettings;
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadBtnsOnly;
 
+
+        public int layer_id = 0;
         public bool isGrabbed = false;
+        public Entity link;
 
         public Entity(ObjectType type, string name) {
             this.type = type;
@@ -1363,12 +1366,15 @@ namespace FusionEngine {
 
             int h1 = GetDepthBox().GetRect().Bottom;
             int h2 = other.GetDepthBox().GetRect().Bottom;
-            
+            int dist = -1;
+
             if (h1.Equals(h2)) {
-                return GetEntityId().CompareTo(other.GetEntityId());
+                dist = GetEntityId().CompareTo(other.GetEntityId());
             } else {
-                return h1.CompareTo(h2);
+                dist = h1.CompareTo(h2);
             }
+            
+            return dist;
         }
     }
 }

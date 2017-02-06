@@ -529,18 +529,21 @@ namespace FusionEngine
 
             x1.Normalize();
 
-            Vector2 s1 = new Vector2(ryo.GetBoundsBox().GetRect().Left, ryo.GetBoundsBox().GetRect().Right);
-            Vector2 s2 = new Vector2(taskMaster.GetBoundsBox().GetRect().Left, taskMaster.GetBoundsBox().GetRect().Right);
+            Vector2 s1 = new Vector2(ryo.GetPosX(), 0);
+            Vector2 s2 = new Vector2(taskMaster.GetPosX(), 0);
 
-            Vector2 z1 = new Vector2(ryo.GetDepthBox().GetRect().Top, ryo.GetDepthBox().GetRect().Bottom);
-            Vector2 z2 = new Vector2(taskMaster.GetDepthBox().GetRect().Top, taskMaster.GetDepthBox().GetRect().Bottom);
+            Vector2 z1 = new Vector2(0, ryo.GetPosY());
+            Vector2 z2 = new Vector2(0, taskMaster.GetPosY());
 
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);
 
-            //spriteBatch.DrawString(font1, "BOTTOM: " + (Math.Abs(drum.GetPosY())), new Vector2(20, 50), Color.Blue);
-            spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Blue);
+            spriteBatch.DrawString(font1, "X1: " + (ryo.GetPosZ()), new Vector2(20, 80), Color.Blue);
+            spriteBatch.DrawString(font1, "X2: " + (taskMaster.GetPosZ()), new Vector2(20, 110), Color.Blue);
+
+            //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
+            //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);
             //spriteBatch.DrawString(font1, "ACTION: " + (ryo.GetKeyboardKey(InputHelper.ActionButton.ATTACK1)), new Vector2(20, 140), Color.Blue);
 
             //spriteBatch.DrawString(font1, "X - NEW: " + (inputManager.GetInputControl(ryo).currentKeyboardState.IsKeyDown(Keys.X)), new Vector2(20, 110), Color.Blue);

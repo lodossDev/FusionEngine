@@ -512,7 +512,9 @@ namespace FusionEngine
 
                     float distX = Vector2.Distance(x1, x2);
                     float distZ = Vector2.Distance(z1, z2);
-                    int dz = tDepthBox.GetRect().Bottom;
+                    
+                    float dz1 = eDepthBox.GetRect().Bottom;
+                    float dz2 = tDepthBox.GetRect().Bottom;
 
                     if ((distX >= entityBox.GetWidth() - 40  && distX < entityBox.GetWidth() + 20) && distZ <= (tDepthBox.GetHeight()) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
@@ -525,7 +527,7 @@ namespace FusionEngine
                         entity.SetAnimationState(Animation.State.GRAB_HOLD1);
 
                        // if (!target.isGrabbed) { 
-                            x = (entityBox.GetRect().X + targetBox.GetRect().X) / 2;
+                            x = (entityBox.GetPosX() + targetBox.GetPosY()) / 2;
                             newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (entityBox.GetWidth() / 2) : -(entityBox.GetWidth()  / 2));
                             targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
                             //z1 = z2 = (ent->z + other->z) / 2;
@@ -543,9 +545,9 @@ namespace FusionEngine
                         
                         target.layer_id = entity.GetEntityId() + 1;
 
-                        while (eDepthBox.GetRect().Bottom > dz) {
+                        while (dz1 >= dz2) {
                             target.SetPosZ(target.GetPosZ() + 0.6f);
-                            dz ++;
+                            dz += 0.6f;
                         }
 
                         target.ResetX();

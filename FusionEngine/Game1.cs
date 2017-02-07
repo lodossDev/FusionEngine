@@ -330,6 +330,8 @@ namespace FusionEngine
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
                 Setup.CallPause();
+                float z1 = (ryo.GetPosZ() + taskMaster.GetPosZ()) / 2;
+                taskMaster.SetPosZ(z1 + taskMaster.GetDepthBox().GetHeight());
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
@@ -374,7 +376,7 @@ namespace FusionEngine
 
             bar.Percent((int)barHealth);
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.J))
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.K))
                 {
@@ -390,7 +392,7 @@ namespace FusionEngine
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.K))
+            /*if (Keyboard.GetState().IsKeyDown(Keys.K))
             {
                 drum3.VelX(-0.03f);
                 //drum3.SetIsLeft(true);
@@ -539,8 +541,8 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Blue);
-            spriteBatch.DrawString(font1, "X1: " + (ryo.GetPosZ()), new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(font1, "X2: " + (taskMaster.GetPosZ()), new Vector2(20, 110), Color.Blue);
+            spriteBatch.DrawString(font1, "X1: " + (collisionManager.FindBelow(drum).Count), new Vector2(20, 80), Color.Blue);
+            spriteBatch.DrawString(font1, "X2: " + ((ryo.GetDepthBox().GetRect().Bottom / 2)), new Vector2(20, 110), Color.Blue);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

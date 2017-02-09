@@ -262,7 +262,8 @@ namespace FusionEngine
                     if (Math.Abs(eDepthBox.GetRect().X - tDepthBox.GetRect().X) < tDepthBox.GetWidth() + (xw + vx) 
                             && entity.DepthCollision(target, vz)
                             && ePosY <= tHeight - 10 && eHeight >= tPosY 
-                            && (aboveTarget != target && belowTarget != target)) {
+                            && (aboveTarget != target && belowTarget != target)
+                            && !target.isGrabbed) {
 
                         bool isWithInBoundsX1 = ((entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == false
                                                     || entity.HorizontalCollisionLeft(target, vx) == false && entity.HorizontalCollisionRight(target, vx) == true));
@@ -507,11 +508,11 @@ namespace FusionEngine
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
 
-                    Vector2 x1 = new Vector2(entity.GetPosX(), 0);
-                    Vector2 x2 = new Vector2(target.GetPosX(), 0);
+                    Vector2 x1 = new Vector2(entityBox.GetRect().X, 0);
+                    Vector2 x2 = new Vector2(targetBox.GetRect().X, 0);
 
-                    Vector2 z1 = new Vector2(0, entity.GetPosZ());
-                    Vector2 z2 = new Vector2(0, target.GetPosZ() - 10);
+                    Vector2 z1 = new Vector2(0, eDepthBox.GetRect().Bottom);
+                    Vector2 z2 = new Vector2(0, tDepthBox.GetRect().Bottom);
 
                     float distX = Vector2.Distance(x1, x2);
                     float distZ = Vector2.Distance(z1, z2);
@@ -519,10 +520,7 @@ namespace FusionEngine
                     float dz1 = eDepthBox.GetRect().Bottom;
                     float dz2 = tDepthBox.GetRect().Bottom;
 
-                     float zx1 = (entity.GetPosZ() + target.GetPosZ()) / 2;
-                        
-
-                    if ((distX < entityBox.GetWidth()) && distZ <= (tDepthBox.GetHeight()) 
+                    if ((distX < entityBox.GetWidth()) && distZ <= (tDepthBox.GetHeight()/2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))) {
 
@@ -530,16 +528,21 @@ namespace FusionEngine
                         target.SetAnimationState(Animation.State.STANCE);
                         entity.SetAnimationState(Animation.State.GRAB_HOLD1);
 
-                        x = (entity.GetPosX() + target.GetPosX()) / 2;
+                        x = ((entity.GetPosX() + target.GetPosX()) / 2);
                         newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (entityBox.GetWidth() / 2) : -(entityBox.GetWidth()  / 2));
                         targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
-                        newz = targetz = (entity.GetPosZ() + target.GetPosZ()) / 2;
+                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
+                        
+                        /*newx = entity.GetPosX();
+                        targetx = entity.GetPosX() + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
+                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));*/
 
                         entity.SetPosX(newx);
-                        //entity.SetPosZ(newz);
-
                         target.SetPosX(targetx);
-                        target.SetPosZ(zx1 + tDepthBox.GetHeight() - 10);
+
+                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
+                        target.SetPosZ(newz + zOffset);
+
                         target.SetPosY(-100);
                         target.link = entity;
                             
@@ -547,7 +550,7 @@ namespace FusionEngine
                         target.isGrabbed = true;
                     }
 
-                    if (target.isGrabbed && distX > entityBox.GetWidth() && distZ > tDepthBox.GetHeight()) {
+                    if (target.isGrabbed && (!(distX < entityBox.GetWidth())) || distZ > (tDepthBox.GetHeight()/2)) {
                         target.isGrabbed = false;
                         target.layer_id = 0;
                         target.link = entity;
@@ -556,10 +559,14 @@ namespace FusionEngine
                     if (target.isGrabbed) {
                         if (entity.GetDirX() > 0) {
                             target.SetIsLeft(true);
-                        }else {
+                        } else {
                             target.SetIsLeft(false);
                         }
-                        target.SetPosZ(zx1 + tDepthBox.GetHeight() - 10);
+
+                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
+                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
+                        target.SetPosZ(newz + zOffset);
+
                         target.GetCurrentSprite().ResetAnimation();
                         target.ResetX();
                         target.ResetZ();
@@ -572,7 +579,7 @@ namespace FusionEngine
             foreach (Entity entity in entities) {
                 entity.GetCollisionInfo().Reset();
 
-                //CheckGrab(entity);
+                CheckGrab(entity);
                 CheckAttack(entity);
                 CheckBounds(entity);
                 CheckLand(entity);

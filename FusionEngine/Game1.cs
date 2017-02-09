@@ -542,7 +542,7 @@ namespace FusionEngine
 
             spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Blue);
             spriteBatch.DrawString(font1, "X1: " + (collisionManager.FindBelow(drum).Count), new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(font1, "X2: " + ((ryo.GetDepthBox().GetRect().Bottom / 2)), new Vector2(20, 110), Color.Blue);
+            spriteBatch.DrawString(font1, "X2: " + ((taskMaster.isGrabbed)), new Vector2(20, 110), Color.Blue);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

@@ -27,10 +27,10 @@ namespace FusionEngine {
         public static List<Texture2D> LoadTextures(string contentFolder) {
             List<Texture2D> result = new List<Texture2D>();
 
-            foreach (string file in Directory.EnumerateFiles(Setup.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
+            foreach (string file in Directory.EnumerateFiles(System.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
                 Debug.WriteLine(file);
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(Setup.contentManager.Load<Texture2D>(contentFolder + "/" + key));
+                result.Add(System.contentManager.Load<Texture2D>(contentFolder + "/" + key));
             }
 
             return result;

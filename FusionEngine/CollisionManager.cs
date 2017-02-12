@@ -18,10 +18,10 @@ namespace FusionEngine
         private RenderManager renderManager;
 
         public CollisionManager(RenderManager renderManager) {
-            hiteffect1 = Setup.contentManager.Load<SoundEffect>("Sounds//hit1");
+            hiteffect1 = System.contentManager.Load<SoundEffect>("Sounds//hit1");
             soundInstance = hiteffect1.CreateInstance();
 
-            soundInstance2 = Setup.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
+            soundInstance2 = System.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
 
             this.renderManager = renderManager;
         }
@@ -540,9 +540,6 @@ namespace FusionEngine
                         entity.SetPosX(newx);
                         target.SetPosX(targetx);
 
-                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
-                        target.SetPosZ(newz + zOffset);
-
                         target.SetPosY(-100);
                         target.link = entity;
                             
@@ -550,7 +547,7 @@ namespace FusionEngine
                         target.isGrabbed = true;
                     }
 
-                    if (target.isGrabbed && (!(distX < entityBox.GetWidth())) || distZ > (tDepthBox.GetHeight()/2)) {
+                    if (target.isGrabbed && ((distX > entityBox.GetWidth() + 120) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
                         target.isGrabbed = false;
                         target.layer_id = 0;
                         target.link = entity;

@@ -59,7 +59,7 @@ namespace FusionEngine
                     }
                 }
 
-                sprite = new Texture2D(Setup.graphicsDevice, 1, 1);
+                sprite = new Texture2D(System.graphicsDevice, 1, 1);
                 Color[] colorData = new Color[1];
                 colorData[0] = color;
                 sprite.SetData<Color>(colorData);
@@ -142,7 +142,7 @@ namespace FusionEngine
                 }
                 
                 if (drawType == DrawType.FILL) {
-                    Setup.spriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                    System.spriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 
@@ -156,7 +156,7 @@ namespace FusionEngine
                     rect = new Rectangle((int)A.X, (int)A.Y, thickness, (int)(B.Y - A.Y));
                 }
 
-                Setup.spriteBatch.Draw(tex, rect, color);
+                System.spriteBatch.Draw(tex, rect, color);
             }
         }
 

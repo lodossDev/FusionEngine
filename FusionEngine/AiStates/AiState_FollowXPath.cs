@@ -6,9 +6,9 @@ using System.Text;
 
 namespace FusionEngine
 {
-    public class AiState_FollowXPath : System.IState
+    public class AiState_FollowXPath : AiState.IState
     {
-        private System.StateMachine stateMachine;
+        private AiState.StateMachine stateMachine;
         private Entity entity;
         private float maxDistance;
         private Vector2 velocity;

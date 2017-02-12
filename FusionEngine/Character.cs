@@ -9,7 +9,7 @@ namespace FusionEngine
     public class Character : Entity
     {
         private Vector2 followPosition;
-        private System.StateMachine aiStateMachine;
+        private AiState.StateMachine aiStateMachine;
 
         public Character(Entity.ObjectType entityType, String name) : base(entityType, name)
         {

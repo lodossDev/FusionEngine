@@ -66,7 +66,7 @@ namespace FusionEngine {
         private Attributes.AttackInfo attackInfo;
         private Attributes.TossInfo tossInfo;
 
-        private System.StateMachine aiStateMachine;
+        private AiState.StateMachine aiStateMachine;
         private Entity currentTarget;
 
         private int entityId;
@@ -121,7 +121,7 @@ namespace FusionEngine {
             attackInfo = new Attributes.AttackInfo();
             tossInfo = new Attributes.TossInfo();
 
-            aiStateMachine = new System.StateMachine();
+            aiStateMachine = new AiState.StateMachine();
             commandMoves = new List<InputHelper.CommandMove>();
 
             id++;
@@ -252,7 +252,7 @@ namespace FusionEngine {
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
-            animationSounds.Add(state, Setup.contentManager.Load<SoundEffect>(location));
+            animationSounds.Add(state, System.contentManager.Load<SoundEffect>(location));
         }
 
         public SoundEffect GetAnimationSound(Animation.State state) {
@@ -754,7 +754,7 @@ namespace FusionEngine {
             return currentSprite.GetEffects();
         }
 
-        public System.StateMachine GetAiStateMachine() {
+        public AiState.StateMachine GetAiStateMachine() {
             return aiStateMachine;
         }
 

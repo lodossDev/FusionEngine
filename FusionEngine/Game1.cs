@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.BitmapFonts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TexturePackerLoader;
 
 namespace FusionEngine
 {
@@ -27,10 +29,14 @@ namespace FusionEngine
         LifeBar bar;
         float barHealth = 100f;
 
+
         InputManager inputManager;
         InputHelper.CommandMove command;
         static int padCount = 0;
 
+        SpriteRender spriteRender;
+        SpriteSheet ryoSheet;
+        BitmapFont testFOnt;
 
         public Game1()
         {
@@ -53,9 +59,9 @@ namespace FusionEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Setup.graphicsDevice = GraphicsDevice;
-            Setup.contentManager = Content;
-            Setup.spriteBatch = spriteBatch;
+            System.graphicsDevice = GraphicsDevice;
+            System.contentManager = Content;
+            System.spriteBatch = spriteBatch;
 
             camera = new Camera(GraphicsDevice.Viewport);
             //camera.Parallax = new Vector2(1.0f, 1.0f);
@@ -70,6 +76,11 @@ namespace FusionEngine
         protected override void LoadContent()
         {
             font1 = Content.Load<SpriteFont>("Fonts/MyFont");
+            testFOnt = Content.Load<BitmapFont>("Fonts/test");
+
+            var spriteSheetLoader = new SpriteSheetLoader(Content);
+            ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
+            spriteRender = new SpriteRender(spriteBatch);
 
             leo = new Player("Leo1");
             taskMaster = new Boss_TaskMaster();
@@ -329,7 +340,7 @@ namespace FusionEngine
           
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
-                Setup.CallPause();
+                System.CallPause();
                 float z1 = (ryo.GetPosZ() + taskMaster.GetPosZ()) / 2;
                 taskMaster.SetPosZ(z1 + taskMaster.GetDepthBox().GetHeight());
             }
@@ -418,7 +429,7 @@ namespace FusionEngine
                 level1.ScrollX(5/2f);
             } */
 
-            if (!Setup.IsPause())
+            if (!System.IsPause())
             {
                 //control.Update(gameTime);
                
@@ -513,7 +524,8 @@ namespace FusionEngine
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             renderManager.Draw(gameTime);
-
+            //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame1), new Vector2(200, 200), Color.White, 0, 1);
+            //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 
             List<CLNS.BoundingBox> targetBoxes = taskMaster.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
@@ -540,9 +552,9 @@ namespace FusionEngine
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);
 
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Blue);
-            spriteBatch.DrawString(font1, "X1: " + (collisionManager.FindBelow(drum).Count), new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(font1, "X2: " + ((taskMaster.isGrabbed)), new Vector2(20, 110), Color.Blue);
+            spriteBatch.DrawString(testFOnt, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Red);
+            spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

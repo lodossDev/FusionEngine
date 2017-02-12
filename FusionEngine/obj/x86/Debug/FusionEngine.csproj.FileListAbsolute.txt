@@ -487,3 +487,13 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debu
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.pdb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\RunStop1\Frame0.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\RunStop1\Frame1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.txt
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.png
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_0.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\MonoGame.Extended.dll
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_2.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_3.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_4.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\test_5.xnb

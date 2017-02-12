@@ -5,11 +5,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using TexturePackerLoader;
 
 namespace FusionEngine {
 
     public class Sprite {
-        private int currentFrame;
+        private int currentFrame;      
         private List<Texture2D> sprites;
         private List<float> frameDelays;
         private float frameTimeElapsed;
@@ -26,6 +27,9 @@ namespace FusionEngine {
         private Animation.Type animationType;
         private SpriteEffects effects;
         private bool isAnimationComplete;
+
+        private SpriteSheet spriteSheet;
+        private List<string> frames;
         
 
         public Sprite(Animation.Type animationType = Animation.Type.REPEAT) {
@@ -43,6 +47,7 @@ namespace FusionEngine {
             effects = SpriteEffects.None;
             isAnimationComplete = false;
             isFrameComplete = new List<bool>();
+            frames = new List<string>();
         }
 
         public Sprite(string contentFolder, Animation.Type animationType = Animation.Type.REPEAT, int resetFrame = 1) : this(animationType) {
@@ -60,6 +65,23 @@ namespace FusionEngine {
             SetResetFrame(resetFrame);
         }
 
+        public Sprite(String content, List<String> frames, Animation.Type animationType = Animation.Type.REPEAT, int resetFrame = 1) : this(animationType) {
+            var spriteSheetLoader = new SpriteSheetLoader(System.contentManager);
+            spriteSheet = spriteSheetLoader.Load(content);
+
+            foreach (String frame in frames) {
+                AddTexture(frame);
+            }
+        }
+
+        public Sprite(SpriteSheet sheet, List<String> frames, Animation.Type animationType = Animation.Type.REPEAT, int resetFrame = 1) : this(animationType) {
+            spriteSheet = sheet;
+
+            foreach (String frame in frames) {
+                AddTexture(frame);
+            }
+        }
+
         public void AddTextures(string contentFolder) {
             foreach(Texture2D texture in TextureContent.LoadTextures(contentFolder)) {
                 AddTexture(texture);
@@ -74,6 +96,15 @@ namespace FusionEngine {
 
         public void AddTexture(Texture2D sprite) {
             sprites.Add(sprite);
+            offsets.Add(Vector2.Zero);
+
+            isFrameComplete.Add(false);
+            frameDelays.Add(Animation.DEFAULT_TICKS);
+            frameTimeElapsed = Animation.DEFAULT_TICKS;
+        }
+
+        public void AddTexture(String frame) {
+            frames.Add(frame);
             offsets.Add(Vector2.Zero);
 
             isFrameComplete.Add(false);
@@ -145,6 +176,18 @@ namespace FusionEngine {
             }
         }
 
+        public void SetSpriteSheet(SpriteSheet sheet) {
+            this.spriteSheet = sheet;
+        }
+
+        public SpriteSheet GetSpriteSheet() {
+            return spriteSheet;
+        }
+
+        public List<String> GetSpriteFrames() {
+            return frames;
+        }
+
         public Animation.Type GetAnimationType() {
             return animationType;
         }
@@ -153,12 +196,20 @@ namespace FusionEngine {
             return effects;
         }
 
+        public String GetCurrentSpriteFrame() {
+            return frames[currentFrame];
+        }
+
         public Texture2D GetCurrentTexture() {
             return sprites[currentFrame];
         }
 
         public List<Texture2D> GetTextures() {
             return sprites;
+        }
+
+        public int GetSpriteFramesCount() {
+            return frames.Count;
         }
 
         public int GetFrames() {
@@ -269,14 +320,14 @@ namespace FusionEngine {
             if (animationType == Animation.Type.REPEAT) {
                 currentFrame = (resetFrame != 0 ? resetFrame : 0);
             } else {
-                currentFrame = sprites.Count - 1;
+                currentFrame = (frames.Count > 0 ? frames.Count - 1 : sprites.Count - 1);
             }
 
             isAnimationComplete = true;
         }
 
         public void IncrementFrame(){
-            if (currentFrame >= sprites.Count - 1) {
+            if (currentFrame >= (frames.Count > 0 ? frames.Count - 1 : sprites.Count - 1)) {
                 currentFrame = 0;
             } else {
                 currentFrame++;

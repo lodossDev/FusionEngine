@@ -7,9 +7,9 @@ using System.Text;
 
 namespace FusionEngine
 {
-    public class AiState_Follow : System.IState
+    public class AiState_Follow : AiState.IState
     {
-        private System.StateMachine stateMachine;
+        private AiState.StateMachine stateMachine;
         private Entity entity;
         private Vector2 velocity;
         private Vector2 direction;

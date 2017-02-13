@@ -37,6 +37,7 @@ namespace FusionEngine
         SpriteRender spriteRender;
         SpriteSheet ryoSheet;
         BitmapFont testFOnt;
+        Font gg;
 
         public Game1()
         {
@@ -77,6 +78,8 @@ namespace FusionEngine
         {
             font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
+
+            gg = new Font("Fonts/bmpTest.xFont");
 
             var spriteSheetLoader = new SpriteSheetLoader(Content);
             ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
@@ -523,7 +526,7 @@ namespace FusionEngine
                         camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
-            renderManager.Draw(gameTime);
+            //renderManager.Draw(gameTime);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame1), new Vector2(200, 200), Color.White, 0, 1);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
@@ -552,9 +555,10 @@ namespace FusionEngine
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);
 
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
-            spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
+            Font.Draw(gg, "HAFEEZ", new Vector2(200, 200));
+            //spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.White);
+            //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
+            //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

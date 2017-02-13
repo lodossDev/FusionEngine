@@ -61,6 +61,7 @@
     <Compile Include="CollisionManager.cs" />
     <Compile Include="CollisionTracer.cs" />
     <Compile Include="ComboAttack.cs" />
+    <Compile Include="Font.cs" />
     <Compile Include="Obstacles\Drum1.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Enemy.cs" />

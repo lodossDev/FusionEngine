@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/ahafeez/Desktop/Test Game/FusionEngine/FusionEngine/Content/Sounds/test.wav</SourceFile>
   <SourceTime>2017-02-13T12:22:58.4325159+00:00</SourceTime>
   <DestFile>C:/Users/ahafeez/Desktop/Test Game/FusionEngine/FusionEngine/Content/bin/Windows/Sounds/test.xnb</DestFile>
-  <DestTime>2017-02-13T13:12:49.6546082+00:00</DestTime>
+  <DestTime>2017-02-13T17:29:36.7337796+00:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2015-04-29T18:14:44+01:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -524,6 +524,8 @@ C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\S
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
+C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xFont
+C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xnb
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\MyFont.xnb
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test.xnb
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_0.xnb

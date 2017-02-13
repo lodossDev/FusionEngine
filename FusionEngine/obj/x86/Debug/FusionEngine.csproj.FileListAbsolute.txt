@@ -999,3 +999,10 @@ C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\C
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\phone2.xnb
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\phone3.xnb
 C:\Users\ahafeez\Desktop\Test Game\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Stance\phone1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xFont
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\Texture.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xFont
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xnb

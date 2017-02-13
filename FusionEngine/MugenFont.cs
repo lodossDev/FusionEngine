@@ -10,21 +10,21 @@ using Microsoft.Xna.Framework;
 
 namespace FusionEngine {
 
-    public class Font {
+    public class MugenFont {
         private Texture2D fontSprite;
         private Dictionary<char, FontItem> fontMap;
-        private Dictionary<char, int> fontPosMap;
+        private Vector2 startPos;
+        private int height;
+        private int lineHeight;
 
-        public Font(String path) {
+        public MugenFont(String path) {
             fontMap = new Dictionary<char, FontItem>();
-            fontPosMap = new Dictionary<char, int>();
-
             StreamReader file = new StreamReader(System.contentManager.RootDirectory + "/" + path);
             fontSprite = System.contentManager.Load<Texture2D>(path.Replace(".xFont", ""));
+            height = fontSprite.Height;
+            lineHeight = 8;
 
             string line;
-
-            int i = 0;
 
             while ((line = file.ReadLine()) != null) {
                 if (line.StartsWith(";") || line.StartsWith("[")) continue;
@@ -38,8 +38,6 @@ namespace FusionEngine {
                 font.width = int.Parse(items[2].Trim());
 
                 fontMap.Add(font.character, font);
-                fontPosMap.Add(font.character, i);
-                i++;
             }
 
             file.Close();
@@ -53,29 +51,39 @@ namespace FusionEngine {
             return fontMap;
         }
 
-        public Dictionary<char, int> GetPosMap() {
-            return fontPosMap;
-        }
+        public void Draw(String text, Vector2 pos, float scale = 1f) {
+            if (startPos == Vector2.Zero) {
+                startPos = pos;
+            }
 
-        public static void Draw(Font font, String text, Vector2 pos) {
+            Vector2 nextPos = pos;
+            Debug.WriteLine("SPACE: " + "\n"[0]);
 
-            Debug.WriteLine("HAS H: " + font.GetFontMap().ContainsKey("H"[0]));
-
-            foreach (char c in font.GetFontMap().Keys) {
+            foreach (char c in fontMap.Keys) {
                 Debug.WriteLine("ITEMS: " + c);
             }
 
+            int lastX = 0;
+
             foreach (char c in text) {
-                Debug.WriteLine("CHAR: " + c);
-                //if (!font.GetFontMap().ContainsKey(c)) continue;
-                int index = font.GetPosMap()[c];
-                Debug.WriteLine("INDEX: " + index);
-                Vector2 ss = pos;
-                ss.X += 50 * 3f;
-                pos = ss;
-                FontItem item = font.GetFontMap()[c]; 
-                System.spriteBatch.Draw(font.GetTexture(), ss, new Rectangle(item.startX, 0, 8, 9), Color.White, 0, new Vector2(0, 0), 3f, SpriteEffects.None, 0f);
-                //break;
+                Debug.WriteLine("CURRENT: " + c);
+
+                if (c != ' ' && c != '\n') { 
+                    FontItem item = GetFontMap()[c]; 
+                    System.spriteBatch.Draw(fontSprite, nextPos, new Rectangle(item.startX, 0, item.width, height), Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                    nextPos.X += (item.width + 1) * scale;
+                } else if (c == '\n') {
+
+                    nextPos.X = startPos.X;
+                    nextPos.Y += (height + lineHeight) * scale;
+
+                } else if (c == ' ') {
+                    lastX = (int)nextPos.X;
+                    nextPos.X += 10 * scale;
+                    Debug.WriteLine("LAST SPACE X: " + (nextPos.X - lastX));
+                }
+
+                pos = nextPos;
             }
         }
 

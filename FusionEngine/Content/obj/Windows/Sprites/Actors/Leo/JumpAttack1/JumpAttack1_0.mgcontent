@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.png</SourceFile>
-  <SourceTime>2016-12-26T14:59:34.485809+00:00</SourceTime>
-  <DestFile>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/bin/Windows/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.xnb</DestFile>
-  <DestTime>2017-02-12T21:45:53.6299855+00:00</DestTime>
+  <SourceFile>C:/Users/ahafeez/Desktop/Test Game/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.png</SourceFile>
+  <SourceTime>2017-02-13T12:22:58.513524+00:00</SourceTime>
+  <DestFile>C:/Users/ahafeez/Desktop/Test Game/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.xnb</DestFile>
+  <DestTime>2017-02-13T13:12:49.2595687+00:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
+  <ImporterTime>2015-04-29T18:14:44+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2016-03-30T07:36:08+01:00</ProcessorTime>
+  <ProcessorTime>2015-04-29T18:14:44+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
@@ -26,10 +26,6 @@
   </Parameters>
   <Parameters>
     <Key>ResizeToPowerOfTwo</Key>
-    <Value>False</Value>
-  </Parameters>
-  <Parameters>
-    <Key>MakeSquare</Key>
     <Value>False</Value>
   </Parameters>
   <Parameters>

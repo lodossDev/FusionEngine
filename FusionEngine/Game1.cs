@@ -75,7 +75,7 @@ namespace FusionEngine
         /// </summary>
         protected override void LoadContent()
         {
-            font1 = Content.Load<SpriteFont>("Fonts/MyFont");
+            font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
             var spriteSheetLoader = new SpriteSheetLoader(Content);
@@ -552,7 +552,7 @@ namespace FusionEngine
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);
 
-            spriteBatch.DrawString(testFOnt, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.Red);
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

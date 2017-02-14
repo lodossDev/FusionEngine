@@ -78,9 +78,8 @@ namespace FusionEngine {
 
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadSettings;
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadBtnsOnly;
+        private int layerPos;
 
-
-        public int layer_id = 0;
         public bool isGrabbed = false;
         public Entity link;
 
@@ -128,6 +127,7 @@ namespace FusionEngine {
             entityId = id;
             alive = true;
             health = 100;
+            layerPos = 0;
 
             keyboardSettings = new Dictionary<InputHelper.KeyPress, Keys>();
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
@@ -1007,6 +1007,14 @@ namespace FusionEngine {
             return gamepadSettings[press];
         }
 
+        public int GetLayerPos() {
+            return layerPos;
+        }
+
+        public void SetLayerPos(int pos) {
+            layerPos = pos;
+        }
+
         public void SetJump(float height = -25f, float velX = 0f)  {
             if (tossInfo.tossCount < tossInfo.maxTossCount && !tossInfo.isToss) { 
                 Toss(height, velX);
@@ -1360,12 +1368,12 @@ namespace FusionEngine {
         }
 
         public int CompareTo(Entity other) {
-            if (other == null || other.GetDepthBox() == null || GetDepthBox() == null) {
+            if (other == null) {
                 return 0;
             }
 
-            int h1 = GetDepthBox().GetRect().Bottom;
-            int h2 = other.GetDepthBox().GetRect().Bottom;
+            int h1 = (GetDepthBox() != null ? GetDepthBox().GetRect().Bottom : GetLayerPos());
+            int h2 = (other.GetDepthBox() != null ? other.GetDepthBox().GetRect().Bottom : other.GetLayerPos());
             int dist = -1;
 
             if (h1.Equals(h2)) {

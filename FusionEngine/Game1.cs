@@ -79,7 +79,7 @@ namespace FusionEngine
             font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
-            gg = new MugenFont("Fonts/bmpTest.xFont");
+            gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
 
             var spriteSheetLoader = new SpriteSheetLoader(Content);
             ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
@@ -526,7 +526,7 @@ namespace FusionEngine
                         camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
-            //renderManager.Draw(gameTime);
+            renderManager.Draw(gameTime);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame1), new Vector2(200, 200), Color.White, 0, 1);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
@@ -555,8 +555,8 @@ namespace FusionEngine
             float distX = Vector2.Distance(s1, s2);
             float distZ = Vector2.Distance(z1, z2);
 
-            gg.Draw("AMIR IS THE GREATEST\nYASMIN IS MY GODDESS\nYASMIN WANTS BIG TITS SIZE 44D", new Vector2(200, 200), 3);
-            //spriteBatch.DrawString(font1, "DIRECTIONX: " + (taskMaster.layer_id), new Vector2(20, 50), Color.White);
+            //gg.Draw("077128 000\nh878 78787\n343525 23432");
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetDepthBox().GetRect().Bottom), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

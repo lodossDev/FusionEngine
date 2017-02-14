@@ -471,10 +471,11 @@ namespace FusionEngine
                                         hitSpark1.SetFrameDelay(Animation.State.STANCE, 2);
                                         //hitSpark1.SetFrameDelay(Animation.State.STANCE, 1, 5);
                                         hitSpark1.SetScale(1.8f, 1.5f);
-                                        hitSpark1.AddBoundsBox(160, 340, -60, 15, 50);
+                                        //hitSpark1.AddBoundsBox(160, 340, -60, 15, 50);
 
                                         Debug.WriteLine("Y HITSPAK: " + y1);
                                         hitSpark1.SetPostion(x1 , y1, (entity.GetPosZ() + target.GetBoundsBox().GetZdepth()) + 5);
+                                        hitSpark1.SetLayerPos((eDepthBox.GetRect().Bottom + tDepthBox.GetRect().Bottom) - 800);
                                         //hitSpark1.SetFade(225);
 
                                         renderManager.AddEntity(hitSpark1);
@@ -543,13 +544,13 @@ namespace FusionEngine
                         target.SetPosY(-100);
                         target.link = entity;
                             
-                        target.layer_id = entity.GetEntityId() + 1;
+                        //target.layer_id = entity.GetEntityId() + 1;
                         target.isGrabbed = true;
                     }
 
                     if (target.isGrabbed && ((distX > entityBox.GetWidth() + 120) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
                         target.isGrabbed = false;
-                        target.layer_id = 0;
+                        //target.layer_id = 0;
                         target.link = entity;
                     }
                     

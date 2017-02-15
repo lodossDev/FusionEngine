@@ -475,7 +475,7 @@ namespace FusionEngine
 
                                         Debug.WriteLine("Y HITSPAK: " + y1);
                                         hitSpark1.SetPostion(x1 , y1, (entity.GetPosZ() + target.GetBoundsBox().GetZdepth()) + 5);
-                                        hitSpark1.SetLayerPos((eDepthBox.GetRect().Bottom + tDepthBox.GetRect().Bottom) - 800);
+                                        hitSpark1.SetLayerPos(tDepthBox.GetRect().Bottom + 15);
                                         //hitSpark1.SetFade(225);
 
                                         renderManager.AddEntity(hitSpark1);
@@ -521,7 +521,9 @@ namespace FusionEngine
                     float dz1 = eDepthBox.GetRect().Bottom;
                     float dz2 = tDepthBox.GetRect().Bottom;
 
-                    if ((distX < entityBox.GetWidth()) && distZ <= (tDepthBox.GetHeight()/2) 
+                    int dist = 90;
+
+                    if ((distX < dist) && distZ <= (tDepthBox.GetHeight() / 2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))) {
 
@@ -529,14 +531,14 @@ namespace FusionEngine
                         target.SetAnimationState(Animation.State.STANCE);
                         entity.SetAnimationState(Animation.State.GRAB_HOLD1);
 
-                        x = ((entity.GetPosX() + target.GetPosX()) / 2);
-                        newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (entityBox.GetWidth() / 2) : -(entityBox.GetWidth()  / 2));
-                        targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
-                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
-                        
-                        /*newx = entity.GetPosX();
-                        targetx = entity.GetPosX() + ((target.GetPosX() > entity.GetPosX()) ? (entityBox.GetWidth()  / 2) : -(entityBox.GetWidth() / 2));
+                        /*x = ((entity.GetPosX() + target.GetPosX()) / 2);
+                        newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (dist / 2) : -(dist / 2));
+                        targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (dist / 2) : -(dist / 2));
                         newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));*/
+                        
+                        newx = entity.GetPosX();
+                        targetx = entity.GetPosX() + ((target.GetPosX() > entity.GetPosX()) ? (dist  / 2) : -(dist / 2));
+                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
 
                         entity.SetPosX(newx);
                         target.SetPosX(targetx);
@@ -548,7 +550,7 @@ namespace FusionEngine
                         target.isGrabbed = true;
                     }
 
-                    if (target.isGrabbed && ((distX > entityBox.GetWidth() + 120) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
+                    if (target.isGrabbed && ((distX > dist + 120) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
                         target.isGrabbed = false;
                         //target.layer_id = 0;
                         target.link = entity;

@@ -51,6 +51,10 @@ namespace FusionEngine {
 
             //----------------------------------------- ATTACKS -----------------------------------------//
 
+            AddSprite(Animation.State.GRAB_ATTACK1, new Sprite("Sprites/Actors/Ryo/GrabAttack1", Animation.Type.ONCE));
+            SetSpriteOffSet(Animation.State.GRAB_ATTACK1, 10, 0);
+            SetFrameDelay(Animation.State.GRAB_ATTACK1, 4);
+
             AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Ryo/Attack1", Animation.Type.ONCE));
             SetSpriteOffSet(Animation.State.ATTACK1, 10, 0);
             SetFrameDelay(Animation.State.ATTACK1, 4);

@@ -23,6 +23,11 @@ namespace FusionEngine {
         public static SpriteBatch spriteBatch;
         public static ContentManager contentManager;
 
+        public static readonly int RESOLUTION_X = 1280;
+        public static readonly int RESOLUTION_Y = 700;
+
+        public static readonly float GAME_VELOCITY = 60;
+
         public static float rotate = 0f;
         public static float scaleX, scaleY = 0f;
     }

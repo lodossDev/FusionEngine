@@ -95,6 +95,13 @@ namespace FusionEngine {
             }
         }
 
+        public class GrabInfo {
+            public int grabIn = -1;         //Should the target be brought in close or at distance
+            public int grabPos = 1;         //(1 infront of attacker, -1 behind attacker)
+            public int dist = 80;           //Distance in x needed for grab to work
+            public bool isGrabbed = false;
+        }
+
         public class AttackInfo {
             public long hitByAttackId;
             public Animation.State lastAttackState;
@@ -115,47 +122,39 @@ namespace FusionEngine {
             }
         }
 
-        public class FrameInfo
-        {
+        public class FrameInfo {
             public enum FrameState { NO_FRAME = -1 }
 
             private int startFrame;
             private int endFrame;
 
-            public FrameInfo(int startFrame, int endFrame)
-            {
+            public FrameInfo(int startFrame, int endFrame) {
                 this.startFrame = startFrame;
                 this.endFrame = endFrame;
             }
 
-            public FrameInfo(int startFrame)
-            {
+            public FrameInfo(int startFrame) {
                 this.startFrame = startFrame;
                 this.endFrame = (int)FrameState.NO_FRAME;
             }
 
-            public int GetStartFrame()
-            {
+            public int GetStartFrame() {
                 return startFrame;
             }
 
-            public int GetEndFrame()
-            {
+            public int GetEndFrame() {
                 return endFrame;
             }
 
-            public void SetStartFrame(int sx)
-            {
+            public void SetStartFrame(int sx) {
                 startFrame = sx;
             }
 
-            public void SetEndFrame(int ex)
-            {
+            public void SetEndFrame(int ex) {
                 endFrame = ex;
             }
 
-            public bool IsInFrame(int currentFrame)
-            {
+            public bool IsInFrame(int currentFrame) {
                 return (currentFrame >= startFrame && currentFrame <= endFrame);
             }
         }
@@ -188,8 +187,7 @@ namespace FusionEngine {
             }
         }
 
-        public class ColourInfo
-        {
+        public class ColourInfo {
             public float alpha;
             public float fadeFrequency;
             public float r, g, b;
@@ -199,8 +197,7 @@ namespace FusionEngine {
             public bool expired;
             public float originalFreq;
             
-            public ColourInfo()
-            {
+            public ColourInfo() {
                 r = 255;
                 g = 255;
                 b = 255;
@@ -213,8 +210,7 @@ namespace FusionEngine {
                 expired = false;
             }
             
-            public Color GetColor()
-            {
+            public Color GetColor() {
                 return new Color((byte)r, (byte)g, (byte)b, (byte)MathHelper.Clamp(alpha, 0, 255));
             } 
         }

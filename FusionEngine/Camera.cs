@@ -5,12 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FusionEngine
-{
-    public class Camera
-    {
-        public Camera(Viewport viewport)
-        {
+namespace FusionEngine {
+
+    public class Camera {
+
+        public Camera(Viewport viewport) {
             _viewport = viewport;
             _origin = new Vector2(_viewport.Width / 2.0f, _viewport.Height / 2.0f);
         }
@@ -18,27 +17,23 @@ namespace FusionEngine
         /// <summary>
         /// Gets or sets the position of the camera.
         /// </summary>
-        public Vector2 Position
-        {
-            get
-            {
+        public Vector2 Position {
+            get {
                 return _position;
             }
-            set
-            {
+
+            set {
                 _position = value;
                 ValidatePosition();
             }
         }
 
-        public Vector2 Parallax
-        {
-            get
-            {
+        public Vector2 Parallax {
+            get {
                 return _parallax;
             }
-            set
-            {
+
+            set {
                 _parallax = value;
             }
         }
@@ -46,14 +41,12 @@ namespace FusionEngine
         /// <summary>
         /// Gets or sets the zoom of the camera.
         /// </summary>
-        public float Zoom
-        {
-            get
-            {
+        public float Zoom {
+            get {
                 return _zoom;
             }
-            set
-            {
+
+            set {
                 _zoom = MathHelper.Max(value, MinZoom);
                 ValidateZoom();
                 ValidatePosition();
@@ -64,28 +57,23 @@ namespace FusionEngine
         /// Sets a rectangle that describes which region of the world the camera should
         /// be able to see. Setting it to null removes the limit.
         /// </summary>
-        public Rectangle? Limits
-        {
-            set
-            {
+        public Rectangle? Limits {
+            set {
                 _limits = value;
                 ValidateZoom();
                 ValidatePosition();
             }
         }
 
-        public void LookAt(Vector2 position)
-        {
+        public void LookAt(Vector2 position) {
             Position = position - new Vector2(_viewport.Width / 2.0f, _viewport.Height / 2.0f);
         }
 
         /// <summary>
         /// Calculates a view matrix for this camera.
         /// </summary>
-        public Matrix ViewMatrix
-        {
-            get
-            {
+        public Matrix ViewMatrix {
+            get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
                        Matrix.CreateScale(_zoom, _zoom, 1f) *
@@ -96,10 +84,8 @@ namespace FusionEngine
         /// <summary>
         /// When using limiting, makes sure the camera position is valid.
         /// </summary>
-        private void ValidatePosition()
-        {
-            if (_limits.HasValue)
-            {
+        private void ValidatePosition() {
+            if (_limits.HasValue) {
                 Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
                 Vector2 cameraSize = new Vector2(_viewport.Width, _viewport.Height) / _zoom;
                 Vector2 limitWorldMin = new Vector2(_limits.Value.Left, _limits.Value.Top);
@@ -112,10 +98,8 @@ namespace FusionEngine
         /// <summary>
         /// When using limiting, makes sure the camera zoom is valid.
         /// </summary>
-        private void ValidateZoom()
-        {
-            if (_limits.HasValue)
-            {
+        private void ValidateZoom() {
+            if (_limits.HasValue) {
                 float minZoomX = (float)_viewport.Width / _limits.Value.Width;
                 float minZoomY = (float)_viewport.Height / _limits.Value.Height;
                 _zoom = MathHelper.Max(_zoom, MathHelper.Max(minZoomX, minZoomY));

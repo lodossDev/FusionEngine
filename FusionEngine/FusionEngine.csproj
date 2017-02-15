@@ -73,6 +73,7 @@
     <Compile Include="InputManager.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Obstacles\PhoneBooth1.cs" />
+    <Compile Include="Resolution.cs" />
     <Compile Include="Ryo.cs" />
     <Compile Include="AiStates\AiState.cs" />
     <Compile Include="Level.cs" />

@@ -384,8 +384,8 @@ namespace FusionEngine {
         }
 
         public void MoveX(float acc, float dir) {
-            this.acceleration.X = acc;
-            this.maxVelocity.X = acc;
+            this.acceleration.X = acc * System.GAME_VELOCITY;
+            this.maxVelocity.X = this.acceleration.X;
             this.direction.X = dir;
         }
 
@@ -401,8 +401,8 @@ namespace FusionEngine {
         }
 
         public void MoveZ(float acc, float dir) {
-            this.acceleration.Z = acc;
-            this.maxVelocity.Z = acc;
+            this.acceleration.Z = acc * System.GAME_VELOCITY;
+            this.maxVelocity.Z = this.acceleration.Z;
             this.direction.Z = dir;
         }
 
@@ -1331,7 +1331,7 @@ namespace FusionEngine {
             velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
             if ((double)velocity.X != 0.0) { 
-                absoluteVel.X = velocity.X;
+                absoluteVel.X = (velocity.X / System.GAME_VELOCITY);
             }
 
             if ((double)velocity.Y != 0.0) { 
@@ -1339,17 +1339,17 @@ namespace FusionEngine {
             }
 
             if ((double)velocity.Z != 0.0) { 
-                absoluteVel.Z = velocity.Z;
+                absoluteVel.Z = (velocity.Z / System.GAME_VELOCITY);
             }
 
             if (IsInMoveFrame()) { 
-                position.X += velocity.X;
+                position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             position.Y += velocity.Y;
 
             if (IsInMoveFrame()) { 
-                position.Z += velocity.Z;
+                position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 

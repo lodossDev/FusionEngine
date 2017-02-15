@@ -42,10 +42,11 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 700;
+            graphics.PreferredBackBufferWidth = 500;
+            graphics.PreferredBackBufferHeight = 300;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            Resolution.Update(graphics);
         }
 
         /// <summary>
@@ -76,6 +77,11 @@ namespace FusionEngine
         /// </summary>
         protected override void LoadContent()
         {
+            float screenscaleX = (float)500 / 1280;
+            float screenscaleY = (float)300 / 700;
+            // Create the scale transform for Draw. 
+            // Do not scale the sprite depth (Z=1).
+            
             font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
@@ -356,10 +362,10 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                ryo.SetAnimationState(Animation.State.GRAB_HOLD1);
+                ryo.SetAnimationState(Animation.State.GRAB_ATTACK1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 //leo.SetColor(255, 0, 0);
                 //leo.Flash(2);
             }
@@ -523,7 +529,7 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        camera.ViewMatrix);
+                        /*camera.ViewMatrix*//*SpriteScale*/ Resolution.Scale);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             renderManager.Draw(gameTime);
@@ -556,7 +562,7 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetDepthBox().GetRect().Bottom), new Vector2(20, 50), Color.White);
+            //spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetAbsoluteVelX()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

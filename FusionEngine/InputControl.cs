@@ -313,15 +313,26 @@ namespace FusionEngine {
                         }
                     }
                 }
-            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.THROWING)
+                    && !player.IsInAnimationAction(Animation.Action.ATTACKING)
                     && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && !IsDirectionalPress()) {
+                    && (heldState.GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0) {
 
                 player.SetAnimationState(Animation.State.THROW1);
 
+                float velX = -10;
+
+                if (player.IsLeft()) {
+                    velX = 10;
+                }
+
+                player.grabInfo.grabbed.Toss(-13, velX, 1, 1);
+                player.grabInfo.grabbed.grabInfo.isGrabbed = false;
+
             } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+                    && !player.IsInAnimationAction(Animation.Action.THROWING)
                     && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && !IsDirectionalPress()) {
+                    && (heldState.GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) == 0) {
 
                 player.SetAnimationState(Animation.State.GRAB_ATTACK1);
             } 

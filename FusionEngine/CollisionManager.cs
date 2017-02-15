@@ -527,9 +527,9 @@ namespace FusionEngine
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
                             //Target must be on same ground level.
-                            && target.GetPosY() == entity.GetGround()) {
+                            && target.GetPosY() == entity.GetGround()
+                            && !target.IsToss()) {
 
-                        
                         target.grabInfo.isGrabbed = true;
                     }
 
@@ -573,6 +573,7 @@ namespace FusionEngine
 
                         target.SetPosY(entity.grabInfo.grabHeight);
                         target.link = entity;
+                        entity.grabInfo.grabbed = target;
 
                         int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
 

@@ -562,7 +562,7 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + ((inputManager.GetInputControl(ryo).GetHeldState().GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

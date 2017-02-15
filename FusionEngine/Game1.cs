@@ -492,7 +492,7 @@ namespace FusionEngine
                 renderManager.Update(gameTime);
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
-                if (taskMaster.isGrabbed == false) {
+                if (taskMaster.grabInfo.isGrabbed == false) {
                     ((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
@@ -562,7 +562,7 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            //spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetAbsoluteVelX()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetTossInfo().velocity.Y), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

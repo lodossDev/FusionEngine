@@ -80,7 +80,7 @@ namespace FusionEngine {
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadBtnsOnly;
         private int layerPos;
 
-        public bool isGrabbed = false;
+        public Attributes.GrabInfo grabInfo;
         public Entity link;
 
         public Entity(ObjectType type, string name) {
@@ -119,6 +119,7 @@ namespace FusionEngine {
             collisionInfo = new Attributes.CollisionInfo();
             attackInfo = new Attributes.AttackInfo();
             tossInfo = new Attributes.TossInfo();
+            grabInfo = new Attributes.GrabInfo();
 
             aiStateMachine = new AiState.StateMachine();
             commandMoves = new List<InputHelper.CommandMove>();
@@ -366,21 +367,6 @@ namespace FusionEngine {
 
         public void SetMaxVelocityZ(float z) {
             maxVelocity.Z = z;
-        }
-
-        public void SetAbsoluteVelX(float x, float dir) {
-            absoluteVel.X = x * dir;
-            direction.X = dir;
-        }
-
-        public void SetAbsoluteVelY(float y, float dir) {
-            absoluteVel.Y = y * dir;
-            direction.Y = dir;
-        }
-
-        public void SetAbsoluteVelZ(float z, float dir) {
-            absoluteVel.Z = z * dir;
-            direction.Z = dir;
         }
 
         public void MoveX(float acc, float dir) {
@@ -1055,9 +1041,9 @@ namespace FusionEngine {
                 if (tossInfo.velocity.Y >= -10 && tossInfo.tossCount > 0) { 
                     tossInfo.tempHeight += (height * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
-                    tossInfo.gravity = 0.38f * Math.Abs(tossInfo.height / 15);
+                    tossInfo.gravity = 0.38f * Math.Abs(tossInfo.height / 15) * System.GAME_VELOCITY;
                 } else {
-                    tossInfo.tempHeight = height;
+                    tossInfo.tempHeight = height * System.GAME_VELOCITY;
                     tossInfo.height = tossInfo.tempHeight;
                 }
 
@@ -1085,7 +1071,7 @@ namespace FusionEngine {
 
             tossInfo.hitGoundCount = 0;
             tossInfo.tossCount = 0;
-            tossInfo.gravity = 0.48f;
+            tossInfo.gravity = 0.48f * System.GAME_VELOCITY;
 
             tossInfo.inTossFrame = false;
             tossInfo.isToss = false;
@@ -1335,7 +1321,7 @@ namespace FusionEngine {
             }
 
             if ((double)velocity.Y != 0.0) { 
-                absoluteVel.Y = velocity.Y;
+                absoluteVel.Y = (velocity.Y / System.GAME_VELOCITY);
             }
 
             if ((double)velocity.Z != 0.0) { 
@@ -1346,7 +1332,7 @@ namespace FusionEngine {
                 position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            position.Y += velocity.Y;
+            position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (IsInMoveFrame()) { 
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;

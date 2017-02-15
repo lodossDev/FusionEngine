@@ -38,7 +38,7 @@ namespace FusionEngine {
         private float walkSpeed = 4;
         private float runSpeed = 10;
         private float veloctiy = 4;
-        private float jumpHeight = 15;
+        private float jumpHeight = -15;
 
 
         public InputControl(Entity player, PlayerIndex index) {

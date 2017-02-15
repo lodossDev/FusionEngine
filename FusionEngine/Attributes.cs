@@ -98,8 +98,10 @@ namespace FusionEngine {
         public class GrabInfo {
             public int grabIn = -1;         //Should the target be brought in close or at distance
             public int grabPos = 1;         //(1 infront of attacker, -1 behind attacker)
-            public int dist = 80;           //Distance in x needed for grab to work
+            public int dist = 220;           //Distance in x needed for grab to work
+            public int grabHeight = -100;
             public bool isGrabbed = false;
+            public Entity grabbed = null;   //The target entity grabbed
         }
 
         public class AttackInfo {
@@ -176,8 +178,8 @@ namespace FusionEngine {
             public TossInfo() {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
-                maxVelocity = new Vector3(10f, 13f, 10f);
-                gravity = 0.48f;
+                maxVelocity = new Vector3(10 * System.GAME_VELOCITY, 13 * System.GAME_VELOCITY, 10 * System.GAME_VELOCITY);
+                gravity = 0.48f * System.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
                 hitGoundCount = 0;

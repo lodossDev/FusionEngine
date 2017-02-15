@@ -42,8 +42,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;
-            graphics.PreferredBackBufferHeight = 300;
+            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -362,7 +362,7 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                ryo.SetAnimationState(Animation.State.GRAB_ATTACK1);
+                ryo.SetAnimationState(Animation.State.THROW1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -562,7 +562,7 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetTossInfo().velocity.Y), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "DIRECTIONX: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 

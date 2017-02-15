@@ -48,6 +48,10 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.GRAB_HOLD1, 5);
             SetSpriteOffSet(Animation.State.GRAB_HOLD1, 13, 0);
 
+            AddSprite(Animation.State.THROW1, new Sprite("Sprites/Actors/Ryo/Throw1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.THROW1, 5);
+            SetSpriteOffSet(Animation.State.THROW1, -20, 0);
+
 
             //----------------------------------------- ATTACKS -----------------------------------------//
 
@@ -83,6 +87,7 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 5);
             SetSpriteOffSet(Animation.State.JUMP_TOWARD_ATTACK1, 8, -30);
 
+            AddBox(Animation.State.GRAB_ATTACK1, 5, new CLNS.AttackBox(150, 170, 50, 45));
             AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(150, 170, 50, 45));
             AddBox(Animation.State.ATTACK2, 3, new CLNS.AttackBox(150, 170, 50, 45));
             AddBox(Animation.State.ATTACK3, 3, new CLNS.AttackBox(150, 170, 50, 45));

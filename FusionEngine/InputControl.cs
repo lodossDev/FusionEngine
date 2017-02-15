@@ -177,7 +177,7 @@ namespace FusionEngine {
             ProcessAttack();
             ProcessJump();
             
-            if (player.IsNonActionState()) {
+            if (player.IsNonActionState() && !player.InNegativeState()) {
 
                 if (!DOWN && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.UP)) 
                                 || currentPadState.IsButtonDown(Buttons.DPadUp) 
@@ -247,7 +247,7 @@ namespace FusionEngine {
                 }
             }
 
-            if (player.IsNonActionState() && !IsDirectionalPress()) {
+            if (player.IsNonActionState() && !IsDirectionalPress() && !player.InNegativeState()) {
 
                 if (!RIGHT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)) 
                                   || currentPadState.IsButtonDown(Buttons.DPadLeft)
@@ -281,7 +281,7 @@ namespace FusionEngine {
         }
 
         private void ProcessJump() {
-            if (JUMP_PRESS) {
+            if (JUMP_PRESS && !player.InNegativeState()) {
                 if (LEFT) {
                     player.SetJump(jumpHeight, -Math.Abs(veloctiy));
 
@@ -295,7 +295,7 @@ namespace FusionEngine {
         }
 
         private void ProcessAttack() {
-            if (ATTACK_PRESS) {
+            if (ATTACK_PRESS && !player.InNegativeState()) {
 
                 if (!player.IsToss()) {
                     player.ProcessAttackChainStep();
@@ -313,7 +313,18 @@ namespace FusionEngine {
                         }
                     }
                 }
-            }
+            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+                    && player.IsInAnimationAction(Animation.Action.GRABBING)
+                    && !IsDirectionalPress()) {
+
+                player.SetAnimationState(Animation.State.THROW1);
+
+            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+                    && player.IsInAnimationAction(Animation.Action.GRABBING)
+                    && !IsDirectionalPress()) {
+
+                player.SetAnimationState(Animation.State.GRAB_ATTACK1);
+            } 
         }
 
         public void ReadPressedInputBuffer(GameTime gameTime) {

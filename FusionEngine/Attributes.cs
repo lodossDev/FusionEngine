@@ -96,12 +96,12 @@ namespace FusionEngine {
         }
 
         public class GrabInfo {
-            public int grabIn = -1;         //Should the target be brought in close or at distance
-            public int grabPos = 1;         //(1 infront of attacker, -1 behind attacker)
-            public int dist = 220;           //Distance in x needed for grab to work
+            public int grabIn = -1;             //Should the target be brought in close or at distance
+            public int grabPos = 1;             //(1 infront of attacker, -1 behind attacker)
+            public int dist = 140;              //Distance in x needed for grab to work
             public int grabHeight = -100;
             public bool isGrabbed = false;
-            public Entity grabbed = null;   //The target entity grabbed
+            public Entity grabbed = null;       //The target grabbed
         }
 
         public class AttackInfo {

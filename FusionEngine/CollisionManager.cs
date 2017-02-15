@@ -529,9 +529,33 @@ namespace FusionEngine
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetGround()) {
 
-                        Debug.WriteLine("OBJECT: " + target.GetName() + " : " + distX);
+                        
+                        target.grabInfo.isGrabbed = true;
+                    }
+
+                    if (target.grabInfo.isGrabbed && ((distX > dist + 5) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
+                        target.grabInfo.isGrabbed = false;
+
+                        if (target.InAir()) {
+                            target.Toss(5);
+                        }
+                    }
+                    
+                    if (target.grabInfo.isGrabbed) {
+                        if (entity.GetDirX() > 0) {
+                            target.SetIsLeft(true);
+                        } else {
+                            target.SetIsLeft(false);
+                        }
+
                         target.SetAnimationState(Animation.State.STANCE);
-                        entity.SetAnimationState(Animation.State.GRAB_HOLD1);
+
+                        if (!entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                                && !entity.IsInAnimationAction(Animation.Action.GRABBING)
+                                && !entity.IsInAnimationAction(Animation.Action.THROWING)) {
+
+                            entity.SetAnimationState(Animation.State.GRAB_HOLD1);
+                        }
 
                         if (entity.grabInfo.grabIn == 1) {
                             newx = entity.GetPosX();
@@ -549,22 +573,7 @@ namespace FusionEngine
 
                         target.SetPosY(entity.grabInfo.grabHeight);
                         target.link = entity;
-                        target.grabInfo.isGrabbed = true;
-                    }
 
-                    if (target.grabInfo.isGrabbed && ((distX > dist + 20) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
-                        target.grabInfo.isGrabbed = false;
-                        target.link = entity;
-                    }
-                    
-                    if (target.grabInfo.isGrabbed) {
-                        if (entity.GetDirX() > 0) {
-                            target.SetIsLeft(true);
-                        } else {
-                            target.SetIsLeft(false);
-                        }
-
-                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
                         int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
 
                         if (entity.grabInfo.grabPos == -1) {

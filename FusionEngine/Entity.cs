@@ -1138,7 +1138,13 @@ namespace FusionEngine {
 
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
-                        && !IsInAnimationAction(Animation.Action.GRABBING));
+                              && !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.THROWING));
+        }
+
+        public bool InNegativeState() {
+            return (IsInAnimationAction(Animation.Action.GRABBING) 
+                        || IsInAnimationAction(Animation.Action.THROWING));
         }
 
         public bool InResetState() {
@@ -1147,6 +1153,7 @@ namespace FusionEngine {
 
                                 || IsInAnimationAction(Animation.Action.JUMPING)
                                         && GetCurrentSprite().IsAnimationComplete()
+
                                 || IsInAnimationAction(Animation.Action.LANDING)
                                         && GetCurrentSprite().IsAnimationComplete())
 
@@ -1156,6 +1163,9 @@ namespace FusionEngine {
                                 || IsInAnimationAction(Animation.Action.RUNNING)
 
                                 || IsInAnimationAction(Animation.Action.STOPPING)
+                                        && GetCurrentSprite().IsAnimationComplete()
+                                        
+                                || IsInAnimationAction(Animation.Action.THROWING)
                                         && GetCurrentSprite().IsAnimationComplete());
         }
 
@@ -1164,8 +1174,8 @@ namespace FusionEngine {
                 int frame = (IsEntity(ObjectType.PLAYER) ? GetCurrentSprite().GetCurrentFrame() : GetCurrentSprite().GetFrames());
 
                 bool isFrameComplete = (IsEntity(ObjectType.PLAYER) ? IsFrameComplete(GetCurrentAnimationState(), frame) 
-                                            : IsFrameComplete(GetCurrentAnimationState(), frame) 
-                                                    && !IsInAnimationAction(Animation.Action.WALKING));
+                                                                    : IsFrameComplete(GetCurrentAnimationState(), frame) 
+                                           && !IsInAnimationAction(Animation.Action.WALKING));
 
                 if (isFrameComplete && !IsJumpingOrInAir()) {
                     if (IsInAnimationAction(Animation.Action.RUNNING) && HasSprite(Animation.State.RUN_STOP1)) {

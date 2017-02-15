@@ -230,7 +230,7 @@ namespace FusionEngine
             int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
 
             float vx = Math.Abs(entity.GetAbsoluteVelX());
-            float vz = Math.Abs(entity.GetAbsoluteVelZ());
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()); 
 
             List<Entity> aboveEntities = FindAbove(entity);
             List<Entity> belowEntities = FindBelow(entity);

@@ -42,8 +42,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = 500;//System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = 300;//System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -77,8 +77,8 @@ namespace FusionEngine
         /// </summary>
         protected override void LoadContent()
         {
-            float screenscaleX = (float)500 / 1280;
-            float screenscaleY = (float)300 / 700;
+            //float screenscaleX = (float)500 / 1280;
+            //float screenscaleY = (float)300 / 700;
             // Create the scale transform for Draw. 
             // Do not scale the sprite depth (Z=1).
             
@@ -492,8 +492,8 @@ namespace FusionEngine
                 renderManager.Update(gameTime);
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
-                if (taskMaster.grabInfo.isGrabbed == false) {
-                    ((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
+                if (taskMaster.grabInfo.isGrabbed == false && !taskMaster.IsToss()) {
+                    //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
 
@@ -562,8 +562,8 @@ namespace FusionEngine
             float distZ = Vector2.Distance(z1, z2);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "DIRECTIONX: " + ((inputManager.GetInputControl(ryo).GetHeldState().GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0), new Vector2(20, 50), Color.White);
-            //spriteBatch.DrawString(testFOnt, "X1: " + (ryo.GetPosZ()), new Vector2(20, 100), Color.Red);
+            //spriteBatch.DrawString(font1, "DIRECTIONX: " + ((inputManager.GetInputControl(ryo).GetHeldState().GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "X1: " + (taskMaster.GetCollisionInfo().GetCollideX()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

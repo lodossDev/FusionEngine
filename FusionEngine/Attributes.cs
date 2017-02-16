@@ -38,6 +38,18 @@ namespace FusionEngine {
                 collide_z = CollisionState.NO_COLLISION;
             }
 
+            public bool IsCollideX(CollisionState state) {
+                return collide_x == state;
+            }
+
+            public bool IsCollideY(CollisionState state) {
+                return collide_y == state;
+            }
+
+            public bool IsCollideZ(CollisionState state) {
+                return collide_z == state;
+            }
+
             public void Right() {
                 collide_x = CollisionState.RIGHT;
             }
@@ -92,6 +104,18 @@ namespace FusionEngine {
 
             public void SetIsOnTop(bool status) {
                 onTop = status;
+            }
+
+            public CollisionState GetCollideX() {
+                return collide_x;
+            }
+
+            public CollisionState GetCollideY() {
+                return collide_y;
+            }
+
+            public CollisionState GetCollideZ() {
+                return collide_z;
             }
         }
 

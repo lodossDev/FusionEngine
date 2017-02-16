@@ -177,7 +177,7 @@ namespace FusionEngine {
             ProcessAttack();
             ProcessJump();
             
-            if (player.IsNonActionState() && !player.InNegativeState()) {
+            if (player.IsNonActionState()) {
 
                 if (!DOWN && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.UP)) 
                                 || currentPadState.IsButtonDown(Buttons.DPadUp) 
@@ -247,7 +247,7 @@ namespace FusionEngine {
                 }
             }
 
-            if (player.IsNonActionState() && !IsDirectionalPress() && !player.InNegativeState()) {
+            if (player.IsNonActionState() && !IsDirectionalPress()) {
 
                 if (!RIGHT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)) 
                                   || currentPadState.IsButtonDown(Buttons.DPadLeft)
@@ -314,19 +314,19 @@ namespace FusionEngine {
                     }
                 }
             } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.THROWING)
-                    && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+                    /*&& !player.IsInAnimationAction(Animation.Action.ATTACKING)*/
                     && player.IsInAnimationAction(Animation.Action.GRABBING)
                     && (heldState.GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0) {
 
                 player.SetAnimationState(Animation.State.THROW1);
 
-                float velX = -10;
+                float velX = -6;
 
                 if (player.IsLeft()) {
-                    velX = 10;
+                    velX = 6;
                 }
 
-                player.grabInfo.grabbed.Toss(-13, velX, 1, 1);
+                player.grabInfo.grabbed.Toss(-13, velX, 1, 2);
                 player.grabInfo.grabbed.grabInfo.isGrabbed = false;
 
             } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)

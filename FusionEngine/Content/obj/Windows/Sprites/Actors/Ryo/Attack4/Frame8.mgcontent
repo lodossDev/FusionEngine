@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame8.png</SourceFile>
-  <SourceTime>2017-01-26T20:35:13.8713088+00:00</SourceTime>
-  <DestFile>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/bin/Windows/Sprites/Actors/Ryo/Attack4/Frame8.xnb</DestFile>
-  <DestTime>2017-02-15T19:00:32.2721112+00:00</DestTime>
+  <SourceFile>C:/Users/ahafeez/Desktop/FusionEngine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame8.png</SourceFile>
+  <SourceTime>2017-02-15T12:52:35.421055+00:00</SourceTime>
+  <DestFile>C:/Users/ahafeez/Desktop/FusionEngine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/Actors/Ryo/Attack4/Frame8.xnb</DestFile>
+  <DestTime>2017-02-16T15:19:09.2781906+00:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
+  <ImporterTime>2015-04-29T18:14:44+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2016-03-30T07:36:08+01:00</ProcessorTime>
+  <ProcessorTime>2015-04-29T18:14:44+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
@@ -26,10 +26,6 @@
   </Parameters>
   <Parameters>
     <Key>ResizeToPowerOfTwo</Key>
-    <Value>False</Value>
-  </Parameters>
-  <Parameters>
-    <Key>MakeSquare</Key>
     <Value>False</Value>
   </Parameters>
   <Parameters>

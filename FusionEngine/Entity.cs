@@ -369,6 +369,18 @@ namespace FusionEngine {
             maxVelocity.Z = z;
         }
 
+        public void SetAbsoluteVelX(float x) {
+            absoluteVel.X = x;
+        }
+
+        public void SetAbsoluteVelY(float y) {
+            absoluteVel.Y = y;
+        }
+
+        public void SetAbsoluteVelZ(float z) {
+            absoluteVel.Z = z;
+        }
+
         public void MoveX(float acc, float dir) {
             this.acceleration.X = acc * System.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
@@ -553,15 +565,33 @@ namespace FusionEngine {
             return (int)direction.Z;
         }
 
-        public float GetAbsoluteVelX() {
+        public float GetAccelX()
+        {
+            return acceleration.X;
+        }
+
+        public float GetAccelY()
+        {
+            return acceleration.Y;
+        }
+
+        public float GetAccelZ()
+        {
+            return acceleration.Z;
+        }
+
+        public float GetAbsoluteVelX()
+        {
             return absoluteVel.X;
         }
 
-        public float GetAbsoluteVelY() {
+        public float GetAbsoluteVelY()
+        {
             return absoluteVel.Y;
         }
 
-        public float GetAbsoluteVelZ() {
+        public float GetAbsoluteVelZ()
+        {
             return absoluteVel.Z;
         }
 
@@ -1003,7 +1033,7 @@ namespace FusionEngine {
 
         public void SetJump(float height = -25f, float velX = 0f)  {
             if (tossInfo.tossCount < tossInfo.maxTossCount && !tossInfo.isToss) { 
-                Toss(height, velX);
+                Toss(height, velX, 1, 2);
  
                 if (HasSprite(Animation.State.JUMP_START)) {
                     SetAnimationState(Animation.State.JUMP_START);
@@ -1022,7 +1052,7 @@ namespace FusionEngine {
                 }
 
             } else if (tossInfo.tossCount < tossInfo.maxTossCount && tossInfo.isToss) {
-                Toss(height, tossInfo.velocity.X);
+                Toss(height, tossInfo.velocity.X, 1, 2);
                 tossInfo.inTossFrame = true;
 
                 if ((double)tossInfo.velocity.X != 0.0) {
@@ -1038,10 +1068,10 @@ namespace FusionEngine {
         public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
             if (tossInfo.tossCount < maxToss) { 
                 
-                if (tossInfo.velocity.Y >= -10 && tossInfo.tossCount > 0) { 
-                    tossInfo.tempHeight += (height * tossInfo.gravity);
+                if ((tossInfo.velocity.Y / System.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
+                    tossInfo.tempHeight += ((height / 2) * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
-                    tossInfo.gravity = 0.38f * Math.Abs(tossInfo.height / 15) * System.GAME_VELOCITY;
+                    tossInfo.gravity = 0.45f * Math.Abs(tossInfo.height / 15);
                 } else {
                     tossInfo.tempHeight = height * System.GAME_VELOCITY;
                     tossInfo.height = tossInfo.tempHeight;
@@ -1079,6 +1109,7 @@ namespace FusionEngine {
 
         public void UpdateToss(GameTime gameTime) {
             if (tossInfo.isToss) {
+
                 if (IsInTossFrame()) {
                     tossInfo.inTossFrame = true;
                 }
@@ -1098,18 +1129,18 @@ namespace FusionEngine {
                     tossInfo.hitGoundCount += 1;
 
                     if (tossInfo.maxHitGround > 1) {
-                        tossInfo.height -= (tossInfo.tempHeight / tossInfo.maxHitGround) + 1.5f;
+                        tossInfo.height += ((Math.Abs(tossInfo.tempHeight) / tossInfo.maxHitGround));
                         
                         if (tossInfo.height >= 0) {
                             tossInfo.height = 0;
                         }
 
                         SetPosY(GetGround());
-                        MoveY(tossInfo.height);
+                        MoveY(tossInfo.height / System.GAME_VELOCITY);
                     }
 
                     tossInfo.velocity.Y = tossInfo.height;
-                    MoveY(tossInfo.height);
+                    MoveY(tossInfo.height / System.GAME_VELOCITY);
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
@@ -1138,8 +1169,8 @@ namespace FusionEngine {
 
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
-                              && !IsInAnimationAction(Animation.Action.GRABBING)
-                              && !IsInAnimationAction(Animation.Action.THROWING));
+                              /*&& !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.THROWING)*/);
         }
 
         public bool InNegativeState() {

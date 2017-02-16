@@ -119,14 +119,6 @@ namespace FusionEngine
                         entity.GetCollisionInfo().Below();
                         found.Add(target);
                     }
-
-                    if (entity.GetRayBottom() != null 
-                            && entity.GetRayBottom().Intersects(targetBox) 
-                            && isWithInBoundsX1 && isWithInBoundsZ1 && ePosY >= tHeight - 20)  {
-                        
-                        entity.GetCollisionInfo().Below();
-                        found.Add(target);
-                    }
                 }
             }
 
@@ -192,15 +184,13 @@ namespace FusionEngine
                         bool isWithInBoundsX1 = (entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == true);
                         bool isWithInBoundsZ1 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
 
-                        if (entity.GetRayBottom() != null 
-                                && entity.GetRayBottom().Intersects(targetBox) 
-                                && isWithInBoundsX1 && isWithInBoundsZ1 
+                        if (isWithInBoundsX1 && isWithInBoundsZ1 
                                 && entity.GetCollisionInfo().IsOnTop())  { 
                         
-                            if (target.IsMovingY()) { 
+                            //if (target.IsMovingY()) { 
                                 entity.MoveY(target.GetAbsoluteVelY());
                                 entity.SetGround(entity.GetPosY());
-                            }
+                            //}
                         }
 
                         if (isWithInBoundsX1 && isWithInBoundsZ1 
@@ -263,7 +253,7 @@ namespace FusionEngine
                             && entity.DepthCollision(target, vz)
                             && ePosY <= tHeight - 10 && eHeight >= tPosY 
                             && (aboveTarget != target && belowTarget != target)
-                            && !target.grabInfo.isGrabbed) {
+                            /*&& !target.grabInfo.isGrabbed*/) {
 
                         bool isWithInBoundsX1 = ((entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == false
                                                     || entity.HorizontalCollisionLeft(target, vx) == false && entity.HorizontalCollisionRight(target, vx) == true));
@@ -498,9 +488,10 @@ namespace FusionEngine
                 return;
             }
 
-            float newx = 0, newz = 0, x = 0, targetx = 0, targetz = 0;
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
+            Attributes.GrabInfo eGrabInfo = entity.GetGrabInfo();
+            float newx = 0, newz = 0, x = 0, targetx = 0, targetz = 0;
 
             foreach (Entity target in entities) {
 
@@ -508,6 +499,7 @@ namespace FusionEngine
                     
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+                    Attributes.GrabInfo tGrabInfo = target.GetGrabInfo();
 
                     Vector2 x1 = new Vector2(entityBox.GetRect().X, 0);
                     Vector2 x2 = new Vector2(targetBox.GetRect().X, 0);
@@ -518,41 +510,38 @@ namespace FusionEngine
                     float distX = Vector2.Distance(x1, x2);
                     float distZ = Vector2.Distance(z1, z2);
                     
-                    float dz1 = eDepthBox.GetRect().Bottom;
-                    float dz2 = tDepthBox.GetRect().Bottom;
-
-                    int dist = entity.grabInfo.dist;
-
-                    if ((distX < dist) && distZ <= (tDepthBox.GetHeight() / 2) 
+                   
+                    if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetGround()
                             && !target.IsToss()) {
 
-                        if (entity.grabInfo.grabIn == 1) {
+                        if (eGrabInfo.grabIn == 1) {
                             newx = x = entity.GetPosX();
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (dist / 2) : -(dist / 2));
+                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
                         } else {
                             x = ((entity.GetPosX() + target.GetPosX()) / 2);
-                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (dist / 2) : -(dist / 2));
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (dist / 2) : -(dist / 2));
+                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
+                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
                         }
 
                         entity.SetPosX(newx);
                         target.SetPosX(targetx);
-                        target.grabInfo.isGrabbed = true;
+                        target.SetPosY(eGrabInfo.grabHeight);
+                        tGrabInfo.isGrabbed = true;
                     }
 
-                    if (target.grabInfo.isGrabbed && ((distX > dist + 5) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
-                        target.grabInfo.isGrabbed = false;
+                    if (tGrabInfo.isGrabbed && ((distX > eGrabInfo.dist + 5) || distZ > (tDepthBox.GetHeight() / 2) + 5)) {
+                        tGrabInfo.isGrabbed = false;
 
                         if (target.InAir()) {
                             target.Toss(8);
                         }
                     }
                     
-                    if (target.grabInfo.isGrabbed) {
+                    if (tGrabInfo.isGrabbed) {
 
                         if (entity.GetDirX() > 0) {
                             target.SetIsLeft(true);
@@ -569,35 +558,38 @@ namespace FusionEngine
                             entity.SetAnimationState(Animation.State.GRAB_HOLD1);
                         }
 
-                        if (entity.grabInfo.grabIn == 1) {
+                        target.GetCurrentSprite().ResetAnimation();
+
+                        if (eGrabInfo.grabIn == 1) {
                             newx = x = entity.GetPosX();
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (dist / 2) : -(dist / 2));
+                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
                         } else {
                             x = ((entity.GetPosX() + target.GetPosX()) / 2);
-                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (dist / 2) : -(dist / 2));
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (dist / 2) : -(dist / 2));
+                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
+                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
                         }
 
                         newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
-                        
-                        if (entity.IsLeft()) {
-                            targetx = x + -(dist / 2);
-                        } else {
-                            targetx = x + (dist / 2);
-                        }
 
                         target.MoveX(entity.GetAccelX(), entity.GetDirX());
                         target.MoveZ(entity.GetAccelZ(), entity.GetDirZ());
+
+                        target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
+                        target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
+                                               
+                        if (entity.IsLeft()) {
+                            targetx = x + -(eGrabInfo.dist / 2);
+                        } else {
+                            targetx = x + (eGrabInfo.dist / 2);
+                        }
 
                         if (target.GetCollisionInfo().IsCollideX(Attributes.CollisionState.NO_COLLISION)) {
                             target.SetPosX(targetx);
                         }
                         
-                        target.SetPosY(entity.grabInfo.grabHeight);
-    
                         int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
 
-                        if (entity.grabInfo.grabPos == -1) {
+                        if (eGrabInfo.grabPos == -1) {
                             zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) - 2;
                         }
 
@@ -605,13 +597,7 @@ namespace FusionEngine
                             target.SetPosZ(newz + zOffset);
                         }
 
-                        target.link = entity;
-                        entity.grabInfo.grabbed = target;
-
-                        target.GetCurrentSprite().ResetAnimation();
-                        
-                        target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
-                        target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
+                        eGrabInfo.grabbed = target;
 
                         target.ResetX();
                         target.ResetZ();

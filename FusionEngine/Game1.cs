@@ -42,8 +42,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;//System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 300;//System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -492,7 +492,7 @@ namespace FusionEngine
                 renderManager.Update(gameTime);
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
-                if (taskMaster.grabInfo.isGrabbed == false && !taskMaster.IsToss()) {
+                if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
                     //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
@@ -525,7 +525,7 @@ namespace FusionEngine
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
-                        SamplerState.PointClamp,
+                        System.SAMPLER_STATE,
                         null,
                         null,
                         null,
@@ -563,8 +563,8 @@ namespace FusionEngine
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             //spriteBatch.DrawString(font1, "DIRECTIONX: " + ((inputManager.GetInputControl(ryo).GetHeldState().GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "X1: " + (taskMaster.GetCollisionInfo().GetCollideX()), new Vector2(20, 100), Color.Red);
-            //spriteBatch.DrawString(testFOnt, "X2: " + ((taskMaster.GetPosZ())), new Vector2(20, 160), Color.Red);
+            spriteBatch.DrawString(testFOnt, "X1: " + taskMaster.GetCollisionInfo().GetCollideX(), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "X2: " +  taskMaster.GetDirX(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

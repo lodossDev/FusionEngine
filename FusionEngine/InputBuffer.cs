@@ -10,14 +10,15 @@ namespace FusionEngine {
 
     public class InputBuffer {
         private List<InputHelper.KeyPress> inputBuffer;
-        public readonly float bufferTimeout = 400f;
-        public readonly float mergeInputTime = 120f;
+        private readonly float bufferTimeout = 400f;
+        private readonly float mergeInputTime = 120f;
         private float lastInputTime = 0f;
         private float timeSinceLast = 0f;
-        public readonly int MAX_BUFFER = 120;
+        private readonly int MAX_BUFFER = 120;
         private InputHelper.ButtonState stateType;
-        public List<InputHelper.KeyPress> inputState;
-        public int currentStateStep;
+        private List<InputHelper.KeyPress> inputState;
+        private int currentStateStep;
+
 
         public InputBuffer(InputHelper.ButtonState stateType, float bufferTimeout = 400f) {
             inputBuffer = new List<InputHelper.KeyPress>(MAX_BUFFER);
@@ -121,6 +122,10 @@ namespace FusionEngine {
 
         public InputHelper.ButtonState GetStateType() {
             return stateType;
+        }
+
+        public bool IsKeyPressed(InputHelper.KeyPress key) {
+            return (GetCurrentInputState() & key) != 0;
         }
     }
 }

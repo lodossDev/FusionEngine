@@ -316,7 +316,7 @@ namespace FusionEngine {
             } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.THROWING)
                     /*&& !player.IsInAnimationAction(Animation.Action.ATTACKING)*/
                     && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && (heldState.GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0) {
+                    && heldState.IsKeyPressed(InputHelper.KeyPress.ANY_DIRECTION)) {
 
                 player.SetAnimationState(Animation.State.THROW1);
 
@@ -326,13 +326,13 @@ namespace FusionEngine {
                     velX = 6;
                 }
 
-                player.grabInfo.grabbed.Toss(-13, velX, 1, 2);
-                player.grabInfo.grabbed.grabInfo.isGrabbed = false;
+                player.GetGrabInfo().grabbed.Toss(-13, velX, 1, 2);
+                player.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed = false;
 
             } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
                     && !player.IsInAnimationAction(Animation.Action.THROWING)
                     && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && (heldState.GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) == 0) {
+                    && !heldState.IsKeyPressed(InputHelper.KeyPress.ANY_DIRECTION)) {
 
                 player.SetAnimationState(Animation.State.GRAB_ATTACK1);
             } 
@@ -424,8 +424,8 @@ namespace FusionEngine {
             if (releasedState.GetCurrentInputState() != InputHelper.KeyPress.NONE) {
 
                 if (releasedState.GetCurrentInputState() == currentKeyState.GetKey()
-                        || (releasedState.GetCurrentInputState(releasedState.GetCurrentStateStep() - 2) == currentKeyState.GetKey()
-                                && releasedState.GetCurrentInputState() != currentKeyState.GetKey())) {
+                        || ((releasedState.GetCurrentInputState(releasedState.GetCurrentStateStep() - 2) & currentKeyState.GetKey()) != 0
+                                && !releasedState.IsKeyPressed(currentKeyState.GetKey()))) {
 
                     command.Reset();
                 }
@@ -434,7 +434,7 @@ namespace FusionEngine {
             for (int i = 0; i < heldState.GetBuffer().Count - 1; i++) {
 
                 bool reset = (releasedState.GetBuffer().Count >= i + 2
-                                    && releasedState.GetBuffer()[i + 1] == currentKeyState.GetKey());
+                                    && (releasedState.GetBuffer()[i + 1] & currentKeyState.GetKey()) != 0);
 
                 if (reset) {
                     held = 0;
@@ -442,7 +442,7 @@ namespace FusionEngine {
                     break;
                 }
 
-                if (heldState.GetBuffer()[i + 1] == currentKeyState.GetKey()) {
+                if ((heldState.GetBuffer()[i + 1] & currentKeyState.GetKey()) != 0) {
                     held++;
                     command.ResetNegativeEdge();
 
@@ -475,7 +475,7 @@ namespace FusionEngine {
                     return false;
                 }
                 
-                if (currentBuffer.GetCurrentInputState() == currentKeyState.GetKey()) {
+                if (currentBuffer.IsKeyPressed(currentKeyState.GetKey())) {
                     command.Next();
 
                     if (command.GetCurrentMoveStep() >= command.GetMoves().Count - 1) {

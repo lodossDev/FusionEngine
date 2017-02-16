@@ -27,6 +27,7 @@ namespace FusionEngine {
         public static readonly int RESOLUTION_Y = 700;
 
         public static readonly float GAME_VELOCITY = 60;
+        public static SamplerState SAMPLER_STATE = SamplerState.PointClamp;
 
         public static float rotate = 0f;
         public static float scaleX, scaleY = 0f;

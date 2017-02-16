@@ -124,6 +124,7 @@ namespace FusionEngine {
             public int grabPos = 1;             //(1 infront of attacker, -1 behind attacker)
             public int dist = 140;              //Distance in x needed for grab to work
             public int grabHeight = -100;
+            public bool grabWalk = false;
             public bool isGrabbed = false;
             public Entity grabbed = null;       //The target grabbed
         }

@@ -80,8 +80,8 @@ namespace FusionEngine {
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadBtnsOnly;
         private int layerPos;
 
-        public Attributes.GrabInfo grabInfo;
-        public Entity link;
+        private Attributes.GrabInfo grabInfo;
+        private Entity link;
 
         public Entity(ObjectType type, string name) {
             this.type = type;
@@ -343,6 +343,10 @@ namespace FusionEngine {
 
         public void SetCurrentTarget(Entity target) {
             currentTarget = target;
+        }
+
+        public void SetEntityLink(Entity link) {
+            this.link = link;
         }
 
         public void SetDirectionX(float dir) {
@@ -639,6 +643,14 @@ namespace FusionEngine {
 
         public Vector3 GetMaxVelocity() {
             return maxVelocity;
+        }
+
+        public Entity GetEntityLink() {
+            return link;
+        }
+
+        public Attributes.GrabInfo GetGrabInfo() {
+            return grabInfo;
         }
 
         public int GetSpriteCount() {
@@ -1033,7 +1045,7 @@ namespace FusionEngine {
 
         public void SetJump(float height = -25f, float velX = 0f)  {
             if (tossInfo.tossCount < tossInfo.maxTossCount && !tossInfo.isToss) { 
-                Toss(height, velX, 1, 2);
+                Toss(height, velX);
  
                 if (HasSprite(Animation.State.JUMP_START)) {
                     SetAnimationState(Animation.State.JUMP_START);
@@ -1052,7 +1064,7 @@ namespace FusionEngine {
                 }
 
             } else if (tossInfo.tossCount < tossInfo.maxTossCount && tossInfo.isToss) {
-                Toss(height, tossInfo.velocity.X, 1, 2);
+                Toss(height, tossInfo.velocity.X);
                 tossInfo.inTossFrame = true;
 
                 if ((double)tossInfo.velocity.X != 0.0) {
@@ -1067,7 +1079,13 @@ namespace FusionEngine {
 
         public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
             if (tossInfo.tossCount < maxToss) { 
-                
+
+                if ((double)velX < 0.0) {
+                    direction.X = -1;
+                } else {
+                    direction.X = 1;
+                }
+
                 if ((tossInfo.velocity.Y / System.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
                     tossInfo.tempHeight += ((height / 2) * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
@@ -1169,8 +1187,8 @@ namespace FusionEngine {
 
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
-                              /*&& !IsInAnimationAction(Animation.Action.GRABBING)
-                              && !IsInAnimationAction(Animation.Action.THROWING)*/);
+                              && !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.THROWING));
         }
 
         public bool InNegativeState() {

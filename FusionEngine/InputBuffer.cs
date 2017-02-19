@@ -127,5 +127,9 @@ namespace FusionEngine {
         public bool IsKeyPressed(InputHelper.KeyPress key) {
             return (GetCurrentInputState() & key) != 0;
         }
+
+        public bool IsCurrentPress(InputHelper.KeyPress key) {
+            return (GetCurrentInputState() == key);
+        }
     }
 }

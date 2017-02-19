@@ -38,6 +38,7 @@ namespace FusionEngine
         SpriteSheet ryoSheet;
         BitmapFont testFOnt;
         MugenFont gg;
+        Vector2 xScroll = Vector2.Zero;
 
         public Game1()
         {
@@ -343,19 +344,16 @@ namespace FusionEngine
             currentKeyboardState = Keyboard.GetState();
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
-            if (padState.ThumbSticks.Left.X == -1) {
-                padCount++;
-            }
-          
-            if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
-            {
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
                 System.CallPause();
-                float z1 = (ryo.GetPosZ() + taskMaster.GetPosZ()) / 2;
-                taskMaster.SetPosZ(z1 + taskMaster.GetDepthBox().GetHeight());
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
-            {
+            if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
+                level1.GetMisc()[0].SetAnimationState(Animation.State.DIE1);
+                level1.GetMisc()[0].GetCurrentSprite().SetCurrentFrame(2);
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q)) {
                 renderManager.RenderBoxes();
             }
 
@@ -375,7 +373,10 @@ namespace FusionEngine
                 //Setup.rotate -= 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleX -= 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                barHealth += (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                //barHealth += (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+                camera.Parallax = new Vector2(xScroll.X, 0);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -400,15 +401,15 @@ namespace FusionEngine
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.K))
                 {
-                    drum3.Toss(-15, -5);
+                    level1.GetMisc()[0].Toss(-15, -5);
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.L))
                 {
-                    drum3.Toss(-15, 5);
+                    level1.GetMisc()[0].Toss(-15, 5);
                 }
                 else
                 {
-                    drum3.Toss(-15);
+                    level1.GetMisc()[0].Toss(-15);
                 }
             }
 
@@ -488,14 +489,14 @@ namespace FusionEngine
                 }
 
                 drum.MoveY(0.3f * dir);
-
-                renderManager.Update(gameTime);
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
                 if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
                     //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
+
+                renderManager.Update(gameTime);
 
                 /*level1.ScrollX(-leo.GetVelocity().X);
                 drum.MoveX(-leo.GetVelocity().X);
@@ -506,7 +507,7 @@ namespace FusionEngine
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
-            camera.LookAt(leo.GetConvertedPosition());
+            camera.LookAt(ryo.GetConvertedPosition());
 
             oldKeyboardState = currentKeyboardState;
 
@@ -529,7 +530,7 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        /*camera.ViewMatrix*//*SpriteScale*/ Resolution.Scale);
+                        /*camera.ViewMatrix*//*SpriteScale*/ /*Resolution.Scale*/camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             renderManager.Draw(gameTime);
@@ -548,23 +549,11 @@ namespace FusionEngine
              * Vector
             */
 
-            Vector2 x1 = new Vector2(ryo.GetAbsoluteVelX(), 0);
-
-            x1.Normalize();
-
-            Vector2 s1 = new Vector2(ryo.GetPosX(), 0);
-            Vector2 s2 = new Vector2(taskMaster.GetPosX(), 0);
-
-            Vector2 z1 = new Vector2(0, ryo.GetPosY());
-            Vector2 z2 = new Vector2(0, taskMaster.GetPosY());
-
-            float distX = Vector2.Distance(s1, s2);
-            float distZ = Vector2.Distance(z1, z2);
-
+           
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            //spriteBatch.DrawString(font1, "DIRECTIONX: " + ((inputManager.GetInputControl(ryo).GetHeldState().GetCurrentInputState() & InputHelper.KeyPress.ANY_DIRECTION) != 0), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "X1: " + taskMaster.GetCollisionInfo().GetCollideX(), new Vector2(20, 100), Color.Red);
-            spriteBatch.DrawString(testFOnt, "X2: " +  taskMaster.GetDirX(), new Vector2(20, 160), Color.Red);
+            spriteBatch.DrawString(font1, "TASK OBS: " + (ryo.GetVelX()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "FRAME: " + level1.GetMisc()[0].GetCurrentSprite().GetCurrentFrame(), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

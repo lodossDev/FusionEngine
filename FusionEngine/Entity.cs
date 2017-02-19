@@ -282,7 +282,15 @@ namespace FusionEngine {
             return commandMoves;
         }
 
-        public void SetOffset(Animation.State state, int frame, float x, float y) {
+        public void SetFrameScale(Animation.State state, int frame, float x, float y) {
+            GetSprite(state).SetFrameScale(frame, x, y);
+        }
+
+        public void SetFrameScale(Animation.State state, float x, float y) {
+            GetSprite(state).SetFrameScale(x, y);
+        }
+
+        public void SetFrameOffset(Animation.State state, int frame, float x, float y) {
             GetSprite(state).SetFrameOffset(frame, x, y);
         }
 
@@ -1128,6 +1136,12 @@ namespace FusionEngine {
         public void UpdateToss(GameTime gameTime) {
             if (tossInfo.isToss) {
 
+                if ((double)tossInfo.velocity.X < 0.0) {
+                    direction.X = -1;
+                } else {
+                    direction.X = 1;
+                }
+
                 if (IsInTossFrame()) {
                     tossInfo.inTossFrame = true;
                 }
@@ -1187,8 +1201,8 @@ namespace FusionEngine {
 
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
-                              && !IsInAnimationAction(Animation.Action.GRABBING)
-                              && !IsInAnimationAction(Animation.Action.THROWING));
+                              /*&& !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.THROWING)*/);
         }
 
         public bool InNegativeState() {

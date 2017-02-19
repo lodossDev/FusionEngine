@@ -10,9 +10,11 @@ namespace FusionEngine {
 
         public PhoneBooth1() : base("PhoneBooth1") {
             AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Phone/Stance"), true);
-            AddSprite(Animation.State.DIE1, new Sprite("Sprites/Misc/Phone/Die1"));
 
-            AddBoundsBox(141, 380, -70, 110, 60);
+            AddSprite(Animation.State.DIE1, new Sprite("Sprites/Misc/Phone/Die1", Animation.Type.NONE));
+            SetFrameDelay(Animation.State.DIE1, 10);
+            
+            AddBoundsBox(141, 380, -80, 10, 60);
             SetScale(2.5f, 3.0f);
             SetPostion(200, 0, 100);
         }

@@ -24,6 +24,8 @@ namespace FusionEngine {
             private CollisionState collide_x;
             private CollisionState collide_y;
             private CollisionState collide_z;
+            private Entity movingObstacle;
+            private Entity obstacle;
             private bool onTop;
 
 
@@ -36,6 +38,14 @@ namespace FusionEngine {
                 collide_x = CollisionState.NO_COLLISION;
                 collide_y = CollisionState.NO_COLLISION;
                 collide_z = CollisionState.NO_COLLISION;
+            }
+
+            public void SetMovingObstacle(Entity entity) {
+                movingObstacle = entity;
+            }
+
+            public void SetObstacle(Entity entity) {
+                obstacle = entity;
             }
 
             public bool IsCollideX(CollisionState state) {
@@ -117,16 +127,48 @@ namespace FusionEngine {
             public CollisionState GetCollideZ() {
                 return collide_z;
             }
+
+            public Entity GetMovingObstacle() {
+                return movingObstacle;
+            }
+
+            public Entity GetObstacle() {
+                return obstacle;
+            }
         }
 
         public class GrabInfo {
-            public int grabIn = -1;             //Should the target be brought in close or at distance
-            public int grabPos = 1;             //(1 infront of attacker, -1 behind attacker)
-            public int dist = 140;              //Distance in x needed for grab to work
-            public int grabHeight = -100;
-            public bool grabWalk = false;
-            public bool isGrabbed = false;
-            public Entity grabbed = null;       //The target grabbed
+            public int grabIn;             //Should the target be brought in close or at distance
+            public int grabPos;             //(1 infront of attacker, -1 behind attacker)
+            public int dist;              //Distance in x needed for grab to work
+            public int grabHeight;
+            public bool grabWalk;
+            public bool isGrabbed;
+            public Entity grabbed;       //The target grabbed
+            public Entity grabbedBy;     //The attacker/grabber
+            public int grabDirection;
+            public float grabbedTime;
+            public float throwVelX;
+            public float throwHeight;
+
+
+            public GrabInfo() {
+                grabIn = -1;            
+                grabPos = 1;           
+                dist = 140;              
+                grabHeight = -100;
+                grabWalk = false;
+                isGrabbed = false;
+                grabbed = grabbedBy = null;       
+                grabDirection = 0;
+                grabbedTime = 500;
+                throwVelX = 4;
+                throwHeight = -13;
+            }
+
+            public void Reset() {
+
+            }
         }
 
         public class AttackInfo {

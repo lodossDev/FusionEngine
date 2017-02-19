@@ -18,9 +18,9 @@ namespace FusionEngine {
         private List<bool> isFrameComplete;
 
         private List<Vector2> offsets;
+        public List<Vector2> frameScales;
         private Vector2 spriteOffset;
         private Vector2 position;
-        private Vector2 shadowPostion;
         
         private int resetFrame;
         private Dictionary<int, List<CLNS.BoundingBox>> boxes;
@@ -37,6 +37,7 @@ namespace FusionEngine {
             sprites = new List<Texture2D>();
             frameDelays = new List<float>();
             offsets = new List<Vector2>();
+            frameScales = new List<Vector2>();
             frameTimeElapsed = 0.0f;
             totalTimeRemaining = 0.0f;
             resetFrame = 0;
@@ -97,6 +98,7 @@ namespace FusionEngine {
         public void AddTexture(Texture2D sprite) {
             sprites.Add(sprite);
             offsets.Add(Vector2.Zero);
+            frameScales.Add(Vector2.Zero);
 
             isFrameComplete.Add(false);
             frameDelays.Add(Animation.DEFAULT_TICKS);
@@ -106,6 +108,7 @@ namespace FusionEngine {
         public void AddTexture(String frame) {
             frames.Add(frame);
             offsets.Add(Vector2.Zero);
+            frameScales.Add(Vector2.Zero);
 
             isFrameComplete.Add(false);
             frameDelays.Add(Animation.DEFAULT_TICKS);
@@ -142,6 +145,16 @@ namespace FusionEngine {
         public void SetFrameTime(float frameDelay) {
             for(int i = 0; i < frameDelays.Count; i++) {
                 SetFrameTime(i + 1, frameDelay);
+            }
+        }
+
+        public void SetFrameScale(int frame, float x, float y) {
+            frameScales[frame - 1] = new Vector2(x, y);
+        }
+
+        public void SetFrameScale(float x, float y) {
+            for (int i = 0; i < offsets.Count; i++) {
+                SetFrameScale(i + 1, x, y);
             }
         }
 
@@ -248,8 +261,8 @@ namespace FusionEngine {
             return position;
         }
 
-        public Vector2 GetShadowPosition() {
-            return shadowPostion;
+        public Vector2 GetCurrentScaleFrame() {
+            return frameScales[currentFrame];
         }
 
         public bool IsBoxFrame() {
@@ -368,15 +381,12 @@ namespace FusionEngine {
 
         public void Update(GameTime gameTime, Vector3 position, Vector2 scale) {
             if (IsLeft()) {
-                this.position.X = position.X - (spriteOffset.X * scale.X) - (offsets[currentFrame].X * scale.X);
+                this.position.X = position.X - (spriteOffset.X * (scale.X /*+ frameScales[currentFrame].X*/)) - (offsets[currentFrame].X * (scale.X /*+ frameScales[currentFrame].X*/));
             } else {
-                this.position.X = position.X + (spriteOffset.X * scale.X) + (offsets[currentFrame].X * scale.X);
+                this.position.X = position.X + (spriteOffset.X * (scale.X /*+ frameScales[currentFrame].X*/)) + (offsets[currentFrame].X * (scale.X /*+ frameScales[currentFrame].X*/));
             }
 
-            this.position.Y = (position.Y + (spriteOffset.Y * scale.Y) + (offsets[currentFrame].Y * scale.Y)) + position.Z;
-
-            shadowPostion.X = this.position.X;
-            shadowPostion.Y = ((spriteOffset.Y * scale.Y) + (offsets[currentFrame].Y * scale.Y)) + position.Z;
+            this.position.Y = (position.Y + (spriteOffset.Y * (scale.Y /*+ frameScales[currentFrame].Y*/)) + (offsets[currentFrame].Y * (scale.Y /*+ frameScales[currentFrame].Y*/))) + position.Z;
         }
     }
 }

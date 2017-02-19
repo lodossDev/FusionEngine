@@ -168,16 +168,28 @@ namespace FusionEngine {
                 ATTACK_PRESS = true;
             }
 
+            Entity grabbed = player.GetGrabInfo().grabbed;
+            bool isLeftObstacleOnGrab = (grabbed != null && grabbed.GetCollisionInfo().IsLeft());
+            bool isRightObstacleOnGrab = (grabbed != null && grabbed.GetCollisionInfo().IsRight());
+
+            float velX = 0f;
+
             if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                veloctiy = walkSpeed;
+                velX = walkSpeed;
             } else {
-                veloctiy = runSpeed;
+                velX = runSpeed;
+            }
+
+            if (player.IsLeft() && grabbed != null) {
+                veloctiy = velX + 3f;
+            } else {
+                veloctiy = velX;
             }
 
             ProcessAttack();
             ProcessJump();
             
-            if (player.IsNonActionState()) {
+            if (!ATTACK_PRESS && player.IsNonActionState()) {
 
                 if (!DOWN && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.UP)) 
                                 || currentPadState.IsButtonDown(Buttons.DPadUp) 
@@ -185,7 +197,9 @@ namespace FusionEngine {
 
                     if (!RIGHT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)) 
                                        || currentPadState.IsButtonDown(Buttons.DPadLeft) 
-                                       || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))) {
+                                       || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))
+
+                               && !isLeftObstacleOnGrab) {
 
                         inputDirection = InputDirection.UP_LEFT;
                         player.MoveX(veloctiy, -1);
@@ -194,7 +208,9 @@ namespace FusionEngine {
 
                     } else if (!LEFT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.RIGHT)) 
                                             || currentPadState.IsButtonDown(Buttons.DPadRight) 
-                                            || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))) {
+                                            || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))
+
+                                     && !isRightObstacleOnGrab) {
 
                         inputDirection = InputDirection.UP_RIGHT;
                         player.MoveX(veloctiy, 1);
@@ -218,7 +234,9 @@ namespace FusionEngine {
 
                     if (!RIGHT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)) 
                                         || currentPadState.IsButtonDown(Buttons.DPadLeft) 
-                                        || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))) {  
+                                        || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))
+                               
+                               && !isLeftObstacleOnGrab) {  
 
                         inputDirection = InputDirection.DOWN_LEFT;
                         player.MoveX(veloctiy, -1);
@@ -227,7 +245,9 @@ namespace FusionEngine {
 
                     } else if (!LEFT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.RIGHT)) 
                                             || currentPadState.IsButtonDown(Buttons.DPadRight) 
-                                            || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))) {
+                                            || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))
+                                      
+                                     && !isRightObstacleOnGrab) {
 
                         inputDirection = InputDirection.DOWN_RIGHT;
                         player.MoveX(veloctiy, 1);
@@ -251,7 +271,9 @@ namespace FusionEngine {
 
                 if (!RIGHT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)) 
                                   || currentPadState.IsButtonDown(Buttons.DPadLeft)
-                                  || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))) {
+                                  || currentPadState.IsButtonDown(Buttons.LeftThumbstickLeft))
+                           
+                           && !isLeftObstacleOnGrab) {
 
                     inputDirection = InputDirection.LEFT;
                     
@@ -265,7 +287,9 @@ namespace FusionEngine {
 
                 } else if (!LEFT && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.RIGHT)) 
                                          || currentPadState.IsButtonDown(Buttons.DPadRight)
-                                         || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))) {
+                                         || currentPadState.IsButtonDown(Buttons.LeftThumbstickRight))
+                                
+                                 && !isRightObstacleOnGrab) {
 
                     inputDirection = InputDirection.RIGHT; 
                     
@@ -313,28 +337,33 @@ namespace FusionEngine {
                         }
                     }
                 }
-            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.THROWING)
-                    /*&& !player.IsInAnimationAction(Animation.Action.ATTACKING)*/
-                    && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && heldState.IsKeyPressed(InputHelper.KeyPress.ANY_DIRECTION)) {
+            }
 
-                player.SetAnimationState(Animation.State.THROW1);
+            if (ATTACK_PRESS && player.IsInAnimationAction(Animation.Action.GRABBING)) {
+                InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
+                
+                if (player.GetDirX() > 0) {
+                     throwKey = InputHelper.KeyPress.LEFT | InputHelper.KeyPress.DOWN_LEFT | InputHelper.KeyPress.UP_LEFT;
+                }   
+                                   
+                if (!player.IsInAnimationAction(Animation.Action.THROWING)
+                        && player.IsInAnimationAction(Animation.Action.GRABBING)
+                        && heldState.IsKeyPressed(throwKey)) {
 
-                float velX = -6;
+                    player.SetAnimationState(Animation.State.THROW1);
 
-                if (player.IsLeft()) {
-                    velX = 6;
+                    float velX = player.GetGrabInfo().throwVelX * -player.GetDirX();
+
+                    player.GetGrabInfo().grabbed.Toss(player.GetGrabInfo().throwHeight, velX, 1, 2);
+                    player.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed = false;
+
+                } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
+                        && !player.IsInAnimationAction(Animation.Action.THROWING)
+                        && player.IsInAnimationAction(Animation.Action.GRABBING)
+                        && !heldState.IsKeyPressed(throwKey)) {
+
+                    player.SetAnimationState(Animation.State.GRAB_ATTACK1);
                 }
-
-                player.GetGrabInfo().grabbed.Toss(-13, velX, 1, 2);
-                player.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed = false;
-
-            } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
-                    && !player.IsInAnimationAction(Animation.Action.THROWING)
-                    && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && !heldState.IsKeyPressed(InputHelper.KeyPress.ANY_DIRECTION)) {
-
-                player.SetAnimationState(Animation.State.GRAB_ATTACK1);
             } 
         }
 
@@ -423,7 +452,7 @@ namespace FusionEngine {
 
             if (releasedState.GetCurrentInputState() != InputHelper.KeyPress.NONE) {
 
-                if (releasedState.GetCurrentInputState() == currentKeyState.GetKey()
+                if (releasedState.IsCurrentPress(currentKeyState.GetKey())
                         || ((releasedState.GetCurrentInputState(releasedState.GetCurrentStateStep() - 2) & currentKeyState.GetKey()) != 0
                                 && !releasedState.IsKeyPressed(currentKeyState.GetKey()))) {
 
@@ -458,7 +487,6 @@ namespace FusionEngine {
 
             if (held >= currentKeyState.GetKeyHeldTime()) {
                 command.Next();
-
             } else {
                 command.IncrementNegativeCount();
             }
@@ -475,7 +503,7 @@ namespace FusionEngine {
                     return false;
                 }
                 
-                if (currentBuffer.IsKeyPressed(currentKeyState.GetKey())) {
+                if (currentBuffer.IsCurrentPress(currentKeyState.GetKey())) {
                     command.Next();
 
                     if (command.GetCurrentMoveStep() >= command.GetMoves().Count - 1) {

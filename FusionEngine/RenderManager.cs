@@ -15,10 +15,18 @@ namespace FusionEngine {
         private Vector2 baseSpriteOrigin;
         private SpriteFont font1;
 
+        private Vector2 frameScale;
+        private Vector2 shadowPosition;
+        private Vector2 shadowScale;
+
         public RenderManager() {
             renderBoxes = false;
             baseSpriteScale = new Vector2(0.5f, 0.5f);
             baseSpriteOrigin = Vector2.Zero;
+
+            shadowPosition = Vector2.Zero;
+            shadowScale = Vector2.Zero;
+            frameScale = Vector2.Zero;
 
             font1 = System.contentManager.Load<SpriteFont>("Fonts/MyFont");
         }
@@ -120,10 +128,10 @@ namespace FusionEngine {
             entities.Sort();
             RenderLevelBackLayers(gameTime);
 
-            foreach (Entity entity in entities)
-            {
-                if (entity != null && entity.Alive())
-                {
+            foreach (Entity entity in entities) {
+
+                if (entity != null && entity.Alive()) {
+
                     if (entity.IsEntity(Entity.ObjectType.HIT_FLASH)) {
                         System.graphicsDevice.BlendState = BlendState.Additive;
                     } else {
@@ -133,37 +141,33 @@ namespace FusionEngine {
                     Sprite currentSprite = entity.GetCurrentSprite();
                     Sprite stance = entity.GetSprite(Animation.State.STANCE);
 
-                    if (stance != null && entity is Player) {
+                    //if (stance != null && entity is Player) {
                         System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.White * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
+                    //}
+
+                    float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
+
+                    if (entity.IsLeft()) {
+                        x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
                     }
 
-                    float y1 = 120f * (entity.GetScale().Y / 256); 
-                    float x1 = 200f * (entity.GetScale().X / 256);
+                    float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y) * entity.GetScale().Y;
 
-                    float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * (x1 / entity.GetScale().X));
+                    shadowPosition.X = x2;
+                    shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
 
-                    if (entity.IsLeft())
-                    {
-                        x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X - currentSprite.GetCurrentFrameOffSet().X) * (x1 / entity.GetScale().X));
-                    }
+                    shadowScale.X = entity.GetScale().X;
+                    shadowScale.Y =  12f / 8f;
 
-                    float a1 = (float)(-entity.GetPosY() * 120f / 256);
-
-                    float y2 = (float)((currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y) * (y1 * 0.1f)) + entity.GetPosition().Z + a1;
-                    float y3 = (stance.GetCurrentTexture().Height * entity.GetScale().Y) - 40;
-
-                    
-                    Vector2 position = new Vector2(x2, y2);
-                    Vector2 scale = new Vector2(x1 /*+ Setup.scaleX*/, y1  + System.scaleY);
-                    position.Y += y3;
+                    frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
+                    frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
 
                     //Shadow
-                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), position, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), scale, /*currentSprite.GetEffects()*/currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
+                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
 
                     //Real sprite
-                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
+                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     
-
                     RenderBoxes(entity);
 
                     baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
@@ -174,7 +178,7 @@ namespace FusionEngine {
             }
 
             System.graphicsDevice.BlendState = BlendState.NonPremultiplied;
-            System.spriteBatch.DrawString(font1, "AMIR GROUND BASE: ", new Vector2(20, 220), Color.Blue);
+            //System.spriteBatch.DrawString(font1, "AMIR GROUND BASE: ", new Vector2(20, 220), Color.Blue);
             RenderLevelFrontLayers(gameTime);
         }
     }

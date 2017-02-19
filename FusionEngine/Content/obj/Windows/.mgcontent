@@ -266,10 +266,6 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Drum/Pain1/drum.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Drum/Pain2/drum.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Drum/Die1/drum.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Stance/phone1.gif</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Die1/pbooth.gif</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Die1/phone2.gif</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Die1/phone3.gif</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame1.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame10.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame11.png</File>
@@ -473,5 +469,8 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Fonts/bmpTest.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Fonts/n1.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Fonts/combo.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/GameProject/FusionEngine/Content/Sprites/Misc/Phone/Stance/Phone 01.png</File>
   </SourceFiles>
 </SourceFileCollection>

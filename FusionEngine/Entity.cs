@@ -399,6 +399,11 @@ namespace FusionEngine {
             this.direction.X = dir;
         }
 
+        public void StopMovement() {
+            ResetX();
+            ResetZ();
+        }
+
         public void ResetX() {
             this.acceleration.X = 0;
             this.maxVelocity.X = 0;

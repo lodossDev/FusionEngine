@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FusionEngine
-{
-    public class Effect
-    {
+namespace FusionEngine {
+
+    public class Effect {
         public enum Type { HIT_SPARK }
         public enum State { NONE, LIGHT, MEDIUM, HEAVY }
 
@@ -16,25 +15,21 @@ namespace FusionEngine
         private State effectState;
         
 
-        public Effect(Type effectType, State effectState, float x1, float y1)
-        {
+        public Effect(Type effectType, State effectState, float x1, float y1) {
             this.effectType = effectType;
             this.effectState = effectState;
             offset = new Vector2(x1, y1);
         }
 
-        public Vector2 GetOffset()
-        {
+        public Vector2 GetOffset() {
             return offset;
         }
 
-        public State GetState()
-        {
+        public State GetState() {
             return effectState;
         }
 
-        public Type GetEffectType()
-        {
+        public Type GetEffectType() {
             return effectType;
         }
     }

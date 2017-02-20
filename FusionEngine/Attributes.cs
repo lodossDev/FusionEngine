@@ -150,6 +150,8 @@ namespace FusionEngine {
             public float grabbedTime;
             public float throwVelX;
             public float throwHeight;
+            public int grabHitCount;
+            public int maxGrabHits;
 
 
             public GrabInfo() {
@@ -161,13 +163,21 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;       
                 grabDirection = 0;
-                grabbedTime = 500;
+                grabbedTime = 50000;
                 throwVelX = 4;
                 throwHeight = -13;
+                grabHitCount = 0;
+                maxGrabHits = 5;
             }
 
             public void Reset() {
-
+                grabWalk = false;
+                isGrabbed = false;
+                grabbed = grabbedBy = null;
+                grabDirection = 0;
+                grabbedTime = 50000;
+                grabHitCount = 0;
+                maxGrabHits = 5;
             }
         }
 

@@ -9,15 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using FusionEngine;
 
-/**
- * *
- * 
- *  GAME PAD BUTTON STATE AXIS
- * X= -1 - left , 1 - right
- * Y = -1 - down, 1 - up
- * 
- **/
-
 namespace FusionEngine {
 
     public class InputControl {
@@ -408,9 +399,7 @@ namespace FusionEngine {
             ReadReleasedInputBuffer(gameTime);
 
             if (IsInputDirection(InputDirection.NONE)) {
-                player.ResetX();
-                player.ResetZ();
-
+                player.StopMovement();
                 player.ResetToIdle(gameTime);
             }
 

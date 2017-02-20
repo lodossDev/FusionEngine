@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FusionEngine
-{
-    public class Character : Entity
-    {
+namespace FusionEngine {
+
+    public class Character : Entity {
         private Vector2 followPosition;
         private AiState.StateMachine aiStateMachine;
 
-        public Character(Entity.ObjectType entityType, String name) : base(entityType, name)
-        {
+        public Character(Entity.ObjectType entityType, String name) : base(entityType, name) {
             followPosition = Vector2.Zero;
             aiStateMachine = GetAiStateMachine();
 
@@ -21,25 +19,18 @@ namespace FusionEngine
             aiStateMachine.Change("FOLLOW_PATH");
         }
 
-        public virtual Entity GetNearestEntity(List<Entity> entities)
-        {
+        public virtual Entity GetNearestEntity(List<Entity> entities) {
             Entity target = null;
             float maxDistance = 340f;
 
-            if (entities != null && entities.Count > 0)
-            {
-                if (entities.Count == 1)
-                {
+            if (entities != null && entities.Count > 0) {
+                if (entities.Count == 1) {
                     target = entities.First();
-                }
-                else
-                {
-                    foreach (Entity entity in entities)
-                    {
+                } else {
+                    foreach (Entity entity in entities) {
                         float distance = Vector2.Distance(GetConvertedPosition(), entity.GetConvertedPosition());
 
-                        if (distance < maxDistance)
-                        {
+                        if (distance < maxDistance) {
                             target = entity;
                             break;
                         }
@@ -50,20 +41,15 @@ namespace FusionEngine
             return target;
         }
 
-        public virtual void LookAtTarget(Entity target)
-        {
-            if (GetPosX() - (GetCurrentSpriteWidth() / 4) > target.GetPosX())
-            {
+        public virtual void LookAtTarget(Entity target) {
+            if (GetPosX() - (GetCurrentSpriteWidth() / 4) > target.GetPosX()) {
                 SetIsLeft(true);
-            }
-            else if (GetPosX() + (GetCurrentSpriteWidth() / 4) < target.GetPosX())
-            {
+            } else if (GetPosX() + (GetCurrentSpriteWidth() / 4) < target.GetPosX()) {
                 SetIsLeft(false);
             }
         }
 
-        public virtual void FollowTarget(Entity target)
-        {
+        public virtual void FollowTarget(Entity target) {
             float maxDistance = 240f;
             float distance = Vector2.Distance(GetConvertedPosition(), target.GetConvertedPosition());
 
@@ -95,13 +81,11 @@ namespace FusionEngine
             VelZ(followPosition.Y * 2.1f);
         }
 
-        public virtual void UpdateAI(GameTime gameTime, List<Player> players)
-        {
+        public virtual void UpdateAI(GameTime gameTime, List<Player> players) {
             Entity target = GetNearestEntity(players.ToList<Entity>());
             SetCurrentTarget(target);
 
-            if (target != null && !IsInAnimationAction(Animation.Action.ATTACKING))
-            {
+            if (target != null && !IsInAnimationAction(Animation.Action.ATTACKING)) {
                 LookAtTarget(target);
                 aiStateMachine.Update(gameTime);
                 //FollowTarget(target);

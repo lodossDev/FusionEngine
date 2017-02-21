@@ -376,7 +376,7 @@ namespace FusionEngine
                 hiteffect1.CreateInstance().Play();
                 //target.Toss(-1.2f, 0, 200000000);
 
-                EntityActions.CheckGrabMaxHits(entity, target);
+                EntityActions.CheckMaxGrabHits(entity, target);
                 //entity.GetAttackInfo().hitPauseTime = 2000f;
                 //target.MoveY(-125 * attackBox.GetHitStrength());
             }
@@ -386,7 +386,7 @@ namespace FusionEngine
             if (target != entity) {
                 hitCount++;
                 hiteffect1.CreateInstance().Play();
-                EntityActions.CheckGrabMaxHits(entity, target);
+                EntityActions.CheckMaxGrabHits(entity, target);
             }
         }
 

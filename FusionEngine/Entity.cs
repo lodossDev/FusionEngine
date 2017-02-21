@@ -508,6 +508,29 @@ namespace FusionEngine {
             baseOffset.Y = y;
         }
 
+        public void SetCurrentSpriteFrame(int frame) {
+            currentSprite.SetCurrentFrame(frame);
+        }
+
+        public void SetCurrentSpriteAndFrame(Animation.State state, int frame) {
+            SetAnimationState(state);
+            currentSprite.SetCurrentFrame(frame);
+        }
+
+        public void SetAnimationType(Animation.State state, Animation.Type type) {
+            Sprite sprite = GetSprite(state);
+
+            if (sprite != null) {
+                sprite.SetAnimationType(type);
+            }
+        }
+
+        public void SetAnimationType(Animation.Type type) {
+            foreach (Sprite sprite in spriteMap.Values) {
+                sprite.SetAnimationType(type);
+            }
+        }
+
         public string GetName() {
             return name;
         }

@@ -28,7 +28,7 @@ namespace FusionEngine {
             shadowScale = Vector2.Zero;
             frameScale = Vector2.Zero;
 
-            font1 = System.contentManager.Load<SpriteFont>("Fonts/MyFont");
+            //font1 = System.contentManager.Load<SpriteFont>("Fonts/MyFont");
         }
 
         public void ShowBoxes() {

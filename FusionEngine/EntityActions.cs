@@ -8,7 +8,7 @@ namespace FusionEngine {
 
     public static class EntityActions {
 
-        public static void CheckGrabMaxHits(Entity entity, Entity target) {
+        public static void CheckMaxGrabHits(Entity entity, Entity target) {
             target.GetGrabInfo().grabHitCount++;
 
             if (target.GetGrabInfo().grabHitCount > target.GetGrabInfo().maxGrabHits) {

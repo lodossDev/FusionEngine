@@ -74,8 +74,32 @@ namespace FusionEngine
                 offset.Y = y;
             }
 
+            public void SetOffSetX(float x) {
+                offset.X = x;
+            }
+
+            public void SetOffSetY(float y) {
+                offset.Y = y;
+            }
+
             public void SetZdepth(float depth) {
                 zDepth = depth;
+            }
+
+            public void SetRectX(int x) {
+                rect.X = x;
+            }
+
+            public void SetRectY(int y) {
+                rect.Y = y;
+            }
+
+            public void SetRectWidth(int width) {
+                rect.Width = width;
+            }
+
+            public void SetRectHeight(int height) {
+                rect.Height = height;
             }
 
             public void Update(GameTime gameTime, Entity entity) {

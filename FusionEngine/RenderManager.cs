@@ -11,54 +11,108 @@ namespace FusionEngine {
 
     public class RenderManager : Manager {
         private bool renderBoxes;
+        private bool renderAttackBoxes;
+        private bool renderBodyBoxes;
+        private bool renderBoundsBoxes;
+
         private Vector2 baseSpriteScale;
         private Vector2 baseSpriteOrigin;
-        private SpriteFont font1;
 
         private Vector2 frameScale;
         private Vector2 shadowPosition;
         private Vector2 shadowScale;
 
         public RenderManager() {
-            renderBoxes = false;
+            renderBoxes = renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = false;
+            renderBoxes = true;
+
             baseSpriteScale = new Vector2(0.5f, 0.5f);
             baseSpriteOrigin = Vector2.Zero;
 
             shadowPosition = Vector2.Zero;
             shadowScale = Vector2.Zero;
             frameScale = Vector2.Zero;
-
-            //font1 = System.contentManager.Load<SpriteFont>("Fonts/MyFont");
         }
 
         public void ShowBoxes() {
             renderBoxes = true;
+            renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = renderBoxes;
         }
 
         public void HideBoxes() {
             renderBoxes = false;
+            renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = renderBoxes;
         }
 
         public void RenderBoxes() {
             renderBoxes = !renderBoxes;
+            renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = renderBoxes;
+        }
+
+        public void ShowAttackBoxes() {
+            renderBoxes = true;
+            renderAttackBoxes = true;
+        }
+
+        public void HideAttackBoxes() {
+            renderBoxes = true;
+            renderAttackBoxes = false;
+        }
+
+        public void ShowBodyBoxes() {
+            renderBoxes = true;
+            renderBodyBoxes = true;
+        }
+
+        public void HideBodyBoxes() {
+            renderBoxes = true;
+            renderBodyBoxes = false;
+        }
+
+        public void ShowBoundsBoxes() {
+            renderBoxes = true;
+            renderBoundsBoxes = true;
+        }
+
+        public void HideBoundsBoxes() {
+            renderBoxes = true;
+            renderBoundsBoxes = false;
         }
 
         private void RenderBoxes(Entity entity) {
             if (renderBoxes) {
                 foreach (CLNS.BoundingBox box in entity.GetCurrentSprite().GetCurrentBoxes()) {
-                    box.DrawRectangle(CLNS.DrawType.LINES);
+
+                    if (box.GetBoxType() == CLNS.BoxType.HIT_BOX && renderAttackBoxes == true) { 
+
+                        box.DrawRectangle(CLNS.DrawType.LINES);
+
+                    } else if (box.GetBoxType() == CLNS.BoxType.BODY_BOX && renderBodyBoxes == true) {
+
+                        box.DrawRectangle(CLNS.DrawType.LINES);
+
+                    } else if ((box.GetBoxType() == CLNS.BoxType.BOUNDS_BOX 
+                            || box.GetBoxType() == CLNS.BoxType.DEPTH_BOX) && renderBoundsBoxes == true) {
+
+                        box.DrawRectangle(CLNS.DrawType.LINES);
+                    }
                 }
 
-                if (entity.GetBoundsBox() != null) {
-                    entity.GetBoundsBox().DrawRectangle(CLNS.DrawType.LINES);
+                if (renderBodyBoxes == true) {
+                     if (entity.GetBodyBox() != null && entity.GetBodyBox().GetBoxType() == CLNS.BoxType.BODY_BOX) {
+                        entity.GetBodyBox().DrawRectangle(CLNS.DrawType.LINES);
+                    }
                 }
 
-                if (entity.GetBodyBox() != null) {
-                    //entity.GetBodyBox().DrawRectangle(CLNS.DrawType.LINES);
-                }
+                if (renderBoundsBoxes == true) { 
 
-                if (entity.GetDepthBox() != null) {
-                    entity.GetDepthBox().DrawRectangle(CLNS.DrawType.LINES);
+                    if (entity.GetBoundsBox() != null && entity.GetBoundsBox().GetBoxType() == CLNS.BoxType.BOUNDS_BOX) {
+                        entity.GetBoundsBox().DrawRectangle(CLNS.DrawType.LINES);
+                    }
+
+                    if (entity.GetDepthBox() != null && entity.GetDepthBox().GetBoxType() == CLNS.BoxType.DEPTH_BOX) {
+                        entity.GetDepthBox().DrawRectangle(CLNS.DrawType.LINES);
+                    }
                 }
 
                 if (entity.GetRayBottom() != null) {
@@ -159,11 +213,11 @@ namespace FusionEngine {
                     shadowScale.X = entity.GetScale().X;
                     shadowScale.Y =  12f / 8f;
 
-                    frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
-                    frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
-
                     //Shadow
                     System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
+
+                    frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
+                    frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
 
                     //Real sprite
                     System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
@@ -178,7 +232,6 @@ namespace FusionEngine {
             }
 
             System.graphicsDevice.BlendState = BlendState.NonPremultiplied;
-            //System.spriteBatch.DrawString(font1, "AMIR GROUND BASE: ", new Vector2(20, 220), Color.Blue);
             RenderLevelFrontLayers(gameTime);
         }
     }

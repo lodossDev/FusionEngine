@@ -551,7 +551,7 @@ namespace FusionEngine
 
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "TASK OBS: " + (drum3.GetCollisionInfo().GetObstacle() != null), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "TASK OBS: " + (ryo.GetBoundsBox().GetBoxType()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "FRAME: " + taskMaster.GetGrabInfo().grabbedTime, new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
 

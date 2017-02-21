@@ -1,4 +1,3 @@
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Land1\Frame01.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\bar.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\container.xnb
@@ -456,7 +455,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Pain2\drum.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Stance\drum.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Marker\Marker.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.pdb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\MonoGame.Framework.dll
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\SharpDX.MediaFoundation.dll
@@ -479,7 +477,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.pdb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\RunStop1\Frame0.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\RunStop1\Frame1.xnb
@@ -1510,3 +1507,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 01.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 02.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Stance\Phone 01.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.exe
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe

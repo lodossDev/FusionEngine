@@ -13,7 +13,7 @@ namespace FusionEngine {
 
     public static class TextureContent {
 
-        public static IEnumerable<string> CustomSort(this IEnumerable<string> list) {
+        private static IEnumerable<string> CustomSort(this IEnumerable<string> list) {
             int maxLen = list.Select(s => s.Length).Max();
 
             return list.Select(s => new {
@@ -28,7 +28,7 @@ namespace FusionEngine {
             List<Texture2D> result = new List<Texture2D>();
 
             foreach (string file in Directory.EnumerateFiles(System.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
-                Debug.WriteLine(file);
+                //Debug.WriteLine(file);
                 string key = Path.GetFileNameWithoutExtension(file);
                 result.Add(System.contentManager.Load<Texture2D>(contentFolder + "/" + key));
             }

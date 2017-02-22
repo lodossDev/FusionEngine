@@ -22,11 +22,17 @@ namespace FusionEngine
             protected BoxType type;
             protected int frame;
             protected float zDepth;
+            protected float visibility;
 
             public BoundingBox(BoxType type, int w, int h, int x, int y, int frame = -1) {
                 SetSpriteColor(type);
                 rect = new Rectangle(0, 0, w, h);
                 offset = new Vector2(x, y);
+                visibility = 100f;
+            }
+
+            public void SetVisibility(float amount) {
+                visibility = amount;
             }
 
             private void SetSpriteColor(BoxType type) {
@@ -159,14 +165,14 @@ namespace FusionEngine
 
             public virtual void DrawRectangle(DrawType drawType) {
                 if (drawType == DrawType.LINES || drawType == DrawType.FILL) {
-                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y), new Vector2((int)rect.X + rect.Width, (int)rect.Y), sprite, color, THICKNESS); //top bar 
-                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y + rect.Height), new Vector2((int)rect.X + rect.Width + 1 * THICKNESS, (int)rect.Y + rect.Height), sprite, color, THICKNESS); //bottom bar 
-                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y), new Vector2((int)rect.X, (int)rect.Y + rect.Height), sprite, color, THICKNESS); //left bar 
-                    DrawStraightLine(new Vector2((int)rect.X + rect.Width, (int)rect.Y), new Vector2((int)rect.X + rect.Width, (int)rect.Y + rect.Height), sprite, color, THICKNESS); //right bar 
+                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y), new Vector2((int)rect.X + rect.Width, (int)rect.Y), sprite, color * visibility, THICKNESS); //top bar 
+                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y + rect.Height), new Vector2((int)rect.X + rect.Width + 1 * THICKNESS, (int)rect.Y + rect.Height), sprite, color * visibility, THICKNESS); //bottom bar 
+                    DrawStraightLine(new Vector2((int)rect.X, (int)rect.Y), new Vector2((int)rect.X, (int)rect.Y + rect.Height), sprite, color * visibility, THICKNESS); //left bar 
+                    DrawStraightLine(new Vector2((int)rect.X + rect.Width, (int)rect.Y), new Vector2((int)rect.X + rect.Width, (int)rect.Y + rect.Height), sprite, color * visibility, THICKNESS); //right bar 
                 }
                 
                 if (drawType == DrawType.FILL) {
-                    System.spriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                    System.spriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY * visibility, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 

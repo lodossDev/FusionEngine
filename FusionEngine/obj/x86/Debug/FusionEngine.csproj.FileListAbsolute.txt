@@ -1507,6 +1507,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 01.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 02.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Stance\Phone 01.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.exe
-C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.exe
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.dll.config
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.dll
+C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.dll

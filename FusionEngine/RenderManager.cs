@@ -14,6 +14,7 @@ namespace FusionEngine {
         private bool renderAttackBoxes;
         private bool renderBodyBoxes;
         private bool renderBoundsBoxes;
+        private bool renderStanceSprite;
 
         private Vector2 baseSpriteScale;
         private Vector2 baseSpriteOrigin;
@@ -24,6 +25,7 @@ namespace FusionEngine {
 
         public RenderManager() {
             renderBoxes = renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = false;
+            renderStanceSprite = false;
             renderBoxes = true;
 
             baseSpriteScale = new Vector2(0.5f, 0.5f);
@@ -77,6 +79,14 @@ namespace FusionEngine {
         public void HideBoundsBoxes() {
             renderBoxes = true;
             renderBoundsBoxes = false;
+        }
+
+        public void ShowStanceSprite() {
+            renderStanceSprite = true;
+        }
+
+        public void HideStanceSprite() {
+            renderStanceSprite = false;
         }
 
         private void RenderBoxes(Entity entity) {
@@ -195,10 +205,6 @@ namespace FusionEngine {
                     Sprite currentSprite = entity.GetCurrentSprite();
                     Sprite stance = entity.GetSprite(Animation.State.STANCE);
 
-                    //if (stance != null && entity is Player) {
-                        System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.White * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
-                    //}
-
                     float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
 
                     if (entity.IsLeft()) {
@@ -211,13 +217,17 @@ namespace FusionEngine {
                     shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
 
                     shadowScale.X = entity.GetScale().X;
-                    shadowScale.Y =  12f / 8f;
+                    shadowScale.Y = (entity.GetScale().Y * 2) / 8f;
 
                     //Shadow
                     System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
 
                     frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
                     frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
+
+                    if (stance != null && renderStanceSprite == true) {
+                        System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.White * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
+                    }
 
                     //Real sprite
                     System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);

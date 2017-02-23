@@ -5,18 +5,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace FusionEngine
-{
-    public class LifeBar
-    {
+namespace FusionEngine {
+
+    public class LifeBar {
         public enum SpriteType {PLACEHOLDER, CONTAINER, BAR}
         private Vector2 position;
         private Vector2 scale;
         private Dictionary<SpriteType, Entity> sprites;
 
         
-        public LifeBar(int posx, int posy, float sx = 3f, float sy = 3f)
-        {
+        public LifeBar(int posx, int posy, float sx = 3f, float sy = 3f) {
             sprites = new Dictionary<SpriteType, Entity>();
             position = new Vector2(posx, posy);
             scale = new Vector2(sx, sy);
@@ -24,15 +22,13 @@ namespace FusionEngine
             Load(posx, posy, sx, sy);
         }
 
-        public virtual void Load(int posx, int posy, float sx, float sy)
-        {
+        public virtual void Load(int posx, int posy, float sx, float sy) {
             AddSprite(SpriteType.PLACEHOLDER, "Sprites/LifeBars/RedEarth/Placeholder", posx, posy, 0, 0, sx, sy);
             AddSprite(SpriteType.CONTAINER, "Sprites/LifeBars/RedEarth/Container", posx, posy, 144, 33, sx, sy);
             AddSprite(SpriteType.BAR, "Sprites/LifeBars/RedEarth/Bar", posx, posy, 144, 33, sx, sy);
         }
 
-        public void AddSprite(SpriteType type, String location, int posx, int posy, int offx, int offy, float sx, float sy)
-        {
+        public void AddSprite(SpriteType type, String location, int posx, int posy, int offx, int offy, float sx, float sy) {
             Entity entity = new Entity(Entity.ObjectType.LIFE_BAR, type.ToString());
             entity.AddSprite(Animation.State.NONE, location, true);
             entity.SetPostion(posx, posy, 0);
@@ -42,16 +38,13 @@ namespace FusionEngine
             sprites.Add(type, entity);
         }
 
-        public void Update(GameTime gameTime)
-        {
-            foreach(Entity bar in sprites.Values)
-            {
+        public void Update(GameTime gameTime) {
+            foreach(Entity bar in sprites.Values) {
                 bar.Update(gameTime);
             }
         }
 
-        public void Percent(int percent)
-        {
+        public void Percent(int percent) {
             Entity bar = sprites[SpriteType.BAR];
 
             if (percent < 0) percent = 0;
@@ -61,8 +54,7 @@ namespace FusionEngine
             bar.SetScaleX(sx);
         }
 
-        public void Render()
-        {
+        public void Render() {
             Entity placeholder = sprites[SpriteType.PLACEHOLDER];
             Entity container = sprites[SpriteType.CONTAINER];
             Entity bar = sprites[SpriteType.BAR];

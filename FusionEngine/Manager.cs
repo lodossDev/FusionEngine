@@ -38,6 +38,10 @@ namespace FusionEngine {
             entities.AddRange(entities);
         }
 
+        public virtual void RemoveEntity(Entity entity) {
+            entities.Remove(entity);
+        }
+
         public List<Player> GetPlayers() {
             return players;
         }

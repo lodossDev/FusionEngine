@@ -27,7 +27,7 @@ namespace FusionEngine
             layer3.SetScale(3.1f, 3.4f);
             AddLayer(3, layer3);
 
-            Obstacle phoneBooth = new PhoneBooth1();
+            Obstacle phoneBooth = new PhoneBooth();
             phoneBooth.SetPostion(200, 0, 100);
             AddMisc(phoneBooth);
 

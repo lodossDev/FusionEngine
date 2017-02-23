@@ -62,8 +62,8 @@
     <Compile Include="CollisionTracer.cs" />
     <Compile Include="ComboAttack.cs" />
     <Compile Include="EntityActions.cs" />
-    <Compile Include="MugenFont.cs" />
-    <Compile Include="Obstacles\Drum1.cs" />
+    <Compile Include="Fonts\MugenFont.cs" />
+    <Compile Include="Obstacles\Drum.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="InputHelper.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Obstacle.cs" />
-    <Compile Include="Obstacles\PhoneBooth1.cs" />
+    <Compile Include="Obstacles\PhoneBooth.cs" />
     <Compile Include="Resolution.cs" />
     <Compile Include="Ryo.cs" />
     <Compile Include="AiStates\AiState.cs" />

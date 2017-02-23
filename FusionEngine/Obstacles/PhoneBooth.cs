@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FusionEngine {
 
-    public class PhoneBooth1 : Obstacle {
+    public class PhoneBooth : Obstacle {
 
-        public PhoneBooth1() : base("PhoneBooth1") {
+        public PhoneBooth() : base("PhoneBooth1") {
             AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Phone/Stance"), true);
 
             AddSprite(Animation.State.DIE1, new Sprite("Sprites/Misc/Phone/Die1", Animation.Type.NONE));

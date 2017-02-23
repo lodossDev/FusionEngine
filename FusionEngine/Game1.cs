@@ -239,7 +239,7 @@ namespace FusionEngine
             leo.SetFrameDelay(Animation.State.ATTACK6, 1);*/
 
             leo.AddBoundsBox(125, 283, -30, 80, 50);
-            leo.SetScale(1.6f, 2.2f);
+            leo.SetOnLoadScale(1.6f, 2.2f);
             leo.SetPostion(400, 0, 200);
 
 
@@ -248,7 +248,7 @@ namespace FusionEngine
             drum.SetAnimationState(Animation.State.STANCE);
             //drum.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
             drum.AddBoundsBox(125, 210, -63, -15, 40);
-            drum.SetScale(2.2f, 2.6f);
+            drum.SetOnLoadScale(2.2f, 2.6f);
             drum.SetPostion(700, 0, 400);
 
             drum2 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM2");
@@ -256,7 +256,7 @@ namespace FusionEngine
             drum2.SetAnimationState(Animation.State.STANCE);
             //drum2.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
             drum2.AddBoundsBox(125, 210, -63, -15, 40);
-            drum2.SetScale(2.2f, 2.6f);
+            drum2.SetOnLoadScale(2.2f, 2.6f);
 
             drum2.SetPostion(500, 0, 200);
            
@@ -266,7 +266,7 @@ namespace FusionEngine
             drum3.SetAnimationState(Animation.State.STANCE);
             //drum3.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
             drum3.AddBoundsBox(125, 210, -63, -15, 40);
-            drum3.SetScale(2.2f, 2.6f);
+            drum3.SetOnLoadScale(2.2f, 2.6f);
             drum3.SetPostion(100, 0, 200);
 
             drum4 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM4");
@@ -276,11 +276,11 @@ namespace FusionEngine
             //drum4.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
             drum4.AddBoundsBox(125, 210, -63, -15, 40);
 
-            drum2.SetScale(2.2f, 2.6f);
+            drum2.SetOnLoadScale(2.2f, 2.6f);
             drum2.SetPostion(500, -280, 200);
             drum2.SetGroundBase(-280);
            
-            leo.SetScale(1.8f, 2.6f);
+            leo.SetOnLoadScale(1.8f, 2.6f);
 
             level1 = new Stage1();
             bar = new LifeBar(0, 0);
@@ -374,9 +374,10 @@ namespace FusionEngine
                 //Setup.scaleY += 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleX -= 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //barHealth += (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
-                camera.Parallax = new Vector2(xScroll.X, 0);
+                //camera.Parallax = new Vector2(xScroll.X, 0);
+                ryo.SetScale(5, 5);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -551,7 +552,7 @@ namespace FusionEngine
 
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "TASK OBS: " + (ryo.GetBoundsBox().GetBoxType()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "TASK OBS: " + (((ryo.GetBaseScaleY() - ryo.GetScaleY()) / ryo.GetBaseScaleY())), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "FRAME: " + taskMaster.GetGrabInfo().grabbedTime, new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
 

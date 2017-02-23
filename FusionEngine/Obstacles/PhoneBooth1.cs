@@ -15,7 +15,7 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.DIE1, 10);
             
             AddBoundsBox(141, 380, -80, 10, 60);
-            SetScale(2.5f, 3.0f);
+            SetOnLoadScale(2.5f, 3.0f);
             SetPostion(200, 0, 100);
         }
     }

@@ -51,6 +51,7 @@ namespace FusionEngine {
 
         private Vector2 origin;
         private Vector2 scale;
+        private Vector2 baseScale;
         private Vector2 nScale;
         private Vector2 stanceOrigin;
 
@@ -93,7 +94,7 @@ namespace FusionEngine {
             animationLinks = new List<Animation.Link>();
             animationSounds = new Dictionary<Animation.State, SoundEffect>();
 
-            scale = nScale = new Vector2(1f, 1f);
+            scale = nScale = baseScale = new Vector2(1f, 1f);
             stanceOrigin = Vector2.Zero;
 
             currentAnimationState = Animation.State.NONE;
@@ -472,6 +473,16 @@ namespace FusionEngine {
             scale.Y = y;
         }
 
+        public void SetBaseScale(float x = 1f, float y = 1f) {
+            baseScale.X = x;
+            baseScale.Y = y;
+        }
+
+        public void SetOnLoadScale(float x = 1f, float y = 1f) {
+            SetScale(x, y);
+            SetBaseScale(x, y);
+        }
+
         public void SetScaleX(float x) {
             scale.X = x;
         }
@@ -577,6 +588,26 @@ namespace FusionEngine {
 
         public Vector2 GetScale() {
             return scale;
+        }
+
+        public Vector2 GetBaseScale(){
+            return baseScale;
+        }
+
+        public float GetScaleX() {
+            return scale.X;
+        }
+
+        public float GetScaleY(){
+            return scale.Y;
+        }
+
+        public float GetBaseScaleX() {
+            return baseScale.X;
+        }
+
+        public float GetBaseScaleY(){
+            return baseScale.Y;
         }
 
         public bool HasCollidedX() {

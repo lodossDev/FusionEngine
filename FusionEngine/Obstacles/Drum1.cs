@@ -13,7 +13,7 @@ namespace FusionEngine {
             AddSprite(Animation.State.DIE1, new Sprite("Sprites/Misc/Drum/Die1"));
 
             AddBoundsBox(125, 210, -63, -15, 40);
-            SetScale(2.2f, 2.6f);
+            SetOnLoadScale(2.2f, 2.6f);
             SetPostion(0, 0, 0);
         }
     }

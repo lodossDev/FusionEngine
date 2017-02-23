@@ -198,8 +198,8 @@ namespace FusionEngine {
 
             SetAnimationState(Animation.State.STANCE);
             AddBoundsBox(160, 340, -60, 15, 50);
-            
-            SetScale(3.2f, 3.2f);
+
+            SetOnLoadScale(3.2f, 3.2f);
             SetPostion(400, 0, 200);
             SetBaseOffset(0, -10f);
         }

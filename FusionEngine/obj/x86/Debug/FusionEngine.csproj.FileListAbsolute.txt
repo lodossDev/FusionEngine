@@ -999,8 +999,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xnb
-C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
-C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xFont
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
@@ -1477,7 +1475,6 @@ C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debu
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Pain2\drum.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Stance\drum.xnb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Marker\Marker.xnb
-C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.pdb
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\MonoGame.Extended.dll
 C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\MonoGame.Framework.dll
@@ -1510,3 +1507,6 @@ C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debu
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.dll.config
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\bin\Windows\Debug\FusionEngine.dll
 C:\Users\lodoss118\Desktop\Git Game Engine\GameProject\FusionEngine\obj\x86\Debug\FusionEngine.dll
+C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.dll.config
+C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.dll
+C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.dll

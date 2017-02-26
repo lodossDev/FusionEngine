@@ -14,7 +14,7 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH}
+        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE}
 
         private Dictionary<Animation.State, Sprite> spriteMap;
         private Sprite currentSprite;
@@ -33,6 +33,7 @@ namespace FusionEngine {
         private CLNS.BoundingBox rayBottom;
         private CLNS.BoundsBox boundsBox;
         
+        private AfterImage afterImage;
         private List<Animation.Link> animationLinks;
         private ComboAttack.Chain defaultAttackChain;
         private List<InputHelper.CommandMove> commandMoves;
@@ -83,6 +84,8 @@ namespace FusionEngine {
 
         private Attributes.GrabInfo grabInfo;
         private Entity link;
+        public float aliveTime;
+        
 
         public Entity(ObjectType type, string name) {
             this.type = type;
@@ -133,6 +136,9 @@ namespace FusionEngine {
 
             keyboardSettings = new Dictionary<InputHelper.KeyPress, Keys>();
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
+
+            aliveTime = -1;
+            afterImage = new AfterImage(this);
         }
 
         public void AddSprite(Animation.State state, Sprite sprite) {
@@ -1036,6 +1042,10 @@ namespace FusionEngine {
             return defaultAttackChain.GetPreviousAttackState();
         }
 
+        public AfterImage GetAfterImageData() {
+            return afterImage;
+        }
+
         public bool InCurrentAttackCancelState() {
             if (defaultAttackChain == null) return false;
 
@@ -1394,6 +1404,17 @@ namespace FusionEngine {
         public void Update(GameTime gameTime) {
             bool isPauseHit = IsPauseHit(gameTime);
             Vector2 drawScale = scale;
+
+            if (aliveTime != -1) {
+                aliveTime --;
+
+                if (aliveTime <= 0) {
+                    aliveTime = 0;
+                }
+            }
+
+            afterImage.Draw();
+            afterImage.Update(gameTime);
             
             if (IsEntity(ObjectType.LIFE_BAR)) {
                 drawScale = nScale;

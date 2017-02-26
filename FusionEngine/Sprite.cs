@@ -83,6 +83,16 @@ namespace FusionEngine {
             }
         }
 
+        public Sprite Clone(int index) {
+            Sprite clone = new Sprite(Animation.Type.NONE);
+            clone.AddTexture(this.sprites[index - 1]);
+            clone.SetFrameOffset(this.offsets[index - 1].X, this.offsets[index - 1].Y);
+            clone.SetFrameScale(this.frameScales[index - 1].X, this.frameScales[index - 1].Y);
+            clone.SetCurrentFrame(1);
+
+            return clone;
+        }
+
         public void AddTextures(string contentFolder) {
             foreach(Texture2D texture in TextureContent.LoadTextures(contentFolder)) {
                 AddTexture(texture);

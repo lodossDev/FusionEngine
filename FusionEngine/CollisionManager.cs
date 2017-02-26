@@ -651,6 +651,18 @@ namespace FusionEngine
 
         public void Update(GameTime gameTime) {
             foreach (Entity entity in entities) {
+                /*if (entity.IsEntity(Entity.ObjectType.PLAYER) && entity.GetAfterImageData().Add(entity.GetCurrentFrame())) {
+                        
+                    Entity imageEntity = new Entity(Entity.ObjectType.AFTER_IMAGE, entity.GetName());
+                    imageEntity.AddSprite(entity.GetCurrentAnimationState(), entity.GetSprite(entity.GetCurrentAnimationState()).Clone(entity.GetCurrentFrame() + 1), true);
+                    imageEntity.SetPostion(entity.GetPosX(), entity.GetPosY(), entity.GetPosZ() - 5);
+                    imageEntity.SetOnLoadScale(entity.GetScaleX(), entity.GetScaleY());
+                    imageEntity.SetIsLeft(entity.IsLeft());
+                    imageEntity.AddDepthBox(entity.GetDepthBox().GetWidth(), entity.GetDepthBox().GetHeight(), (int)entity.GetDepthBox().GetOffset().X, (int)entity.GetDepthBox().GetOffset().Y);
+                    renderManager.AddEntity(imageEntity);
+                    imageEntity = null;
+                }*/
+
                 entity.GetCollisionInfo().Reset();
 
                 entity.GetCollisionInfo().SetMovingObstacle(null);

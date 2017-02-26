@@ -4,56 +4,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FusionEngine
-{
-    public class AiState
-    {
-        public interface IState
-        {
+namespace FusionEngine {
+
+    public class AiState {
+
+        public interface IState {
             void OnEnter();
             void Update(GameTime gameTime);
             void OnExit();
         }
 
-        public class StateMachine
-        {
+        public class StateMachine {
             Dictionary<string, IState> states;
             private IState currentState;
 
-            public StateMachine()
-            {
+            public StateMachine() {
                 states = new Dictionary<string, IState>();
             }
 
-            public void Add(string id, IState state)
-            {
+            public void Add(string id, IState state) {
                 states.Add(id, state);
             }
 
-            public void Remove(string id)
-            {
+            public void Remove(string id) {
                 states.Remove(id);
             }
 
-            public void Clear()
-            {
+            public void Clear() {
                 states.Clear();
             }
 
-            public void Change(string id)
-            {
+            public void Change(string id) {
                 if(currentState != null)currentState.OnExit();
 
-                if(states.ContainsKey(id))
-                {
+                if(states.ContainsKey(id)) {
                     IState next = states[id];
                     next.OnEnter();
                     currentState = next;
                 }
             }
 
-            public void Update(GameTime gameTime)
-            {
+            public void Update(GameTime gameTime) {
                 if (currentState != null)currentState.Update(gameTime);
             }
         }

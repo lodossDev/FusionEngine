@@ -16,10 +16,8 @@ namespace FusionEngine
 
         public class BoundingBox {
             protected Texture2D sprite;
-
             protected Rectangle rect;
             private Rectangle baseRect;
-
             protected Vector2 offset;
             private Vector2 baseOffset;
 
@@ -76,6 +74,10 @@ namespace FusionEngine
                 sprite.SetData<Color>(colorData);
             }
 
+            public void SetBaseColor(Color color) {
+                this.color = color;
+            }
+
             public void SetFrame(int frame) {
                 this.frame = frame - 1;
             }
@@ -113,6 +115,22 @@ namespace FusionEngine
                 rect.Height = height;
             }
 
+            public void SetBaseWidth(int w) {
+                baseRect.Width = w;
+            }
+
+            public void SetBaseHeight(int h) {
+                baseRect.Height = h;
+            }
+
+            public void SetBaseOffX(int x) {
+                baseOffset.X = x;
+            }
+
+            public void SetBaseOffY(int y) {
+                baseOffset.Y = y;
+            }
+
             public void SetBase(int w, int h, int x, int y) {
                 baseRect.Width = w;
                 baseRect.Height = h;
@@ -122,7 +140,6 @@ namespace FusionEngine
             }
 
             public void Update(GameTime gameTime, Entity entity) {
-
                 float diffX = ((entity.GetScaleX() - entity.GetBaseScaleX()) / entity.GetBaseScaleX());
                 float diffY = ((entity.GetScaleY() - entity.GetBaseScaleY()) / entity.GetBaseScaleY());
 

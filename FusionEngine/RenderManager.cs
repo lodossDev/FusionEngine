@@ -180,8 +180,11 @@ namespace FusionEngine {
 
         public void Update(GameTime gameTime) {
             entities.RemoveAll(item => item.IsEntity(Entity.ObjectType.HIT_FLASH) && item.GetCurrentSprite().IsAnimationComplete());
+            entities.RemoveAll(item => item.IsEntity(Entity.ObjectType.AFTER_IMAGE) && item.aliveTime != -1 && item.aliveTime <= 0);
 
-            foreach (Entity entity in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
+
                 if (entity.Alive()) {
                     entity.Update(gameTime);
                 }
@@ -203,41 +206,52 @@ namespace FusionEngine {
                     }
 
                     Sprite currentSprite = entity.GetCurrentSprite();
+                    if (currentSprite == null) continue;
+
                     Sprite stance = entity.GetSprite(Animation.State.STANCE);
-
-                    float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
-
-                    if (entity.IsLeft()) {
-                        x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
-                    }
-
-                    float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y) * entity.GetScale().Y;
-
-                    shadowPosition.X = x2;
-                    shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
-
-                    shadowScale.X = entity.GetScale().X;
-                    shadowScale.Y = (entity.GetScale().Y * 2) / 8f;
-
-                    //Shadow
-                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
 
                     frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
                     frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
 
-                    if (stance != null && renderStanceSprite == true) {
-                        System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.White * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
-                    }
+                    if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE) == false) { 
+                        float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
 
-                    //Real sprite
-                    System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        if (entity.IsLeft()) {
+                            x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
+                        }
+
+                        float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y) * entity.GetScale().Y;
+
+                        shadowPosition.X = x2;
+                        shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
+
+                        shadowScale.X = frameScale.X;
+                        shadowScale.Y = (frameScale.Y * 2) / 8f;
+
+                        //Shadow
+                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
+
+                        if (stance != null && renderStanceSprite == true) {
+                            System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.Gray * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
+                        }
+
+                         //Real sprite
+                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+
+                    } else {
+                         //After image sprite
+                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.Aquamarine * 0.8f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                    }
+                    
                     
                     RenderBoxes(entity);
 
-                    baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
-                    baseSpriteOrigin.Y = 0;
+                    if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE) == false) { 
+                        baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
+                        baseSpriteOrigin.Y = 0;
 
-                    System.spriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
+                        System.spriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
+                    }
                 }
             }
 

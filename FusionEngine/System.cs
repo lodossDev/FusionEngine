@@ -31,5 +31,6 @@ namespace FusionEngine {
 
         public static float rotate = 0f;
         public static float scaleX, scaleY = 0f;
+        public static RenderManager _renderManager;
     }
 }

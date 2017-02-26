@@ -43,8 +43,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;//System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 300;//System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -78,6 +78,9 @@ namespace FusionEngine
         /// </summary>
         protected override void LoadContent()
         {
+            renderManager = new RenderManager();
+            System._renderManager = renderManager;
+
             //float screenscaleX = (float)500 / 1280;
             //float screenscaleY = (float)300 / 700;
             // Create the scale transform for Draw. 
@@ -285,7 +288,8 @@ namespace FusionEngine
             level1 = new Stage1();
             bar = new LifeBar(0, 0);
 
-            renderManager = new RenderManager();
+           
+
             //renderManager.AddEntity(leo);
             renderManager.AddEntity(taskMaster);
             renderManager.AddEntity(drum);
@@ -552,8 +556,8 @@ namespace FusionEngine
 
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "TASK OBS: " + (((ryo.GetBaseScaleY() - ryo.GetScaleY()) / ryo.GetBaseScaleY())), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "FRAME: " + taskMaster.GetGrabInfo().grabbedTime, new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(font1, "TASK OBS: " + (ryo.GetAfterImageData().imageData.Count), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetCurrentFrame() + 1), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

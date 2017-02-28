@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,19 @@ using System.Threading.Tasks;
 namespace FusionEngine {
 
     public class AfterImage {
-        public LinkedList<Entity> imageData;
+        private LinkedList<Entity> imageData;
         private Dictionary<int, float> countDown;
-        private int frameLength;
 
+        private int frameLength;
         private int timeGap;
         private int frameGap;
-
         private int timeGapCount;
       
         private float time;
         private bool active;
         private bool isFirstCreated;
         private Entity entity;
+
 
         public AfterImage(Entity entity, int length = 20, int timeGap = 1, int frameGap = 4, float time = 1) {
             this.entity = entity;
@@ -36,11 +37,15 @@ namespace FusionEngine {
         }
 
         public void Reset() {
-            //imageData.Clear();
             countDown.Clear();
             timeGapCount = 0;
             active = true;
             isFirstCreated = false;
+        }
+
+        public void SetTime(float t) {
+            time = t;
+            countDown.Clear();
         }
 
         public float GetTime() {
@@ -70,7 +75,23 @@ namespace FusionEngine {
                     imageEntity.SetOnLoadScale(entity.GetScaleX(), entity.GetScaleY());
                     imageEntity.SetIsLeft(entity.IsLeft());
                     imageEntity.AddDepthBox(entity.GetDepthBox().GetWidth(), entity.GetDepthBox().GetHeight(), (int)entity.GetDepthBox().GetOffset().X, (int)entity.GetDepthBox().GetOffset().Y);
-                    imageEntity.aliveTime = time;
+                    //imageEntity.SetColor(255, 255, 255);
+                    //imageEntity.SetFade(180);
+
+                    
+                    Texture2D currentTexture = imageEntity.GetSprite(entity.GetCurrentAnimationState()).GetTextures()[0];
+                    Color[] tcolor=new Color[currentTexture.Width*currentTexture.Height];
+                    
+                    currentTexture.GetData<Color>(tcolor);
+
+                    for (int i = 0; i < tcolor.Length; i++) {
+
+                        if (tcolor[i] != Color.Transparent)
+                        tcolor[i] = Color.Tomato;
+                    }
+
+                    currentTexture.SetData<Color>(tcolor);
+                    imageEntity.SetAliveTime(time);
                     imageData.AddLast(imageEntity);
 
                     while (imageData.Count > frameLength) imageData.RemoveFirst();

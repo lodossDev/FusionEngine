@@ -28,6 +28,7 @@ namespace FusionEngine
         Stage1 level1;
         LifeBar bar;
         float barHealth = 100f;
+        FrameRateCounter frameRate = new FrameRateCounter();
 
 
         InputManager inputManager;
@@ -549,6 +550,8 @@ namespace FusionEngine
 
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
+            frameRate.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+
             /*spriteBatch.DrawString(font1, "IS AIR: " + (ryo.InAir()), new Vector2(20, 20), Color.Blue);
              * 
              * Vector
@@ -556,7 +559,7 @@ namespace FusionEngine
 
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "TASK OBS: " + (ryo.GetAfterImageData().imageData.Count), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "FPS: " + (frameRate.AverageFramesPerSecond), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetCurrentFrame() + 1), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
 

@@ -179,8 +179,7 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
-            entities.RemoveAll(item => item.IsEntity(Entity.ObjectType.HIT_FLASH) && item.GetCurrentSprite().IsAnimationComplete());
-            entities.RemoveAll(item => item.IsEntity(Entity.ObjectType.AFTER_IMAGE) && item.aliveTime != -1 && item.aliveTime <= 0);
+            entities.RemoveAll(item => item.IsExpired());
 
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
@@ -199,7 +198,7 @@ namespace FusionEngine {
 
                 if (entity != null && entity.Alive()) {
 
-                    if (entity.IsEntity(Entity.ObjectType.HIT_FLASH)) {
+                    if (entity.IsEntity(Entity.ObjectType.HIT_FLASH) /*|| entity.IsEntity(Entity.ObjectType.AFTER_IMAGE)*/) {
                         System.graphicsDevice.BlendState = BlendState.Additive;
                     } else {
                         System.graphicsDevice.BlendState = BlendState.NonPremultiplied;
@@ -240,7 +239,7 @@ namespace FusionEngine {
 
                     } else {
                          //After image sprite
-                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.Aquamarine * 0.8f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     }
                     
                     

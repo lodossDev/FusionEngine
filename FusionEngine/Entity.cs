@@ -84,7 +84,7 @@ namespace FusionEngine {
 
         private Attributes.GrabInfo grabInfo;
         private Entity link;
-        public float aliveTime;
+        private float aliveTime;
         
 
         public Entity(ObjectType type, string name) {
@@ -614,6 +614,10 @@ namespace FusionEngine {
 
         public float GetBaseScaleY(){
             return baseScale.Y;
+        }
+
+        public float GetAliveTime() {
+            return aliveTime;
         }
 
         public bool HasCollidedX() {
@@ -1154,6 +1158,10 @@ namespace FusionEngine {
             }
         }
 
+        public void SetAliveTime(float t) {
+            aliveTime = t;
+        }
+
         public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
             if (tossInfo.tossCount < maxToss) { 
 
@@ -1266,6 +1274,11 @@ namespace FusionEngine {
                     }
                 }
             }
+        }
+
+        public bool IsExpired() {
+             return (IsEntity(Entity.ObjectType.HIT_FLASH) && GetCurrentSprite().IsAnimationComplete())
+                        || (IsEntity(Entity.ObjectType.AFTER_IMAGE) && GetAliveTime() != -1 && GetAliveTime() <= 0);
         }
 
         public bool IsNonActionState() { 
@@ -1401,17 +1414,26 @@ namespace FusionEngine {
             return isPauseHit;
         }
 
-        public void Update(GameTime gameTime) {
-            bool isPauseHit = IsPauseHit(gameTime);
-            Vector2 drawScale = scale;
+        public bool IsAliveTime(GameTime gameTime) {
+            bool isAlive = false;
 
             if (aliveTime != -1) {
                 aliveTime --;
+                isAlive = true;
 
                 if (aliveTime <= 0) {
                     aliveTime = 0;
+                    isAlive = false;
                 }
             }
+
+            return isAlive;
+        }
+
+        public void Update(GameTime gameTime) {
+            bool isPauseHit = IsPauseHit(gameTime);
+            bool isAliveTime = IsAliveTime(gameTime);
+            Vector2 drawScale = scale;
 
             afterImage.Draw();
             afterImage.Update(gameTime);

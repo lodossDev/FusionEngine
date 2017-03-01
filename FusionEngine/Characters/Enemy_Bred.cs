@@ -56,7 +56,7 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.ATTACK3, new Sprite("Sprites/Actors/Bred/ATTACK3", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK3, 4);
-            SetFrameDelay(Animation.State.ATTACK2, 3, 10);
+            SetFrameDelay(Animation.State.ATTACK2, 3, 14);
             SetSpriteOffSet(Animation.State.ATTACK3, 30, 0);
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Bred/JUMP_ATTACK1", Animation.Type.ONCE));
@@ -66,7 +66,7 @@ namespace FusionEngine {
             SetAnimationState(Animation.State.WALK_TOWARDS);
             SetOnLoadScale(3.2f, 3.3f);
             AddBoundsBox(160, 300, -60, 240, 50);
-            SetBaseOffset(0, -25);
+            SetBaseOffset(-150, -100);
 
             SetPostion(400, 0, 100);
         }

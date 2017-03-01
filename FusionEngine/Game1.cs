@@ -386,7 +386,7 @@ namespace FusionEngine
                 //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 //camera.Parallax = new Vector2(xScroll.X, 0);
-                ryo.SetScale(5, 5);
+                bred.SetScale(5, 5);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -570,7 +570,7 @@ namespace FusionEngine
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "FPS: " + (frameRate.AverageFramesPerSecond), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetCurrentFrame() + 1), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetDepthBox().GetRect().Bottom), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  bred.GetEntityType(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

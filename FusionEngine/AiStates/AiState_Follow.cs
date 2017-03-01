@@ -48,13 +48,16 @@ namespace FusionEngine
             if (target != null)
             {
                 sPx.X = entity.GetPosX();
-                sPy.Y = entity.GetBoundsBox().GetRect().Bottom;
-
                 tPx.X = target.GetPosX();
+
+                sPy.Y = entity.GetBoundsBox().GetRect().Bottom;
                 tPy.Y = target.GetBoundsBox().GetRect().Bottom;
 
+                Vector2 ss1 = new Vector2(0, entity.GetBoundsBox().GetRect().Bottom);
+                Vector2 ss2 = new Vector2(0, target.GetBoundsBox().GetRect().Bottom);
+
                 float distanceX = Vector2.Distance(sPx, tPx);
-                float distanceZ = Vector2.Distance(sPy, tPy);
+                float distanceZ = Vector2.Distance(ss1, ss2);
 
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING))
                 {
@@ -82,11 +85,11 @@ namespace FusionEngine
 
                     if (distanceZ > maxDistanceZ + 10)
                     {
-                        Vector2 p1 = tPy - sPy;
+                        Vector2 p1 = ss2 - ss1;
                         p1.Normalize();
 
-                        direction.Y = p1.Y;
-                        velocity.Y = 2.5f;
+                        //direction.Y = p1.Y;
+                        //velocity.Y = 2.5f;
 
                         if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
                         {
@@ -103,7 +106,7 @@ namespace FusionEngine
                     }
                 }
 
-                if (distanceX < maxDistanceX && distanceZ < maxDistanceZ && !entity.IsInAnimationAction(Animation.Action.ATTACKING))
+                if (distanceX < maxDistanceX && distanceZ < maxDistanceZ + 10 && !entity.IsInAnimationAction(Animation.Action.ATTACKING))
                 {
                     if (distanceX < (maxDistanceX - 20))
                     {

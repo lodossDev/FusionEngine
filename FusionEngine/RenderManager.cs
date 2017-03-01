@@ -238,8 +238,9 @@ namespace FusionEngine {
                         System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
 
                     } else {
-                         //After image sprite
-                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        //After image sprite
+                        Color desaturatedGreen = Color.Lerp(Color.White, Color.Blue, 0.75f);
+                        System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     }
                     
                     

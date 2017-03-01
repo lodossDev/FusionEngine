@@ -29,6 +29,7 @@ namespace FusionEngine
         LifeBar bar;
         float barHealth = 100f;
         FrameRateCounter frameRate = new FrameRateCounter();
+        Enemy_Bred bred;
 
 
         InputManager inputManager;
@@ -44,8 +45,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = 500;//System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = 300;//System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -91,6 +92,8 @@ namespace FusionEngine
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
             gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
+
+            bred = new Enemy_Bred();
 
             var spriteSheetLoader = new SpriteSheetLoader(Content);
             ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
@@ -299,6 +302,7 @@ namespace FusionEngine
             //renderManager.AddEntity(drum4);
             renderManager.AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
+            renderManager.AddEntity(bred);
 
             collisionManager = new CollisionManager(renderManager);
             //collisionManager.AddEntity(leo);
@@ -497,6 +501,12 @@ namespace FusionEngine
                 drum.MoveY(0.3f * dir);
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
+
+                if (bred.GetGrabInfo().isGrabbed == false && !bred.IsToss()) {
+                    bred.UpdateAI(gameTime, collisionManager.GetPlayers());
+                    bred.ResetToIdle(gameTime);
+                }
+
                 if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
                     //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
@@ -561,7 +571,7 @@ namespace FusionEngine
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "FPS: " + (frameRate.AverageFramesPerSecond), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetCurrentFrame() + 1), new Vector2(20, 100), Color.Red);
-            spriteBatch.DrawString(testFOnt, "PHONE X: " +  level1.GetMisc()[0].GetCurrentSprite().GetCurrentScaleFrame().Y, new Vector2(20, 160), Color.Red);
+            spriteBatch.DrawString(testFOnt, "PHONE X: " +  bred.GetEntityType(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

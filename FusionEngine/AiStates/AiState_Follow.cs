@@ -48,10 +48,10 @@ namespace FusionEngine
             if (target != null)
             {
                 sPx.X = entity.GetPosX();
-                sPy.Y = entity.GetPosZ();
+                sPy.Y = entity.GetBoundsBox().GetRect().Y;
 
                 tPx.X = target.GetPosX();
-                tPy.Y = target.GetPosZ() + 50f;
+                tPy.Y = target.GetBoundsBox().GetRect().Y;
 
                 float distanceX = Vector2.Distance(sPx, tPx);
                 float distanceZ = Vector2.Distance(sPy, tPy);
@@ -68,7 +68,11 @@ namespace FusionEngine
 
                         if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
                         {
-                            entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                            if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                                entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                            } else {
+                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                            }
                         }
                         else
                         {
@@ -86,7 +90,11 @@ namespace FusionEngine
 
                         if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
                         {
-                            entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                            if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                                entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                            } else {
+                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                            }
                         }
                         else
                         {
@@ -104,7 +112,12 @@ namespace FusionEngine
 
                         direction.X = -p1.X;
                         velocity.X = 2.5f;
-                        entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+
+                        if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                            entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                        } else {
+                            entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                        }
                     }
                     else if (distanceX < maxDistanceX)
                     {

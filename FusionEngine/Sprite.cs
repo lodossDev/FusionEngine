@@ -398,12 +398,12 @@ namespace FusionEngine {
 
         public void Update(GameTime gameTime, Vector3 position, Vector2 scale) {
             if (IsLeft()) {
-                this.position.X = position.X - (spriteOffset.X * (scale.X /*+ frameScales[currentFrame].X*/)) - (offsets[currentFrame].X * (scale.X /*+ frameScales[currentFrame].X*/));
+                this.position.X = position.X - (spriteOffset.X * scale.X) - (offsets[currentFrame].X * scale.X);
             } else {
-                this.position.X = position.X + (spriteOffset.X * (scale.X /*+ frameScales[currentFrame].X*/)) + (offsets[currentFrame].X * (scale.X /*+ frameScales[currentFrame].X*/));
+                this.position.X = position.X + (spriteOffset.X * scale.X) + (offsets[currentFrame].X * scale.X);
             }
 
-            this.position.Y = (position.Y + (spriteOffset.Y * (scale.Y /*+ frameScales[currentFrame].Y*/)) + (offsets[currentFrame].Y * (scale.Y /*+ frameScales[currentFrame].Y*/))) + position.Z;
+            this.position.Y = (position.Y + (spriteOffset.Y * scale.Y) + (offsets[currentFrame].Y * scale.Y)) + position.Z;
         }
     }
 }

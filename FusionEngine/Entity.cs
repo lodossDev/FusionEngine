@@ -85,6 +85,8 @@ namespace FusionEngine {
         private Attributes.GrabInfo grabInfo;
         private Entity link;
         private float aliveTime;
+        private BlendState blendState;
+        private Color baseColor;
         
 
         public Entity(ObjectType type, string name) {
@@ -137,6 +139,7 @@ namespace FusionEngine {
             keyboardSettings = new Dictionary<InputHelper.KeyPress, Keys>();
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
 
+            blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
             afterImage = new AfterImage(this);
         }
@@ -790,6 +793,14 @@ namespace FusionEngine {
             return colorInfo.GetColor();
         }
 
+        public Color GetBaseColor() {
+            return baseColor;
+        }
+
+        public void SetBaseColor(Color color) {
+            baseColor = color;
+        }
+
         public Vector2 GetBasePosition() {
             Sprite stance = GetSprite(Animation.State.STANCE);
             baseCenter.X = (baseOffset.X * scale.X) + ((stance.GetCurrentTexture().Width * scale.X) / 2);
@@ -861,6 +872,14 @@ namespace FusionEngine {
 
         public AiState.StateMachine GetAiStateMachine() {
             return aiStateMachine;
+        }
+
+        public BlendState GetBlendState() {
+            return blendState;
+        }
+
+        public void SetBlendState(BlendState state) {
+            blendState = state;
         }
 
         public bool IsInAnimationState(Animation.State state) {
@@ -1318,9 +1337,11 @@ namespace FusionEngine {
             if (InResetState()) {
                 int frame = (IsEntity(ObjectType.PLAYER) ? GetCurrentSprite().GetCurrentFrame() : GetCurrentSprite().GetFrames());
 
-                bool isFrameComplete = (IsEntity(ObjectType.PLAYER) ? IsFrameComplete(GetCurrentAnimationState(), frame) 
-                                                                    : IsFrameComplete(GetCurrentAnimationState(), frame) 
-                                           && !IsInAnimationAction(Animation.Action.WALKING));
+                bool isFrameComplete = (IsEntity(ObjectType.PLAYER)
+                                            ? IsFrameComplete(GetCurrentAnimationState(), frame)
+                                                 : IsFrameComplete(GetCurrentAnimationState(), frame)
+                                                        && !IsInAnimationAction(Animation.Action.WALKING));
+
 
                 if (isFrameComplete && !IsJumpingOrInAir()) {
                     if (IsInAnimationAction(Animation.Action.RUNNING) && HasSprite(Animation.State.RUN_STOP1)) {

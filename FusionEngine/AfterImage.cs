@@ -27,6 +27,7 @@ namespace FusionEngine {
             this.entity = entity;
             imageData = new LinkedList<Entity>();
             countDown = new Dictionary<int, float>();
+            active = false;
 
             Reset();
 
@@ -39,7 +40,6 @@ namespace FusionEngine {
         public void Reset() {
             countDown.Clear();
             timeGapCount = 0;
-            active = true;
             isFirstCreated = false;
         }
 
@@ -52,6 +52,14 @@ namespace FusionEngine {
             return time;
         }
 
+        public bool Active() {
+            return active;
+        }
+
+        public void SetActive(bool status) {
+            active = status;
+        }
+
         public void Update(GameTime gameTime) {
             if (active == false) return;
 
@@ -62,37 +70,12 @@ namespace FusionEngine {
                 timeGapCount = 0;
 
                 if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
-                    Sprite sprite = entity.GetSprite(entity.GetCurrentAnimationState());
+                    Entity afterImage = SpriteClone.CreateAfterImage(entity);
+                    //afterImage.SetColor(255, 255, 255);
+                    //afterImage.SetFade(180);
 
-                    Entity imageEntity = new Entity(Entity.ObjectType.AFTER_IMAGE, entity.GetName());
-                    imageEntity.AddSprite(entity.GetCurrentAnimationState(), sprite.Clone(entity.GetCurrentFrame() + 1), true);
-                    imageEntity.SetPostion(entity.GetPosX(), entity.GetPosY(), entity.GetPosZ() - 5);
-
-                    imageEntity.SetSpriteOffSet(entity.GetCurrentAnimationState(), sprite.GetSpriteOffSet().X, sprite.GetSpriteOffSet().Y);
-                    imageEntity.SetFrameOffset(entity.GetCurrentAnimationState(), 1, sprite.GetCurrentFrameOffSet().X, sprite.GetCurrentFrameOffSet().Y);
-                    imageEntity.SetFrameScale(entity.GetCurrentAnimationState(), 1, sprite.GetCurrentScaleFrame().X, sprite.GetCurrentScaleFrame().Y);
-
-                    imageEntity.SetOnLoadScale(entity.GetScaleX(), entity.GetScaleY());
-                    imageEntity.SetIsLeft(entity.IsLeft());
-                    imageEntity.AddDepthBox(entity.GetDepthBox().GetWidth(), entity.GetDepthBox().GetHeight(), (int)entity.GetDepthBox().GetOffset().X, (int)entity.GetDepthBox().GetOffset().Y);
-                    //imageEntity.SetColor(255, 255, 255);
-                    //imageEntity.SetFade(180);
-
-                    
-                    Texture2D currentTexture = imageEntity.GetSprite(entity.GetCurrentAnimationState()).GetTextures()[0];
-                    Color[] tcolor=new Color[currentTexture.Width*currentTexture.Height];
-                    
-                    currentTexture.GetData<Color>(tcolor);
-
-                    for (int i = 0; i < tcolor.Length; i++) {
-
-                        if (tcolor[i] != Color.Transparent)
-                        tcolor[i] = Color.Tomato;
-                    }
-
-                    currentTexture.SetData<Color>(tcolor);
-                    imageEntity.SetAliveTime(time);
-                    imageData.AddLast(imageEntity);
+                    afterImage.SetAliveTime(time);
+                    imageData.AddLast(afterImage);
 
                     while (imageData.Count > frameLength) imageData.RemoveFirst();
                 }

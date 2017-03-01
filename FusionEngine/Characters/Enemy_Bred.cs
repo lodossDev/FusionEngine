@@ -13,7 +13,7 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.STANCE, 7);
 
             AddSprite(Animation.State.WALK_TOWARDS, new Sprite("Sprites/Actors/Bred/WALK_TOWARDS", Animation.Type.REPEAT));
-            SetFrameDelay(Animation.State.WALK_TOWARDS, 10);
+            SetFrameDelay(Animation.State.WALK_TOWARDS, 7);
             SetSpriteOffSet(Animation.State.WALK_TOWARDS, 0, 0);
 
             AddSprite(Animation.State.JUMP, new Sprite("Sprites/Actors/Bred/JUMP", Animation.Type.ONCE));
@@ -46,14 +46,17 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Bred/ATTACK1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK1, 4);
+            SetFrameDelay(Animation.State.ATTACK1, 3, 10);
             SetSpriteOffSet(Animation.State.ATTACK1, -20, 0);
 
             AddSprite(Animation.State.ATTACK2, new Sprite("Sprites/Actors/Bred/ATTACK2", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK2, 4);
+            SetFrameDelay(Animation.State.ATTACK2, 3, 10);
             SetSpriteOffSet(Animation.State.ATTACK2, 30, 0);
 
             AddSprite(Animation.State.ATTACK3, new Sprite("Sprites/Actors/Bred/ATTACK3", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK3, 4);
+            SetFrameDelay(Animation.State.ATTACK2, 3, 10);
             SetSpriteOffSet(Animation.State.ATTACK3, 30, 0);
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Bred/JUMP_ATTACK1", Animation.Type.ONCE));
@@ -61,8 +64,8 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
             SetAnimationState(Animation.State.WALK_TOWARDS);
-            SetOnLoadScale(3.2f, 3.2f);
-            AddBoundsBox(160, 240, -60, 240, 50);
+            SetOnLoadScale(3.2f, 3.3f);
+            AddBoundsBox(160, 300, -60, 240, 50);
             SetBaseOffset(0, -25);
 
             SetPostion(400, 0, 100);

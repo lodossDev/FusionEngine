@@ -45,8 +45,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;//System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 300;//System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);

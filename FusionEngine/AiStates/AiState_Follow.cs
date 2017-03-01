@@ -48,10 +48,10 @@ namespace FusionEngine
             if (target != null)
             {
                 sPx.X = entity.GetPosX();
-                sPy.Y = entity.GetBoundsBox().GetRect().Y;
+                sPy.Y = entity.GetBoundsBox().GetRect().Bottom;
 
                 tPx.X = target.GetPosX();
-                tPy.Y = target.GetBoundsBox().GetRect().Y;
+                tPy.Y = target.GetBoundsBox().GetRect().Bottom;
 
                 float distanceX = Vector2.Distance(sPx, tPx);
                 float distanceZ = Vector2.Distance(sPy, tPy);
@@ -80,7 +80,7 @@ namespace FusionEngine
                         }
                     }
 
-                    if (distanceZ > maxDistanceZ)
+                    if (distanceZ > maxDistanceZ + 10)
                     {
                         Vector2 p1 = tPy - sPy;
                         p1.Normalize();
@@ -128,9 +128,15 @@ namespace FusionEngine
                         {
                             int agg = rnd.Next(1, 100);
 
-                            if (agg > 95)
+                            if (agg > 75 && !entity.IsInAnimationAction(Animation.Action.ATTACKING))
                             {
-                                entity.SetAnimationState(Animation.State.ATTACK3);
+                                int atk = rnd.Next(1, 4);
+                                if (atk == 1)
+                                    entity.SetAnimationState(Animation.State.ATTACK1);
+                                else if (atk == 2)
+                                    entity.SetAnimationState(Animation.State.ATTACK2);
+                                else
+                                   entity.SetAnimationState(Animation.State.ATTACK3);
                             }
                             else
                             {

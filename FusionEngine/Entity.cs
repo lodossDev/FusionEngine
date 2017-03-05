@@ -848,8 +848,8 @@ namespace FusionEngine {
             if (diffX == 0) diffX = GetScaleX();
             if (diffY == 0) diffY = GetScaleY();
 
-            baseCenter.X = baseOffset.X + (stance.GetCurrentTexture().Width * diffX) / 2;
-            baseCenter.Y = baseOffset.Y + (stance.GetCurrentTexture().Height * diffY);
+            baseCenter.X = (baseOffset.X * GetScaleX()) + (stance.GetCurrentTexture().Width * diffX) / 2;
+            baseCenter.Y = (baseOffset.Y * GetScaleY()) + (stance.GetCurrentTexture().Height * diffY);
 
             if (IsLeft()) {
                 basePosition.X = GetConvertedPosition().X - baseCenter.X;

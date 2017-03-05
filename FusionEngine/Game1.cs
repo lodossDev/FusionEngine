@@ -570,7 +570,7 @@ namespace FusionEngine
            
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "FPS: " + (frameRate.AverageFramesPerSecond), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetDepthBox().GetRect().Bottom), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetSprite(Animation.State.STANCE).GetCurrentTexture().Height), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "PHONE X: " +  bred.GetEntityType(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

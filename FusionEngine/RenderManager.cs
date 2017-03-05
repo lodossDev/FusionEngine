@@ -213,13 +213,13 @@ namespace FusionEngine {
                     frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
 
                     if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE) == false) { 
-                        float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
+                        float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
 
                         if (entity.IsLeft()) {
-                            x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X) * entity.GetScale().X);
+                            x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X +  + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
                         }
 
-                        float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y) * entity.GetScale().Y;
+                        float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y + currentSprite.GetShadowOffsetY()) * entity.GetScale().Y;
 
                         shadowPosition.X = x2;
                         shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();

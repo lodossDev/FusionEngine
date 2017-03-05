@@ -409,6 +409,36 @@ namespace FusionEngine {
             this.direction.X = dir;
         }
 
+        public void SetShadowOffsetX(float x) {
+            foreach (Sprite sprite in spriteMap.Values) {
+                sprite.SetShadowOffsetX(x);
+            }
+        }
+
+        public void SetShadowOffsetY(float y) {
+            foreach (Sprite sprite in spriteMap.Values) {
+                sprite.SetShadowOffsetY(y);
+            }
+        }
+
+        public void SetShadowOffset(float x, float y) {
+            foreach (Sprite sprite in spriteMap.Values) {
+                sprite.SetShadowOffset(x, y);
+            }
+        }
+
+        public void SetShadowOffsetX(Animation.State state, float x) {
+            GetSprite(state).SetShadowOffsetX(x);
+        }
+
+        public void SetShadowOffsetY(Animation.State state, float y) {
+            GetSprite(state).SetShadowOffsetY(y);
+        }
+
+        public void SetShadowOffset(Animation.State state, float x, float y) {
+            GetSprite(state).SetShadowOffset(x, y);
+        }
+
         public void StopMovement() {
             ResetX();
             ResetZ();
@@ -611,6 +641,14 @@ namespace FusionEngine {
             return scale.Y;
         }
 
+        public float GetBaseOffsetX() {
+            return baseOffset.X;
+        }
+
+        public float GetBaseOffsetY() {
+            return baseOffset.Y;
+        }
+
         public float GetBaseScaleX() {
             return baseScale.X;
         }
@@ -803,16 +841,23 @@ namespace FusionEngine {
 
         public Vector2 GetBasePosition() {
             Sprite stance = GetSprite(Animation.State.STANCE);
-            baseCenter.X = (baseOffset.X * scale.X) + ((stance.GetCurrentTexture().Width * scale.X) / 2);
-            baseCenter.Y = (baseOffset.Y * scale.Y) + ((stance.GetCurrentTexture().Height * scale.Y));
+
+            float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX());
+            float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY());
+
+            if (diffX == 0) diffX = GetScaleX();
+            if (diffY == 0) diffY = GetScaleY();
+
+            baseCenter.X = baseOffset.X + (stance.GetCurrentTexture().Width * diffX) / 2;
+            baseCenter.Y = baseOffset.Y + (stance.GetCurrentTexture().Height * diffY);
 
             if (IsLeft()) {
-                basePosition.X = GetConvertedPosition().X - baseCenter.X - 3;
+                basePosition.X = GetConvertedPosition().X - baseCenter.X;
             } else {
-                basePosition.X = GetConvertedPosition().X + baseCenter.X + 8;
+                basePosition.X = GetConvertedPosition().X + baseCenter.X;
             }
 
-            basePosition.Y = GetConvertedPosition().Y + (stance.GetSpriteOffSet().Y * scale.Y) + (stance.GetCurrentFrameOffSet().Y * scale.Y) + baseCenter.Y;
+            basePosition.Y = GetConvertedPosition().Y + stance.GetSpriteOffSet().Y + stance.GetCurrentFrameOffSet().Y + baseCenter.Y;
             return basePosition;
         }
 

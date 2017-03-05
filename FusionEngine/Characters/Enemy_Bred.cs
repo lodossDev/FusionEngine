@@ -69,6 +69,7 @@ namespace FusionEngine {
             SetBaseOffset(-150, -100);
 
             SetPostion(400, 0, 100);
+            SetShadowOffset(0, -85);
         }
     }
 }

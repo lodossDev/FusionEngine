@@ -30,6 +30,7 @@ namespace FusionEngine {
 
         private SpriteSheet spriteSheet;
         private List<string> frames;
+        private Vector2 shadowOffset;
         
 
         public Sprite(Animation.Type animationType = Animation.Type.REPEAT) {
@@ -49,6 +50,7 @@ namespace FusionEngine {
             isAnimationComplete = false;
             isFrameComplete = new List<bool>();
             frames = new List<string>();
+            shadowOffset = Vector2.Zero;
         }
 
         public Sprite(string contentFolder, Animation.Type animationType = Animation.Type.REPEAT, int resetFrame = 1) : this(animationType) {
@@ -210,6 +212,19 @@ namespace FusionEngine {
             this.spriteSheet = sheet;
         }
 
+        public void SetShadowOffsetX(float x) {
+            shadowOffset.X = x;
+        }
+
+        public void SetShadowOffsetY(float y) {
+            shadowOffset.Y = y;
+        }
+
+        public void SetShadowOffset(float x, float y) {
+            shadowOffset.X = x;
+            shadowOffset.Y = y;
+        }
+
         public SpriteSheet GetSpriteSheet() {
             return spriteSheet;
         }
@@ -274,8 +289,20 @@ namespace FusionEngine {
             return boxes[frame - 1];
         }
 
+        public Dictionary<int, List<CLNS.BoundingBox>> GetBaseBoxes() {
+            return boxes;
+        }
+
         public Vector2 GetPosition() {
             return position;
+        }
+
+        public float GetShadowOffsetX() {
+            return shadowOffset.X;
+        }
+
+        public float GetShadowOffsetY() {
+            return shadowOffset.Y;
         }
 
         public Vector2 GetCurrentScaleFrame() {

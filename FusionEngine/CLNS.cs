@@ -32,6 +32,12 @@ namespace FusionEngine
                 rect = baseRect = new Rectangle(0, 0, w, h);
                 offset = baseOffset = new Vector2(x, y);
                 visibility = 100f;
+
+                if (frame == -1) {
+                    this.frame = -1;
+                } else {
+                    this.frame = frame - 1;
+                }
             }
 
             public void SetVisibility(float amount) {

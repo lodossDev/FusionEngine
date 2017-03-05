@@ -88,8 +88,8 @@ namespace FusionEngine
                         Vector2 p1 = ss2 - ss1;
                         p1.Normalize();
 
-                        //direction.Y = p1.Y;
-                        //velocity.Y = 2.5f;
+                        direction.Y = p1.Y;
+                        velocity.Y = 2.5f;
 
                         if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
                         {

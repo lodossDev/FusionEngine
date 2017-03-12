@@ -6156,3 +6156,27 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Actors/Bred/KNOCK_DOWN1/FALL02.png
 
+#begin Sprites/Actors/Bred/JUMP/JUMP04.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Actors/Bred/JUMP/JUMP04.png
+
+#begin Sprites/Actors/Bred/JUMP/JUMP05.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Actors/Bred/JUMP/JUMP05.png
+

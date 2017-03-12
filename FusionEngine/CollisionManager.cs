@@ -260,8 +260,7 @@ namespace FusionEngine
                     if (Math.Abs(eDepthBox.GetRect().X - tDepthBox.GetRect().X) < tDepthBox.GetWidth() + (xw + vx) 
                             && entity.DepthCollision(target, vz)
                             && ePosY <= tHeight - 10 && eHeight >= tPosY 
-                            && (aboveTarget != target && belowTarget != target)
-                            /*&& !target.grabInfo.isGrabbed*/) {
+                            && (aboveTarget != target && belowTarget != target)) {
 
                         bool isWithInBoundsX1 = ((entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == false
                                                     || entity.HorizontalCollisionLeft(target, vx) == false && entity.HorizontalCollisionRight(target, vx) == true));

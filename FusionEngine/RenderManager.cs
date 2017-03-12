@@ -230,7 +230,7 @@ namespace FusionEngine {
                         //Shadow
                         System.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, System.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
 
-                        if (stance != null && renderStanceSprite == true) {
+                        if (stance != null && (renderStanceSprite == true || entity.GetName().Contains("BRED"))) {
                             System.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.Gray * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
                         }
 

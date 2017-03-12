@@ -302,7 +302,7 @@ namespace FusionEngine
             //renderManager.AddEntity(drum4);
             renderManager.AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
-            //renderManager.AddEntity(bred);
+            renderManager.AddEntity(bred);
 
             collisionManager = new CollisionManager(renderManager);
             //collisionManager.AddEntity(leo);
@@ -310,7 +310,7 @@ namespace FusionEngine
             collisionManager.AddEntity(drum);
             collisionManager.AddEntity(drum2);
             collisionManager.AddEntity(drum3);
-            //collisionManager.AddEntity(bred);
+            collisionManager.AddEntity(bred);
             //collisionManager.AddEntity(drum4);
 
 
@@ -389,6 +389,7 @@ namespace FusionEngine
                 //camera.Parallax = new Vector2(xScroll.X, 0);
                 //bred.SetScale(5, 5);
                 taskMaster.GetRumble().isRumble = true;
+                //bred.SetIsLeft(true);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -577,7 +578,7 @@ namespace FusionEngine
             Entity obs = ryo.GetCollisionInfo().GetMovingObstacle();
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (obs != null ? obs.GetName(): ""), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "FPS: " + (bred.IsLeft()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDirX()), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
 

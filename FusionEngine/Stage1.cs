@@ -28,7 +28,7 @@ namespace FusionEngine
             AddLayer(3, layer3);
 
             Obstacle phoneBooth = new PhoneBooth();
-            phoneBooth.SetPostion(200, 0, 100);
+            phoneBooth.SetPostion(200, 0, 200);
             AddMisc(phoneBooth);
 
             SetXScrollBoundry(4000, -2744);

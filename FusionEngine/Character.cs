@@ -85,7 +85,9 @@ namespace FusionEngine {
             Entity target = GetNearestEntity(players.ToList<Entity>());
             SetCurrentTarget(target);
 
-            if (target != null && !IsInAnimationAction(Animation.Action.ATTACKING)) {
+            if (target != null && !IsJumpingOrInAir()
+                    && !IsInAnimationAction(Animation.Action.ATTACKING)) {
+
                 LookAtTarget(target);
                 aiStateMachine.Update(gameTime);
                 //FollowTarget(target);

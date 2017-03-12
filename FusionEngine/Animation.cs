@@ -58,6 +58,8 @@ namespace FusionEngine {
 
             THROW1, THROW2, THROW3, THROW4, THROW5,
 
+            THROWN1, THROWN2, THROWN3, THROWN4, THROWN5,
+
             DIZZY1, DIZZY2, DIZZY3, DIZZY4, DIZZY5,
 
             TAUNT1, TAUNT2, TAUNT3, TAUNT4, TAUNT5,

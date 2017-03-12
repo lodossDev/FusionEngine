@@ -61,7 +61,6 @@
     <Compile Include="Camera.cs" />
     <Compile Include="CollisionHelper.cs" />
     <Compile Include="CollisionManager.cs" />
-    <Compile Include="CollisionTracer.cs" />
     <Compile Include="ComboAttack.cs" />
     <Compile Include="EntityActions.cs" />
     <Compile Include="Fonts\MugenFont.cs" />

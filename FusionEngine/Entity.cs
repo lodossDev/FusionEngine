@@ -87,6 +87,9 @@ namespace FusionEngine {
         private float aliveTime;
         private BlendState blendState;
         private Color baseColor;
+        private Attributes.Rumble rumble;
+        private int painTime;
+        private Attributes.AnimationConfig animationConfig;
         
 
         public Entity(ObjectType type, string name) {
@@ -130,18 +133,22 @@ namespace FusionEngine {
             aiStateMachine = new AiState.StateMachine();
             commandMoves = new List<InputHelper.CommandMove>();
 
-            id++;
-            entityId = id;
-            alive = true;
-            health = 100;
-            layerPos = 0;
-
             keyboardSettings = new Dictionary<InputHelper.KeyPress, Keys>();
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
 
             blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
             afterImage = new AfterImage(this);
+
+            animationConfig = new Attributes.AnimationConfig();
+            rumble = new Attributes.Rumble();
+            painTime = -1;
+
+            id++;
+            entityId = id;
+            alive = true;
+            health = 100;
+            layerPos = 0;
         }
 
         public void AddSprite(Animation.State state, Sprite sprite) {
@@ -403,12 +410,6 @@ namespace FusionEngine {
             absoluteVel.Z = z;
         }
 
-        public void MoveX(float acc, float dir) {
-            this.acceleration.X = acc * System.GAME_VELOCITY;
-            this.maxVelocity.X = this.acceleration.X;
-            this.direction.X = dir;
-        }
-
         public void SetShadowOffsetX(float x) {
             foreach (Sprite sprite in spriteMap.Values) {
                 sprite.SetShadowOffsetX(x);
@@ -437,6 +438,12 @@ namespace FusionEngine {
 
         public void SetShadowOffset(Animation.State state, float x, float y) {
             GetSprite(state).SetShadowOffset(x, y);
+        }
+
+        public void MoveX(float acc, float dir) {
+            this.acceleration.X = acc * System.GAME_VELOCITY;
+            this.maxVelocity.X = this.acceleration.X;
+            this.direction.X = dir;
         }
 
         public void StopMovement() {
@@ -475,6 +482,14 @@ namespace FusionEngine {
             if (IsInMoveFrame() && !HasCollidedX()) {
                 position.X += velX;
             }
+        }
+
+        public void TransformX(float velX) {
+            if ((double)velX != 0.0) {
+                absoluteVel.X = velX;
+            }
+
+            position.X += velX;
         }
 
         public void MoveY(float velY) {
@@ -659,6 +674,26 @@ namespace FusionEngine {
 
         public float GetAliveTime() {
             return aliveTime;
+        }
+
+        public bool InHitPuaseTime() {
+            return attackInfo.hitPauseTime > 0;
+        }
+
+        public bool InPainTime() {
+            return painTime > 0;
+        }
+
+        public int GetPainTime() {
+            return painTime;
+        }
+
+        public void SetPainTime(int time) {
+            painTime = time;
+        }
+
+        public void SetHitPauseTime(int time) {
+            attackInfo.hitPauseTime = time;
         }
 
         public bool HasCollidedX() {
@@ -988,14 +1023,22 @@ namespace FusionEngine {
 
                     return Animation.Action.RUNNING;
 
-                }  else if (currentState.ToString().Contains("GRAB")) {
+                } else if (currentState.ToString().Contains("GRAB") 
+                            && !currentState.ToString().Contains("IN")) {
+
                     return Animation.Action.GRABBING;
+
+                } else if (currentState.ToString().StartsWith("INGRAB")) {
+                    return Animation.Action.GRABBED;
 
                 } else if (currentState.ToString().Contains("THROW")) {
                     return Animation.Action.THROWING;
 
                 } else if (currentState.ToString().StartsWith("RUN_STOP")) {
                     return Animation.Action.STOPPING;
+
+                } else if (currentState.ToString().Contains("PAIN")) {
+                    return Animation.Action.INPAIN;
                 }
             }
 
@@ -1114,6 +1157,10 @@ namespace FusionEngine {
             return afterImage;
         }
 
+        public Attributes.Rumble GetRumble() {
+            return rumble;
+        }
+
         public bool InCurrentAttackCancelState() {
             if (defaultAttackChain == null) return false;
 
@@ -1222,6 +1269,10 @@ namespace FusionEngine {
             }
         }
 
+        public bool IsAliveTime() {
+            return aliveTime > 0.0;
+        }
+
         public void SetAliveTime(float t) {
             aliveTime = t;
         }
@@ -1231,7 +1282,7 @@ namespace FusionEngine {
 
                 if ((double)velX < 0.0) {
                     direction.X = -1;
-                } else {
+                } else if ((double)velX > 0.0) {
                     direction.X = 1;
                 }
 
@@ -1253,7 +1304,6 @@ namespace FusionEngine {
                 tossInfo.hitGoundCount = 0;
                 tossInfo.maxTossCount = maxToss;
                 tossInfo.maxHitGround = maxHitGround;
-
                 tossInfo.tossCount ++;
             }
         }
@@ -1279,7 +1329,7 @@ namespace FusionEngine {
 
                 if ((double)tossInfo.velocity.X < 0.0) {
                     direction.X = -1;
-                } else {
+                } else if ((double)tossInfo.velocity.X > 0.0) {
                     direction.X = 1;
                 }
 
@@ -1347,13 +1397,21 @@ namespace FusionEngine {
 
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
-                              /*&& !IsInAnimationAction(Animation.Action.GRABBING)
-                              && !IsInAnimationAction(Animation.Action.THROWING)*/);
+                              && !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.THROWING));
         }
 
         public bool InNegativeState() {
             return (IsInAnimationAction(Animation.Action.GRABBING) 
                         || IsInAnimationAction(Animation.Action.THROWING));
+        }
+
+        public void SetWalkState() {
+             if (!IsInAnimationAction(Animation.Action.RUNNING) 
+                    && !IsInAnimationAction(Animation.Action.GRABBING)) {
+
+                SetAnimationState(Animation.State.WALK_TOWARDS);
+             } 
         }
 
         public bool InResetState() {
@@ -1375,6 +1433,9 @@ namespace FusionEngine {
                                         && GetCurrentSprite().IsAnimationComplete()
                                         
                                 || IsInAnimationAction(Animation.Action.THROWING)
+                                        && GetCurrentSprite().IsAnimationComplete()
+                                        
+                                || IsInAnimationAction(Animation.Action.INPAIN)
                                         && GetCurrentSprite().IsAnimationComplete());
         }
 
@@ -1386,7 +1447,6 @@ namespace FusionEngine {
                                             ? IsFrameComplete(GetCurrentAnimationState(), frame)
                                                  : IsFrameComplete(GetCurrentAnimationState(), frame)
                                                         && !IsInAnimationAction(Animation.Action.WALKING));
-
 
                 if (isFrameComplete && !IsJumpingOrInAir()) {
                     if (IsInAnimationAction(Animation.Action.RUNNING) && HasSprite(Animation.State.RUN_STOP1)) {
@@ -1464,41 +1524,92 @@ namespace FusionEngine {
             }
         }
 
-        public bool IsPauseHit(GameTime gameTime) {
-            bool isPauseHit = false;
+        public void SetRumble(float dir = 1f, float force = 2.8f, float time = 50f, float maxForce = 20f) {
+            if (rumble.count == 0) { 
+                rumble.lastDir = dir;
+                rumble.dir = dir;
+            }
 
+            rumble.force = force;
+            rumble.isRumble = true;
+            rumble.time = 0;
+            rumble.maxTime = time;
+            rumble.maxForceTime = maxForce;
+            rumble.forceTime = rumble.maxForceTime;
+        }
+
+        public void UpdateRumble(GameTime gameTime) {
+            if (!rumble.isRumble) {
+                rumble.lx = GetPosX();
+            }
+
+            if (rumble.isRumble == true) {
+                rumble.forceTime -= 0.5f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                rumble.time += 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (rumble.forceTime <= 0) {
+                    if (rumble.count == 0) {
+                        rumble.dir = rumble.lastDir;
+                    } else {
+                        rumble.dir = -rumble.dir;
+                    }
+                    
+                    TransformX(rumble.force * rumble.dir);
+                    rumble.count ++;
+                    rumble.forceTime = rumble.maxForceTime;
+                }
+
+                if (rumble.time >= rumble.maxTime) {
+                    SetPosX(rumble.lx);
+                    rumble.dir = rumble.lastDir;
+                    rumble.count = 0;
+                    rumble.isRumble = false;
+                    rumble.time = 0;
+                    rumble.forceTime = rumble.maxForceTime;
+                }
+            }       
+        }
+
+        public void UpdatePauseHit(GameTime gameTime) {
             if (attackInfo.hitPauseTime > 0) {
-                attackInfo.hitPauseTime -= (5 * (float)gameTime.ElapsedGameTime.Milliseconds);
-                isPauseHit = true;
+                attackInfo.hitPauseTime --;
             }
 
             if (attackInfo.hitPauseTime < 0) {
                 attackInfo.hitPauseTime = 0;
-                isPauseHit = false;
             }
-
-            return isPauseHit;
         }
 
-        public bool IsAliveTime(GameTime gameTime) {
-            bool isAlive = false;
-
+        public void UpdateAliveTime(GameTime gameTime) {
             if (aliveTime != -1) {
                 aliveTime --;
-                isAlive = true;
 
                 if (aliveTime <= 0) {
                     aliveTime = 0;
-                    isAlive = false;
                 }
             }
+        }
 
-            return isAlive;
+        public void UpdatePaintTime(GameTime gameTime) {
+            if (painTime > 0) {
+                painTime --;
+            }
+
+            if (painTime <= 0) {
+                if (painTime != -1 && IsInAnimationAction(Animation.Action.INPAIN) 
+                        && !grabInfo.isGrabbed) {
+
+                    SetAnimationState(Animation.State.STANCE);
+                }
+
+                painTime = -1;
+            }
         }
 
         public void Update(GameTime gameTime) {
-            bool isPauseHit = IsPauseHit(gameTime);
-            bool isAliveTime = IsAliveTime(gameTime);
+            UpdatePauseHit(gameTime);
+            UpdateAliveTime(gameTime);
+            UpdatePaintTime(gameTime);
             Vector2 drawScale = scale;
 
             afterImage.Draw();
@@ -1515,11 +1626,13 @@ namespace FusionEngine {
             UpdateFade(gameTime);
 
             //Update animation.
-            if (!isPauseHit) {
+            if (!InHitPuaseTime()) {
                 UpdateAnimation(gameTime);
             }
 
             UpdateDefaultAttackChain(gameTime);
+
+            UpdateRumble(gameTime);
 
             //Update physics.
             UpdateToss(gameTime);
@@ -1592,6 +1705,55 @@ namespace FusionEngine {
 
         public virtual void OnCommandMoveComplete(InputHelper.CommandMove command) {
             SetAnimationState(command.GetAnimationState());
+        }
+
+
+        public Animation.State GetLowPainState() {
+            return animationConfig.lowPainState;
+        }
+
+        public Animation.State GetMediumPainState() {
+            return animationConfig.mediumPainState;
+        }
+
+        public Animation.State GetHeavyPainState() {
+            return animationConfig.heavyPainState;
+        }
+
+        public Animation.State GetGrabbedState() {
+            return animationConfig.grabbedState;
+        }
+
+        public Animation.State GetGrabHoldtate() {
+            return animationConfig.grabHoldState;
+        }
+
+        public Animation.State GetThrowState() {
+            return animationConfig.throwState;
+        }
+
+        public void SetLowPainState(Animation.State state) {
+            animationConfig.lowPainState = state;
+        }
+
+        public void SetMediumPainState(Animation.State state) {
+            animationConfig.mediumPainState = state;
+        }
+
+        public void SetHeavyPainState(Animation.State state) {
+            animationConfig.heavyPainState = state;
+        }
+
+        public void SetGrabbedState(Animation.State state) {
+            animationConfig.grabbedState = state;
+        }
+
+        public void SetGrabHoldState(Animation.State state) {
+            animationConfig.grabHoldState = state;
+        }
+
+        public void SetThrowState(Animation.State state) {
+            animationConfig.throwState = state;
         }
 
         public int CompareTo(Entity other) {

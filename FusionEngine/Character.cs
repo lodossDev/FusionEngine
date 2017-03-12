@@ -42,9 +42,9 @@ namespace FusionEngine {
         }
 
         public virtual void LookAtTarget(Entity target) {
-            if (GetPosX() - (GetCurrentSpriteWidth() / 4) > target.GetPosX()) {
+            if (GetPosX() > target.GetPosX()) {
                 SetIsLeft(true);
-            } else if (GetPosX() + (GetCurrentSpriteWidth() / 4) < target.GetPosX()) {
+            } else if (GetPosX() < target.GetPosX()) {
                 SetIsLeft(false);
             }
         }

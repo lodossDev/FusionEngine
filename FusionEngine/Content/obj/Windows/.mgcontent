@@ -484,8 +484,6 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE01.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE02.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE03.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/FALL01.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/FALL02.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/KO.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_01.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_02.png</File>
@@ -514,5 +512,10 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA01.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA02.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/INGRAB1/HIT-M_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL02.png</File>
   </SourceFiles>
 </SourceFileCollection>

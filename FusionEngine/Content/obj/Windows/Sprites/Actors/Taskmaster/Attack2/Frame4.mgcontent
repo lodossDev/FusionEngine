@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame4.png</SourceFile>
   <SourceTime>2017-02-23T19:19:29.6421461+00:00</SourceTime>
   <DestFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/Actors/Taskmaster/Attack2/Frame4.xnb</DestFile>
-  <DestTime>2017-03-01T21:17:02.966706+00:00</DestTime>
+  <DestTime>2017-03-10T22:14:25.5639354+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
@@ -26,6 +26,10 @@
   </Parameters>
   <Parameters>
     <Key>ResizeToPowerOfTwo</Key>
+    <Value>False</Value>
+  </Parameters>
+  <Parameters>
+    <Key>MakeSquare</Key>
     <Value>False</Value>
   </Parameters>
   <Parameters>

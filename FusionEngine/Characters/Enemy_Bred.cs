@@ -32,6 +32,10 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.PAIN2, 4);
             SetSpriteOffSet(Animation.State.PAIN2, 0, 0);
 
+            AddSprite(Animation.State.INGRAB1, new Sprite("Sprites/Actors/Bred/INGRAB1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.INGRAB1, 4);
+            SetSpriteOffSet(Animation.State.INGRAB1, 0, 0);
+
             AddSprite(Animation.State.RISE1, new Sprite("Sprites/Actors/Bred/RISE1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.RISE1, 4);
             SetSpriteOffSet(Animation.State.RISE1, 0, 0);

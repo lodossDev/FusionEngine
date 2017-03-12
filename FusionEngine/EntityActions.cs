@@ -8,6 +8,16 @@ namespace FusionEngine {
 
     public static class EntityActions {
 
+        public static void FaceTarget(Entity target, Entity entity) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY)) { 
+                if (entity.GetDirX() > 0) {
+                    target.SetIsLeft(true);
+                } else if (entity.GetDirX() < 0){
+                    target.SetIsLeft(false); 
+                }
+            }
+        }
+
         public static void CheckMaxGrabHits(Entity entity, Entity target) {
             target.GetGrabInfo().grabHitCount++;
 
@@ -28,8 +38,9 @@ namespace FusionEngine {
                 entity.SetAnimationState(Animation.State.GRAB_HOLD1);
             }
 
-            target.SetAnimationState(Animation.State.STANCE);
-            target.GetCurrentSprite().ResetAnimation();
+            if (!target.IsInAnimationAction(Animation.Action.INPAIN)) { 
+                target.SetAnimationState(Animation.State.INGRAB1);
+            }
         }
 
         public static void SetGrabDirection(Entity entity, Entity target) {
@@ -38,6 +49,25 @@ namespace FusionEngine {
             } else {
                 target.SetIsLeft(false);
             }
+
+            target.MoveX(entity.GetAccelX(), entity.GetDirX());
+            target.MoveZ(entity.GetAccelZ(), entity.GetDirZ());
+
+            target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
+            target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
+
+            target.SetDirectionX(entity.GetDirX());
+            target.SetDirectionZ(entity.GetDirZ());
+        }
+
+         public static void LinkGrab(Entity entity, Entity target) {
+            entity.SetAnimationState(Animation.State.GRAB_HOLD1);
+            target.SetAnimationState(Animation.State.INGRAB1);
+
+            target.GetGrabInfo().isGrabbed = true;
+            target.GetGrabInfo().grabbedBy = entity;
+            entity.GetGrabInfo().grabbed = target;
+            
         }
 
         public static void Ungrab(Entity entity, Entity target) {
@@ -74,6 +104,10 @@ namespace FusionEngine {
                     || target.GetGrabInfo().grabbedTime <= 0) {
 
                 Ungrab(entity, target);
+            }
+
+            if (entity.GetGrabInfo().grabbed == null && entity.IsInAnimationAction(Animation.Action.GRABBING)) {
+                entity.SetAnimationState(Animation.State.STANCE);
             }
         }
     }

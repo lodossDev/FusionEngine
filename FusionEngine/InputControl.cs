@@ -163,18 +163,10 @@ namespace FusionEngine {
             bool isLeftObstacleOnGrab = (grabbed != null && grabbed.GetCollisionInfo().IsLeft());
             bool isRightObstacleOnGrab = (grabbed != null && grabbed.GetCollisionInfo().IsRight());
 
-            float velX = 0f;
-
             if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                velX = walkSpeed;
+                veloctiy = walkSpeed;
             } else {
-                velX = runSpeed;
-            }
-
-            if (player.IsLeft() && grabbed != null) {
-                veloctiy = velX + 3f;
-            } else {
-                veloctiy = velX;
+                veloctiy = runSpeed;
             }
 
             ProcessAttack();
@@ -212,10 +204,7 @@ namespace FusionEngine {
                         inputDirection = InputDirection.UP;
                     }
 
-                    if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                        player.SetAnimationState(Animation.State.WALK_TOWARDS);
-                    } 
-
+                    player.SetWalkState();
                     player.MoveZ(veloctiy, -1);
                     UP = true;
 
@@ -249,10 +238,7 @@ namespace FusionEngine {
                         inputDirection = InputDirection.DOWN;
                     }
 
-                    if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                        player.SetAnimationState(Animation.State.WALK_TOWARDS);
-                    }
-
+                    player.SetWalkState();
                     player.MoveZ(veloctiy, 1);
                     DOWN = true;
                 }
@@ -268,10 +254,7 @@ namespace FusionEngine {
 
                     inputDirection = InputDirection.LEFT;
                     
-                    if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                        player.SetAnimationState(Animation.State.WALK_TOWARDS);
-                    }
-
+                    player.SetWalkState();
                     player.MoveX(veloctiy, -1);
                     player.SetIsLeft(true);
                     LEFT = true;
@@ -284,10 +267,7 @@ namespace FusionEngine {
 
                     inputDirection = InputDirection.RIGHT; 
                     
-                    if (!player.IsInAnimationAction(Animation.Action.RUNNING)) {
-                        player.SetAnimationState(Animation.State.WALK_TOWARDS);
-                    }
-                       
+                    player.SetWalkState();
                     player.MoveX(veloctiy, 1);
                     player.SetIsLeft(false);
                     RIGHT = true;
@@ -330,7 +310,9 @@ namespace FusionEngine {
                 }
             }
 
-            if (ATTACK_PRESS && player.IsInAnimationAction(Animation.Action.GRABBING)) {
+            if (ATTACK_PRESS && player.IsInAnimationAction(Animation.Action.GRABBING)
+                    && player.GetGrabInfo().grabbed != null) {
+
                 InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
                 
                 if (player.GetDirX() > 0) {
@@ -344,9 +326,9 @@ namespace FusionEngine {
                     player.SetAnimationState(Animation.State.THROW1);
 
                     float velX = player.GetGrabInfo().throwVelX * -player.GetDirX();
-
                     player.GetGrabInfo().grabbed.Toss(player.GetGrabInfo().throwHeight, velX, 1, 2);
-                    player.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed = false;
+
+                    EntityActions.Ungrab(player, player.GetGrabInfo().grabbed);
 
                 } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
                         && !player.IsInAnimationAction(Animation.Action.THROWING)

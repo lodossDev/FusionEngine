@@ -295,21 +295,22 @@ namespace FusionEngine
            
 
             //renderManager.AddEntity(leo);
-            renderManager.AddEntity(taskMaster);
+            //renderManager.AddEntity(taskMaster);
             renderManager.AddEntity(drum);
             renderManager.AddEntity(drum2);
             renderManager.AddEntity(drum3);
             //renderManager.AddEntity(drum4);
             renderManager.AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
-            renderManager.AddEntity(bred);
+            //renderManager.AddEntity(bred);
 
             collisionManager = new CollisionManager(renderManager);
             //collisionManager.AddEntity(leo);
-            collisionManager.AddEntity(taskMaster);
+            //collisionManager.AddEntity(taskMaster);
             collisionManager.AddEntity(drum);
             collisionManager.AddEntity(drum2);
             collisionManager.AddEntity(drum3);
+            //collisionManager.AddEntity(bred);
             //collisionManager.AddEntity(drum4);
 
 
@@ -386,7 +387,8 @@ namespace FusionEngine
                 //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 //camera.Parallax = new Vector2(xScroll.X, 0);
-                bred.SetScale(5, 5);
+                //bred.SetScale(5, 5);
+                taskMaster.GetRumble().isRumble = true;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -461,32 +463,33 @@ namespace FusionEngine
                 drum3.Update(gameTime);
                 drum4.Update(gameTime);
                 */
+                collisionManager.BeforeUpdate(gameTime);
 
                 inputManager.Update(gameTime);
 
-                collisionManager.Update(gameTime);
+                collisionManager.AfterUpdate(gameTime);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.NumPad4)) {
-                    drum3.MoveX(5, -1);
+                    //bred.MoveX(5, -1);
                     //level1.ScrollX(-12);
                 } else if (Keyboard.GetState().IsKeyDown(Keys.NumPad6)) {
-                    drum3.MoveX(5, 1);
+                    //bred.MoveX(5, 1);
                     //level1.ScrollX(12);
                 } else {
-                    drum3.MoveX(0, 0);
-                    drum3.VelX(0);
+                    //bred.MoveX(0, 0);
+                    //bred.VelX(0);
                 }
 
                 if(Keyboard.GetState().IsKeyDown(Keys.NumPad8)) {
-                    drum3.MoveZ(5, -1);
+                    bred.MoveZ(5, -1);
                     //level1.ScrollY(-5);
                 } else if(Keyboard.GetState().IsKeyDown(Keys.NumPad2)) {
                     //ryo.MoveX(5, 1);
-                    drum3.MoveZ(5, 1);
+                   // bred.MoveZ(5, 1);
                     //level1.ScrollY(5);
                 } else {
-                    drum3.MoveZ(0, 0);
-                    drum3.VelZ(0);
+                    //bred.MoveZ(0, 0);
+                    //bred.VelZ(0);
                 }
 
 
@@ -502,9 +505,13 @@ namespace FusionEngine
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
 
-                if (bred.GetGrabInfo().isGrabbed == false && !bred.IsToss()) {
+                if (bred.GetGrabInfo().isGrabbed == false && !bred.IsToss() && !bred.IsInAnimationAction(Animation.Action.INPAIN)) {
                     bred.UpdateAI(gameTime, collisionManager.GetPlayers());
                     bred.ResetToIdle(gameTime);
+                }
+
+                if (bred.IsInAnimationAction(Animation.Action.INPAIN)) {
+                    bred.StopMovement();
                 }
 
                 if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
@@ -567,11 +574,12 @@ namespace FusionEngine
              * Vector
             */
 
-           
+            Entity obs = ryo.GetCollisionInfo().GetMovingObstacle();
+
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (frameRate.AverageFramesPerSecond), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "FRAME: " + (ryo.GetSprite(Animation.State.STANCE).GetCurrentTexture().Height), new Vector2(20, 100), Color.Red);
-            spriteBatch.DrawString(testFOnt, "PHONE X: " +  bred.GetEntityType(), new Vector2(20, 160), Color.Red);
+            spriteBatch.DrawString(font1, "FPS: " + (obs != null ? obs.GetName(): ""), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDirX()), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

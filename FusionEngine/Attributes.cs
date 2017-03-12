@@ -22,6 +22,44 @@ namespace FusionEngine {
             BOTTOM = 3
         }
 
+        public class AnimationConfig {
+            public Animation.State lowPainState;
+            public Animation.State mediumPainState;
+            public Animation.State heavyPainState;
+            public Animation.State grabbedState;
+            public Animation.State grabHoldState;
+            public Animation.State throwState;
+
+
+            public AnimationConfig() { }
+        }
+
+        public class Rumble {
+            public float time;
+            public float maxTime;
+            public float forceTime;
+            public float maxForceTime;
+            public float lastDir;
+            public float dir;
+            public float force;
+            public float lx;
+            public bool isRumble;
+            public int count;
+
+
+            public Rumble() {
+                lx = 0;
+                isRumble = false;
+                time = 0;
+                maxTime = 100;
+                forceTime = 0;
+                maxForceTime = 25;
+                force = 2.5f;
+                dir = lastDir = -1;
+                count = 0;
+            }
+        }
+
         public class CollisionInfo {
             private CollisionState collide_x;
             private CollisionState collide_y;
@@ -166,7 +204,7 @@ namespace FusionEngine {
                 grabbed = grabbedBy = null;       
                 grabDirection = 0;
                 grabbedTime = 50000;
-                throwVelX = 4;
+                throwVelX = 6;
                 throwHeight = -13;
                 grabHitCount = 0;
                 maxGrabHits = 5;
@@ -188,7 +226,7 @@ namespace FusionEngine {
             public Animation.State lastAttackState;
             public int lastAttackFrame;
             public int lastHitDirection;
-            public float hitPauseTime;
+            public int hitPauseTime;
 
 
             public AttackInfo() {
@@ -205,9 +243,9 @@ namespace FusionEngine {
 
         public class FrameInfo {
             public enum FrameState { NO_FRAME = -1 }
-
             private int startFrame;
             private int endFrame;
+
 
             public FrameInfo(int startFrame, int endFrame) {
                 this.startFrame = startFrame;
@@ -278,6 +316,7 @@ namespace FusionEngine {
             public bool expired;
             public float originalFreq;
             
+
             public ColourInfo() {
                 r = 255;
                 g = 255;

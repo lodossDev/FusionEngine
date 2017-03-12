@@ -42,8 +42,8 @@ namespace FusionEngine
             int eGround = (int)Math.Abs(Math.Round((double)entity.GetGround()));
             int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
 
-            float vx = Math.Abs(entity.GetAbsoluteVelX());
-            float vz = Math.Abs(entity.GetAbsoluteVelZ());
+            float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
 
             foreach (Entity target in entities) {
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
@@ -92,8 +92,8 @@ namespace FusionEngine
             int eGround = (int)Math.Abs(Math.Round((double)entity.GetGround()));
             int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
 
-            float vx = Math.Abs(entity.GetAbsoluteVelX());
-            float vz = Math.Abs(entity.GetAbsoluteVelZ());
+            float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
 
             foreach (Entity target in entities) {
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
@@ -139,7 +139,7 @@ namespace FusionEngine
                 entity.SetGround(entity.GetGroundBase());
                 entity.GetCollisionInfo().SetIsOnTop(false);
                 entity.GetCollisionInfo().SetMovingObstacle(null);
-                //entity.GetCollisionInfo().SetObstacle(null);
+                entity.GetCollisionInfo().SetObstacle(null);
 
                 if (!entity.IsToss() && !entity.GetGrabInfo().isGrabbed) {
                     entity.SetAnimationState(Animation.State.FALL1);
@@ -162,8 +162,8 @@ namespace FusionEngine
             int eGround = (int)Math.Abs(Math.Round((double)entity.GetGround()));
             int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
 
-            float vx = Math.Abs(entity.GetAbsoluteVelX());
-            float vz = Math.Abs(entity.GetAbsoluteVelZ());
+            float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
           
             foreach (Entity target in entities) {
 
@@ -189,7 +189,7 @@ namespace FusionEngine
                         if (isWithInBoundsX1 && isWithInBoundsZ1
                                 && target == entity.GetCollisionInfo().GetMovingObstacle() 
                                 && entity.GetCollisionInfo().IsOnTop())  { 
-                        
+                            
                             if (target.IsMovingY()) { 
                                 entity.MoveY(target.GetAbsoluteVelY());
                                 entity.SetGround(entity.GetPosY());
@@ -225,8 +225,8 @@ namespace FusionEngine
             int eGround = (int)Math.Abs(Math.Round((double)entity.GetGround()));
             int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
 
-            float vx = Math.Abs(entity.GetAbsoluteVelX());
-            float vz = Math.Abs(entity.GetAbsoluteVelZ()); 
+            float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
 
             List<Entity> aboveEntities = FindAbove(entity);
             List<Entity> belowEntities = FindBelow(entity);
@@ -375,9 +375,22 @@ namespace FusionEngine
                 hitCount++;
                 hiteffect1.CreateInstance().Play();
                 //target.Toss(-1.2f, 0, 200000000);
+                float dir = (entity.IsLeft() ? -1 : 1);
 
-                EntityActions.CheckMaxGrabHits(entity, target);
-                //entity.GetAttackInfo().hitPauseTime = 2000f;
+                if (target.GetGrabInfo().isGrabbed) { 
+                    target.SetAnimationState(Animation.State.PAIN2);
+
+                } else {
+                    target.SetAnimationState(Animation.State.PAIN1);
+                }
+
+                target.GetCurrentSprite().ResetAnimation();
+                target.SetPainTime(60);
+                target.SetRumble(dir, 2.8f);
+                EntityActions.FaceTarget(target, entity);
+
+                //EntityActions.CheckMaxGrabHits(entity, target);
+                //entity.SetHitPauseTime(20);
                 //target.MoveY(-125 * attackBox.GetHitStrength());
             }
         }
@@ -525,7 +538,7 @@ namespace FusionEngine
 
             foreach (Entity target in entities) {
 
-                if (entity != target && target.IsEntity(Entity.ObjectType.ENEMY)) {
+                if (entity != target && target.IsEntity(Entity.ObjectType.ENEMY) && entity.GetName().Contains("RYO")) {
                     
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -550,8 +563,10 @@ namespace FusionEngine
                             && tGrabInfo.grabbedTime > 0
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
+                            && (double)entity.GetVelX() != 0.0
+                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !target.IsToss()
-                            /*&& !tGrabInfo.isGrabbed*/) {
+                            && eGrabInfo.grabbed == null) {
 
                         if (obstacle != null) { 
                             if (target.GetCollisionInfo().IsLeft()) {
@@ -571,20 +586,16 @@ namespace FusionEngine
                         }
 
                         entity.SetPosX(newx);
-                        target.SetPosX(targetx);
+                        if(!target.GetRumble().isRumble)target.SetPosX(targetx);
 
                         target.SetPosY((entity.GetGround() + eGrabInfo.grabHeight));
                         target.SetGround((entity.GetGround() + eGrabInfo.grabHeight));
 
-                        eGrabInfo.grabbed = target;
-                        tGrabInfo.grabbedBy = entity;
-
-                        tGrabInfo.isGrabbed = true;
+                        EntityActions.LinkGrab(entity, target);
                     }
 
                     if (tGrabInfo.isGrabbed && tGrabInfo.grabbedBy == entity) {
 
-                        EntityActions.SetGrabDirection(entity, target);
                         EntityActions.SetGrabAnimation(entity, target);
 
                         if (obstacle != null) { 
@@ -606,11 +617,7 @@ namespace FusionEngine
 
                         newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
 
-                        target.MoveX(entity.GetAccelX(), entity.GetDirX());
-                        target.MoveZ(entity.GetAccelZ(), entity.GetDirZ());
-
-                        target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
-                        target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
+                        EntityActions.SetGrabDirection(entity, target);
                                                
                         if (entity.IsLeft()) {
                             targetx = x - (eGrabInfo.dist / 2);
@@ -621,7 +628,7 @@ namespace FusionEngine
                         }
 
                         if (target.GetCollisionInfo().IsCollideX(Attributes.CollisionState.NO_COLLISION)) {
-                            target.SetPosX(targetx);
+                            if(!target.GetRumble().isRumble)target.SetPosX(targetx);
                         }
 
                         if (!target.GetCollisionInfo().IsCollideX(Attributes.CollisionState.NO_COLLISION)){
@@ -630,10 +637,10 @@ namespace FusionEngine
 
                         target.SetGround((entity.GetGround() + eGrabInfo.grabHeight));
                         
-                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 2;
+                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 10;
 
                         if (eGrabInfo.grabPos == -1) {
-                            zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) - 2;
+                            zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) - 10;
                         }
 
                         if (target.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.NO_COLLISION)) {
@@ -649,29 +656,18 @@ namespace FusionEngine
             }
         }
 
-        public void Update(GameTime gameTime) {
+        public void BeforeUpdate(GameTime gameTime) {
             foreach (Entity entity in entities) {
-                /*if (entity.IsEntity(Entity.ObjectType.PLAYER) && entity.GetAfterImageData().Add(entity.GetCurrentFrame())) {
-                        
-                    Entity imageEntity = new Entity(Entity.ObjectType.AFTER_IMAGE, entity.GetName());
-                    imageEntity.AddSprite(entity.GetCurrentAnimationState(), entity.GetSprite(entity.GetCurrentAnimationState()).Clone(entity.GetCurrentFrame() + 1), true);
-                    imageEntity.SetPostion(entity.GetPosX(), entity.GetPosY(), entity.GetPosZ() - 5);
-                    imageEntity.SetOnLoadScale(entity.GetScaleX(), entity.GetScaleY());
-                    imageEntity.SetIsLeft(entity.IsLeft());
-                    imageEntity.AddDepthBox(entity.GetDepthBox().GetWidth(), entity.GetDepthBox().GetHeight(), (int)entity.GetDepthBox().GetOffset().X, (int)entity.GetDepthBox().GetOffset().Y);
-                    renderManager.AddEntity(imageEntity);
-                    imageEntity = null;
-                }*/
-
-                entity.GetCollisionInfo().Reset();
-
-                entity.GetCollisionInfo().SetMovingObstacle(null);
-                entity.GetCollisionInfo().SetObstacle(null);
-
                 CheckGrab(entity);
                 CheckAttack(entity);
-                CheckBounds(entity);
+            }
+        }
 
+        public void AfterUpdate(GameTime gameTime) {
+            foreach (Entity entity in entities) {
+                entity.GetCollisionInfo().Reset();
+                
+                CheckBounds(entity);
                 CheckLand(entity);
                 CheckFall(entity);
             }

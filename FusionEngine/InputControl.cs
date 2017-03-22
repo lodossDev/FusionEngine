@@ -323,15 +323,7 @@ namespace FusionEngine {
                         && player.IsInAnimationAction(Animation.Action.GRABBING)
                         && heldState.IsKeyPressed(throwKey)) {
 
-                    player.SetAnimationState(Animation.State.THROW1);
-
-                    float velX = player.GetGrabInfo().throwVelX * -player.GetDirX();
-                    player.GetGrabInfo().grabbed.Toss(player.GetGrabInfo().throwHeight, velX, 1, 2);
-                    player.GetGrabInfo().grabbed.SetAnimationState(Animation.State.THROWN1);
-
-                    player.GetGrabInfo().grabbed.SetIsLeft(false);
-
-                    EntityActions.Ungrab(player, player.GetGrabInfo().grabbed);
+                    EntityActions.ThrowTarget(player, player.GetGrabInfo().grabbed);
 
                 } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
                         && !player.IsInAnimationAction(Animation.Action.THROWING)

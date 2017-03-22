@@ -79,27 +79,27 @@ namespace FusionEngine {
         public enum Type {NONE, ONCE, REPEAT}
 
         public class Link {
-            private Animation.State onState;
-            private Animation.State toState;
+            private Animation.State? onState;
+            private Animation.State? toState;
             private int onFrameState;
             private bool onFrameComplete;
 
-            public Link(Animation.State onState, Animation.State toState, int frameOnStart, bool onFrameComplete = true) {
+            public Link(Animation.State? onState, Animation.State? toState, int frameOnStart, bool onFrameComplete = true) {
                 SetLink(onState, toState, frameOnStart, onFrameComplete);
             }
 
-            public void SetLink(Animation.State onState, Animation.State toState, int frameOnStart, bool onFrameComplete = true) {
+            public void SetLink(Animation.State? onState, Animation.State? toState, int frameOnStart, bool onFrameComplete = true) {
                 this.onState = onState;
                 this.toState = toState;
                 this.onFrameState = (frameOnStart - 1);
                 this.onFrameComplete = onFrameComplete;
             }
 
-            public Animation.State GetOnState() {
+            public Animation.State? GetOnState() {
                 return onState;
             }
 
-            public Animation.State GetToState() {
+            public Animation.State? GetToState() {
                 return toState;
             }
 

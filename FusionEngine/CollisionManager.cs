@@ -17,6 +17,12 @@ namespace FusionEngine
         private SoundEffectInstance soundInstance, soundInstance2;
         private RenderManager renderManager;
 
+        //Grab calculations.
+        private Vector2 grabx1 = Vector2.Zero;
+        private Vector2 grabx2 = Vector2.Zero;
+        private Vector2 grabz1 = Vector2.Zero;
+        private Vector2 grabz2 = Vector2.Zero;
+
         public CollisionManager(RenderManager renderManager) {
             hiteffect1 = System.contentManager.Load<SoundEffect>("Sounds//hit1");
             soundInstance = hiteffect1.CreateInstance();
@@ -189,11 +195,9 @@ namespace FusionEngine
                         if (isWithInBoundsX1 && isWithInBoundsZ1
                                 && target == entity.GetCollisionInfo().GetMovingObstacle() 
                                 && entity.GetCollisionInfo().IsOnTop())  { 
-                            
-                            if (target.IsMovingY()) { 
-                                entity.MoveY(target.GetAbsoluteVelY());
-                                entity.SetGround(entity.GetPosY());
-                            }
+
+                            entity.MoveY(target.GetAbsoluteVelY());
+                            entity.SetGround(entity.GetPosY());
                         }
 
                         if (isWithInBoundsX1 && isWithInBoundsZ1 
@@ -369,36 +373,23 @@ namespace FusionEngine
             }
         }
 
-        private void OnHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+        private void OnHit(Entity target, Entity entity, CLNS.AttackBox attackInfo) {
             if (target != entity) {
                 hitCount++;
                 hiteffect1.CreateInstance().Play();
-                //target.Toss(-1.2f, 0, 200000000);
+                //target.Toss(-5.2f, 0, 200000000);
                 float dir = (entity.IsLeft() ? -1 : 1);
 
-                if (target.GetGrabInfo().isGrabbed) { 
-                    target.SetAnimationState(Animation.State.PAIN2);
-
-                } else {
-                    target.SetAnimationState(Animation.State.PAIN1);
-                }
+                EntityActions.SetPainState(entity, target, attackInfo);
 
                 target.GetCurrentSprite().ResetAnimation();
-                target.SetPainTime(60);
+                target.SetPainTime(80);
                 target.SetRumble(dir, 2.8f);
                 EntityActions.FaceTarget(target, entity);
 
-                //EntityActions.CheckMaxGrabHits(entity, target);
-                //entity.SetHitPauseTime(20);
-                //target.MoveY(-125 * attackBox.GetHitStrength());
-            }
-        }
-
-        private void OnHit(Entity target, Entity entity) {
-            if (target != entity) {
-                hitCount++;
-                hiteffect1.CreateInstance().Play();
                 EntityActions.CheckMaxGrabHits(entity, target);
+                target.SetHitPauseTime(100);
+                //target.MoveY(-125 * attackBox.GetHitStrength());
             }
         }
 
@@ -443,7 +434,7 @@ namespace FusionEngine
                                         attackBoxesHitInFrame.Add(attackBox);
                                         tBodyBox = bodyBox;
 
-                                        if (attackBox.GetSettingType() == CLNS.AttackBox.SettingType.ONCE) { 
+                                        if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                                             if (entityAttackInfo.lastAttackState != entity.GetCurrentAnimationState()) {
                                                 current_hit_id++;
 
@@ -482,8 +473,8 @@ namespace FusionEngine
                                     if (attackBox.Intersects(tBodyBox)) {
                                         //Debug.WriteLine("currentAttackHits: " + currentAttackHits);
 
-                                        if (currentAttackHits > 0 && (attackBox.GetSettingType() == CLNS.AttackBox.SettingType.FRAME
-                                                || attackBox.GetSettingType() == CLNS.AttackBox.SettingType.ONCE)) {
+                                        if (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
+                                                || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {
 
                                             break;
                                         }
@@ -526,35 +517,31 @@ namespace FusionEngine
         }
 
         private void CheckGrab(Entity entity) {
-            if (!entity.HasSprite(Animation.State.GRAB_HOLD1)) {
-                return;
-            }
-
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
             Attributes.GrabInfo eGrabInfo = entity.GetGrabInfo();
-            float newx = 0, newz = 0, x = 0, targetx = 0, targetz = 0;
+
+            float newx = 0;
+            float newz = 0;
+            float x = 0;
+            float targetx = 0;
+            float targetz = 0;
 
             foreach (Entity target in entities) {
 
                 if (entity != target && target.IsEntity(Entity.ObjectType.ENEMY) && entity.GetName().Contains("RYO")) {
-                    
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
                     Attributes.GrabInfo tGrabInfo = target.GetGrabInfo();
 
-                    Vector2 x1 = new Vector2(entityBox.GetRect().X, 0);
-                    Vector2 x2 = new Vector2(targetBox.GetRect().X, 0);
+                    grabx1.X = entityBox.GetRect().X;
+                    grabx2.X = targetBox.GetRect().X;
 
-                    Vector2 z1 = new Vector2(0, eDepthBox.GetRect().Bottom);
-                    Vector2 z2 = new Vector2(0, tDepthBox.GetRect().Bottom);
+                    grabz1.Y = eDepthBox.GetRect().Bottom;
+                    grabz2.Y = tDepthBox.GetRect().Bottom;
 
-                    float distX = Vector2.Distance(x1, x2);
-                    float distZ = Vector2.Distance(z1, z2);
-
-                    Entity obstacle = target.GetCollisionInfo().GetObstacle();
-                    int oWidth = (obstacle != null ? obstacle.GetBoundsBox().GetWidth() : 0);
-                    int ox = 0;
+                    float distX = Vector2.Distance(grabx1, grabx2);
+                    float distZ = Vector2.Distance(grabz1, grabz2);
                     
                     if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
@@ -562,91 +549,22 @@ namespace FusionEngine
                             && tGrabInfo.grabbedTime > 0
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
+                            //Entity must be moving forward to grab?
                             && (double)entity.GetVelX() != 0.0
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !target.IsToss()
                             && eGrabInfo.grabbed == null) {
 
-                        if (obstacle != null) { 
-                            if (target.GetCollisionInfo().IsLeft()) {
-                                ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
-                            } else if (target.GetCollisionInfo().IsRight()) {
-                                ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
-                            }
-                        }
-
-                        if (eGrabInfo.grabIn == 1) {
-                            newx = x = entity.GetPosX() + ox;
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                        } else {
-                            x = ((entity.GetPosX() + target.GetPosX()) / 2) + ox;
-                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                        }
-
-                        entity.SetPosX(newx);
-                        if(!target.GetRumble().isRumble)target.SetPosX(targetx);
-
-                        target.SetPosY((entity.GetGround() + eGrabInfo.grabHeight));
-                        target.SetGround((entity.GetGround() + eGrabInfo.grabHeight));
-
-                        EntityActions.LinkGrab(entity, target);
+                        EntityActions.OnGrab(out newx, out x, out targetx, entity, target);
                     }
 
                     if (tGrabInfo.isGrabbed && tGrabInfo.grabbedBy == entity) {
-
-                        EntityActions.SetGrabAnimation(entity, target);
-
-                        if (obstacle != null) { 
-                            if (target.GetCollisionInfo().IsLeft()) {
-                                ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
-                            } else if (target.GetCollisionInfo().IsRight()) {
-                                ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
-                            }
-                        }
-
-                        if (eGrabInfo.grabIn == 1) {
-                            newx = x = entity.GetPosX() + ox;
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                        } else {
-                            x = ((entity.GetPosX() + target.GetPosX()) / 2) + ox;
-                            newx = x + ((entity.GetPosX() >= target.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                            targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (eGrabInfo.dist / 2) : -(eGrabInfo.dist / 2));
-                        }
-
-                        newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
-
-                        EntityActions.SetGrabDirection(entity, target);
-                                               
-                        if (entity.IsLeft()) {
-                            targetx = x - (eGrabInfo.dist / 2);
-                            tGrabInfo.grabDirection = -1;
-                        } else {
-                            targetx = x + (eGrabInfo.dist / 2);
-                            tGrabInfo.grabDirection = 1;
-                        }
-
-                        if (target.GetCollisionInfo().IsCollideX(Attributes.CollisionState.NO_COLLISION)) {
-                            if(!target.GetRumble().isRumble)target.SetPosX(targetx);
-                        }
-
-                        if (!target.GetCollisionInfo().IsCollideX(Attributes.CollisionState.NO_COLLISION)){
-                            entity.SetPosX(newx);
-                        }
-
-                        target.SetGround((entity.GetGround() + eGrabInfo.grabHeight));
-                        
-                        int zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) + 10;
-
-                        if (eGrabInfo.grabPos == -1) {
-                            zOffset = (eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) - 10;
-                        }
-
-                        if (target.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.NO_COLLISION)) {
-                            target.SetPosZ(newz + zOffset);
-                        }
+                        EntityActions.SetGrabPosition(out newx, out newz, out x, out targetx, out targetz, entity, target);
 
                         target.StopMovement();
+                        EntityActions.SetGrabGround(entity, target);
+                        EntityActions.ThrowIfNoGrab(entity, target);
+                        EntityActions.SetGrabAnimation(entity, target);
                         EntityActions.CheckGrabTime(entity, target);
                     }
 

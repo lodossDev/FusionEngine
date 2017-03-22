@@ -30,15 +30,15 @@ namespace FusionEngine {
             SetFrameScale(Animation.State.THROWN1, -0.4f, 0);
 
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.PAIN1, 4);
+            SetFrameDelay(Animation.State.PAIN1, 6);
             SetSpriteOffSet(Animation.State.PAIN1, 10, 0);
 
             AddSprite(Animation.State.PAIN2, new Sprite("Sprites/Actors/Bred/PAIN2", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.PAIN2, 4);
+            SetFrameDelay(Animation.State.PAIN2, 6);
             SetSpriteOffSet(Animation.State.PAIN2, 0, 0);
 
             AddSprite(Animation.State.INGRAB1, new Sprite("Sprites/Actors/Bred/INGRAB1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.INGRAB1, 4);
+            SetFrameDelay(Animation.State.INGRAB1, 6);
             SetSpriteOffSet(Animation.State.INGRAB1, 0, 0);
 
             AddSprite(Animation.State.RISE1, new Sprite("Sprites/Actors/Bred/RISE1", Animation.Type.ONCE));
@@ -73,13 +73,17 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
             SetAnimationState(Animation.State.WALK_TOWARDS);
+            SetLowPainGrabbedState(Animation.State.PAIN2);
+            SetLowPainState(Animation.State.PAIN1);
+
             SetOnLoadScale(3.2f, 3.3f);
             AddBoundsBox(160, 300, -60, 240, 50);
-            SetBaseOffset(-150, -100);
 
-            SetPostion(400, 0, 100);
+            SetBaseOffset(-150, -100);
             SetShadowOffset(0, -85);
             SetScale(3.2f, 3.2f);
+
+            SetPostion(400, 0, 100);
         }
     }
 }

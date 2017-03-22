@@ -201,7 +201,7 @@ namespace FusionEngine {
 
             SetOnLoadScale(3.3f, 3.2f);
             SetPostion(400, 0, 200);
-            SetBaseOffset(0, -10f);
+            SetBaseOffset(50f, 190f);
         }
     }
 }

@@ -250,9 +250,9 @@ namespace FusionEngine
         }
 
         public class AttackBox : BoundingBox {
-            public enum AttackPosition { STANDING, LOW, AIR, NONE };
-            public enum BlockPosition { HI, LOW, AIR, NONE };
-            public enum SettingType { ALL, FRAME, ONCE }
+            public enum State { STANDING, LOW, AIR, NONE };
+            public enum HitType { ALL, FRAME, ONCE }
+            public enum AttackType { LOW, MEDIUM, HEAVY }
 
             private float hitPauseTime;
             private float painTime;
@@ -261,20 +261,21 @@ namespace FusionEngine
             private float hitStrength;
             private int comboStep;
             private int juggleCost;
-            private AttackPosition attackPosition;
-            private BlockPosition blockPosition;
-            private SettingType settingType;
+            private State attackPosition;
+            private State blockPosition;
+            private AttackType attackType;
+            private HitType hitType;
             private Effect.State sparkState;
             private Vector2 sparkOffset;
 
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 1 / 60, 
                                         float painTime = 20 / 60, int hitDamage = 5,
                                         int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1,
-                                        int juggleCost = 0, AttackPosition attackPosiiton = AttackPosition.NONE,
-                                        BlockPosition blockPosition = BlockPosition.NONE,
-                                        SettingType settingType = SettingType.ALL,
-                                        Effect.State sparkState = Effect.State.NONE,
+                                        int juggleCost = 0, AttackType attackType = AttackType.LOW,
+                                        State attackPosiiton = State.NONE, State blockPosition = State.NONE,
+                                        HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
                                         float sparkX = 0, float sparkY = 0)
+
                                     : base(BoxType.HIT_BOX, w, h, x, y) {
 
                 sparkOffset = Vector2.Zero;
@@ -288,7 +289,7 @@ namespace FusionEngine
                 SetComboStep(comboStep);
                 SetJuggleCost(juggleCost);
                 SetAttackPosition(attackPosition);
-                SetSettingType(settingType);
+                SetHitType(hitType);
                 SetSparkState(sparkState);
                 SetSparkOffset(sparkX, sparkY);
             }
@@ -321,16 +322,20 @@ namespace FusionEngine
                 juggleCost = cost;
             }
 
-            public void SetAttackPosition(AttackPosition position) {
+            public void SetAttackType(AttackType attackType) {
+                this.attackType = attackType;
+            }
+
+            public void SetAttackPosition(State position) {
                 attackPosition = position;
             }
 
-            public void SetBlockPosition(BlockPosition position) {
+            public void SetBlockPosition(State position) {
                 blockPosition = position;
             }
 
-            public void SetSettingType(SettingType sparkRenderFrame) {
-                this.settingType = sparkRenderFrame;
+            public void SetHitType(HitType hitType) {
+                this.hitType = hitType;
             }
 
             public void SetSparkState(Effect.State sparkState) {
@@ -340,6 +345,10 @@ namespace FusionEngine
             public void SetSparkOffset(float x1, float y1) {
                 sparkOffset.X = x1;
                 sparkOffset.Y = y1;
+            }
+
+            public AttackType GetAttackType() {
+                return attackType;
             }
 
             public float GetHitPauseTime() {
@@ -370,16 +379,16 @@ namespace FusionEngine
                 return juggleCost;
             }
 
-            public AttackPosition GetAttackPosition() {
+            public State GetAttackPosition() {
                 return attackPosition;
             }
 
-            public BlockPosition GetBlockPosition() {
+            public State GetBlockPosition() {
                 return blockPosition;
             }
 
-            public SettingType GetSettingType() {
-                return settingType;
+            public HitType GetHitType() {
+                return hitType;
             }
 
             public Effect.State GetSparkState() {

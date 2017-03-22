@@ -16,16 +16,16 @@ namespace FusionEngine {
         private static int id = 0;
         public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE}
 
-        private Dictionary<Animation.State, Sprite> spriteMap;
+        private Dictionary<Animation.State?, Sprite> spriteMap;
         private Sprite currentSprite;
         private Attributes.ColourInfo colorInfo;
         
-        private Animation.State currentAnimationState;
-        private Animation.State lastAnimationState;
+        private Animation.State? currentAnimationState;
+        private Animation.State? lastAnimationState;
 
-        private Dictionary<Animation.State, SoundEffect> animationSounds;
-        private Dictionary<Animation.State, int> moveFrames;
-        private Dictionary<Animation.State, int> tossFrames;
+        private Dictionary<Animation.State?, SoundEffect> animationSounds;
+        private Dictionary<Animation.State?, int> moveFrames;
+        private Dictionary<Animation.State?, int> tossFrames;
 
         private CLNS.BoundingBox bodyBox;
         private CLNS.BoundingBox depthBox;
@@ -96,11 +96,11 @@ namespace FusionEngine {
             this.type = type;
             this.name = name;
 
-            spriteMap = new Dictionary<Animation.State, Sprite>();
-            moveFrames = new Dictionary<Animation.State, int>();
-            tossFrames = new Dictionary<Animation.State, int>();
+            spriteMap = new Dictionary<Animation.State?, Sprite>();
+            moveFrames = new Dictionary<Animation.State?, int>();
+            tossFrames = new Dictionary<Animation.State?, int>();
             animationLinks = new List<Animation.Link>();
-            animationSounds = new Dictionary<Animation.State, SoundEffect>();
+            animationSounds = new Dictionary<Animation.State?, SoundEffect>();
 
             scale = nScale = baseScale = new Vector2(1f, 1f);
             stanceOrigin = Vector2.Zero;
@@ -151,11 +151,11 @@ namespace FusionEngine {
             layerPos = 0;
         }
 
-        public void AddSprite(Animation.State state, Sprite sprite) {
+        public void AddSprite(Animation.State? state, Sprite sprite) {
             spriteMap.Add(state, sprite);
         }
 
-        public void AddSprite(Animation.State state, Sprite sprite, bool setAsDefaultState) {
+        public void AddSprite(Animation.State? state, Sprite sprite, bool setAsDefaultState) {
             AddSprite(state, sprite);
 
             if (setAsDefaultState) {
@@ -163,7 +163,7 @@ namespace FusionEngine {
             }
         }
 
-        public void AddSprite(Animation.State state, String location, bool setAsDefaultState) {
+        public void AddSprite(Animation.State? state, String location, bool setAsDefaultState) {
             AddSprite(state, new Sprite(location), setAsDefaultState);
         }
 
@@ -171,7 +171,7 @@ namespace FusionEngine {
             animationLinks.Add(link);
         }
 
-        public void SetAnimationLink(Animation.State onState, Animation.State toState, int frameOnStart, bool onFrameComplete = true) {
+        public void SetAnimationLink(Animation.State? onState, Animation.State? toState, int frameOnStart, bool onFrameComplete = true) {
             Animation.Link link = animationLinks.Find(item => item.GetOnState() == onState);
 
             if (link != null) { 
@@ -179,7 +179,7 @@ namespace FusionEngine {
             }
         }
 
-        public void SetJumpLink(Animation.State toState) {
+        public void SetJumpLink(Animation.State? toState) {
             if (HasSprite(Animation.State.JUMP_START)) {
                 Sprite jumpStart = GetSprite(Animation.State.JUMP_START);
 
@@ -188,7 +188,7 @@ namespace FusionEngine {
             }
         }
 
-        public void SetAnimationState(Animation.State state) {
+        public void SetAnimationState(Animation.State? state) {
             if (!IsInAnimationState(state)) {
                 attackInfo.lastAttackFrame = -1;
                 attackInfo.lastAttackState = Animation.State.NONE;
@@ -299,43 +299,43 @@ namespace FusionEngine {
             return commandMoves;
         }
 
-        public void SetFrameScale(Animation.State state, int frame, float x, float y) {
+        public void SetFrameScale(Animation.State? state, int frame, float x, float y) {
             GetSprite(state).SetFrameScale(frame, x, y);
         }
 
-        public void SetFrameScale(Animation.State state, float x, float y) {
+        public void SetFrameScale(Animation.State? state, float x, float y) {
             GetSprite(state).SetFrameScale(x, y);
         }
 
-        public void SetFrameOffset(Animation.State state, int frame, float x, float y) {
+        public void SetFrameOffset(Animation.State? state, int frame, float x, float y) {
             GetSprite(state).SetFrameOffset(frame, x, y);
         }
 
-        public void SetOffset(Animation.State state, float x, float y) {   
+        public void SetOffset(Animation.State? state, float x, float y) {   
             GetSprite(state).SetFrameOffset(x, y);    
         }
 
-        public void SetSpriteOffSet(Animation.State state, float x, float y) {
+        public void SetSpriteOffSet(Animation.State? state, float x, float y) {
             GetSprite(state).SetSpriteOffset(x, y);
         }
 
-        public void SetFrameDelay(Animation.State state, int frame, int ticks) {
+        public void SetFrameDelay(Animation.State? state, int frame, int ticks) {
             GetSprite(state).SetFrameTime(frame, ticks);
         }
 
-        public void SetFrameDelay(Animation.State state, int ticks) {
+        public void SetFrameDelay(Animation.State? state, int ticks) {
             GetSprite(state).SetFrameTime(ticks);
         }
 
-        public void SetResetFrame(Animation.State state, int frame) {
+        public void SetResetFrame(Animation.State? state, int frame) {
             GetSprite(state).SetResetFrame(frame);
         }
 
-        public void SetMoveFrame(Animation.State state, int frame) {
+        public void SetMoveFrame(Animation.State? state, int frame) {
             moveFrames.Add(state, frame - 1);
         }
 
-        public void SetTossFrame(Animation.State state, int frame) {
+        public void SetTossFrame(Animation.State? state, int frame) {
             tossFrames.Add(state, frame - 1);
         }
 
@@ -676,7 +676,7 @@ namespace FusionEngine {
             return aliveTime;
         }
 
-        public bool InHitPuaseTime() {
+        public bool InHitPauseTime() {
             return attackInfo.hitPauseTime > 0;
         }
 
@@ -810,20 +810,28 @@ namespace FusionEngine {
             return spriteMap.Count;
         }
 
-        public Sprite GetSprite(Animation.State state) {
-            if (spriteMap.ContainsKey(state)) {
+        public Sprite GetSprite(Animation.State? state) {
+            if (state != null && spriteMap.ContainsKey(state)) {
                 return spriteMap[state];
             } else {
                 return null;
             }
         }
 
-        public bool HasSprite(Animation.State state) {
-            return spriteMap.ContainsKey(state);
+        public bool HasSprite(Animation.State? state) {
+            if (state != null) { 
+                return spriteMap.ContainsKey(state);
+            }
+
+            return false;
         }
 
-        public int GetSpriteFrames(Animation.State state) {
-            return GetSprite(state).GetFrames();
+        public int GetSpriteFrames(Animation.State? state) {
+            if (state != null) {
+                return GetSprite(state).GetFrames();
+            }
+
+            return 0;
         }
 
         public Sprite GetCurrentSprite() {
@@ -880,11 +888,8 @@ namespace FusionEngine {
             float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX());
             float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY());
 
-            if (diffX == 0) diffX = GetScaleX();
-            if (diffY == 0) diffY = GetScaleY();
-
-            baseCenter.X = (baseOffset.X * GetScaleX()) + (stance.GetCurrentTexture().Width * diffX) / 2;
-            baseCenter.Y = (baseOffset.Y * GetScaleY()) + (stance.GetCurrentTexture().Height * diffY);
+            baseCenter.X = (baseOffset.X + (baseOffset.X * diffX)) + (stance.GetCurrentTexture().Width + (stance.GetCurrentTexture().Width * diffX));
+            baseCenter.Y = (baseOffset.Y + (baseOffset.Y * diffY)) + (stance.GetCurrentTexture().Height + (stance.GetCurrentTexture().Height * diffY));
 
             if (IsLeft()) {
                 basePosition.X = GetConvertedPosition().X - baseCenter.X;
@@ -962,18 +967,19 @@ namespace FusionEngine {
             blendState = state;
         }
 
-        public bool IsInAnimationState(Animation.State state) {
+        public bool IsInAnimationState(Animation.State? state) {
             return (currentSprite != null 
+                        && state != null
                         && spriteMap.ContainsKey(state) 
                         && currentSprite == GetSprite(state)
                         && this.currentAnimationState == state);
         }
 
-        public Animation.State GetCurrentAnimationState() {
+        public Animation.State? GetCurrentAnimationState() {
             return currentAnimationState;
         }
 
-        public Animation.State GetLastAnimationState() {
+        public Animation.State? GetLastAnimationState() {
             return lastAnimationState;
         }
 
@@ -999,7 +1005,7 @@ namespace FusionEngine {
             return GetCurrentAnimationAction(GetLastAnimationState());
         }
 
-        public Animation.Action GetCurrentAnimationAction(Animation.State currentState) {
+        public Animation.Action GetCurrentAnimationAction(Animation.State? currentState) {
             Animation.Action currentAction = Animation.Action.NONE;
 
             if (currentState.ToString().Contains("ATTACK") 
@@ -1099,7 +1105,7 @@ namespace FusionEngine {
             return (tossFrames.ContainsKey(GetCurrentAnimationState()) ? tossFrames[GetCurrentAnimationState()] : 0);
         }
 
-        public bool IsFrameComplete(Animation.State state, int frame) {
+        public bool IsFrameComplete(Animation.State? state, int frame) {
             Sprite sprite = GetSprite(state);
             return sprite.IsFrameComplete(frame);
         }
@@ -1560,7 +1566,10 @@ namespace FusionEngine {
                 }
 
                 if (rumble.time >= rumble.maxTime) {
-                    SetPosX(rumble.lx);
+                    if (!IsToss()) {
+                        SetPosX(rumble.lx);
+                    }
+
                     rumble.dir = rumble.lastDir;
                     rumble.count = 0;
                     rumble.isRumble = false;
@@ -1590,7 +1599,7 @@ namespace FusionEngine {
             }
         }
 
-        public void UpdatePaintTime(GameTime gameTime) {
+        public void UpdatePainTime(GameTime gameTime) {
             if (painTime > 0) {
                 painTime --;
             }
@@ -1599,17 +1608,20 @@ namespace FusionEngine {
                 if (painTime != -1 && IsInAnimationAction(Animation.Action.INPAIN) 
                         && !grabInfo.isGrabbed) {
 
-                    SetAnimationState(Animation.State.STANCE);
+                    if (!currentSprite.IsAnimationComplete()) {
+                         painTime = 0;
+                    } else {
+                        SetAnimationState(Animation.State.STANCE);
+                        painTime = -1;
+                    }
                 }
-
-                painTime = -1;
             }
         }
 
         public void Update(GameTime gameTime) {
             UpdatePauseHit(gameTime);
             UpdateAliveTime(gameTime);
-            UpdatePaintTime(gameTime);
+            UpdatePainTime(gameTime);
             Vector2 drawScale = scale;
 
             afterImage.Draw();
@@ -1626,7 +1638,7 @@ namespace FusionEngine {
             UpdateFade(gameTime);
 
             //Update animation.
-            if (!InHitPuaseTime()) {
+            if (!InHitPauseTime()) {
                 UpdateAnimation(gameTime);
             }
 
@@ -1707,28 +1719,39 @@ namespace FusionEngine {
             SetAnimationState(command.GetAnimationState());
         }
 
-
-        public Animation.State GetLowPainState() {
+        public Animation.State? GetLowPainState() {
             return animationConfig.lowPainState;
         }
 
-        public Animation.State GetMediumPainState() {
+        public Animation.State? GetMediumPainState() {
             return animationConfig.mediumPainState;
         }
 
-        public Animation.State GetHeavyPainState() {
+        public Animation.State? GetHeavyPainState() {
             return animationConfig.heavyPainState;
         }
 
-        public Animation.State GetGrabbedState() {
+        public Animation.State? GetLowPainGrabbedState() {
+            return animationConfig.lowPainGrabbedState;
+        }
+
+        public Animation.State? GetMediumPainGrabbedState() {
+            return animationConfig.mediumPainGrabbedState;
+        }
+
+        public Animation.State? GetHeavyPainGrabbedState() {
+            return animationConfig.heavyPainGrabbedState;
+        }
+
+        public Animation.State? GetGrabbedState() {
             return animationConfig.grabbedState;
         }
 
-        public Animation.State GetGrabHoldtate() {
+        public Animation.State? GetGrabHoldState() {
             return animationConfig.grabHoldState;
         }
 
-        public Animation.State GetThrowState() {
+        public Animation.State? GetThrowState() {
             return animationConfig.throwState;
         }
 
@@ -1742,6 +1765,18 @@ namespace FusionEngine {
 
         public void SetHeavyPainState(Animation.State state) {
             animationConfig.heavyPainState = state;
+        }
+
+        public void SetLowPainGrabbedState(Animation.State state) {
+            animationConfig.lowPainGrabbedState = state;
+        }
+
+        public void SetMediumPainGrabbedState(Animation.State state) {
+            animationConfig.mediumPainGrabbedState = state;
+        }
+
+        public void SetHeavyPainGrabbedState(Animation.State state) {
+            animationConfig.heavyPainGrabbedState = state;
         }
 
         public void SetGrabbedState(Animation.State state) {

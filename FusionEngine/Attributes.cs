@@ -23,12 +23,15 @@ namespace FusionEngine {
         }
 
         public class AnimationConfig {
-            public Animation.State lowPainState;
-            public Animation.State mediumPainState;
-            public Animation.State heavyPainState;
-            public Animation.State grabbedState;
-            public Animation.State grabHoldState;
-            public Animation.State throwState;
+            public Animation.State? lowPainState;
+            public Animation.State? mediumPainState;
+            public Animation.State? heavyPainState;
+            public Animation.State? grabbedState;
+            public Animation.State? grabHoldState;
+            public Animation.State? throwState;
+            public Animation.State? lowPainGrabbedState;
+            public Animation.State? mediumPainGrabbedState;
+            public Animation.State? heavyPainGrabbedState;
 
 
             public AnimationConfig() { }
@@ -178,9 +181,9 @@ namespace FusionEngine {
         }
 
         public class GrabInfo {
-            public int grabIn;             //Should the target be brought in close or at distance
-            public int grabPos;             //(1 infront of attacker, -1 behind attacker)
-            public int dist;              //Distance in x needed for grab to work
+            public int grabIn;           //Should the target be brought in close or at distance
+            public int grabPos;          //(1 infront of attacker, -1 behind attacker)
+            public int dist;             //Distance in x needed for grab to work
             public int grabHeight;
             public bool grabWalk;
             public bool isGrabbed;
@@ -203,7 +206,7 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;       
                 grabDirection = 0;
-                grabbedTime = 50000;
+                grabbedTime = 100;
                 throwVelX = 6;
                 throwHeight = -15;
                 grabHitCount = 0;
@@ -215,7 +218,7 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;
                 grabDirection = 0;
-                grabbedTime = 50000;
+                grabbedTime = 100;
                 grabHitCount = 0;
                 maxGrabHits = 5;
             }
@@ -223,7 +226,7 @@ namespace FusionEngine {
 
         public class AttackInfo {
             public long hitByAttackId;
-            public Animation.State lastAttackState;
+            public Animation.State? lastAttackState;
             public int lastAttackFrame;
             public int lastHitDirection;
             public int hitPauseTime;

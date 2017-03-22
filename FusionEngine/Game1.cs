@@ -387,8 +387,8 @@ namespace FusionEngine
                 //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 //camera.Parallax = new Vector2(xScroll.X, 0);
-                //bred.SetScale(5, 5);
-                taskMaster.GetRumble().isRumble = true;
+                ryo.SetScale(5, 5);
+                //taskMaster.GetRumble().isRumble = true;
                 //bred.SetIsLeft(true);
             }
 
@@ -506,7 +506,11 @@ namespace FusionEngine
                 //level1.ScrollY(leo.GetVelocity().Y/2);
 
 
-                if (bred.GetGrabInfo().isGrabbed == false && !bred.IsToss() && !bred.IsInAnimationAction(Animation.Action.INPAIN)) {
+                if (bred.GetGrabInfo().isGrabbed == false 
+                        && !bred.IsToss() 
+                        && !bred.IsInAnimationAction(Animation.Action.INPAIN)
+                        && !bred.InHitPauseTime()) {
+
                     bred.UpdateAI(gameTime, collisionManager.GetPlayers());
                     bred.ResetToIdle(gameTime);
                 }
@@ -578,7 +582,7 @@ namespace FusionEngine
             Entity obs = ryo.GetCollisionInfo().GetMovingObstacle();
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (bred.IsLeft()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "FPS: " + (bred.GetGrabInfo().grabbedTime), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDirX()), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
 

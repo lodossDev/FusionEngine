@@ -1094,6 +1094,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\Content\Sprites\Actors\Bred\KNOCK_DOWN1\FALL02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\Content\Sprites\Actors\Bred\JUMP\JUMP04.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\Content\Sprites\Actors\Bred\JUMP\JUMP05.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\FusionEngine.dll.config
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\FusionEngine.dll
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Release\FusionEngine.dll
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\FusionEngine.exe.config
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Release\FusionEngine.exe
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Release\FusionEngine.exe

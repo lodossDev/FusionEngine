@@ -298,8 +298,8 @@ namespace FusionEngine {
             public TossInfo() {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
-                maxVelocity = new Vector3(10 * System.GAME_VELOCITY, 13 * System.GAME_VELOCITY, 10 * System.GAME_VELOCITY);
-                gravity = 0.48f * System.GAME_VELOCITY;
+                maxVelocity = new Vector3(10 * GameSystem.GAME_VELOCITY, 13 * GameSystem.GAME_VELOCITY, 10 * GameSystem.GAME_VELOCITY);
+                gravity = 0.48f * GameSystem.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
                 hitGoundCount = 0;

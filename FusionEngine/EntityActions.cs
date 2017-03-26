@@ -20,7 +20,7 @@ namespace FusionEngine {
             }
         }
 
-        public static void SetDeafultHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
+        public static void SetDefaultHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
             if (attackType == CLNS.AttackBox.AttackType.LOW) {
                 target.SetAnimationState(target.GetLowPainState());
 
@@ -32,11 +32,11 @@ namespace FusionEngine {
             }
         }
 
-        public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackInfo) {
+        public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (target.GetGrabInfo().isGrabbed) { 
-                SetGrabbedHitPain(entity, target, attackInfo.GetAttackType());
+                SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
             } else {
-                SetDeafultHitPain(entity, target, attackInfo.GetAttackType());
+                SetDefaultHitPain(entity, target, attackBox.GetAttackType());
             }
         }
 
@@ -58,9 +58,13 @@ namespace FusionEngine {
                 }
 
                 if (target.GetGrabInfo().grabHitCount > target.GetGrabInfo().maxGrabHits) {
-                    target.SetAnimationState(Animation.State.THROWN1);
-                    target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * target.GetGrabInfo().grabDirection, 1, 2);
+                    if (target.HasSprite(Animation.State.KNOCKED_DOWN1)) { 
+                        target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                    } else {
+                        target.SetAnimationState(Animation.State.THROWN1);
+                    }
 
+                    target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * target.GetGrabInfo().grabDirection, 1, 2);
                     Ungrab(entity, target);
                 }
             }
@@ -73,9 +77,9 @@ namespace FusionEngine {
 
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
                 }
             }
 
@@ -102,9 +106,9 @@ namespace FusionEngine {
             
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * System.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
                 }
             }
 
@@ -128,10 +132,11 @@ namespace FusionEngine {
                 entity.SetPosX(newx);
             }
 
-            int zOffset = (entity.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom) + 10;
+            int zOffset = (entity.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom);
+            target.SetLayerPos(10);
 
             if (entity.GetGrabInfo().grabPos == -1) {
-                zOffset = (entity.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom) - 10;
+                target.SetLayerPos(-10);
             }
 
             if (target.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.NO_COLLISION)) {
@@ -204,7 +209,6 @@ namespace FusionEngine {
             target.GetGrabInfo().isGrabbed = true;
             target.GetGrabInfo().grabbedBy = entity;
             entity.GetGrabInfo().grabbed = target;
-            
         }
 
         public static void SetGrabHeight(Entity entity, Entity target) {
@@ -219,6 +223,7 @@ namespace FusionEngine {
         public static void Ungrab(Entity entity, Entity target) {
             entity.GetGrabInfo().Reset();
             target.GetGrabInfo().Reset();
+            //target.SetLayerPos(0);
 
             if (target.InAir() && target.IsToss()) {
                 target.Toss(8);
@@ -254,6 +259,26 @@ namespace FusionEngine {
             if (entity.GetGrabInfo().grabbed == null && entity.IsInAnimationAction(Animation.Action.GRABBING)) {
                 entity.SetAnimationState(Animation.State.STANCE);
             }
+        }
+
+        public static void IncrementAttackChain(Entity entity, CLNS.AttackBox attackBox) {
+            ComboAttack.Chain attackChain = entity.GetDefaultAttackChain();
+
+            if (attackChain != null) { 
+                if (entity.GetAttackInfo().lastHitDirection == entity.GetDirX()) {
+                    attackChain.IncrementMoveIndex(attackBox.GetComboStep());
+                } else {
+                    attackChain.ResetMove();
+                }
+            }
+        }
+
+        public static void ResetAttackChain(Entity entity) {
+            if (entity.GetAttackInfo().lastHitDirection != entity.GetDirX()) {
+                if (entity.GetDefaultAttackChain() != null) {
+                    entity.GetDefaultAttackChain().ResetMove();
+                }
+            } 
         }
     }
 }

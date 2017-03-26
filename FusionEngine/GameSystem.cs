@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace FusionEngine {
 
-    public static class System {
+    public static class GameSystem {
         private static bool _isPause = false;
 
         public static void CallPause() {

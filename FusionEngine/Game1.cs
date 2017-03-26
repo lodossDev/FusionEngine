@@ -29,7 +29,7 @@ namespace FusionEngine
         LifeBar bar;
         float barHealth = 100f;
         FrameRateCounter frameRate = new FrameRateCounter();
-        Enemy_Bred bred;
+        Enemy_Bred bred, bred2;
 
 
         InputManager inputManager;
@@ -45,8 +45,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = System.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = System.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = GameSystem.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = GameSystem.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -64,9 +64,9 @@ namespace FusionEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            System.graphicsDevice = GraphicsDevice;
-            System.contentManager = Content;
-            System.spriteBatch = spriteBatch;
+            GameSystem.graphicsDevice = GraphicsDevice;
+            GameSystem.contentManager = Content;
+            GameSystem.spriteBatch = spriteBatch;
 
             camera = new Camera(GraphicsDevice.Viewport);
             //camera.Parallax = new Vector2(1.0f, 1.0f);
@@ -81,7 +81,7 @@ namespace FusionEngine
         protected override void LoadContent()
         {
             renderManager = new RenderManager();
-            System._renderManager = renderManager;
+            GameSystem._renderManager = renderManager;
 
             //float screenscaleX = (float)500 / 1280;
             //float screenscaleY = (float)300 / 700;
@@ -94,6 +94,7 @@ namespace FusionEngine
             gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
 
             bred = new Enemy_Bred();
+            bred2 = new Enemy_Bred();
 
             var spriteSheetLoader = new SpriteSheetLoader(Content);
             ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
@@ -292,8 +293,8 @@ namespace FusionEngine
             level1 = new Stage1();
             bar = new LifeBar(0, 0);
 
+            bred2.SetPostion(600, 0, 600);
            
-
             //renderManager.AddEntity(leo);
             //renderManager.AddEntity(taskMaster);
             renderManager.AddEntity(drum);
@@ -303,6 +304,7 @@ namespace FusionEngine
             renderManager.AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
             renderManager.AddEntity(bred);
+            renderManager.AddEntity(bred2);
 
             collisionManager = new CollisionManager(renderManager);
             //collisionManager.AddEntity(leo);
@@ -311,6 +313,7 @@ namespace FusionEngine
             collisionManager.AddEntity(drum2);
             collisionManager.AddEntity(drum3);
             collisionManager.AddEntity(bred);
+            collisionManager.AddEntity(bred2);
             //collisionManager.AddEntity(drum4);
 
 
@@ -355,7 +358,7 @@ namespace FusionEngine
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
-                System.CallPause();
+                GameSystem.CallPause();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
@@ -387,9 +390,16 @@ namespace FusionEngine
                 //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
                 //camera.Parallax = new Vector2(xScroll.X, 0);
-                ryo.SetScale(5, 5);
+                //ryo.SetScale(5, 5);
                 //taskMaster.GetRumble().isRumble = true;
                 //bred.SetIsLeft(true);
+                var screenshot = TextureContent.TakeScreenshot(this);
+
+                using (var fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate)) {
+                    screenshot.Save(System.Drawing.Imaging.ImageFormat.Png, fs);
+                }
+
+                screenshot.Dispose();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -452,7 +462,7 @@ namespace FusionEngine
                 level1.ScrollX(5/2f);
             } */
 
-            if (!System.IsPause())
+            if (!GameSystem.IsPause())
             {
                 //control.Update(gameTime);
                
@@ -509,14 +519,33 @@ namespace FusionEngine
                 if (bred.GetGrabInfo().isGrabbed == false 
                         && !bred.IsToss() 
                         && !bred.IsInAnimationAction(Animation.Action.INPAIN)
+                        && !bred.IsInAnimationAction(Animation.Action.KNOCKED)
+                        //&& !bred.IsInAnimationAction(Animation.Action.RISING)
+                        && !bred.IsRise()
                         && !bred.InHitPauseTime()) {
 
-                    bred.UpdateAI(gameTime, collisionManager.GetPlayers());
+                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, collisionManager.GetPlayers());
                     bred.ResetToIdle(gameTime);
+                }
+
+                if (bred2.GetGrabInfo().isGrabbed == false 
+                        && !bred2.IsToss() 
+                        && !bred2.IsInAnimationAction(Animation.Action.INPAIN)
+                        && !bred2.IsInAnimationAction(Animation.Action.KNOCKED)
+                        //&& !bred2.IsInAnimationAction(Animation.Action.RISING)
+                        && !bred2.IsRise()
+                        && !bred2.InHitPauseTime()) {
+
+                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, collisionManager.GetPlayers());
+                    bred2.ResetToIdle(gameTime);
                 }
 
                 if (bred.IsInAnimationAction(Animation.Action.INPAIN)) {
                     bred.StopMovement();
+                }
+
+                if (bred2.IsInAnimationAction(Animation.Action.INPAIN)) {
+                    bred2.StopMovement();
                 }
 
                 if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
@@ -542,19 +571,14 @@ namespace FusionEngine
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
+        public void Render(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
-                        System.SAMPLER_STATE,
+                        GameSystem.SAMPLER_STATE,
                         null,
                         null,
                         null,
@@ -580,10 +604,11 @@ namespace FusionEngine
             */
 
             Entity obs = ryo.GetCollisionInfo().GetMovingObstacle();
+            Vector2 sx = new Vector2(bred.GetDepthBox().GetRect().X, bred.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (bred.GetGrabInfo().grabbedTime), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDirX()), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(font1, "FPS: " + (bred.InvalidGrabState()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDepthBox().GetRect().Contains(sx)), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
@@ -605,6 +630,15 @@ namespace FusionEngine
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            Render(gameTime);
         }
     }
 }

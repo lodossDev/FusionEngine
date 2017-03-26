@@ -24,10 +24,10 @@ namespace FusionEngine
         private Vector2 grabz2 = Vector2.Zero;
 
         public CollisionManager(RenderManager renderManager) {
-            hiteffect1 = System.contentManager.Load<SoundEffect>("Sounds//hit1");
+            hiteffect1 = GameSystem.contentManager.Load<SoundEffect>("Sounds//hit1");
             soundInstance = hiteffect1.CreateInstance();
 
-            soundInstance2 = System.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
+            soundInstance2 = GameSystem.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
 
             this.renderManager = renderManager;
         }
@@ -334,7 +334,7 @@ namespace FusionEngine
             }
         }
         
-        private float TargetBodyX(Entity target, Entity entity, CLNS.AttackBox attack) {
+        private float TargetBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             int x1 = entity.GetBoundsBox().GetWidth();
             int x2 = target.GetBoundsBox().GetWidth();
 
@@ -347,72 +347,62 @@ namespace FusionEngine
             }
 
             if (entity.IsLeft()) {
-                v1 -= attack.GetOffset().X;
+                v1 -= attackBox.GetOffset().X;
             } else {
-                v1 += attack.GetOffset().X;
+                v1 += attackBox.GetOffset().X;
             }
 
             return v1;
         }
 
-        private float TargetBodyY(Entity target, Entity entity, CLNS.AttackBox attack) {
-            return (int)-attack.GetRect().Height + (int)Math.Round(attack.GetOffset().Y + entity.GetPosY());
+        private float TargetBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+            return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
         }
 
         private void OnAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (entity != target) {
-                ComboAttack.Chain attackChain = entity.GetDefaultAttackChain();
-
-                if (attackChain != null) { 
-                    if (entity.GetAttackInfo().lastHitDirection == entity.GetDirX()) {
-                        attackChain.IncrementMoveIndex(attackBox.GetComboStep());
-                    } else {
-                        attackChain.ResetMove();
-                    }
-                }
+                EntityActions.IncrementAttackChain(entity, attackBox);
             }
         }
 
-        private void OnHit(Entity target, Entity entity, CLNS.AttackBox attackInfo) {
+        private void OnHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             if (target != entity) {
                 hitCount++;
                 hiteffect1.CreateInstance().Play();
                 //target.Toss(-5.2f, 0, 200000000);
                 float dir = (entity.IsLeft() ? -1 : 1);
 
-                EntityActions.SetPainState(entity, target, attackInfo);
-
+                EntityActions.SetPainState(entity, target, attackBox);
                 target.GetCurrentSprite().ResetAnimation();
                 target.SetPainTime(80);
                 target.SetRumble(dir, 2.8f);
                 EntityActions.FaceTarget(target, entity);
 
                 EntityActions.CheckMaxGrabHits(entity, target);
-                target.SetHitPauseTime(100);
+                target.DecreaseHealth(attackBox.GetHitDamage());
+                //target.SetHitPauseTime(50);
                 //target.MoveY(-125 * attackBox.GetHitStrength());
             }
         }
 
         private void CheckAttack(Entity entity) {
+            //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
             List<CLNS.AttackBox> attackBoxesHitInFrame = new List<CLNS.AttackBox>();
 
             Attributes.AttackInfo entityAttackInfo = entity.GetAttackInfo();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
-            if (entity.GetAttackInfo().lastHitDirection != entity.GetDirX()) {
-                if (entity.GetDefaultAttackChain() != null) {
-                    entity.GetDefaultAttackChain().ResetMove();
-                }
-            } 
+            EntityActions.ResetAttackChain(entity);
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
 
                 foreach (Entity target in entities) {
 
                     if (entity != target) {
-                        //Get all body boxes for collision with attack boxes
+                        //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+                        //Add global body box if exists.
                         targetBoxes.Add(target.GetBodyBox());
                         
                         Attributes.AttackInfo targetAttackInfo = target.GetAttackInfo();
@@ -423,7 +413,7 @@ namespace FusionEngine
 
                         if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetZdepth() + 10
                                 && entity.IsInAnimationAction(Animation.Action.ATTACKING) 
-                                && attackBoxes.Count > 0 && targetBoxes.Count > 0) {
+                                && targetBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
                             foreach (CLNS.AttackBox attackBox in attackBoxes) {
@@ -546,13 +536,16 @@ namespace FusionEngine
                     if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
+
                             && tGrabInfo.grabbedTime > 0
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
+                            && target.GetGround() == entity.GetGround()
                             //Entity must be moving forward to grab?
                             && (double)entity.GetVelX() != 0.0
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !target.IsToss()
+                            && !target.InvalidGrabState()
                             && eGrabInfo.grabbed == null) {
 
                         EntityActions.OnGrab(out newx, out x, out targetx, entity, target);

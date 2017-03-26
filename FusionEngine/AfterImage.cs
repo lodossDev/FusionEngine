@@ -103,7 +103,7 @@ namespace FusionEngine {
                 --index;
 
                 if (FrameGapCheck(index) == false) continue;
-                System._renderManager.AddEntity(entity);
+                GameSystem._renderManager.AddEntity(entity);
             }
         }
 

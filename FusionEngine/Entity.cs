@@ -90,6 +90,10 @@ namespace FusionEngine {
         private Attributes.Rumble rumble;
         private int painTime;
         private Attributes.AnimationConfig animationConfig;
+
+        private bool isRise;
+        private int riseTime;
+        private int maxRiseTime;
         
 
         public Entity(ObjectType type, string name) {
@@ -143,6 +147,9 @@ namespace FusionEngine {
             animationConfig = new Attributes.AnimationConfig();
             rumble = new Attributes.Rumble();
             painTime = -1;
+
+            isRise = false;
+            riseTime = maxRiseTime = 50;
 
             id++;
             entityId = id;
@@ -270,7 +277,7 @@ namespace FusionEngine {
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
-            animationSounds.Add(state, System.contentManager.Load<SoundEffect>(location));
+            animationSounds.Add(state, GameSystem.contentManager.Load<SoundEffect>(location));
         }
 
         public SoundEffect GetAnimationSound(Animation.State state) {
@@ -441,7 +448,7 @@ namespace FusionEngine {
         }
 
         public void MoveX(float acc, float dir) {
-            this.acceleration.X = acc * System.GAME_VELOCITY;
+            this.acceleration.X = acc * GameSystem.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
             this.direction.X = dir;
         }
@@ -463,7 +470,7 @@ namespace FusionEngine {
         }
 
         public void MoveZ(float acc, float dir) {
-            this.acceleration.Z = acc * System.GAME_VELOCITY;
+            this.acceleration.Z = acc * GameSystem.GAME_VELOCITY;
             this.maxVelocity.Z = this.acceleration.Z;
             this.direction.Z = dir;
         }
@@ -547,6 +554,30 @@ namespace FusionEngine {
 
         public void SetHealth(int health) {
             this.health = health;
+        }
+
+        public void SetMaxRiseTime(int riseTime) {
+            maxRiseTime = riseTime;
+        }
+
+        public void SetIsRise(bool status) {
+            isRise = status;
+        }
+
+        public void DecreaseHealth(int amount) {
+            this.health -= amount;
+
+            if (health < 0) {
+                health = 0;
+            }
+        }
+
+        public void IncreaseHealth(int amount) {
+            this.health += amount;
+
+            if (health > 100) {
+                health = 100;
+            }
         }
 
         public void SetAlive(bool alive) {
@@ -678,6 +709,10 @@ namespace FusionEngine {
 
         public bool InHitPauseTime() {
             return attackInfo.hitPauseTime > 0;
+        }
+
+        public bool IsRise() {
+            return isRise;
         }
 
         public bool InPainTime() {
@@ -1023,6 +1058,11 @@ namespace FusionEngine {
                 } else if (currentState.ToString().Contains("FALL")) {
                     return Animation.Action.FALLING;
 
+                } else if (currentState.ToString().Contains("KNOCKED")
+                            || currentState.ToString().Contains("BOUNCE")) {
+
+                    return Animation.Action.KNOCKED;
+
                 } else if (currentState.ToString().Contains("RUN") 
                             && !currentState.ToString().Contains("STOP")
                             && !currentState.ToString().Contains("ATTACK")) {
@@ -1037,14 +1077,22 @@ namespace FusionEngine {
                 } else if (currentState.ToString().StartsWith("INGRAB")) {
                     return Animation.Action.GRABBED;
 
-                } else if (currentState.ToString().Contains("THROW")) {
+                } else if (currentState.ToString().Contains("THROW") 
+                            && !currentState.ToString().Contains("THROWN")) {
+
                     return Animation.Action.THROWING;
+
+                } else if (currentState.ToString().Contains("THROWN")) {
+                    return Animation.Action.KNOCKED;
 
                 } else if (currentState.ToString().StartsWith("RUN_STOP")) {
                     return Animation.Action.STOPPING;
 
                 } else if (currentState.ToString().Contains("PAIN")) {
                     return Animation.Action.INPAIN;
+
+                } else if (currentState.ToString().Contains("RISE")) {
+                    return Animation.Action.RISING;
                 }
             }
 
@@ -1077,6 +1125,15 @@ namespace FusionEngine {
             }
 
             return currentAction;
+        }
+
+        public bool InvalidGrabState() {
+            return IsInAnimationAction(Animation.Action.FALLING)
+                        || IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.ATTACKING)
+                        || IsInAnimationAction(Animation.Action.GRABBING)
+                        || IsInAnimationAction(Animation.Action.JUMPING)
+                        || IsInAnimationAction(Animation.Action.LANDING);
         }
 
         public bool IsInMoveFrame() {
@@ -1292,12 +1349,12 @@ namespace FusionEngine {
                     direction.X = 1;
                 }
 
-                if ((tossInfo.velocity.Y / System.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
+                if ((tossInfo.velocity.Y / GameSystem.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
                     tossInfo.tempHeight += ((height / 2) * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
                     tossInfo.gravity = 0.45f * Math.Abs(tossInfo.height / 15);
                 } else {
-                    tossInfo.tempHeight = height * System.GAME_VELOCITY;
+                    tossInfo.tempHeight = height * GameSystem.GAME_VELOCITY;
                     tossInfo.height = tossInfo.tempHeight;
                 }
 
@@ -1324,7 +1381,7 @@ namespace FusionEngine {
 
             tossInfo.hitGoundCount = 0;
             tossInfo.tossCount = 0;
-            tossInfo.gravity = 0.48f * System.GAME_VELOCITY;
+            tossInfo.gravity = 0.48f * GameSystem.GAME_VELOCITY;
 
             tossInfo.inTossFrame = false;
             tossInfo.isToss = false;
@@ -1357,6 +1414,13 @@ namespace FusionEngine {
                 if ((double)GetPosY() > (double)GetGround() && tossInfo.velocity.Y >= 0) {
                     tossInfo.hitGoundCount += 1;
 
+                    if (tossInfo.hitGoundCount < tossInfo.maxHitGround) {
+                        if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+                            SetAnimationState(Animation.State.BOUNCE1);
+                            currentSprite.ResetAnimation();
+                        }
+                    }
+
                     if (tossInfo.maxHitGround > 1) {
                         tossInfo.height += ((Math.Abs(tossInfo.tempHeight) / tossInfo.maxHitGround));
                         
@@ -1365,15 +1429,21 @@ namespace FusionEngine {
                         }
 
                         SetPosY(GetGround());
-                        MoveY(tossInfo.height / System.GAME_VELOCITY);
+                        MoveY(tossInfo.height / GameSystem.GAME_VELOCITY);
                     }
 
                     tossInfo.velocity.Y = tossInfo.height;
-                    MoveY(tossInfo.height / System.GAME_VELOCITY);
+                    MoveY(tossInfo.height / GameSystem.GAME_VELOCITY);
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                        SetAnimationState(Animation.State.LAND1);
+
+                        if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+                            SetIsRise(true);
+                        } else { 
+                            SetAnimationState(Animation.State.LAND1);
+                        }
+
                         ResetToss();
                     }
                 }
@@ -1442,6 +1512,9 @@ namespace FusionEngine {
                                         && GetCurrentSprite().IsAnimationComplete()
                                         
                                 || IsInAnimationAction(Animation.Action.INPAIN)
+                                        && GetCurrentSprite().IsAnimationComplete()
+                                        
+                                || IsInAnimationAction(Animation.Action.RISING)
                                         && GetCurrentSprite().IsAnimationComplete());
         }
 
@@ -1599,6 +1672,18 @@ namespace FusionEngine {
             }
         }
 
+        public void UpdateRiseTime(GameTime gameTime) {
+            if (isRise) {
+                riseTime --;
+
+                if (riseTime < 0) {
+                    SetAnimationState(Animation.State.RISE1);
+                    riseTime = maxRiseTime;
+                    isRise = false;
+                }
+            }
+        }
+
         public void UpdatePainTime(GameTime gameTime) {
             if (painTime > 0) {
                 painTime --;
@@ -1622,6 +1707,7 @@ namespace FusionEngine {
             UpdatePauseHit(gameTime);
             UpdateAliveTime(gameTime);
             UpdatePainTime(gameTime);
+            UpdateRiseTime(gameTime);
             Vector2 drawScale = scale;
 
             afterImage.Draw();
@@ -1683,15 +1769,15 @@ namespace FusionEngine {
             velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
             if ((double)velocity.X != 0.0) { 
-                absoluteVel.X = (velocity.X / System.GAME_VELOCITY);
+                absoluteVel.X = (velocity.X / GameSystem.GAME_VELOCITY);
             }
 
             if ((double)velocity.Y != 0.0) { 
-                absoluteVel.Y = (velocity.Y / System.GAME_VELOCITY);
+                absoluteVel.Y = (velocity.Y / GameSystem.GAME_VELOCITY);
             }
 
             if ((double)velocity.Z != 0.0) { 
-                absoluteVel.Z = (velocity.Z / System.GAME_VELOCITY);
+                absoluteVel.Z = (velocity.Z / GameSystem.GAME_VELOCITY);
             }
 
             if (IsInMoveFrame()) { 
@@ -1796,8 +1882,8 @@ namespace FusionEngine {
                 return 0;
             }
 
-            int h1 = (GetDepthBox() != null ? GetDepthBox().GetRect().Bottom : GetLayerPos());
-            int h2 = (other.GetDepthBox() != null ? other.GetDepthBox().GetRect().Bottom : other.GetLayerPos());
+            int h1 = (GetDepthBox() != null ? GetDepthBox().GetRect().Bottom + GetLayerPos() : GetLayerPos());
+            int h2 = (other.GetDepthBox() != null ? other.GetDepthBox().GetRect().Bottom + other.GetLayerPos() : other.GetLayerPos());
             int dist = -1;
 
             if (h1.Equals(h2)) {

@@ -13,7 +13,7 @@ namespace FusionEngine
 
         public override void Load() {
             Entity layer1 = new Entity(Entity.ObjectType.LEVEL, "LAYER 1");
-            layer1.AddSprite(Animation.State.NONE, new Sprite(System.contentManager.Load<Texture2D>("Sprites/Levels/Stage1/normal01")), true);
+            layer1.AddSprite(Animation.State.NONE, new Sprite(GameSystem.contentManager.Load<Texture2D>("Sprites/Levels/Stage1/normal01")), true);
 
             layer1.SetPostion(4000, 0, -130);
             layer1.SetScale(3.1f, 3.4f);
@@ -21,7 +21,7 @@ namespace FusionEngine
             SetMainLayer(layer1);
 
             Entity layer3 = new Entity(Entity.ObjectType.LEVEL, "LAYER 3");
-            layer3.AddSprite(Animation.State.NONE, new Sprite(System.contentManager.Load<Texture2D>("Sprites/Levels/Stage1/front")), true);
+            layer3.AddSprite(Animation.State.NONE, new Sprite(GameSystem.contentManager.Load<Texture2D>("Sprites/Levels/Stage1/front")), true);
 
             layer3.SetPostion(4000, 0, -130);
             layer3.SetScale(3.1f, 3.4f);

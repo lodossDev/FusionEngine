@@ -2,12 +2,12 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace FusionEngine {
 
@@ -27,13 +27,51 @@ namespace FusionEngine {
         public static List<Texture2D> LoadTextures(string contentFolder) {
             List<Texture2D> result = new List<Texture2D>();
 
-            foreach (string file in Directory.EnumerateFiles(System.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
-                //Debug.WriteLine(file);
+            foreach (string file in Directory.EnumerateFiles(GameSystem.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(System.contentManager.Load<Texture2D>(contentFolder + "/" + key));
+                result.Add(GameSystem.contentManager.Load<Texture2D>(contentFolder + "/" + key));
             }
 
             return result;
+        }
+
+        public static Texture2D TakeScreenshot(Game1 currentGame) {
+            int w, h;
+            w = GameSystem.graphicsDevice.PresentationParameters.BackBufferWidth;
+            h = GameSystem.graphicsDevice.PresentationParameters.BackBufferHeight;
+            RenderTarget2D screenshot;
+            screenshot = new RenderTarget2D(GameSystem.graphicsDevice, w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
+            GameSystem.graphicsDevice.SetRenderTarget(screenshot);
+
+            currentGame.Render(new GameTime());
+
+            GameSystem.graphicsDevice.Present();
+            GameSystem.graphicsDevice.SetRenderTarget(null);
+            return screenshot;
+        }
+
+        public static void Save(this Texture2D texture, ImageFormat imageFormat, Stream stream) {
+            var width = texture.Width;
+            var height = texture.Height;
+
+            using (Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb)) {
+                IntPtr safePtr;
+                BitmapData bitmapData;
+                System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
+                
+                int[] textureData = new int[width * height];
+
+                texture.GetData(textureData);
+                bitmapData = bitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+                safePtr = bitmapData.Scan0;
+                Marshal.Copy(textureData, 0, safePtr, textureData.Length);
+                bitmap.UnlockBits(bitmapData);
+                bitmap.Save(stream, imageFormat);
+
+                textureData = null;
+            }
+
+            GC.Collect();
         }
     }
 }

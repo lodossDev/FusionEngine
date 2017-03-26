@@ -14,7 +14,7 @@ namespace FusionEngine {
         /// <summary>
         /// The virtual screen size. Default is 1280x800. See the non-existent documentation on how this works.
         /// </summary>
-        public static Vector2 VirtualScreen = new Vector2(System.RESOLUTION_X, System.RESOLUTION_Y);
+        public static Vector2 VirtualScreen = new Vector2(GameSystem.RESOLUTION_X, GameSystem.RESOLUTION_Y);
 
         /// <summary>
         /// The screen scale
@@ -35,7 +35,7 @@ namespace FusionEngine {
         /// Updates the specified graphics device to use the configured resolution.
         /// </summary>
         /// <param name="device">The device.</param>
-        /// <exception cref="System.ArgumentNullException">device</exception>
+        /// <exception cref="GameSystem.ArgumentNullException">device</exception>
         public static void Update(GraphicsDeviceManager device) {
             if (device == null) throw new ArgumentNullException("device");
 

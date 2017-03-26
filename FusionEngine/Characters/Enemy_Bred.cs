@@ -26,7 +26,7 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.THROWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.THROWN1, 12);
-            SetSpriteOffSet(Animation.State.THROWN1, 0, 0);
+            SetSpriteOffSet(Animation.State.THROWN1, 0, 15);
             SetFrameScale(Animation.State.THROWN1, -0.4f, 0);
 
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));
@@ -42,7 +42,7 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.INGRAB1, 0, 0);
 
             AddSprite(Animation.State.RISE1, new Sprite("Sprites/Actors/Bred/RISE1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.RISE1, 4);
+            SetFrameDelay(Animation.State.RISE1, 8);
             SetSpriteOffSet(Animation.State.RISE1, 0, 0);
 
             AddSprite(Animation.State.RISE2, new Sprite("Sprites/Actors/Bred/RISE2", Animation.Type.ONCE));
@@ -72,7 +72,8 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.JUMP_ATTACK1, 5);
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
-            SetAnimationState(Animation.State.WALK_TOWARDS);
+            SetAnimationState(Animation.State.STANCE);
+
             SetLowPainGrabbedState(Animation.State.PAIN2);
             SetLowPainState(Animation.State.PAIN1);
 

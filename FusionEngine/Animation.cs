@@ -73,7 +73,8 @@ namespace FusionEngine {
 
         public enum Action {
             NONE, ATTACKING, JUMPING, FALLING, IDLE, WALKING, LANDING, RECOVERY, RUNNING, GRABBING, THROWING,
-            STOPPING, INPAIN, GRABBED
+            STOPPING, INPAIN, GRABBED, KNOCKED,
+            RISING
         }
 
         public enum Type {NONE, ONCE, REPEAT}

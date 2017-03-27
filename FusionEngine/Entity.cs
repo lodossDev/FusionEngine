@@ -627,6 +627,22 @@ namespace FusionEngine {
             }
         }
 
+        public void SetMaxGrabbedHits(int hits) {
+            grabInfo.maxGrabHits = hits;
+        }
+
+        public void SetMaxGrabbedTime(int time) {
+            grabInfo.maxGrabbedTime = time;
+        }
+
+        public void SetGrabHeight(int height) {
+            grabInfo.grabHeight = height;
+        }
+
+        public void SetThrowHeight(int height) {
+            grabInfo.throwHeight = height;
+        }
+
         public string GetName() {
             return name;
         }

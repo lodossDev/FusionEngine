@@ -54,10 +54,10 @@ namespace FusionEngine {
         public static void CheckMaxGrabHits(Entity entity, Entity target) {
             if (target.GetGrabInfo().isGrabbed) { 
                 if (!target.IsToss()) { 
-                    target.GetGrabInfo().grabHitCount++;
+                    target.GetGrabInfo().grabHitCount--;
                 }
 
-                if (target.GetGrabInfo().grabHitCount > target.GetGrabInfo().maxGrabHits) {
+                if (target.GetGrabInfo().grabHitCount < 0) {
                     if (target.HasSprite(Animation.State.KNOCKED_DOWN1)) { 
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                     } else {
@@ -239,7 +239,7 @@ namespace FusionEngine {
                 target.GetAttackInfo().hitPauseTime = 0;
 
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
-                    target.GetGrabInfo().grabbedTime = 100;
+                    target.GetGrabInfo().grabbedTime = target.GetGrabInfo().maxGrabbedTime;
                     Ungrab(entity, target);
 
                 } else {

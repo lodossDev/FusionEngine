@@ -109,7 +109,7 @@ namespace FusionEngine {
             SetMoveFrame(Animation.State.WALK_TOWARDS, 1);
 
             SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2)/*,
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2),
                 new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2),
                 new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2),
                 new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2),
@@ -120,7 +120,7 @@ namespace FusionEngine {
                 new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
                 new ComboAttack.Move(Animation.State.ATTACK2, 2000, 5),
                 new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK4, 2000, 4)*/
+                new ComboAttack.Move(Animation.State.ATTACK4, 2000, 4)
             }));
 
             //Normal command moves..

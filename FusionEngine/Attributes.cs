@@ -190,7 +190,8 @@ namespace FusionEngine {
             public Entity grabbed;       //The target grabbed
             public Entity grabbedBy;     //The attacker/grabber
             public int grabDirection;
-            public float grabbedTime;
+            public int grabbedTime;
+            public int maxGrabbedTime;
             public float throwVelX;
             public float throwHeight;
             public int grabHitCount;
@@ -206,11 +207,12 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;       
                 grabDirection = 0;
-                grabbedTime = 100;
+                maxGrabbedTime = 100;
+                grabbedTime = maxGrabbedTime;
                 throwVelX = 6;
                 throwHeight = -15;
-                grabHitCount = 0;
                 maxGrabHits = 5;
+                grabHitCount = maxGrabHits;
             }
 
             public void Reset() {
@@ -219,8 +221,7 @@ namespace FusionEngine {
                 grabbed = grabbedBy = null;
                 grabDirection = 0;
                 grabbedTime = 100;
-                grabHitCount = 0;
-                maxGrabHits = 5;
+                grabHitCount = maxGrabHits;
             }
         }
 

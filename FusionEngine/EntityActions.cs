@@ -250,7 +250,7 @@ namespace FusionEngine {
 
         public static void CheckUnGrabDistance(Entity entity, Entity target, float distX, float distZ) {
             if (target.GetGrabInfo().isGrabbed && (((distX > entity.GetGrabInfo().dist + 50) 
-                    || distZ > (target.GetDepthBox().GetHeight() / 2) + 5))
+                    || distZ > (target.GetDepthBox().GetHeight() / 1.2) + 5))
                     || target.GetGrabInfo().grabbedTime <= 0) {
 
                 Ungrab(entity, target);

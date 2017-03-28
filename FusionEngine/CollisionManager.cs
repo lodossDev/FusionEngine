@@ -13,8 +13,8 @@ namespace FusionEngine
     public class CollisionManager : Manager {
         public static int hitCount = 0;
         public static long current_hit_id = 0;
-        private SoundEffect hiteffect1;
-        private SoundEffectInstance soundInstance, soundInstance2;
+        public static SoundEffect hiteffect1;
+        public static SoundEffectInstance soundInstance, soundInstance2;
         private RenderManager renderManager;
 
         //Grab calculations.
@@ -359,32 +359,6 @@ namespace FusionEngine
             return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
         }
 
-        private void OnAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (entity != target) {
-                EntityActions.IncrementAttackChain(entity, attackBox);
-            }
-        }
-
-        private void OnHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
-            if (target != entity) {
-                hitCount++;
-                hiteffect1.CreateInstance().Play();
-                //target.Toss(-5.2f, 0, 200000000);
-                float dir = (entity.IsLeft() ? -1 : 1);
-
-                EntityActions.SetPainState(entity, target, attackBox);
-                target.GetCurrentSprite().ResetAnimation();
-                target.SetPainTime(80);
-                target.SetRumble(dir, 2.8f);
-                EntityActions.FaceTarget(target, entity);
-
-                EntityActions.CheckMaxGrabHits(entity, target);
-                target.DecreaseHealth(attackBox.GetHitDamage());
-                //target.SetHitPauseTime(50);
-                //target.MoveY(-125 * attackBox.GetHitStrength());
-            }
-        }
-
         private void CheckAttack(Entity entity) {
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
@@ -392,7 +366,6 @@ namespace FusionEngine
 
             Attributes.AttackInfo entityAttackInfo = entity.GetAttackInfo();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
-
             EntityActions.ResetAttackChain(entity);
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
@@ -411,9 +384,7 @@ namespace FusionEngine
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetZdepth() + 10
-                                && entity.IsInAnimationAction(Animation.Action.ATTACKING) 
-                                && targetBoxes.Count > 0) {
+                        if (CollisionActions.IsInAttackRange(entity, target, targetBoxes.Count)) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
                             foreach (CLNS.AttackBox attackBox in attackBoxes) {
@@ -424,30 +395,7 @@ namespace FusionEngine
                                         attackBoxesHitInFrame.Add(attackBox);
                                         tBodyBox = bodyBox;
 
-                                        if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
-                                            if (entityAttackInfo.lastAttackState != entity.GetCurrentAnimationState()) {
-                                                current_hit_id++;
-
-                                                OnAttack(entity, target, attackBox);
-                                                entity.OnAttack(target, attackBox);
-
-                                                entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
-                                                entityAttackInfo.lastAttackState = entity.GetCurrentAnimationState();                                               
-                                            }
-                                        } else { 
-                                            if (entityAttackInfo.lastAttackState != entity.GetCurrentAnimationState()) {
-                                                OnAttack(entity, target, attackBox);
-                                                entity.OnAttack(target, attackBox);
-
-                                                entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
-                                                entityAttackInfo.lastAttackState = entity.GetCurrentAnimationState();                                               
-                                            }
-
-                                            if (entityAttackInfo.lastAttackFrame != entity.GetCurrentSprite().GetCurrentFrame()) {
-                                                current_hit_id++;
-                                                entityAttackInfo.lastAttackFrame = entity.GetCurrentSprite().GetCurrentFrame();
-                                            }
-                                        }    
+                                        CollisionActions.QueueHitFrames(entity, target, attackBox);
                                     }
                                 }
                             }
@@ -463,17 +411,11 @@ namespace FusionEngine
                                     if (attackBox.Intersects(tBodyBox)) {
                                         //Debug.WriteLine("currentAttackHits: " + currentAttackHits);
 
-                                        if (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
-                                                || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {
-
+                                        if (CollisionActions.IsHitFrameProcessed(entity, target, attackBox, currentAttackHits)) {
                                             break;
                                         }
 
-                                        if (!targetHit) {
-                                            OnHit(target, entity, attackBox);
-                                            target.OnHit(entity, attackBox);
-                                            targetHit = true;
-                                        }
+                                        CollisionActions.SetTargetHit(entity, target, attackBox, ref targetHit);
 
                                         float x1 = TargetBodyX(target, entity, attackBox);
                                         float y1 = TargetBodyY(target, entity, attackBox);
@@ -533,7 +475,7 @@ namespace FusionEngine
                     float distX = Vector2.Distance(grabx1, grabx2);
                     float distZ = Vector2.Distance(grabz1, grabz2);
                     
-                    if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 2) 
+                    if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 1.2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
 

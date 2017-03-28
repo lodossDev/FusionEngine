@@ -13,12 +13,18 @@ namespace FusionEngine {
         private Vector2 offset;
         private Type effectType;
         private State effectState;
+        private string asset;
         
 
-        public Effect(Type effectType, State effectState, float x1, float y1) {
+        public Effect(String asset, Type effectType, State effectState, float x1, float y1) {
+            this.asset = asset;
             this.effectType = effectType;
             this.effectState = effectState;
             offset = new Vector2(x1, y1);
+        }
+
+        public string GetAsset() {
+            return asset;
         }
 
         public Vector2 GetOffset() {

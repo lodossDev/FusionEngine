@@ -27,6 +27,9 @@ namespace FusionEngine {
         private Dictionary<Animation.State?, int> moveFrames;
         private Dictionary<Animation.State?, int> tossFrames;
 
+        private Dictionary<Effect.State, Effect> hitSparks;
+        private Dictionary<Effect.State, Effect> blockSparks;
+
         private CLNS.BoundingBox bodyBox;
         private CLNS.BoundingBox depthBox;
         private CLNS.BoundingBox rayTop;
@@ -43,6 +46,7 @@ namespace FusionEngine {
 
         private Vector3 position;
         private Vector2 convertedPosition;
+        private int layerPos;
 
         private Vector3 acceleration;
         private Vector3 direction;
@@ -80,7 +84,6 @@ namespace FusionEngine {
 
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadSettings;
         private Dictionary<InputHelper.KeyPress, Buttons> gamepadBtnsOnly;
-        private int layerPos;
 
         private Attributes.GrabInfo grabInfo;
         private Entity link;
@@ -103,6 +106,10 @@ namespace FusionEngine {
             spriteMap = new Dictionary<Animation.State?, Sprite>();
             moveFrames = new Dictionary<Animation.State?, int>();
             tossFrames = new Dictionary<Animation.State?, int>();
+
+            hitSparks = new Dictionary<Effect.State, Effect>();
+            blockSparks = new Dictionary<Effect.State, Effect>();
+
             animationLinks = new List<Animation.Link>();
             animationSounds = new Dictionary<Animation.State?, SoundEffect>();
 
@@ -176,6 +183,14 @@ namespace FusionEngine {
 
         public void AddAnimationLink(Animation.Link link) {
             animationLinks.Add(link);
+        }
+
+        public void AddHitSpark(Effect hitSpark) {
+            hitSparks.Add(hitSpark.GetState(), hitSpark);
+        }
+
+        public void AddBlockSpark(Effect blockSpark) {
+            blockSparks.Add(blockSpark.GetState(), blockSpark);
         }
 
         public void SetAnimationLink(Animation.State? onState, Animation.State? toState, int frameOnStart, bool onFrameComplete = true) {
@@ -978,20 +993,20 @@ namespace FusionEngine {
             return bodyBox;
         }
 
-        public CLNS.BoundingBox GetRayTop() {
-            return rayTop;
-        }
-
-        public CLNS.BoundingBox GetRayBottom() {
-            return rayBottom;
-        }
-
         public CLNS.BoundsBox GetBoundsBox() {
             return boundsBox;
         }
 
         public CLNS.BoundingBox GetDepthBox() {
             return depthBox;
+        }
+
+        public CLNS.BoundingBox GetRayTop() {
+            return rayTop;
+        }
+
+        public CLNS.BoundingBox GetRayBottom() {
+            return rayBottom;
         }
 
         public List<CLNS.BoundingBox> GetCurrentBoxes() {
@@ -1016,6 +1031,22 @@ namespace FusionEngine {
 
         public void SetBlendState(BlendState state) {
             blendState = state;
+        }
+
+        public Effect GetHitSpark(Effect.State state) {
+            if (hitSparks.ContainsKey(state)) { 
+                return hitSparks[state];
+            }
+
+            return null;
+        }
+
+        public Effect GetBlockSpark(Effect.State state) {
+            if (blockSparks.ContainsKey(state)) { 
+                return blockSparks[state];
+            }
+
+            return null;
         }
 
         public bool IsInAnimationState(Animation.State? state) {
@@ -1145,6 +1176,7 @@ namespace FusionEngine {
 
         public bool InvalidGrabState() {
             return IsInAnimationAction(Animation.Action.FALLING)
+                        || IsInAnimationAction(Animation.Action.RISING)
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.ATTACKING)
                         || IsInAnimationAction(Animation.Action.GRABBING)

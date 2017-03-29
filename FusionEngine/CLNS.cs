@@ -252,7 +252,7 @@ namespace FusionEngine
         public class AttackBox : BoundingBox {
             public enum State { STANDING, LOW, AIR, NONE };
             public enum HitType { ALL, FRAME, ONCE }
-            public enum AttackType { LOW, MEDIUM, HEAVY }
+            public enum AttackType { LIGHT, MEDIUM, HEAVY }
 
             private float hitPauseTime;
             private float painTime;
@@ -271,7 +271,7 @@ namespace FusionEngine
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 1 / 60, 
                                         float painTime = 20 / 60, int hitDamage = 5,
                                         int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1,
-                                        int juggleCost = 0, AttackType attackType = AttackType.LOW,
+                                        int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
                                         float sparkX = 0, float sparkY = 0)

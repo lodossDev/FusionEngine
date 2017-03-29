@@ -9,8 +9,8 @@ namespace FusionEngine {
     public static class EntityActions {
 
         public static void SetGrabbedHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
-            if (attackType == CLNS.AttackBox.AttackType.LOW) {
-                target.SetAnimationState(target.GetLowPainGrabbedState());
+            if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
+                target.SetAnimationState(target.GetLightPainGrabbedState());
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {
                 target.SetAnimationState(target.GetMediumPainGrabbedState());
@@ -21,7 +21,7 @@ namespace FusionEngine {
         }
 
         public static void SetDefaultHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
-            if (attackType == CLNS.AttackBox.AttackType.LOW) {
+            if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
                 target.SetAnimationState(target.GetLowPainState());
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {

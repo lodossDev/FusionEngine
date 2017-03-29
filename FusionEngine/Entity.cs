@@ -1140,6 +1140,9 @@ namespace FusionEngine {
 
                 } else if (currentState.ToString().Contains("RISE")) {
                     return Animation.Action.RISING;
+
+                } else if (currentState.ToString().Contains("BLOCK")) {
+                    return Animation.Action.BLOCKING;
                 }
             }
 
@@ -1865,7 +1868,7 @@ namespace FusionEngine {
             return animationConfig.heavyPainState;
         }
 
-        public Animation.State? GetLowPainGrabbedState() {
+        public Animation.State? GetLightPainGrabbedState() {
             return animationConfig.lowPainGrabbedState;
         }
 

@@ -15,7 +15,7 @@ namespace FusionEngine
         public static long current_hit_id = 0;
         public static SoundEffect hiteffect1;
         public static SoundEffectInstance soundInstance, soundInstance2;
-        private RenderManager renderManager;
+        public static RenderManager renderManager;
 
         //Grab calculations.
         private Vector2 grabx1 = Vector2.Zero;
@@ -29,7 +29,7 @@ namespace FusionEngine
 
             soundInstance2 = GameSystem.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
 
-            this.renderManager = renderManager;
+            CollisionManager.renderManager = renderManager;
         }
 
         public List<Entity> FindAbove(Entity entity) {
@@ -334,31 +334,6 @@ namespace FusionEngine
             }
         }
         
-        private float TargetBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
-            int x1 = entity.GetBoundsBox().GetWidth();
-            int x2 = target.GetBoundsBox().GetWidth();
-
-            float v1 = ((target.GetPosX() / 2) + (entity.GetPosX() / 2));
-
-            if (entity.GetPosX() >= target.GetPosX() + (x2 / 2)) {
-                v1 = ((target.GetPosX() / 2) + (entity.GetPosX() / 2));
-            } else if (entity.GetPosX() <= target.GetPosX() + (x2 / 2)) {
-                v1 = ((target.GetPosX() / 2) + (entity.GetPosX() / 2));
-            }
-
-            if (entity.IsLeft()) {
-                v1 -= attackBox.GetOffset().X;
-            } else {
-                v1 += attackBox.GetOffset().X;
-            }
-
-            return v1;
-        }
-
-        private float TargetBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
-            return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
-        }
-
         private void CheckAttack(Entity entity) {
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
@@ -416,24 +391,6 @@ namespace FusionEngine
                                         }
 
                                         CollisionActions.SetTargetHit(entity, target, attackBox, ref targetHit);
-
-                                        float x1 = TargetBodyX(target, entity, attackBox);
-                                        float y1 = TargetBodyY(target, entity, attackBox);
-
-                                        Entity hitSpark1 = new Entity(Entity.ObjectType.HIT_FLASH, "SPARK1");
-                                        hitSpark1.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Actors/Ryo/Hitflash1", Animation.Type.ONCE));
-                                        hitSpark1.SetAnimationState(Animation.State.STANCE);
-                                        hitSpark1.SetFrameDelay(Animation.State.STANCE, 2);
-                                        //hitSpark1.SetFrameDelay(Animation.State.STANCE, 1, 5);
-                                        hitSpark1.SetScale(1.8f, 1.5f);
-                                        //hitSpark1.AddBoundsBox(160, 340, -60, 15, 50);
-
-                                        Debug.WriteLine("Y HITSPAK: " + y1);
-                                        hitSpark1.SetPostion(x1 , y1, (entity.GetPosZ() + target.GetBoundsBox().GetZdepth()) + 5);
-                                        hitSpark1.SetLayerPos(tDepthBox.GetRect().Bottom + 15);
-                                        //hitSpark1.SetFade(225);
-
-                                        renderManager.AddEntity(hitSpark1);
                                         currentAttackHits++;
                                     }
                                 }

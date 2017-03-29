@@ -68,13 +68,16 @@ namespace FusionEngine {
 
             CHARGE1, CHARGE2, CHARGE3, CHARGE4, CHARGE5,
 
-            RISE1, RISE2, RISE3, RISE4, RISE5
+            RISE1, RISE2, RISE3, RISE4, RISE5,
+
+            BLOCK1, BLOCK2, BLOCK3, BLOCK4, BLOCK5,
+
+            AIR_BLOCK1, AIR_BLOCK2, AIR_BLOCK3, AIR_BLOCK4, AIR_BLOCK5
         }
 
         public enum Action {
             NONE, ATTACKING, JUMPING, FALLING, IDLE, WALKING, LANDING, RECOVERY, RUNNING, GRABBING, THROWING,
-            STOPPING, INPAIN, GRABBED, KNOCKED,
-            RISING
+            STOPPING, INPAIN, GRABBED, KNOCKED, RISING, BLOCKING
         }
 
         public enum Type {NONE, ONCE, REPEAT}

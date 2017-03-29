@@ -186,7 +186,7 @@ namespace FusionEngine {
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
             }, 500);
 
-            //AddCommandMove(command);
+            AddCommandMove(command);
 
             SetKeyboard(InputHelper.KeyPress.UP, Keys.Up);
             SetKeyboard(InputHelper.KeyPress.DOWN, Keys.Down);

@@ -72,7 +72,7 @@ namespace FusionEngine {
                 if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
                     Entity afterImage = SpriteClone.CreateAfterImage(entity);
                     //afterImage.SetColor(255, 255, 255);
-                    //afterImage.SetFade(180);
+                    //afterImage.SetFade(100);
 
                     afterImage.SetAliveTime(time);
                     imageData.AddLast(afterImage);

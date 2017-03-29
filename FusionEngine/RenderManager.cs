@@ -240,7 +240,7 @@ namespace FusionEngine {
                     } else {
                         //After image sprite
                         Color desaturatedGreen = Color.Lerp(Color.White, Color.Blue, 0.75f);
-                        GameSystem.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        GameSystem.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     }
                     
                     

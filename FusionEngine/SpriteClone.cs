@@ -21,14 +21,8 @@ namespace FusionEngine {
 
             afterImage.SetOnLoadScale(target.GetScaleX(), target.GetScaleY());
             afterImage.SetIsLeft(target.IsLeft());
-
-            afterImage.AddDepthBox(
-                target.GetDepthBox().GetWidth(), 
-                target.GetDepthBox().GetHeight(), 
-                (int)target.GetDepthBox().GetOffset().X, 
-                (int)target.GetDepthBox().GetOffset().Y
-            );
-
+            afterImage.SetLayerPos(target.GetDepthBox().GetRect().Bottom - 5);
+            
             return afterImage;
         }
     }

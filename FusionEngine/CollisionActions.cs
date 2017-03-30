@@ -24,20 +24,11 @@ namespace FusionEngine {
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
                     CollisionManager.current_hit_id++;
-
-                    OnAttack(entity, target, attackBox);
-                    entity.OnAttack(target, attackBox);
-
-                    entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
-                    entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();                                               
+                    OnAttackHit(entity, target, attackBox);                                     
                 }
             } else { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
-                    OnAttack(entity, target, attackBox);
-                    entity.OnAttack(target, attackBox);
-
-                    entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
-                    entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();                                               
+                    OnAttackHit(entity, target, attackBox);                                           
                 }
 
                 if (entity.GetAttackInfo().lastAttackFrame != entity.GetCurrentSprite().GetCurrentFrame()) {
@@ -49,13 +40,12 @@ namespace FusionEngine {
 
         public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
             if (!targetHit) {
-                OnHit(target, entity, attackBox);
-                target.OnHit(entity, attackBox);
+                OnTargetHit(target, entity, attackBox);
                 targetHit = true;
             }
 
             if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
-                AddHitSpark(entity, target, attackBox);
+                AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
             }
         }
 
@@ -112,8 +102,8 @@ namespace FusionEngine {
             return spark;
         }
 
-        public static void AddHitSpark(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            Effect sparkInfo = GetSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
+        public static void AddSpark(Entity entity, Entity target, CLNS.AttackBox attackBox, Effect.Type effectType) {
+            Effect sparkInfo = GetSpark(entity, target, attackBox, effectType);
 
             if (sparkInfo != null) { 
                 float x1 = HitBodyX(target, entity, attackBox);
@@ -122,10 +112,10 @@ namespace FusionEngine {
                 Entity hitSpark1 = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
                 hitSpark1.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
                 hitSpark1.SetAnimationState(Animation.State.STANCE);
-                hitSpark1.SetFrameDelay(Animation.State.STANCE, (int)sparkInfo.GetDelay());
+                hitSpark1.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
                 hitSpark1.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
 
-                hitSpark1.SetPostion(x1 , y1, entity.GetPosZ() + 5);
+                hitSpark1.SetPostion(x1 , y1, entity.GetPosZ());
                 hitSpark1.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 hitSpark1.SetFade(sparkInfo.GetAlpha());
 
@@ -134,46 +124,55 @@ namespace FusionEngine {
         }
 
         private static float HitBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
-            float v1 = ((target.GetPosX() + entity.GetPosX()) / 2);
+            float x1 = ((target.GetPosX() + entity.GetPosX()) / 2);
 
             if (entity.IsLeft()) {
-                v1 -= attackBox.GetOffset().X;
+                x1 -= attackBox.GetOffset().X;
             } else {
-                v1 += attackBox.GetOffset().X;
+                x1 += attackBox.GetOffset().X;
             }
 
-            return v1;
+            return x1;
         }
 
         private static float HitBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
         }
 
-        private static void OnAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+        private static void OnAttackHit(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            entity.OnAttackHit(target, attackBox);
+
             if (entity != target) {
                 entity.GetAttackInfo().hasHit = true;
                 EntityActions.IncrementAttackChain(entity, attackBox);
+
+                entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
+                entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();
             }
         }
 
-        private static void OnHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+        private static void OnTargetHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+            target.OnTargetHit(entity, attackBox);
+
             if (target != entity) {
-                CollisionManager.hitCount++;
-                CollisionManager.hiteffect1.CreateInstance().Play();
-                //target.Toss(-5.2f, 0, 200000000);
-                float dir = (entity.IsLeft() ? -1 : 1);
+                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
+                    CollisionManager.hitCount++;
+                    CollisionManager.hiteffect1.CreateInstance().Play();
+                    //target.Toss(-5.2f, 0, 200000000);
+                    float dir = (entity.IsLeft() ? -1 : 1);
 
-                target.GetAttackInfo().isHit = true;
-                EntityActions.SetPainState(entity, target, attackBox);
-                target.GetCurrentSprite().ResetAnimation();
-                target.SetPainTime(80);
-                target.SetRumble(dir, 2.8f);
-                EntityActions.FaceTarget(target, entity);
-
-                EntityActions.CheckMaxGrabHits(entity, target);
-                target.DecreaseHealth(attackBox.GetHitDamage());
-                //target.SetHitPauseTime(50);
-                //target.MoveY(-125 * attackBox.GetHitStrength());
+                    EntityActions.SetPainState(entity, target, attackBox);
+                    target.SetPainTime(80);
+                    target.SetRumble(dir, 2.8f);
+                    EntityActions.FaceTarget(target, entity);
+                    EntityActions.CheckMaxGrabHits(entity, target);
+                    target.DecreaseHealth(attackBox.GetHitDamage());
+                    //target.SetHitPauseTime(50);
+                    //target.MoveY(-125 * attackBox.GetHitStrength());
+                } else {
+                    //play blocking sound.
+                    AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
+                }
             }
         }
     }

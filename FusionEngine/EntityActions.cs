@@ -33,12 +33,16 @@ namespace FusionEngine {
         }
 
         public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            target.GetAttackInfo().isHit = true;
+
             if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
                 if (target.GetGrabInfo().isGrabbed) {
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
                 }
+
+                target.GetCurrentSprite().ResetAnimation();
             }
         }
 

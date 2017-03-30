@@ -1843,12 +1843,12 @@ namespace FusionEngine {
             }
         }
 
-        public virtual void OnAttack(Entity target, CLNS.AttackBox attackBox) {
+        public virtual void OnAttackHit(Entity target, CLNS.AttackBox attackBox) {
             if (this != target) {
             }
         }
 
-        public virtual void OnHit(Entity attacker, CLNS.AttackBox attackBox) {
+        public virtual void OnTargetHit(Entity attacker, CLNS.AttackBox attackBox) {
             if (this != attacker) {
             }
         }

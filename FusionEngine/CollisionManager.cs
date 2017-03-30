@@ -274,8 +274,8 @@ namespace FusionEngine
 
                         bool isWithInBoundsZ2 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
 
-                        float depthX = entityBox.GetRect().GetHorizontalIntersectionDepth(targetBox.GetRect());
-                        float depthZ = eDepthBox.GetRect().GetVerticalIntersectionDepth(tDepthBox.GetRect());
+                        float depthX = (int)Math.Round(entityBox.GetRect().GetHorizontalIntersectionDepth(targetBox.GetRect()));
+                        float depthZ = (int)Math.Round(eDepthBox.GetRect().GetVerticalIntersectionDepth(tDepthBox.GetRect()));
 
                         if (isWithInBoundsZ1 && !isWithInBoundsX1) { 
 
@@ -301,7 +301,7 @@ namespace FusionEngine
                             }
                         }
                         
-                        if ((isWithInBoundsX1 || !isWithInBoundsX1 && !isWithInBoundsZ1) && isWithInBoundsZ2) {
+                        if ((isWithInBoundsX1 || (!isWithInBoundsX1 && !isWithInBoundsZ1)) && isWithInBoundsZ2) {
 
                             if (entity.GetDirX() < 0 && entity.HorizontalCollisionRight(target, vx)) {
 

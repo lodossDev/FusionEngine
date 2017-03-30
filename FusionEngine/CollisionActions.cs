@@ -109,17 +109,17 @@ namespace FusionEngine {
                 float x1 = HitBodyX(target, entity, attackBox);
                 float y1 = HitBodyY(target, entity, attackBox);
 
-                Entity hitSpark1 = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
-                hitSpark1.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
-                hitSpark1.SetAnimationState(Animation.State.STANCE);
-                hitSpark1.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
-                hitSpark1.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
+                Entity spark = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
+                spark.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
+                spark.SetAnimationState(Animation.State.STANCE);
+                spark.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
+                spark.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
 
-                hitSpark1.SetPostion(x1 , y1, entity.GetPosZ());
-                hitSpark1.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
-                hitSpark1.SetFade(sparkInfo.GetAlpha());
+                spark.SetPostion(x1 , y1, entity.GetPosZ());
+                spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
+                spark.SetFade(sparkInfo.GetAlpha());
 
-                CollisionManager.renderManager.AddEntity(hitSpark1);
+                CollisionManager.renderManager.AddEntity(spark);
             }
         }
 

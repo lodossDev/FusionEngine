@@ -45,8 +45,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GameSystem.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = GameSystem.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = 700;//GameSystem.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = 400;//GameSystem.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -96,9 +96,9 @@ namespace FusionEngine
             bred = new Enemy_Bred();
             bred2 = new Enemy_Bred();
 
-            var spriteSheetLoader = new SpriteSheetLoader(Content);
-            ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
-            spriteRender = new SpriteRender(spriteBatch);
+            //var spriteSheetLoader = new SpriteSheetLoader(Content);
+            //ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
+            //spriteRender = new SpriteRender(spriteBatch);
 
             leo = new Player("Leo1");
             taskMaster = new Boss_TaskMaster();
@@ -607,7 +607,7 @@ namespace FusionEngine
             Vector2 sx = new Vector2(bred.GetDepthBox().GetRect().X, bred.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (bred.InvalidGrabState()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "FPS: " + (ryo.GetAttackInfo().hasHit), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDepthBox().GetRect().Contains(sx)), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
 

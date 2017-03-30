@@ -33,10 +33,12 @@ namespace FusionEngine {
         }
 
         public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (target.GetGrabInfo().isGrabbed) { 
-                SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
-            } else {
-                SetDefaultHitPain(entity, target, attackBox.GetAttackType());
+            if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
+                if (target.GetGrabInfo().isGrabbed) {
+                    SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
+                } else {
+                    SetDefaultHitPain(entity, target, attackBox.GetAttackType());
+                }
             }
         }
 
@@ -239,6 +241,7 @@ namespace FusionEngine {
                 target.GetAttackInfo().hitPauseTime = 0;
 
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
+                    target.GetAttackInfo().isHit = false;
                     target.GetGrabInfo().grabbedTime = target.GetGrabInfo().maxGrabbedTime;
                     Ungrab(entity, target);
 
@@ -274,6 +277,12 @@ namespace FusionEngine {
         }
 
         public static void ResetAttackChain(Entity entity) {
+            if (entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                    && entity.GetCurrentSprite().IsAnimationComplete()) {
+
+                entity.GetAttackInfo().hasHit = false;
+            }
+
             if (entity.GetAttackInfo().lastHitDirection != entity.GetDirX()) {
                 if (entity.GetDefaultAttackChain() != null) {
                     entity.GetDefaultAttackChain().ResetMove();

@@ -1748,6 +1748,7 @@ namespace FusionEngine {
                          painTime = 0;
                     } else {
                         SetAnimationState(Animation.State.STANCE);
+                        attackInfo.isHit = false;
                         painTime = -1;
                     }
                 }

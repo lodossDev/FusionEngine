@@ -116,8 +116,8 @@ namespace FusionEngine {
             Effect sparkInfo = GetSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
 
             if (sparkInfo != null) { 
-                float x1 = TargetBodyX(target, entity, attackBox);
-                float y1 = TargetBodyY(target, entity, attackBox);
+                float x1 = HitBodyX(target, entity, attackBox);
+                float y1 = HitBodyY(target, entity, attackBox);
 
                 Entity hitSpark1 = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
                 hitSpark1.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
@@ -133,7 +133,7 @@ namespace FusionEngine {
             }
         }
 
-        private static float TargetBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+        private static float HitBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             float v1 = ((target.GetPosX() + entity.GetPosX()) / 2);
 
             if (entity.IsLeft()) {
@@ -145,12 +145,13 @@ namespace FusionEngine {
             return v1;
         }
 
-        private static float TargetBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+        private static float HitBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
         }
 
         private static void OnAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (entity != target) {
+                entity.GetAttackInfo().hasHit = true;
                 EntityActions.IncrementAttackChain(entity, attackBox);
             }
         }
@@ -162,6 +163,7 @@ namespace FusionEngine {
                 //target.Toss(-5.2f, 0, 200000000);
                 float dir = (entity.IsLeft() ? -1 : 1);
 
+                target.GetAttackInfo().isHit = true;
                 EntityActions.SetPainState(entity, target, attackBox);
                 target.GetCurrentSprite().ResetAnimation();
                 target.SetPainTime(80);

@@ -231,6 +231,8 @@ namespace FusionEngine {
             public int lastAttackFrame;
             public int lastHitDirection;
             public int hitPauseTime;
+            public bool hasHit;
+            public bool isHit;
 
 
             public AttackInfo() {
@@ -242,6 +244,7 @@ namespace FusionEngine {
                 lastAttackFrame = -1;
                 lastAttackState = Animation.State.NONE;
                 hitPauseTime = 0;
+                hasHit = isHit = false;
             }
         }
 

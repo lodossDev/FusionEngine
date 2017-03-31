@@ -65,6 +65,7 @@
     <Compile Include="ComboAttack.cs" />
     <Compile Include="EntityActions.cs" />
     <Compile Include="Fonts\MugenFont.cs" />
+    <Compile Include="FrameAction.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="Obstacles\Drum.cs" />
     <Compile Include="Effect.cs" />

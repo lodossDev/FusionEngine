@@ -45,8 +45,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 700;//GameSystem.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 400;//GameSystem.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = GameSystem.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = GameSystem.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -607,9 +607,9 @@ namespace FusionEngine
             Vector2 sx = new Vector2(bred.GetDepthBox().GetRect().X, bred.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "FPS: " + (ryo.GetAttackInfo().hasHit), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "ABX: " + (ryo.GetDepthBox().GetRect().Contains(sx)), new Vector2(20, 100), Color.Red);
-            spriteBatch.DrawString(testFOnt, "ABZ: " +  bred.GetDirZ(), new Vector2(20, 160), Color.Red);
+            spriteBatch.DrawString(font1, "BRED1 GRABBED: " + (bred.GetGrabInfo().isGrabbed), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (bred2.GetGrabInfo().isGrabbed), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
             //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);

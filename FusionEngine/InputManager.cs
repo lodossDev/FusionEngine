@@ -34,6 +34,13 @@ namespace FusionEngine {
                 foreach (InputHelper.CommandMove command in commandMoves) {
                     if (inputControl.Matches(command)) {
                         entity.OnCommandMoveComplete(command);
+
+                        if (command.GetOnHitState() != null) { 
+                            entity.SetAnimationState(command.GetOnHitState());
+                        } else {
+                            entity.SetAnimationState(command.GetAnimationState());
+                        }
+
                         break;
                     }
                 }

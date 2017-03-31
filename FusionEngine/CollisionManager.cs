@@ -22,8 +22,11 @@ namespace FusionEngine
         private Vector2 grabx2 = Vector2.Zero;
         private Vector2 grabz1 = Vector2.Zero;
         private Vector2 grabz2 = Vector2.Zero;
+        private Random rnd;
+
 
         public CollisionManager(RenderManager renderManager) {
+            rnd = new Random();
             hiteffect1 = GameSystem.contentManager.Load<SoundEffect>("Sounds//hit1");
             soundInstance = hiteffect1.CreateInstance();
 
@@ -277,6 +280,18 @@ namespace FusionEngine
                         float depthX = (int)Math.Round(entityBox.GetRect().GetHorizontalIntersectionDepth(targetBox.GetRect()));
                         float depthZ = (int)Math.Round(eDepthBox.GetRect().GetVerticalIntersectionDepth(tDepthBox.GetRect()));
 
+                        if (entity.IsEntity(Entity.ObjectType.ENEMY) && !entity.IsGrabbed()) {
+                            int agg = rnd.Next(1, 100);
+
+                            if (agg > 75) {
+                                int jump = rnd.Next(1, 4);
+
+                                if (jump == 2) {
+                                    entity.Toss(-18, entity.GetDirX() * 2.3f);
+                                }
+                            }
+                        }
+
                         if (isWithInBoundsZ1 && !isWithInBoundsX1) { 
 
                             if (entity.GetDirZ() < 0 && entity.VerticleCollisionTop(target, vz)) {
@@ -447,13 +462,11 @@ namespace FusionEngine
                             && !target.InvalidGrabState()
                             && eGrabInfo.grabbed == null) {
 
-                        EntityActions.OnGrab(out newx, out x, out targetx, entity, target);
+                        EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
                     }
 
                     if (tGrabInfo.isGrabbed && tGrabInfo.grabbedBy == entity) {
-                        EntityActions.SetGrabPosition(out newx, out newz, out x, out targetx, out targetz, entity, target);
-
-                        target.StopMovement();
+                        EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, target);
                         EntityActions.SetGrabGround(entity, target);
                         EntityActions.ThrowIfNoGrab(entity, target);
                         EntityActions.SetGrabAnimation(entity, target);

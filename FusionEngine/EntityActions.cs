@@ -76,7 +76,7 @@ namespace FusionEngine {
             }
         }
 
-        public static void OnGrab(out float newx, out float x, out float targetx, Entity entity, Entity target) {
+        public static void OnGrab(ref float newx, ref float x, ref float targetx, Entity entity, Entity target) {
             Entity obstacle = target.GetCollisionInfo().GetObstacle();
             int oWidth = (obstacle != null ? obstacle.GetBoundsBox().GetWidth() : 0);
             int ox = 0;
@@ -105,7 +105,7 @@ namespace FusionEngine {
             EntityActions.LinkGrab(entity, target);
         }
 
-        public static void SetGrabPosition(out float newx, out float newz, out float x, out float targetx, out float targetz, Entity entity, Entity target) {
+        public static void SetGrabPosition(ref float newx, ref float newz, ref float x, ref float targetx, ref float targetz, Entity entity, Entity target) {
             Entity obstacle = target.GetCollisionInfo().GetObstacle();
             int oWidth = (obstacle != null ? obstacle.GetBoundsBox().GetWidth() : 0);
             int ox = 0;
@@ -147,7 +147,9 @@ namespace FusionEngine {
 
             if (target.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.NO_COLLISION)) {
                 target.SetPosZ(newz + zOffset);
-            }        
+            }
+            
+            target.StopMovement();        
         }
 
         public static void SetGrabDirection(out float targetx, float x, Entity entity, Entity target) {
@@ -199,12 +201,15 @@ namespace FusionEngine {
             }
 
             target.MoveX(entity.GetAccelX(), entity.GetDirX());
+            target.MoveY(entity.GetAbsoluteVelY());
             target.MoveZ(entity.GetAccelZ(), entity.GetDirZ());
 
             target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
+            //target.SetAbsoluteVelY(entity.GetAbsoluteVelY());
             target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
 
             target.SetDirectionX(entity.GetDirX());
+            //target.SetDirectionY(entity.GetDirY());
             target.SetDirectionZ(entity.GetDirZ());
         }
 
@@ -233,6 +238,7 @@ namespace FusionEngine {
 
             if (target.InAir() && target.IsToss()) {
                 target.Toss(8);
+                target.SetGround(target.GetGroundBase());
             }
         }
 

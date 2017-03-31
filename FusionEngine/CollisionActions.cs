@@ -167,11 +167,29 @@ namespace FusionEngine {
                     EntityActions.FaceTarget(target, entity);
                     EntityActions.CheckMaxGrabHits(entity, target);
                     target.DecreaseHealth(attackBox.GetHitDamage());
+                    ApplyFrameActions(entity, target, attackBox);
+                    
                     //target.SetHitPauseTime(50);
                     //target.MoveY(-125 * attackBox.GetHitStrength());
                 } else {
                     //play blocking sound.
                     AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
+                }
+            }
+        }
+
+        public static void ApplyFrameActions(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
+                if (attackBox.GetMoveX() != 0.0) {
+                    if (entity.GetDirX() > 0) {
+                        target.MoveX(attackBox.GetMoveX());
+                    } else {
+                        target.MoveX(-attackBox.GetMoveX());
+                    }
+                }
+
+                if (attackBox.GetTossHeight() != 0.0) {
+                    target.Toss(attackBox.GetTossHeight());
                 }
             }
         }

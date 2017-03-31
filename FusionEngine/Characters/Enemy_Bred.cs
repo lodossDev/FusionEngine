@@ -76,6 +76,7 @@ namespace FusionEngine {
 
             SetLowPainGrabbedState(Animation.State.PAIN2);
             SetLowPainState(Animation.State.PAIN1);
+            SetMediumPainState(Animation.State.PAIN2);
 
             SetOnLoadScale(3.2f, 3.3f);
             AddBoundsBox(160, 300, -60, 240, 50);

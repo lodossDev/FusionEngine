@@ -93,6 +93,7 @@ namespace FusionEngine {
         private Attributes.Rumble rumble;
         private int painTime;
         private Attributes.AnimationConfig animationConfig;
+        private List<FrameAction> frameActions;
 
         private bool isRise;
         private int riseTime;
@@ -151,6 +152,7 @@ namespace FusionEngine {
             aliveTime = -1;
             afterImage = new AfterImage(this);
 
+            frameActions = new List<FrameAction>();
             animationConfig = new Attributes.AnimationConfig();
             rumble = new Attributes.Rumble();
             painTime = -1;
@@ -291,6 +293,11 @@ namespace FusionEngine {
             depthBox.SetZdepth(h);
         }
 
+        public void AddFrameAction(Animation.State state, int startFrame, int endFrame, float moveX = 0, float moveY = 0, float tossHeight = 0) {
+            FrameAction action = new FrameAction(state, startFrame, endFrame, moveX, moveY, tossHeight);
+            frameActions.Add(action);
+        }
+
         public void AddAnimationSound(Animation.State state, String location) {
             animationSounds.Add(state, GameSystem.contentManager.Load<SoundEffect>(location));
         }
@@ -365,6 +372,19 @@ namespace FusionEngine {
             defaultAttackChain = attackChain;
         }
 
+        public void SetAttackBox(Animation.State state, int frame, float zDepth = 30, float hitPauseTime = 1 / 60, float painTime = 20 / 60, int hitDamage = 5,
+                                                            int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1, int juggleCost = 0, 
+                                                            CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
+                                                            CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
+                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0) {
+
+            foreach (CLNS.AttackBox attackBox in GetAttackBoxes(state, frame)) { 
+
+                attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight);
+            }
+        }
+        
         public void SetPostion(float x, float y, float z) {
             position.X = x;
             position.Y = y;
@@ -973,6 +993,10 @@ namespace FusionEngine {
 
         public CLNS.AttackBox GetAttackBox(Animation.State state, int frame) {
             return (CLNS.AttackBox)GetSprite(state).GetBoxes(frame).Last();
+        }
+
+        public List<CLNS.AttackBox> GetAttackBoxes(Animation.State state, int frame) {
+            return GetSprite(state).GetBoxes(frame).Cast<CLNS.AttackBox>().ToList();
         }
 
         public CLNS.AttackBox GetAttackBox(Animation.State state, int frame, int index) {
@@ -1691,7 +1715,7 @@ namespace FusionEngine {
 
                 if (rumble.time >= rumble.maxTime) {
                     if (!IsToss()) {
-                        SetPosX(rumble.lx);
+                        //SetPosX(rumble.lx);
                     }
 
                     rumble.dir = rumble.lastDir;
@@ -1755,6 +1779,33 @@ namespace FusionEngine {
             }
         }
 
+        public void UpdateFrameActions(GameTime gameTime) {
+            if (frameActions.Count > 0) {
+                foreach (FrameAction action in frameActions) {
+                    
+                    if (action.GetAnimationState() == GetCurrentAnimationState() 
+                            && action.IsInFrame(GetCurrentSpriteFrame())) {
+
+                        if (action.GetMoveX() != 0.0) {
+                            if (GetDirX() < 0) {
+                                MoveX(-action.GetMoveX());
+                            } else {
+                                MoveX(action.GetMoveX());
+                            }
+                        }
+
+                        if (action.GetMoveY() != 0.0) {
+                             MoveY(action.GetMoveY());
+                        }
+
+                        if (action.GetTossHeight() != 0.0) {
+                            Toss(action.GetTossHeight());
+                        }
+                    }
+                }
+            }
+        }
+
         public void Update(GameTime gameTime) {
             UpdatePauseHit(gameTime);
             UpdateAliveTime(gameTime);
@@ -1779,6 +1830,8 @@ namespace FusionEngine {
             if (!InHitPauseTime()) {
                 UpdateAnimation(gameTime);
             }
+
+            UpdateFrameActions(gameTime);
 
             UpdateDefaultAttackChain(gameTime);
 
@@ -1843,6 +1896,22 @@ namespace FusionEngine {
             }
         }
 
+        public bool IsHit() {
+            return attackInfo.isHit;
+        }
+
+        public bool HasHit() {
+            return attackInfo.hasHit;
+        }
+
+        public bool IsGrabbed() {
+            return (grabInfo.isGrabbed || IsInAnimationAction(Animation.Action.GRABBED));
+        }
+
+        public bool HasGrabbed() {
+            return IsInAnimationAction(Animation.Action.GRABBING);
+        }
+
         public virtual void OnAttackHit(Entity target, CLNS.AttackBox attackBox) {
             if (this != target) {
             }
@@ -1854,7 +1923,6 @@ namespace FusionEngine {
         }
 
         public virtual void OnCommandMoveComplete(InputHelper.CommandMove command) {
-            SetAnimationState(command.GetAnimationState());
         }
 
         public Animation.State? GetLowPainState() {

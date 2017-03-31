@@ -89,8 +89,12 @@ namespace FusionEngine {
 
             AddBox(Animation.State.GRAB_ATTACK1, 6, new CLNS.AttackBox(150, 170, 50, 45));
             AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(150, 170, 50, 45));
+
             AddBox(Animation.State.ATTACK2, 3, new CLNS.AttackBox(150, 170, 50, 45));
+            GetAttackBox(Animation.State.ATTACK2, 3).SetAttackType(CLNS.AttackBox.AttackType.MEDIUM);
+
             AddBox(Animation.State.ATTACK3, 3, new CLNS.AttackBox(150, 170, 50, 45));
+            GetAttackBox(Animation.State.ATTACK3, 3).SetAttackType(CLNS.AttackBox.AttackType.MEDIUM);
             //AddBox(Animation.State.ATTACK1, 3, new CLNS.AttackBox(100, 80, 132, 45));
 
             AddBox(Animation.State.SPECIAL1, 2, new CLNS.AttackBox(150, 200, 50, 45));
@@ -204,6 +208,8 @@ namespace FusionEngine {
             SetOnLoadScale(3.3f, 3.2f);
             SetPostion(400, 0, 200);
             SetBaseOffset(50f, 190f);
+
+            //AddFrameAction(Animation.State.STANCE, 1, 1, 10);
         }
     }
 }

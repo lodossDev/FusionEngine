@@ -56,44 +56,37 @@ namespace FusionEngine {
                 this.keyHeldTime = keyHeldTime;
             }
 
-            public KeyState(InputHelper.KeyPress key, InputHelper.ButtonState state, int negativeEdge = 15)
-            {
+            public KeyState(InputHelper.KeyPress key, InputHelper.ButtonState state, int negativeEdge = 15) {
                 this.key = key;
                 this.state = state;
                 this.negativeEdge = negativeEdge;
                 this.keyHeldTime = 0f;
             }
 
-            public KeyState(InputHelper.KeyPress key, InputHelper.ButtonState state)
-            {
+            public KeyState(InputHelper.KeyPress key, InputHelper.ButtonState state) {
                 this.key = key;
                 this.state = state;
                 this.keyHeldTime = 0f;
             }
 
-            public InputHelper.KeyPress GetKey()
-            {
+            public InputHelper.KeyPress GetKey() {
                 return key;
             } 
 
-            public InputHelper.ButtonState GetState()
-            {
+            public InputHelper.ButtonState GetState() {
                 return state;
             }
 
-            public int GetNegativeEdge()
-            {
+            public int GetNegativeEdge() {
                 return negativeEdge;
             }
 
-            public float GetKeyHeldTime()
-            {
+            public float GetKeyHeldTime() {
                 return keyHeldTime;
             }
         }
 
-        public class CommandMove : IComparable<CommandMove>
-        {
+        public class CommandMove : IComparable<CommandMove> {
             private List<InputHelper.KeyState> moves;
             private string name;
             private double priority;
@@ -102,120 +95,110 @@ namespace FusionEngine {
             private float maxMoveTime = 500f;
             private int currentNegativeEdge = 0;
             private Animation.State animationState;
+            private Animation.State? onHitState;
 
 
-            public CommandMove(string name, Animation.State animationState, List<InputHelper.KeyState> moves, float maxMoveTime = 1000f, double priority = 1)
-            {
+            public CommandMove(string name, Animation.State animationState, Animation.State? onHitState, 
+                                        List<InputHelper.KeyState> moves, float maxMoveTime = 1000f, double priority = 1) {
                 this.name = name;
+                this.onHitState = onHitState;
                 this.animationState = animationState;
                 this.moves = moves;
                 this.maxMoveTime = maxMoveTime;
                 this.priority = priority;
             }
 
-            public string GetName()
-            {
+            public CommandMove(string name, Animation.State animationState, List<InputHelper.KeyState> moves, 
+                                    float maxMoveTime = 1000f, double priority = 1) : this(name, animationState, null, moves, maxMoveTime, priority) {
+               
+            }
+
+            public string GetName() {
                 return name;
             }
 
-            public List<InputHelper.KeyState> GetMoves()
-            {
+            public List<InputHelper.KeyState> GetMoves() {
                 return moves;
             }
 
-            public double GetPriority()
-            {
+            public double GetPriority() {
                 return priority;
             }
 
-            public Animation.State GetAnimationState()
-            {
+            public Animation.State? GetOnHitState() {
+                return onHitState;
+            }
+
+            public Animation.State GetAnimationState() {
                 return animationState;
             }
 
-            public InputHelper.KeyState GetPreviousMove()
-            {
+            public InputHelper.KeyState GetPreviousMove() {
                 int temp = currentMoveStep - 1;
                 if (temp < 0) return null;
 
                 return moves[temp];
             }
 
-            public InputHelper.KeyState GetCurrentMove()
-            {
+            public InputHelper.KeyState GetCurrentMove() {
                 return moves[currentMoveStep];
             }
 
-            public int GetCurrentMoveStep()
-            {
+            public int GetCurrentMoveStep() {
                 return currentMoveStep;
             }
 
-            public int GetCurrentNegativeEdgeExpire()
-            {
+            public int GetCurrentNegativeEdgeExpire() {
                 return GetCurrentMove().GetNegativeEdge();
             }
 
-            public int GetNegativeCount()
-            {
+            public int GetNegativeCount() {
                 return currentNegativeEdge;
             }
 
-            public bool IsMaxNegativeReached()
-            {
+            public bool IsMaxNegativeReached() {
                 return (GetNegativeCount() >= GetCurrentNegativeEdgeExpire());
             }
 
-            public void ResetNegativeEdge()
-            {
+            public void ResetNegativeEdge() {
                 currentNegativeEdge = 0;
             }
 
-            public void IncrementNegativeCount()
-            {
+            public void IncrementNegativeCount() {
                 currentNegativeEdge++;
             }
 
-            public void Next()
-            {
+            public void Next() {
                 currentNegativeEdge = 0;
                 currentMoveStep++;
             }
 
-            public void Reset()
-            {
+            public void Reset() {
                 currentNegativeEdge = 0;
                 currentMoveTime = 0f;
                 currentMoveStep = 0;
             }
 
-            public bool IsComplete()
-            {
+            public bool IsComplete() {
                 return (currentMoveStep > moves.Count - 1);
             }
             
-            public void Update(GameTime gameTime)
-            {
-                if (currentMoveStep > 0)
-                {
-                    if (currentMoveStep > moves.Count - 1)
-                    {
+            public void Update(GameTime gameTime)  {
+                if (currentMoveStep > 0) {
+                    if (currentMoveStep > moves.Count - 1) {
                         currentMoveStep = moves.Count - 1;
                     }
 
                     currentMoveTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                    if (currentMoveTime >= maxMoveTime)
-                    {
+                    if (currentMoveTime >= maxMoveTime) {
                         Reset();
                     }
                 }
             }
 
-            public int CompareTo(CommandMove other)
-            {
-                if (other == null)
-                {
+            public int CompareTo(CommandMove other) {
+                if (other == null) {
                     return 0;
                 }
 

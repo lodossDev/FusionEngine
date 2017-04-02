@@ -14,7 +14,7 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE}
+        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE}
 
         private Dictionary<Animation.State?, Sprite> spriteMap;
         private Sprite currentSprite;
@@ -299,7 +299,7 @@ namespace FusionEngine {
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
-            animationSounds.Add(state, GameSystem.contentManager.Load<SoundEffect>(location));
+            animationSounds.Add(state, Globals.contentManager.Load<SoundEffect>(location));
         }
 
         public SoundEffect GetAnimationSound(Animation.State state) {
@@ -483,7 +483,7 @@ namespace FusionEngine {
         }
 
         public void MoveX(float acc, float dir) {
-            this.acceleration.X = acc * GameSystem.GAME_VELOCITY;
+            this.acceleration.X = acc * Globals.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
             this.direction.X = dir;
         }
@@ -505,7 +505,7 @@ namespace FusionEngine {
         }
 
         public void MoveZ(float acc, float dir) {
-            this.acceleration.Z = acc * GameSystem.GAME_VELOCITY;
+            this.acceleration.Z = acc * Globals.GAME_VELOCITY;
             this.maxVelocity.Z = this.acceleration.Z;
             this.direction.Z = dir;
         }
@@ -1167,6 +1167,9 @@ namespace FusionEngine {
 
                 } else if (currentState.ToString().Contains("BLOCK")) {
                     return Animation.Action.BLOCKING;
+
+                } else if (currentState.ToString().Contains("PICKUP")) {
+                    return Animation.Action.PICKING_UP;
                 }
             }
 
@@ -1424,12 +1427,12 @@ namespace FusionEngine {
                     direction.X = 1;
                 }
 
-                if ((tossInfo.velocity.Y / GameSystem.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
+                if ((tossInfo.velocity.Y / Globals.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
                     tossInfo.tempHeight += ((height / 2) * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
                     tossInfo.gravity = 0.45f * Math.Abs(tossInfo.height / 15);
                 } else {
-                    tossInfo.tempHeight = height * GameSystem.GAME_VELOCITY;
+                    tossInfo.tempHeight = height * Globals.GAME_VELOCITY;
                     tossInfo.height = tossInfo.tempHeight;
                 }
 
@@ -1456,7 +1459,7 @@ namespace FusionEngine {
 
             tossInfo.hitGoundCount = 0;
             tossInfo.tossCount = 0;
-            tossInfo.gravity = 0.48f * GameSystem.GAME_VELOCITY;
+            tossInfo.gravity = 0.48f * Globals.GAME_VELOCITY;
 
             tossInfo.inTossFrame = false;
             tossInfo.isToss = false;
@@ -1504,11 +1507,11 @@ namespace FusionEngine {
                         }
 
                         SetPosY(GetGround());
-                        MoveY(tossInfo.height / GameSystem.GAME_VELOCITY);
+                        MoveY(tossInfo.height / Globals.GAME_VELOCITY);
                     }
 
                     tossInfo.velocity.Y = tossInfo.height;
-                    MoveY(tossInfo.height / GameSystem.GAME_VELOCITY);
+                    MoveY(tossInfo.height / Globals.GAME_VELOCITY);
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
@@ -1590,6 +1593,9 @@ namespace FusionEngine {
                                         && GetCurrentSprite().IsAnimationComplete()
                                         
                                 || IsInAnimationAction(Animation.Action.RISING)
+                                        && GetCurrentSprite().IsAnimationComplete()
+                                
+                                || IsInAnimationAction(Animation.Action.PICKING_UP)
                                         && GetCurrentSprite().IsAnimationComplete());
         }
 
@@ -1874,15 +1880,15 @@ namespace FusionEngine {
             velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
             if ((double)velocity.X != 0.0) { 
-                absoluteVel.X = (velocity.X / GameSystem.GAME_VELOCITY);
+                absoluteVel.X = (velocity.X / Globals.GAME_VELOCITY);
             }
 
             if ((double)velocity.Y != 0.0) { 
-                absoluteVel.Y = (velocity.Y / GameSystem.GAME_VELOCITY);
+                absoluteVel.Y = (velocity.Y / Globals.GAME_VELOCITY);
             }
 
             if ((double)velocity.Z != 0.0) { 
-                absoluteVel.Z = (velocity.Z / GameSystem.GAME_VELOCITY);
+                absoluteVel.Z = (velocity.Z / Globals.GAME_VELOCITY);
             }
 
             if (IsInMoveFrame()) { 

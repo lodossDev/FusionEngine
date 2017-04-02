@@ -6,8 +6,8 @@ using System.Text;
 namespace FusionEngine {
 
     public class Manager {
-        public List<Entity> entities;
-        public List<Player> players;
+        protected List<Entity> entities;
+        protected List<Player> players;
         protected List<Level> levels;
 
 
@@ -25,21 +25,24 @@ namespace FusionEngine {
             }
         }
 
-        public virtual void AddLevel(Level level) {
-            levels.Add(level);
-            List<Entity> misc = level.GetMisc();
-
-            if (misc != null) { 
-                entities.AddRange(misc);
+        public virtual void AddEntity(List<Entity> entities) {
+            foreach (Entity entity in entities) {
+                AddEntity(entity);
             }
         }
 
-        public virtual void AddEntity(List<Entity> entities) {
-            entities.AddRange(entities);
+        public virtual void AddLevel(Level level) {
+            levels.Add(level);
         }
 
         public virtual void RemoveEntity(Entity entity) {
             entities.Remove(entity);
+        }
+
+        public virtual void RemoveEntity(List<Entity> entities) {
+            foreach (Entity entity in entities) {
+                RemoveEntity(entity);
+            }
         }
 
         public List<Player> GetPlayers() {

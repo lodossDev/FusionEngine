@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FusionEngine {
 
-    class InputManager : Manager {
+    public class InputManager : Manager {
         private Dictionary<Entity, InputControl> controllMapEntity;
 
         public InputManager() {
@@ -28,20 +28,22 @@ namespace FusionEngine {
                 List<InputHelper.CommandMove> commandMoves = entity.GetCommandMoves();
                 commandMoves.Sort();
 
-                InputControl inputControl = controllMapEntity[entity];
-                inputControl.Update(gameTime);
+                if (controllMapEntity.ContainsKey(entity)) { 
+                    InputControl inputControl = controllMapEntity[entity];
+                    inputControl.Update(gameTime);
+                
+                    foreach (InputHelper.CommandMove command in commandMoves) {
+                        if (inputControl.Matches(command)) {
+                            entity.OnCommandMoveComplete(command);
 
-                foreach (InputHelper.CommandMove command in commandMoves) {
-                    if (inputControl.Matches(command)) {
-                        entity.OnCommandMoveComplete(command);
+                            if (command.GetOnHitState() != null) { 
+                                entity.SetAnimationState(command.GetOnHitState());
+                            } else {
+                                entity.SetAnimationState(command.GetAnimationState());
+                            }
 
-                        if (command.GetOnHitState() != null) { 
-                            entity.SetAnimationState(command.GetOnHitState());
-                        } else {
-                            entity.SetAnimationState(command.GetAnimationState());
+                            break;
                         }
-
-                        break;
                     }
                 }
             }

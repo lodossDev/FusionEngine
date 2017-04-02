@@ -211,7 +211,7 @@ namespace FusionEngine {
                 grabbedTime = maxGrabbedTime;
                 throwVelX = 6;
                 throwHeight = -15;
-                maxGrabHits = 5;
+                maxGrabHits = 55;
                 grabHitCount = maxGrabHits;
             }
 
@@ -220,7 +220,7 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;
                 grabDirection = 0;
-                grabbedTime = 100;
+                grabbedTime = maxGrabbedTime;
                 grabHitCount = maxGrabHits;
             }
         }
@@ -302,8 +302,8 @@ namespace FusionEngine {
             public TossInfo() {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
-                maxVelocity = new Vector3(10 * GameSystem.GAME_VELOCITY, 13 * GameSystem.GAME_VELOCITY, 10 * GameSystem.GAME_VELOCITY);
-                gravity = 0.48f * GameSystem.GAME_VELOCITY;
+                maxVelocity = new Vector3(10 * Globals.GAME_VELOCITY, 13 * Globals.GAME_VELOCITY, 10 * Globals.GAME_VELOCITY);
+                gravity = 0.48f * Globals.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
                 hitGoundCount = 0;

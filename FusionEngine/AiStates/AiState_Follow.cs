@@ -163,6 +163,11 @@ namespace FusionEngine
                 if (float.IsNaN(velocity.X)) velocity.X = 0f;
                 if (float.IsNaN(velocity.Y)) velocity.Y = 0f;
 
+                if (entity.IsToss()) {
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+
                 entity.MoveX(velocity.X, direction.X);
                 entity.MoveZ(velocity.Y, direction.Y);
             }

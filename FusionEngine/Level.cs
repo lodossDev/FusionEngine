@@ -7,7 +7,7 @@ namespace FusionEngine {
 
     public abstract class Level {
         private Dictionary<int, List<Entity>> layers;
-        private List<Entity> misc;
+        private List<Entity> entities;
         private Entity mainLayer;
         private String name;
         private int maxLeft, maxRight;
@@ -15,7 +15,7 @@ namespace FusionEngine {
 
         public Level(String name) {
             layers = new Dictionary<int, List<Entity>>();
-            misc = new List<Entity>();
+            entities = new List<Entity>();
 
             this.name = name;
             maxLeft = maxRight = 0;
@@ -33,8 +33,8 @@ namespace FusionEngine {
             layers[z].Add(layer);
         }
 
-        public void AddMisc(Entity entity) {
-            misc.Add(entity);
+        public void AddEntity(Entity entity) {
+            entities.Add(entity);
         }
 
         public void SetName(string name) {
@@ -53,7 +53,7 @@ namespace FusionEngine {
         public virtual void ScrollX(float velX) {
             if (mainLayer != null) { 
                 List<Entity> entities = this.layers.SelectMany(item => item.Value).ToList();
-                entities.AddRange(misc);
+                entities.AddRange(this.entities);
 
                 float x1 = mainLayer.GetPosX();
 
@@ -72,7 +72,7 @@ namespace FusionEngine {
         public void ScrollY(float velY) {
             if (mainLayer != null) {
                 List<Entity> entities = this.layers.SelectMany(item => item.Value).ToList();
-                entities.AddRange(misc);
+                entities.AddRange(this.entities);
 
                 foreach (Entity entity in entities) {
                     entity.MoveY(velY);
@@ -92,8 +92,8 @@ namespace FusionEngine {
             return null;
         }
 
-         public List<Entity> GetMisc() {
-            return misc;
+         public List<Entity> GetEntities() {
+            return entities;
         }
 
         public int GetMaxLeft() {

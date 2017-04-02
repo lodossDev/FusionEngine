@@ -20,10 +20,10 @@ namespace FusionEngine {
                         && targetBodyBoxSize > 0);
         }
 
-        public static void QueueHitFrames(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+        public static void CheckAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
-                    CollisionManager.current_hit_id++;
+                    CollisionManager.CreateHitId();
                     OnAttackHit(entity, target, attackBox);                                     
                 }
             } else { 
@@ -32,7 +32,7 @@ namespace FusionEngine {
                 }
 
                 if (entity.GetAttackInfo().lastAttackFrame != entity.GetCurrentSprite().GetCurrentFrame()) {
-                    CollisionManager.current_hit_id++;
+                    CollisionManager.CreateHitId();
                     entity.GetAttackInfo().lastAttackFrame = entity.GetCurrentSprite().GetCurrentFrame();
                 }
             }    
@@ -119,7 +119,7 @@ namespace FusionEngine {
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
 
-                CollisionManager.renderManager.AddEntity(spark);
+                GameManager.GetInstance().GetRenderManager().AddEntity(spark);
             }
         }
 
@@ -156,7 +156,6 @@ namespace FusionEngine {
 
             if (target != entity) {
                 if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
-                    CollisionManager.hitCount++;
                     CollisionManager.hiteffect1.CreateInstance().Play();
                     //target.Toss(-5.2f, 0, 200000000);
                     float dir = (entity.IsLeft() ? -1 : 1);

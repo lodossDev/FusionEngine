@@ -23,8 +23,8 @@ namespace FusionEngine {
 
         public MugenFont(String path, Vector2 position, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) {
             fontMap = new Dictionary<char, FontItem>();
-            StreamReader file = new StreamReader(GameSystem.contentManager.RootDirectory + "/" + path);
-            fontSprite = GameSystem.contentManager.Load<Texture2D>(path.Replace(".xFont", ""));
+            StreamReader file = new StreamReader(Globals.contentManager.RootDirectory + "/" + path);
+            fontSprite = Globals.contentManager.Load<Texture2D>(path.Replace(".xFont", ""));
 
             this.lineHeight = lineHeight;
             this.characterSpacing = characterSpacing;
@@ -123,7 +123,7 @@ namespace FusionEngine {
                 if (c != ' ' && c != '\n') {
                     if (fontMap.ContainsKey(c)) {  
                         FontItem item = fontMap[c]; 
-                        GameSystem.spriteBatch.Draw(fontSprite, nextPos, item.rect, Color.White * alpha, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                        Globals.spriteBatch.Draw(fontSprite, nextPos, item.rect, Color.White * alpha, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                         nextPos.X += (item.width + characterSpacing) * scale;
                     }
                 } else if (c == '\n') {

@@ -37,6 +37,7 @@ namespace FusionEngine {
 
             if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
                 if (target.GetGrabInfo().isGrabbed) {
+                    target.GetGrabInfo().grabbedTime += 15;
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
@@ -83,9 +84,9 @@ namespace FusionEngine {
 
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
                 }
             }
 
@@ -112,9 +113,9 @@ namespace FusionEngine {
             
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameSystem.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
                 }
             }
 
@@ -205,11 +206,11 @@ namespace FusionEngine {
             target.MoveZ(entity.GetAccelZ(), entity.GetDirZ());
 
             target.SetAbsoluteVelX(entity.GetAbsoluteVelX());
-            //target.SetAbsoluteVelY(entity.GetAbsoluteVelY());
+            target.SetAbsoluteVelY(entity.GetAbsoluteVelY());
             target.SetAbsoluteVelZ(entity.GetAbsoluteVelZ());
 
             target.SetDirectionX(entity.GetDirX());
-            //target.SetDirectionY(entity.GetDirY());
+            target.SetDirectionY(entity.GetDirY());
             target.SetDirectionZ(entity.GetDirZ());
         }
 
@@ -236,7 +237,7 @@ namespace FusionEngine {
             target.GetGrabInfo().Reset();
             //target.SetLayerPos(0);
 
-            if (target.InAir() && target.IsToss()) {
+            if (target.InAir() || target.IsToss()) {
                 target.Toss(8);
                 target.SetGround(target.GetGroundBase());
             }
@@ -254,7 +255,6 @@ namespace FusionEngine {
                     target.GetAttackInfo().isHit = false;
                     target.GetGrabInfo().grabbedTime = target.GetGrabInfo().maxGrabbedTime;
                     Ungrab(entity, target);
-
                 } else {
                     target.GetGrabInfo().Reset();
                 }

@@ -11,11 +11,9 @@ using Microsoft.Xna.Framework.Audio;
 namespace FusionEngine
 {
     public class CollisionManager : Manager {
-        public static int hitCount = 0;
-        public static long current_hit_id = 0;
+        private static long current_hit_id = 0;
         public static SoundEffect hiteffect1;
         public static SoundEffectInstance soundInstance, soundInstance2;
-        public static RenderManager renderManager;
 
         //Grab calculations.
         private Vector2 grabx1 = Vector2.Zero;
@@ -25,14 +23,16 @@ namespace FusionEngine
         private Random rnd;
 
 
-        public CollisionManager(RenderManager renderManager) {
+        public CollisionManager() {
+            grabx1 = Vector2.Zero;
+            grabx2 = Vector2.Zero;
+            grabz1 = Vector2.Zero;
+            grabz2 = Vector2.Zero;
             rnd = new Random();
-            hiteffect1 = GameSystem.contentManager.Load<SoundEffect>("Sounds//hit1");
+
+            hiteffect1 = Globals.contentManager.Load<SoundEffect>("Sounds//hit1");
             soundInstance = hiteffect1.CreateInstance();
-
-            soundInstance2 = GameSystem.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
-
-            CollisionManager.renderManager = renderManager;
+            soundInstance2 = Globals.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
         }
 
         public List<Entity> FindAbove(Entity entity) {
@@ -385,7 +385,7 @@ namespace FusionEngine
                                         attackBoxesHitInFrame.Add(attackBox);
                                         tBodyBox = bodyBox;
 
-                                        CollisionActions.QueueHitFrames(entity, target, attackBox);
+                                        CollisionActions.CheckAttack(entity, target, attackBox);
                                     }
                                 }
                             }
@@ -488,11 +488,19 @@ namespace FusionEngine
         public void AfterUpdate(GameTime gameTime) {
             foreach (Entity entity in entities) {
                 entity.GetCollisionInfo().Reset();
+
+                if (!entity.IsEntity(Entity.ObjectType.OBSTACLE)) {
+                    entity.SetAbsoluteVelY(0);
+                }
                 
                 CheckBounds(entity);
                 CheckLand(entity);
                 CheckFall(entity);
             }
+        }
+
+        public static void CreateHitId() {
+            current_hit_id ++;
         }
     }
 }

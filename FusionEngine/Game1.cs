@@ -18,8 +18,6 @@ namespace FusionEngine
         SpriteBatch spriteBatch;
         Player leo;
         Entity taskMaster, drum, drum2, drum3, drum4, hitSpark1, ryo;
-        RenderManager renderManager;
-        CollisionManager collisionManager;
         CLNS.BoundingBox box1;
         SpriteFont font1;
         InputControl control;
@@ -31,8 +29,6 @@ namespace FusionEngine
         FrameRateCounter frameRate = new FrameRateCounter();
         Enemy_Bred bred, bred2;
 
-
-        InputManager inputManager;
         InputHelper.CommandMove command;
         static int padCount = 0;
 
@@ -45,8 +41,8 @@ namespace FusionEngine
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GameSystem.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = GameSystem.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = Globals.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = Globals.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -64,9 +60,9 @@ namespace FusionEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameSystem.graphicsDevice = GraphicsDevice;
-            GameSystem.contentManager = Content;
-            GameSystem.spriteBatch = spriteBatch;
+            Globals.graphicsDevice = GraphicsDevice;
+            Globals.contentManager = Content;
+            Globals.spriteBatch = spriteBatch;
 
             camera = new Camera(GraphicsDevice.Viewport);
             //camera.Parallax = new Vector2(1.0f, 1.0f);
@@ -80,8 +76,6 @@ namespace FusionEngine
         /// </summary>
         protected override void LoadContent()
         {
-            renderManager = new RenderManager();
-            GameSystem._renderManager = renderManager;
 
             //float screenscaleX = (float)500 / 1280;
             //float screenscaleY = (float)300 / 700;
@@ -297,38 +291,19 @@ namespace FusionEngine
            
             //renderManager.AddEntity(leo);
             //renderManager.AddEntity(taskMaster);
-            renderManager.AddEntity(drum);
-            renderManager.AddEntity(drum2);
-            renderManager.AddEntity(drum3);
+            GameManager.GetInstance().AddEntity(ryo);
+            GameManager.GetInstance().AddEntity(drum);
+            GameManager.GetInstance().AddEntity(drum2);
+            GameManager.GetInstance().AddEntity(drum3);
             //renderManager.AddEntity(drum4);
-            renderManager.AddLevel(level1);
+            GameManager.GetInstance().AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
-            renderManager.AddEntity(bred);
-            renderManager.AddEntity(bred2);
-
-            collisionManager = new CollisionManager(renderManager);
-            //collisionManager.AddEntity(leo);
-            //collisionManager.AddEntity(taskMaster);
-            collisionManager.AddEntity(drum);
-            collisionManager.AddEntity(drum2);
-            collisionManager.AddEntity(drum3);
-            collisionManager.AddEntity(bred);
-            collisionManager.AddEntity(bred2);
-            //collisionManager.AddEntity(drum4);
-
-
-            collisionManager.AddEntity(ryo);
-            collisionManager.AddEntity(level1.GetMisc()[0]);
-            renderManager.AddEntity(ryo);
-
+            GameManager.GetInstance().AddEntity(bred);
+            GameManager.GetInstance().AddEntity(bred2);
            
             leo.SetAnimationState(Animation.State.STANCE);
             leo.SetBaseOffset(-60, -30f);
             //control = new InputControl(leo, PlayerIndex.One);
-
-            inputManager = new InputManager();
-            inputManager.AddControl(ryo, PlayerIndex.One);
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -358,22 +333,22 @@ namespace FusionEngine
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
-                GameSystem.CallPause();
+                Globals.CallPause();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
-                level1.GetMisc()[0].SetAnimationState(Animation.State.DIE1);
-                level1.GetMisc()[0].GetCurrentSprite().SetCurrentFrame(2);
+                level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
+                level1.GetEntities()[0].GetCurrentSprite().SetCurrentFrame(2);
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q)) {
-                renderManager.RenderBoxes();
+                GameManager.GetInstance().GetRenderManager().RenderBoxes();
             }
 
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                ryo.SetAnimationState(Animation.State.THROW1);
+                ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -424,15 +399,15 @@ namespace FusionEngine
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.K))
                 {
-                    level1.GetMisc()[0].Toss(-15, -5);
+                    level1.GetEntities()[0].Toss(-15, -5);
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.L))
                 {
-                    level1.GetMisc()[0].Toss(-15, 5);
+                    level1.GetEntities()[0].Toss(-15, 5);
                 }
                 else
                 {
-                    level1.GetMisc()[0].Toss(-15);
+                    level1.GetEntities()[0].Toss(-15);
                 }
             }
 
@@ -462,7 +437,7 @@ namespace FusionEngine
                 level1.ScrollX(5/2f);
             } */
 
-            if (!GameSystem.IsPause())
+            if (!Globals.IsPause())
             {
                 //control.Update(gameTime);
                
@@ -474,11 +449,8 @@ namespace FusionEngine
                 drum3.Update(gameTime);
                 drum4.Update(gameTime);
                 */
-                collisionManager.BeforeUpdate(gameTime);
-
-                inputManager.Update(gameTime);
-
-                collisionManager.AfterUpdate(gameTime);
+                
+                GameManager.GetInstance().Update(gameTime);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.NumPad4)) {
                     //bred.MoveX(5, -1);
@@ -524,7 +496,7 @@ namespace FusionEngine
                         && !bred.IsRise()
                         && !bred.InHitPauseTime()) {
 
-                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, collisionManager.GetPlayers());
+                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
                     bred.ResetToIdle(gameTime);
                 }
 
@@ -536,7 +508,7 @@ namespace FusionEngine
                         && !bred2.IsRise()
                         && !bred2.InHitPauseTime()) {
 
-                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, collisionManager.GetPlayers());
+                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
                     bred2.ResetToIdle(gameTime);
                 }
 
@@ -553,7 +525,7 @@ namespace FusionEngine
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
 
-                renderManager.Update(gameTime);
+                
 
                 /*level1.ScrollX(-leo.GetVelocity().X);
                 drum.MoveX(-leo.GetVelocity().X);
@@ -578,14 +550,14 @@ namespace FusionEngine
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
-                        GameSystem.SAMPLER_STATE,
+                        Globals.SAMPLER_STATE,
                         null,
                         null,
                         null,
                         /*camera.ViewMatrix*//*SpriteScale*/ /*Resolution.Scale*/camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
-            renderManager.Draw(gameTime);
+            GameManager.GetInstance().Render(gameTime);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame1), new Vector2(200, 200), Color.White, 0, 1);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
@@ -607,8 +579,8 @@ namespace FusionEngine
             Vector2 sx = new Vector2(bred.GetDepthBox().GetRect().X, bred.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "BRED1 GRABBED: " + (bred.GetGrabInfo().isGrabbed), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (bred2.GetGrabInfo().isGrabbed), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(font1, "BRED1 GRABBED: " + (bred.GetGrabInfo().grabbedTime), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (bred2.GetGrabInfo().grabbedTime), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

@@ -27,9 +27,9 @@ namespace FusionEngine {
         public static List<Texture2D> LoadTextures(string contentFolder) {
             List<Texture2D> result = new List<Texture2D>();
 
-            foreach (string file in Directory.EnumerateFiles(GameSystem.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
+            foreach (string file in Directory.EnumerateFiles(Globals.contentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(GameSystem.contentManager.Load<Texture2D>(contentFolder + "/" + key));
+                result.Add(Globals.contentManager.Load<Texture2D>(contentFolder + "/" + key));
             }
 
             return result;
@@ -37,16 +37,16 @@ namespace FusionEngine {
 
         public static Texture2D TakeScreenshot(Game1 currentGame) {
             int w, h;
-            w = GameSystem.graphicsDevice.PresentationParameters.BackBufferWidth;
-            h = GameSystem.graphicsDevice.PresentationParameters.BackBufferHeight;
+            w = Globals.graphicsDevice.PresentationParameters.BackBufferWidth;
+            h = Globals.graphicsDevice.PresentationParameters.BackBufferHeight;
             RenderTarget2D screenshot;
-            screenshot = new RenderTarget2D(GameSystem.graphicsDevice, w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
-            GameSystem.graphicsDevice.SetRenderTarget(screenshot);
+            screenshot = new RenderTarget2D(Globals.graphicsDevice, w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
+            Globals.graphicsDevice.SetRenderTarget(screenshot);
 
             currentGame.Render(new GameTime());
 
-            GameSystem.graphicsDevice.Present();
-            GameSystem.graphicsDevice.SetRenderTarget(null);
+            Globals.graphicsDevice.Present();
+            Globals.graphicsDevice.SetRenderTarget(null);
             return screenshot;
         }
 

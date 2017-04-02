@@ -69,7 +69,7 @@ namespace FusionEngine {
         }
 
         public Sprite(String content, List<String> frames, Animation.Type animationType = Animation.Type.REPEAT, int resetFrame = 1) : this(animationType) {
-            var spriteSheetLoader = new SpriteSheetLoader(GameSystem.contentManager);
+            var spriteSheetLoader = new SpriteSheetLoader(Globals.contentManager);
             spriteSheet = spriteSheetLoader.Load(content);
 
             foreach (String frame in frames) {
@@ -88,7 +88,7 @@ namespace FusionEngine {
         public Sprite Clone(int index) {
             Sprite clone = new Sprite(Animation.Type.NONE);
             Texture2D source = this.sprites[index - 1];
-            Texture2D target = new Texture2D(GameSystem.graphicsDevice, source.Width, source.Height);
+            Texture2D target = new Texture2D(Globals.graphicsDevice, source.Width, source.Height);
 
             Color[] bits = new Color[source.Width * source.Height];
             source.GetData(bits);

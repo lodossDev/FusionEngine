@@ -420,6 +420,10 @@ namespace FusionEngine
             }
         }
 
+        private void CheckGrabItem(Entity entity) {
+
+        }
+
         private void CheckGrab(Entity entity) {
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();

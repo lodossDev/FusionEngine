@@ -8,7 +8,7 @@ namespace FusionEngine {
 
     public class Collectable : Entity {
 
-       public Collectable(String name) : base(Entity.ObjectType.COLLECTABLE, name) {
+        public Collectable(String name) : base(Entity.ObjectType.COLLECTABLE, name) {
 
         }
     }

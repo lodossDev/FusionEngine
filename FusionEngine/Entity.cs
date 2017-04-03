@@ -94,6 +94,8 @@ namespace FusionEngine {
         private int painTime;
         private Attributes.AnimationConfig animationConfig;
         private List<FrameAction> frameActions;
+        private Attributes.FrameInfo grabItemFrame;
+        private Animation.State? grabItemState;
 
         private bool isRise;
         private int riseTime;
@@ -296,6 +298,15 @@ namespace FusionEngine {
         public void AddFrameAction(Animation.State state, int startFrame, int endFrame, float moveX = 0, float moveY = 0, float tossHeight = 0) {
             FrameAction action = new FrameAction(state, startFrame, endFrame, moveX, moveY, tossHeight);
             frameActions.Add(action);
+        }
+
+        public void SetGrabItemFrameInfo(Animation.State state, int startFrame, int endFrame) {
+            if (grabItemFrame != null) {
+                grabItemFrame = null;
+            }
+
+            grabItemFrame = new Attributes.FrameInfo(startFrame, endFrame);
+            grabItemState = state;
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
@@ -780,6 +791,14 @@ namespace FusionEngine {
 
         public void SetHitPauseTime(int time) {
             attackInfo.hitPauseTime = time;
+        }
+
+        public Animation.State? GetGrabItemAnimationState() {
+            return grabItemState;
+        }
+
+        public Attributes.FrameInfo GetGrabItemFrameInfo() {
+            return grabItemFrame;
         }
 
         public bool HasCollidedX() {

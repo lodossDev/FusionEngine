@@ -421,7 +421,21 @@ namespace FusionEngine
         }
 
         private void CheckGrabItem(Entity entity) {
+            CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
+            foreach (Entity target in entities) {
+
+                if (entity != target && target is Collectable) {
+                    CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+
+                    Vector2 sx = new Vector2((float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2)), tDepthBox.GetRect().Y);
+
+                    if (eDepthBox.GetRect().Contains(sx)) {
+                        entity.SetAnimationState(Animation.State.PICKUP1);
+                        
+                    }
+                }
+            }
         }
 
         private void CheckGrab(Entity entity) {
@@ -484,6 +498,7 @@ namespace FusionEngine
 
         public void BeforeUpdate(GameTime gameTime) {
             foreach (Entity entity in entities) {
+                CheckGrabItem(entity);
                 CheckGrab(entity);
                 CheckAttack(entity);
             }

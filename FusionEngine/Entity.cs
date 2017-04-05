@@ -1192,6 +1192,7 @@ namespace FusionEngine {
                 }
             }
 
+            //Remove this------------------
             switch (currentState) {
                 case Animation.State.NONE: { 
                     currentAction = Animation.Action.NONE;
@@ -1223,7 +1224,7 @@ namespace FusionEngine {
             return currentAction;
         }
 
-        public bool InvalidGrabState() {
+        public bool InvalidGrabEnemyState() {
             return IsInAnimationAction(Animation.Action.FALLING)
                         || IsInAnimationAction(Animation.Action.RISING)
                         || IsInAnimationAction(Animation.Action.KNOCKED)
@@ -1231,6 +1232,20 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.JUMPING)
                         || IsInAnimationAction(Animation.Action.LANDING);
+        }
+
+        public bool InvalidGrabItemState() {
+            return IsInAnimationAction(Animation.Action.FALLING)
+                        || IsInAnimationAction(Animation.Action.RISING)
+                        || IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.GRABBING)
+                        || IsInAnimationAction(Animation.Action.JUMPING)
+                        || IsInAnimationAction(Animation.Action.LANDING)
+                        || IsInAnimationAction(Animation.Action.INPAIN)
+                        || IsInAnimationAction(Animation.Action.ATTACKING)
+                        || InPainTime()
+                        || HasGrabbed()
+                        || IsToss();
         }
 
         public bool IsInMoveFrame() {
@@ -1571,7 +1586,8 @@ namespace FusionEngine {
         public bool IsNonActionState() { 
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
                               && !IsInAnimationAction(Animation.Action.GRABBING)
-                              && !IsInAnimationAction(Animation.Action.THROWING));
+                              && !IsInAnimationAction(Animation.Action.THROWING)
+                              && !IsInAnimationAction(Animation.Action.PICKING_UP));
         }
 
         public bool InNegativeState() {

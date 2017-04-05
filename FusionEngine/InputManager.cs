@@ -36,7 +36,7 @@ namespace FusionEngine {
                         if (inputControl.Matches(command)) {
                             entity.OnCommandMoveComplete(command);
 
-                            if (command.GetOnHitState() != null) { 
+                            if (entity.HasHit() && command.GetOnHitState() != null) { 
                                 entity.SetAnimationState(command.GetOnHitState());
                             } else {
                                 entity.SetAnimationState(command.GetAnimationState());

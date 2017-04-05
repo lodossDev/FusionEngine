@@ -73,7 +73,8 @@ namespace FusionEngine {
             BLOCK1, BLOCK2, BLOCK3, BLOCK4, BLOCK5,
 
             AIR_BLOCK1, AIR_BLOCK2, AIR_BLOCK3, AIR_BLOCK4, AIR_BLOCK5,
-            PICKUP1
+
+            PICKUP1, PICKUP2, PICKUP3, PICKUP4, PICKUP5
         }
 
         public enum Action {

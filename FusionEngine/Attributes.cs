@@ -69,6 +69,7 @@ namespace FusionEngine {
             private CollisionState collide_z;
             private Entity movingObstacle;
             private Entity obstacle;
+            private Entity item;
             private bool onTop;
 
 
@@ -89,6 +90,10 @@ namespace FusionEngine {
 
             public void SetObstacle(Entity entity) {
                 obstacle = entity;
+            }
+
+            public void SetItem(Entity entity) {
+                item = entity;
             }
 
             public bool IsCollideX(CollisionState state) {
@@ -177,6 +182,10 @@ namespace FusionEngine {
 
             public Entity GetObstacle() {
                 return obstacle;
+            }
+
+            public Entity GetItem() {
+                return item;
             }
         }
 

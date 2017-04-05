@@ -16,10 +16,11 @@ namespace FusionEngine
         public static SoundEffectInstance soundInstance, soundInstance2;
 
         //Grab calculations.
-        private Vector2 grabx1 = Vector2.Zero;
-        private Vector2 grabx2 = Vector2.Zero;
-        private Vector2 grabz1 = Vector2.Zero;
-        private Vector2 grabz2 = Vector2.Zero;
+        private Vector2 grabx1;
+        private Vector2 grabx2;
+        private Vector2 grabz1;
+        private Vector2 grabz2;
+        private Vector2 itemPos;
         private Random rnd;
 
 
@@ -28,6 +29,7 @@ namespace FusionEngine
             grabx2 = Vector2.Zero;
             grabz1 = Vector2.Zero;
             grabz2 = Vector2.Zero;
+            itemPos = Vector2.Zero;
             rnd = new Random();
 
             hiteffect1 = Globals.contentManager.Load<SoundEffect>("Sounds//hit1");
@@ -423,16 +425,24 @@ namespace FusionEngine
         private void CheckGrabItem(Entity entity) {
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
-            foreach (Entity target in entities) {
+            foreach (Entity target in entities.ToList()) {
+                bool isValidGrabFrame = (entity.IsInAnimationAction(Animation.Action.PICKING_UP) && entity.GetCurrentSprite().IsAnimationComplete());
 
-                if (entity != target && target is Collectable) {
+                if (entity.GetGrabItemFrameInfo() != null) {
+                    isValidGrabFrame = (entity.IsInAnimationState(entity.GetGrabItemAnimationState()) && entity.GetGrabItemFrameInfo().IsInFrame(entity.GetCurrentSpriteFrame())); 
+                }
+
+                if (entity != target && (target is Collectable || target.IsEntity(Entity.ObjectType.COLLECTABLE))) {
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+                    itemPos.X = (float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2));
+                    itemPos.Y = tDepthBox.GetRect().Y;
+  
+                    if (eDepthBox.GetRect().Contains(itemPos)) {
+                        entity.GetCollisionInfo().SetItem(target);
 
-                    Vector2 sx = new Vector2((float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2)), tDepthBox.GetRect().Y);
-
-                    if (eDepthBox.GetRect().Contains(sx)) {
-                        entity.SetAnimationState(Animation.State.PICKUP1);
-                        
+                        if (isValidGrabFrame) { 
+                            GameManager.GetInstance().RemoveEntity(target);
+                        }
                     }
                 }
             }
@@ -477,7 +487,7 @@ namespace FusionEngine
                             && (double)entity.GetVelX() != 0.0
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !target.IsToss()
-                            && !target.InvalidGrabState()
+                            && !target.InvalidGrabEnemyState()
                             && eGrabInfo.grabbed == null) {
 
                         EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
@@ -497,7 +507,9 @@ namespace FusionEngine
         }
 
         public void BeforeUpdate(GameTime gameTime) {
-            foreach (Entity entity in entities) {
+            foreach (Entity entity in entities.ToList()) {
+                entity.GetCollisionInfo().SetItem(null);
+
                 CheckGrabItem(entity);
                 CheckGrab(entity);
                 CheckAttack(entity);

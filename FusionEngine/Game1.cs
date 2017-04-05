@@ -576,11 +576,12 @@ namespace FusionEngine
             */
 
             Entity obs = level1.GetEntities()[1];
+            Entity tp = ryo.GetCollisionInfo().GetItem();
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "BRED1 GRABBED: " + (ryo.GetDepthBox().GetRect().Contains(sx)), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (obs.GetName()), new Vector2(20, 100), Color.Red);
+            spriteBatch.DrawString(font1, "BRED1 GRABBED: " + (tp != null ? tp.GetName() : ""), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
             spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 
             //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);

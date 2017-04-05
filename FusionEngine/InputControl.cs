@@ -290,21 +290,48 @@ namespace FusionEngine {
         }
 
         private void ProcessAttack() {
-            if (ATTACK_PRESS && !player.InNegativeState()) {
 
-                if (!player.IsToss()) {
-                    player.ProcessAttackChainStep();
+            //Refactor this in entity actions class---------------------------
+            if (ATTACK_PRESS && !player.InvalidGrabItemState()
+                    && player.GetCollisionInfo().GetItem() != null) {
 
-                } else {
-                    if (!player.IsInAnimationAction(Animation.Action.ATTACKING)
-                            && !player.IsInAnimationAction(Animation.Action.RECOVERY)
-                            && player.InAir()) {
+                player.SetAnimationState(Animation.State.PICKUP1);
 
-                        if ((double)player.GetTossInfo().velocity.X == 0.0) {
-                            player.SetAnimationState(Animation.State.JUMP_ATTACK1);
+                if (ATTACK_PRESS && (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() > 0)) {
+                    if (!player.IsToss()) {
+                        player.ProcessAttackChainStep();
+
+                    } else {
+                        if (!player.IsInAnimationAction(Animation.Action.ATTACKING)
+                                && !player.IsInAnimationAction(Animation.Action.RECOVERY)
+                                && player.InAir()) {
+
+                            if ((double)player.GetTossInfo().velocity.X == 0.0) {
+                                player.SetAnimationState(Animation.State.JUMP_ATTACK1);
+                            }
+                            else {
+                                player.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
+                            }
                         }
-                        else {
-                            player.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
+                    }
+                }
+
+            } else { 
+                if (ATTACK_PRESS && (!player.InNegativeState() || player.IsInAnimationAction(Animation.Action.PICKING_UP))) {
+                    if (!player.IsToss()) {
+                        player.ProcessAttackChainStep();
+
+                    } else {
+                        if (!player.IsInAnimationAction(Animation.Action.ATTACKING)
+                                && !player.IsInAnimationAction(Animation.Action.RECOVERY)
+                                && player.InAir()) {
+
+                            if ((double)player.GetTossInfo().velocity.X == 0.0) {
+                                player.SetAnimationState(Animation.State.JUMP_ATTACK1);
+                            }
+                            else {
+                                player.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
+                            }
                         }
                     }
                 }

@@ -943,8 +943,20 @@ namespace FusionEngine {
             return currentSprite;
         }
 
-        public int GetCurrentFrame() {
+        public int GetCurrentSpriteFrame() {
             return GetCurrentSprite().GetCurrentFrame();
+        }
+
+        public bool IsAnimationComplete() {
+            return GetCurrentSprite().IsAnimationComplete();
+        }
+
+        public bool IsAnimationComplete(Animation.State? state) {
+            if (state == null) {
+                return false;
+            }
+
+            return GetSprite(state).IsAnimationComplete();
         }
 
         public Entity GetCurrentTarget() {
@@ -965,10 +977,6 @@ namespace FusionEngine {
 
         public float GetCurrentSpriteHeight() {
             return GetCurrentSprite().GetCurrentTexture().Height * GetScale().Y;
-        }
-
-        public int GetCurrentSpriteFrame() {
-            return GetCurrentSprite().GetCurrentFrame();
         }
 
         public Sprite GetBaseSprite() {
@@ -1189,39 +1197,29 @@ namespace FusionEngine {
 
                 } else if (currentState.ToString().Contains("PICKUP")) {
                     return Animation.Action.PICKING_UP;
-                }
-            }
 
-            //Remove this------------------
-            switch (currentState) {
-                case Animation.State.NONE: { 
-                    currentAction = Animation.Action.NONE;
-                    break;
-                }
+                } else if (currentState.ToString().Contains("NONE")) {
+                    return Animation.Action.NONE;
 
-                case Animation.State.STANCE: { 
-                    currentAction = Animation.Action.IDLE;
-                    break;
-                }
+                } else if (currentState.ToString().Contains("STANCE")) {
+                    return Animation.Action.IDLE;
 
-                case Animation.State.WALK_TOWARDS:
-                case Animation.State.WALK_BACKWARDS: { 
-                    currentAction = Animation.Action.WALKING;
-                    break;
-                }
+                } else if (currentState.ToString().Contains("WALK_TOWARDS")
+                               || currentState.ToString().Contains("WALK_BACKWARDS")) {
 
-                case Animation.State.LAND1: { 
-                    currentAction = Animation.Action.LANDING;
-                    break;
-                }
+                    return Animation.Action.WALKING;
 
-                default: { 
-                    currentAction = Animation.Action.NONE;
-                    break;
+                } else if (currentState.ToString().Contains("LAND")) {
+
+                    return Animation.Action.LANDING;
                 }
             }
 
             return currentAction;
+        }
+
+        public bool InGrabEnemyAttackState() {
+            return (IsInAnimationAction(Animation.Action.GRABBING) && GetGrabInfo().grabbed != null);
         }
 
         public bool InvalidGrabEnemyState() {
@@ -1243,8 +1241,10 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.LANDING)
                         || IsInAnimationAction(Animation.Action.INPAIN)
                         || IsInAnimationAction(Animation.Action.ATTACKING)
+                        || GetCollisionInfo().GetItem() == null
                         || InPainTime()
                         || HasGrabbed()
+                        || HasHit()
                         || IsToss();
         }
 
@@ -1344,7 +1344,7 @@ namespace FusionEngine {
             return IsInAnimationAction(Animation.Action.ATTACKING)
                         && attackStates.Count > 0
                         && IsInAnimationState(attackStates[0].GetState())
-                        && GetCurrentSprite().GetCurrentFrame() >= attackStates[0].GetCancelFrame()
+                        && GetCurrentSpriteFrame() >= attackStates[0].GetCancelFrame()
                         && IsFrameComplete(attackStates[0].GetState(), attackStates[0].GetCancelFrame() + 1);
         }
 
@@ -1591,8 +1591,10 @@ namespace FusionEngine {
         }
 
         public bool InNegativeState() {
-            return (IsInAnimationAction(Animation.Action.GRABBING) 
-                        || IsInAnimationAction(Animation.Action.THROWING));
+            return (IsInAnimationAction(Animation.Action.GRABBING)
+                        || IsInAnimationAction(Animation.Action.THROWING)
+                        || IsInAnimationAction(Animation.Action.INPAIN)
+                        || IsInAnimationAction(Animation.Action.RECOVERY));
         }
 
         public void SetWalkState() {
@@ -1603,40 +1605,27 @@ namespace FusionEngine {
              } 
         }
 
+        public bool IsActionComplete(Animation.Action action) {
+            return IsInAnimationAction(action) && IsAnimationComplete();
+        }
+
         public bool InResetState() {
             return (!InAir()
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
-
-                                || IsInAnimationAction(Animation.Action.JUMPING)
-                                        && GetCurrentSprite().IsAnimationComplete()
-
-                                || IsInAnimationAction(Animation.Action.LANDING)
-                                        && GetCurrentSprite().IsAnimationComplete())
-
-                                || IsInAnimationAction(Animation.Action.ATTACKING)
-                                        && GetCurrentSprite().IsAnimationComplete()
-
                                 || IsInAnimationAction(Animation.Action.RUNNING)
-
-                                || IsInAnimationAction(Animation.Action.STOPPING)
-                                        && GetCurrentSprite().IsAnimationComplete()
-                                        
-                                || IsInAnimationAction(Animation.Action.THROWING)
-                                        && GetCurrentSprite().IsAnimationComplete()
-                                        
-                                || IsInAnimationAction(Animation.Action.INPAIN)
-                                        && GetCurrentSprite().IsAnimationComplete()
-                                        
-                                || IsInAnimationAction(Animation.Action.RISING)
-                                        && GetCurrentSprite().IsAnimationComplete()
-                                
-                                || IsInAnimationAction(Animation.Action.PICKING_UP)
-                                        && GetCurrentSprite().IsAnimationComplete());
+                                || IsActionComplete(Animation.Action.JUMPING)
+                                || IsActionComplete(Animation.Action.LANDING)
+                                || IsActionComplete(Animation.Action.ATTACKING)
+                                || IsActionComplete(Animation.Action.STOPPING)   
+                                || IsActionComplete(Animation.Action.THROWING)      
+                                || IsActionComplete(Animation.Action.INPAIN)     
+                                || IsActionComplete(Animation.Action.RISING)
+                                || IsActionComplete(Animation.Action.PICKING_UP)));
         }
 
         public virtual void ResetToIdle(GameTime gameTime) {
             if (InResetState()) {
-                int frame = (IsEntity(ObjectType.PLAYER) ? GetCurrentSprite().GetCurrentFrame() : GetCurrentSprite().GetFrames());
+                int frame = (IsEntity(ObjectType.PLAYER) ? GetCurrentSpriteFrame() : GetCurrentSprite().GetFrames());
 
                 bool isFrameComplete = (IsEntity(ObjectType.PLAYER)
                                             ? IsFrameComplete(GetCurrentAnimationState(), frame)

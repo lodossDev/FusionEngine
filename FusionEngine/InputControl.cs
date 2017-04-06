@@ -290,75 +290,26 @@ namespace FusionEngine {
         }
 
         private void ProcessAttack() {
-
-            //Refactor this in entity actions class---------------------------
-            if (ATTACK_PRESS && !player.InvalidGrabItemState()
-                    && player.GetCollisionInfo().GetItem() != null) {
-
+            if (ATTACK_PRESS && !player.InvalidGrabItemState()) {
                 player.SetAnimationState(Animation.State.PICKUP1);
 
-                if (ATTACK_PRESS && (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() > 0)) {
-                    if (!player.IsToss()) {
-                        player.ProcessAttackChainStep();
-
-                    } else {
-                        if (!player.IsInAnimationAction(Animation.Action.ATTACKING)
-                                && !player.IsInAnimationAction(Animation.Action.RECOVERY)
-                                && player.InAir()) {
-
-                            if ((double)player.GetTossInfo().velocity.X == 0.0) {
-                                player.SetAnimationState(Animation.State.JUMP_ATTACK1);
-                            }
-                            else {
-                                player.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
-                            }
-                        }
-                    }
+                if (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() > 0) {
+                    EntityActions.DefaultAttack(player);
                 }
-
             } else { 
-                if (ATTACK_PRESS && (!player.InNegativeState() || player.IsInAnimationAction(Animation.Action.PICKING_UP))) {
-                    if (!player.IsToss()) {
-                        player.ProcessAttackChainStep();
-
-                    } else {
-                        if (!player.IsInAnimationAction(Animation.Action.ATTACKING)
-                                && !player.IsInAnimationAction(Animation.Action.RECOVERY)
-                                && player.InAir()) {
-
-                            if ((double)player.GetTossInfo().velocity.X == 0.0) {
-                                player.SetAnimationState(Animation.State.JUMP_ATTACK1);
-                            }
-                            else {
-                                player.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
-                            }
-                        }
-                    }
+                if (ATTACK_PRESS) {
+                    EntityActions.DefaultAttack(player);
                 }
             }
 
-            if (ATTACK_PRESS && player.IsInAnimationAction(Animation.Action.GRABBING)
-                    && player.GetGrabInfo().grabbed != null) {
-
+            if (ATTACK_PRESS && player.InGrabEnemyAttackState()) {
                 InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
                 
                 if (player.GetDirX() > 0) {
                      throwKey = InputHelper.KeyPress.LEFT | InputHelper.KeyPress.DOWN_LEFT | InputHelper.KeyPress.UP_LEFT;
-                }   
-                                   
-                if (!player.IsInAnimationAction(Animation.Action.THROWING)
-                        && player.IsInAnimationAction(Animation.Action.GRABBING)
-                        && heldState.IsKeyPressed(throwKey)) {
-
-                    EntityActions.ThrowTarget(player, player.GetGrabInfo().grabbed);
-
-                } else if (ATTACK_PRESS && !player.IsInAnimationAction(Animation.Action.ATTACKING)
-                        && !player.IsInAnimationAction(Animation.Action.THROWING)
-                        && player.IsInAnimationAction(Animation.Action.GRABBING)
-                        && !heldState.IsKeyPressed(throwKey)) {
-
-                    player.SetAnimationState(Animation.State.GRAB_ATTACK1);
                 }
+          
+                EntityActions.ThrowOrGrabAttack(player, heldState.IsKeyPressed(throwKey));
             } 
         }
 
@@ -395,12 +346,12 @@ namespace FusionEngine {
         public void Update(GameTime gameTime) {
             currentKeyboardState = Keyboard.GetState();
             currentPadState = GamePad.GetState(playerIndex);
-            
-            UpdateDefaultControls(gameTime);
-            
+
             ReadPressedInputBuffer(gameTime);
             ReadHeldInputBuffer(gameTime);
             ReadReleasedInputBuffer(gameTime);
+            
+            UpdateDefaultControls(gameTime);
 
             if (IsInputDirection(InputDirection.NONE)) {
                 player.StopMovement();

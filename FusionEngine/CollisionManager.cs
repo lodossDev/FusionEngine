@@ -426,10 +426,11 @@ namespace FusionEngine
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
             foreach (Entity target in entities.ToList()) {
-                bool isValidGrabFrame = (entity.IsInAnimationAction(Animation.Action.PICKING_UP) && entity.GetCurrentSprite().IsAnimationComplete());
+                bool isValidGrabFrame = (entity.IsInAnimationAction(Animation.Action.PICKING_UP) && entity.IsAnimationComplete());
 
                 if (entity.GetGrabItemFrameInfo() != null) {
-                    isValidGrabFrame = (entity.IsInAnimationState(entity.GetGrabItemAnimationState()) && entity.GetGrabItemFrameInfo().IsInFrame(entity.GetCurrentSpriteFrame())); 
+                    isValidGrabFrame = (entity.IsInAnimationState(entity.GetGrabItemAnimationState()) 
+                                               && entity.GetGrabItemFrameInfo().IsInFrame(entity.GetCurrentSpriteFrame())); 
                 }
 
                 if (entity != target && (target is Collectable || target.IsEntity(Entity.ObjectType.COLLECTABLE))) {

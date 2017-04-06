@@ -299,5 +299,42 @@ namespace FusionEngine {
                 }
             } 
         }
+
+        public static void DefaultAttack(Entity entity) {
+             if (!entity.InNegativeState()) {
+                if (!entity.IsToss()) {
+                    entity.ProcessAttackChainStep();
+
+                } else {
+                    if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                            && !entity.IsInAnimationAction(Animation.Action.RECOVERY)
+                            && entity.InAir()) {
+
+                        if ((double)entity.GetTossInfo().velocity.X == 0.0) {
+                            entity.SetAnimationState(Animation.State.JUMP_ATTACK1);
+                        }
+                        else {
+                            entity.SetAnimationState(Animation.State.JUMP_TOWARD_ATTACK1);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void ThrowOrGrabAttack(Entity entity, bool isThrow) {
+            if (entity.IsInAnimationAction(Animation.Action.GRABBING)
+                    && !entity.IsInAnimationAction(Animation.Action.THROWING)
+                    && isThrow) {
+
+                    EntityActions.ThrowTarget(entity, entity.GetGrabInfo().grabbed);
+
+            } else if (entity.IsInAnimationAction(Animation.Action.GRABBING)
+                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                            && !entity.IsInAnimationAction(Animation.Action.THROWING)
+                            && !isThrow) {
+
+                   entity.SetAnimationState(Animation.State.GRAB_ATTACK1);
+            }
+        }
     }
 }

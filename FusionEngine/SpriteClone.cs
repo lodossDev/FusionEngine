@@ -12,7 +12,7 @@ namespace FusionEngine {
             Sprite sprite = target.GetSprite(target.GetCurrentAnimationState());
 
             Entity afterImage = new Entity(Entity.ObjectType.AFTER_IMAGE, target.GetName());
-            afterImage.AddSprite(target.GetCurrentAnimationState(), sprite.Clone(target.GetCurrentFrame() + 1), true);
+            afterImage.AddSprite(target.GetCurrentAnimationState(), sprite.Clone(target.GetCurrentSpriteFrame() + 1), true);
             afterImage.SetPostion(target.GetPosX(), target.GetPosY(), target.GetPosZ() - 5);
 
             afterImage.SetSpriteOffSet(target.GetCurrentAnimationState(), sprite.GetSpriteOffSet().X, sprite.GetSpriteOffSet().Y);

@@ -2062,20 +2062,20 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame0.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame2.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame3.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat1.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat2.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat3.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.png
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.txt
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Land1\Frame01.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\bar.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\container.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\placeholder.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\MyFont.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xFont
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_0.xnb
@@ -2317,6 +2317,9 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Leo\Walk\Walk13.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Leo\Walk\Walk14.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Leo\Walk\Walk15.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.png
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.txt
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Attack1\IMG00000.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Attack1\IMG00001.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Attack1\IMG00002.xnb
@@ -2421,8 +2424,13 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\JumpAttack3\Frame05.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\JumpAttack3\Frame06.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\JumpStart\jump_start.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Land1\Frame01.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Land1\IMG00000.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Land1\IMG00001.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame0.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame1.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame2.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame3.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Run\Frame0.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Run\Frame1.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\Run\Frame2.xnb
@@ -2577,14 +2585,21 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Levels\Stage1\front.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Levels\Stage1\front2.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Levels\Stage1\normal01.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\bar.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\container.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\placeholder.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Bar\bar.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Container\container.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Placeholder\placeholder.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Die1\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Pain1\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Pain2\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Drum\Stance\drum.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Marker\Marker.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat1.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat2.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat3.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 01.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 02.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Stance\Phone 01.xnb
@@ -2610,21 +2625,5 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct2D1.xml
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.XInput.xml
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\ryo.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame0.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame1.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame2.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame3.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat1.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat2.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat3.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame0.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame1.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame2.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PICKUP1\Frame3.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat1.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat2.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Meat\STANCE\meat3.xnb

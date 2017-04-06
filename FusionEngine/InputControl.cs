@@ -302,7 +302,7 @@ namespace FusionEngine {
                 }
             }
 
-            if (ATTACK_PRESS && player.InGrabEnemyAttackState()) {
+            if (ATTACK_PRESS && player.InGrabAttackState()) {
                 InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
                 
                 if (player.GetDirX() > 0) {

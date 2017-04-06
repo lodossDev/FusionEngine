@@ -220,7 +220,7 @@ namespace FusionEngine {
                 grabbedTime = maxGrabbedTime;
                 throwVelX = 6;
                 throwHeight = -15;
-                maxGrabHits = 55;
+                maxGrabHits = 5;
                 grabHitCount = maxGrabHits;
             }
 

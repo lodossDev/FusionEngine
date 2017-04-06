@@ -693,6 +693,10 @@ namespace FusionEngine {
             return name;
         }
 
+        public void SetName(String name) {
+            this.name = name;
+        }
+
         public int GetHealth() {
             return health;
         }
@@ -1218,18 +1222,19 @@ namespace FusionEngine {
             return currentAction;
         }
 
-        public bool InGrabEnemyAttackState() {
+        public bool InGrabAttackState() {
             return (IsInAnimationAction(Animation.Action.GRABBING) && GetGrabInfo().grabbed != null);
         }
 
-        public bool InvalidGrabEnemyState() {
+        public bool InvalidGrabbedState() {
             return IsInAnimationAction(Animation.Action.FALLING)
                         || IsInAnimationAction(Animation.Action.RISING)
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.ATTACKING)
                         || IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.JUMPING)
-                        || IsInAnimationAction(Animation.Action.LANDING);
+                        || IsInAnimationAction(Animation.Action.LANDING)
+                        || !(GetGrabInfo().grabbedTime > 0);
         }
 
         public bool InvalidGrabItemState() {
@@ -1587,14 +1592,20 @@ namespace FusionEngine {
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
                               && !IsInAnimationAction(Animation.Action.GRABBING)
                               && !IsInAnimationAction(Animation.Action.THROWING)
-                              && !IsInAnimationAction(Animation.Action.PICKING_UP));
+                              && !IsInAnimationAction(Animation.Action.PICKING_UP)
+                              && !HasGrabbed()
+                              && !IsGrabbed()
+                              && !InPainTime());
         }
 
         public bool InNegativeState() {
             return (IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.THROWING)
                         || IsInAnimationAction(Animation.Action.INPAIN)
-                        || IsInAnimationAction(Animation.Action.RECOVERY));
+                        || IsInAnimationAction(Animation.Action.RECOVERY)
+                        || HasGrabbed()
+                        || IsGrabbed()
+                        || InPainTime());
         }
 
         public void SetWalkState() {
@@ -1939,7 +1950,7 @@ namespace FusionEngine {
         }
 
         public bool HasGrabbed() {
-            return IsInAnimationAction(Animation.Action.GRABBING);
+            return (GetGrabInfo().grabbed != null || IsInAnimationAction(Animation.Action.GRABBING));
         }
 
         public virtual void OnAttackHit(Entity target, CLNS.AttackBox attackBox) {

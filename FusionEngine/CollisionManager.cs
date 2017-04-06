@@ -442,6 +442,7 @@ namespace FusionEngine
                         entity.GetCollisionInfo().SetItem(target);
 
                         if (isValidGrabFrame) { 
+                            soundInstance2.Play();
                             GameManager.GetInstance().RemoveEntity(target);
                         }
                     }
@@ -452,20 +453,21 @@ namespace FusionEngine
         private void CheckGrab(Entity entity) {
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
-            Attributes.GrabInfo eGrabInfo = entity.GetGrabInfo();
 
             float newx = 0;
             float newz = 0;
             float x = 0;
             float targetx = 0;
             float targetz = 0;
+            List<Entity> targets = new List<Entity>();
 
             foreach (Entity target in entities) {
 
-                if (entity != target && target.IsEntity(Entity.ObjectType.ENEMY) && entity.GetName().Contains("RYO")) {
+                if (entity != target && entity.IsEntity(Entity.ObjectType.PLAYER) 
+                        && target.IsEntity(Entity.ObjectType.ENEMY) ) {
+
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
-                    Attributes.GrabInfo tGrabInfo = target.GetGrabInfo();
 
                     grabx1.X = entityBox.GetRect().X;
                     grabx2.X = targetBox.GetRect().X;
@@ -476,33 +478,42 @@ namespace FusionEngine
                     float distX = Vector2.Distance(grabx1, grabx2);
                     float distZ = Vector2.Distance(grabz1, grabz2);
                     
-                    if ((distX < eGrabInfo.dist) && distZ <= (tDepthBox.GetHeight() / 1.2) 
+                    if ((distX < entity.GetGrabInfo().dist) && distZ <= (tDepthBox.GetHeight() / 1.2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
 
-                            && tGrabInfo.grabbedTime > 0
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
+                            && !target.IsToss()
+                            && !target.InvalidGrabbedState()
                             //Entity must be moving forward to grab?
                             && (double)entity.GetVelX() != 0.0
-                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                            && !target.IsToss()
-                            && !target.InvalidGrabEnemyState()
-                            && eGrabInfo.grabbed == null) {
+                            //&& !entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                            //&& !entity.IsNonActionState()
+                            && entity.GetGrabInfo().grabbed == null) {
 
-                        EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
-                    }
-
-                    if (tGrabInfo.isGrabbed && tGrabInfo.grabbedBy == entity) {
-                        EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, target);
-                        EntityActions.SetGrabGround(entity, target);
-                        EntityActions.ThrowIfNoGrab(entity, target);
-                        EntityActions.SetGrabAnimation(entity, target);
-                        EntityActions.CheckGrabTime(entity, target);
+                        targets.Add(target);
                     }
 
                     EntityActions.CheckUnGrabDistance(entity, target, distX, distZ);
+                }
+            }
+
+            if (targets.Count > 0 && entity.GetGrabInfo().grabbed == null) {
+                List<Entity> nearest = targets.OrderBy(item => item.GetDepthBox().GetRect().Bottom > entity.GetDepthBox().GetRect().Bottom).ToList();
+                Entity target = nearest[0];
+
+                EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
+            }
+
+            if (entity.GetGrabInfo().grabbed != null) {
+                if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
+                    EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);
+                    EntityActions.SetGrabGround(entity, entity.GetGrabInfo().grabbed);
+                    EntityActions.ThrowIfNoGrab(entity, entity.GetGrabInfo().grabbed);
+                    EntityActions.SetGrabAnimation(entity, entity.GetGrabInfo().grabbed);
+                    EntityActions.CheckGrabTime(entity, entity.GetGrabInfo().grabbed);
                 }
             }
         }

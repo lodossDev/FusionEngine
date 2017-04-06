@@ -303,6 +303,7 @@ namespace FusionEngine
            
             leo.SetAnimationState(Animation.State.STANCE);
             leo.SetBaseOffset(-60, -30f);
+            bred2.SetName("BRED2");
             //control = new InputControl(leo, PlayerIndex.One);
             // TODO: use this.Content to load your game content here
         }
@@ -348,7 +349,8 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                ryo.SetAnimationState(Animation.State.PICKUP1);
+                CollisionManager.hiteffect1.CreateInstance().Play();
+                //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -580,10 +582,10 @@ namespace FusionEngine
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "UP " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).UP), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "GRABBED " + (ryo.GetGrabInfo().grabbed != null ? ryo.GetGrabInfo().grabbed.GetName() : ""), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "DOWN " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).DOWN), new Vector2(20, 90), Color.White);
-            spriteBatch.DrawString(font1, "LEFT " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).LEFT), new Vector2(20, 130), Color.White);
-            spriteBatch.DrawString(font1, "RIGHT " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).RIGHT), new Vector2(20, 180), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 Z" + (bred.GetDepthBox().GetRect().Bottom), new Vector2(20, 130), Color.White);
+            spriteBatch.DrawString(font1, "BRED2 Z " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 

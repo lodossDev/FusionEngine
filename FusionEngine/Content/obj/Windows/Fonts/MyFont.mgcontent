@@ -3,11 +3,15 @@
   <SourceFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/MyFont.spritefont</SourceFile>
   <SourceTime>2017-03-28T15:46:17.9644061+01:00</SourceTime>
   <DestFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Fonts/MyFont.xnb</DestFile>
-  <DestTime>2017-04-06T13:20:04.4254703+01:00</DestTime>
+  <DestTime>2017-04-06T18:20:01.1773663+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
   <ProcessorTime>2017-03-01T15:05:36+00:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
   <Parameters>
     <Key>TextureFormat</Key>
     <Value>Compressed</Value>

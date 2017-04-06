@@ -488,7 +488,7 @@ namespace FusionEngine
                             && !target.IsToss()
                             && !target.InvalidGrabbedState()
                             //Entity must be moving forward to grab?
-                            && (double)entity.GetVelX() != 0.0
+                            && (double)entity.GetVelX() != 0.0 
                             //&& !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             //&& !entity.IsNonActionState()
                             && entity.GetGrabInfo().grabbed == null) {

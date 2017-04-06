@@ -349,7 +349,7 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                CollisionManager.hiteffect1.CreateInstance().Play();
+                GameManager.GetInstance().GetRenderManager().GetLevels()[0].GetEntities()[1].SetAliveTime(55);
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;

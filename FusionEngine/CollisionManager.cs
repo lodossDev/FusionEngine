@@ -56,7 +56,9 @@ namespace FusionEngine
             float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
             float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
 
-            foreach (Entity target in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -106,7 +108,9 @@ namespace FusionEngine
             float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
             float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
 
-            foreach (Entity target in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -176,7 +180,8 @@ namespace FusionEngine
             float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
             float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
           
-            foreach (Entity target in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
 
                 if (entity != target && target.IsEntity(Entity.ObjectType.OBSTACLE)) {
 
@@ -240,7 +245,9 @@ namespace FusionEngine
             List<Entity> aboveEntities = FindAbove(entity);
             List<Entity> belowEntities = FindBelow(entity);
             
-            foreach (Entity target in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
                         || (entity.IsEntity(Entity.ObjectType.OBSTACLE) && target.IsEntity(Entity.ObjectType.OBSTACLE)))) {
 
@@ -362,7 +369,8 @@ namespace FusionEngine
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
 
-                foreach (Entity target in entities) {
+                for (int i = 0; i < entities.Count; i++) {
+                    Entity target = entities[i];
 
                     if (entity != target) {
                         //Get all body boxes for collision with attack boxes.
@@ -425,7 +433,9 @@ namespace FusionEngine
         private void CheckGrabItem(Entity entity) {
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
-            foreach (Entity target in entities.ToList()) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
                 bool isValidGrabFrame = (entity.IsInAnimationAction(Animation.Action.PICKING_UP) && entity.IsAnimationComplete());
 
                 if (entity.GetGrabItemFrameInfo() != null) {
@@ -438,7 +448,10 @@ namespace FusionEngine
                     itemPos.X = (float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2));
                     itemPos.Y = tDepthBox.GetRect().Y;
   
-                    if (eDepthBox.GetRect().Contains(itemPos)) {
+                    if (eDepthBox.GetRect().Contains(itemPos) 
+                            && target.GetPosY() == entity.GetPosY()
+                            && target.GetGround() == entity.GetGround()) {
+
                         entity.GetCollisionInfo().SetItem(target);
 
                         if (isValidGrabFrame) { 
@@ -461,10 +474,11 @@ namespace FusionEngine
             float targetz = 0;
             List<Entity> targets = new List<Entity>();
 
-            foreach (Entity target in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
 
                 if (entity != target && entity.IsEntity(Entity.ObjectType.PLAYER) 
-                        && target.IsEntity(Entity.ObjectType.ENEMY) ) {
+                        && target.IsEntity(Entity.ObjectType.ENEMY)) {
 
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -485,12 +499,10 @@ namespace FusionEngine
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
-                            && !target.IsToss()
                             && !target.InvalidGrabbedState()
                             //Entity must be moving forward to grab?
-                            && (double)entity.GetVelX() != 0.0 
-                            //&& !entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                            //&& !entity.IsNonActionState()
+                            && entity.IsMoving()
+                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && entity.GetGrabInfo().grabbed == null) {
 
                         targets.Add(target);
@@ -500,7 +512,7 @@ namespace FusionEngine
                 }
             }
 
-            if (targets.Count > 0 && entity.GetGrabInfo().grabbed == null) {
+            if (targets.Count > 0) {
                 List<Entity> nearest = targets.OrderBy(item => item.GetDepthBox().GetRect().Bottom > entity.GetDepthBox().GetRect().Bottom).ToList();
                 Entity target = nearest[0];
 
@@ -519,7 +531,9 @@ namespace FusionEngine
         }
 
         public void BeforeUpdate(GameTime gameTime) {
-            foreach (Entity entity in entities.ToList()) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
+
                 entity.GetCollisionInfo().SetItem(null);
 
                 CheckGrabItem(entity);
@@ -529,7 +543,9 @@ namespace FusionEngine
         }
 
         public void AfterUpdate(GameTime gameTime) {
-            foreach (Entity entity in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
+
                 entity.GetCollisionInfo().Reset();
 
                 if (!entity.IsEntity(Entity.ObjectType.OBSTACLE)) {

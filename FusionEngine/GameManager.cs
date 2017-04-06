@@ -79,6 +79,11 @@ namespace FusionEngine {
             return renderManager;
         }
 
+        public Entity GetEntity(Entity entity) {
+            int i = GetRenderManager().GetEntities().IndexOf(entity);
+            return GetRenderManager().GetEntities()[i];
+        }
+
         public void Update(GameTime gameTime) {
             collisionManager.BeforeUpdate(gameTime);
             inputManager.Update(gameTime);

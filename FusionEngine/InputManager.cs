@@ -24,7 +24,9 @@ namespace FusionEngine {
 
         public void Update(GameTime gameTime) {
 
-            foreach(Entity entity in entities) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
+
                 List<InputHelper.CommandMove> commandMoves = entity.GetCommandMoves();
                 commandMoves.Sort();
 

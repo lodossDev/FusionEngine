@@ -293,7 +293,7 @@ namespace FusionEngine {
             if (ATTACK_PRESS && !player.InvalidGrabItemState()) {
                 player.SetAnimationState(Animation.State.PICKUP1);
 
-                if (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() > 0) {
+                if (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() >= 1) {
                     EntityActions.DefaultAttack(player);
                 }
             } else { 

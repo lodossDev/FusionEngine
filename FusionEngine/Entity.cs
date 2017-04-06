@@ -1234,7 +1234,8 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.JUMPING)
                         || IsInAnimationAction(Animation.Action.LANDING)
-                        || !(GetGrabInfo().grabbedTime > 0);
+                        || !(GetGrabInfo().grabbedTime > 0)
+                        || IsToss();
         }
 
         public bool InvalidGrabItemState() {
@@ -1290,6 +1291,10 @@ namespace FusionEngine {
 
         public bool IsToss() {
             return tossInfo.isToss;
+        }
+
+        public bool IsMoving() {
+            return (IsMovingX() || IsMovingZ());
         }
 
         public bool IsMovingX() {
@@ -1585,7 +1590,7 @@ namespace FusionEngine {
 
         public bool IsExpired() {
              return (IsEntity(Entity.ObjectType.HIT_FLASH) && GetCurrentSprite().IsAnimationComplete())
-                        || (IsEntity(Entity.ObjectType.AFTER_IMAGE) && GetAliveTime() != -1 && GetAliveTime() <= 0);
+                        || (/*IsEntity(Entity.ObjectType.AFTER_IMAGE) &&*/ GetAliveTime() != -1 && GetAliveTime() <= 0);
         }
 
         public bool IsNonActionState() { 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FusionEngine {
 
-    public class Meat : Collectable {
+    public class Meat : Health {
 
         public Meat() : base("MEAT") {
             AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Meat/STANCE"), true);

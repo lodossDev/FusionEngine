@@ -13,13 +13,7 @@ namespace FusionEngine {
             return (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
                         || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE));
         }
-
-        public static bool IsInAttackRange(Entity entity, Entity target, int targetBodyBoxSize) {
-            return (Math.Abs(entity.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom) < target.GetDepthBox().GetZdepth() + 10 
-                        && entity.IsInAnimationAction(Animation.Action.ATTACKING) 
-                        && targetBodyBoxSize > 0);
-        }
-
+        
         public static void CheckAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
@@ -190,6 +184,25 @@ namespace FusionEngine {
                 if (attackBox.GetTossHeight() != 0.0) {
                     target.Toss(attackBox.GetTossHeight());
                 }
+            }
+        }
+
+        public static void ProcessGrabItem(Entity entity, Collectable collectable, ref bool isCollected) {
+            entity.GetCollisionInfo().SetItem(collectable);
+
+            if (entity.InGrabItemFrameState()) {
+
+                if (!isCollected) { 
+
+                    if (collectable is Health) {
+                        entity.DecreaseHealth(collectable.GetPoints());
+                    }
+
+                    CollisionManager.soundInstance2.Play();
+                    isCollected = true;
+                }
+
+                GameManager.GetInstance().RemoveEntity(collectable);
             }
         }
     }

@@ -582,7 +582,7 @@ namespace FusionEngine
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "GRABBED " + (ryo.GetGrabInfo().grabbed != null ? ryo.GetGrabInfo().grabbed.GetName() : ""), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "GRABBED " + (ryo.GetHealth()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "DOWN " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).DOWN), new Vector2(20, 90), Color.White);
             spriteBatch.DrawString(font1, "BRED1 Z" + (bred.GetDepthBox().GetRect().Bottom), new Vector2(20, 130), Color.White);
             spriteBatch.DrawString(font1, "BRED2 Z " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);

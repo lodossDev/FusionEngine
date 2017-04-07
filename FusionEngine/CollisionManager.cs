@@ -384,7 +384,9 @@ namespace FusionEngine
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (CollisionActions.IsInAttackRange(entity, target, targetBoxes.Count)) {
+                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetZdepth() + 10 
+                                && entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                                && targetBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
                             foreach (CLNS.AttackBox attackBox in attackBoxes) {
@@ -435,29 +437,20 @@ namespace FusionEngine
 
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
-
-                bool isValidGrabFrame = (entity.IsInAnimationAction(Animation.Action.PICKING_UP) && entity.IsAnimationComplete());
-
-                if (entity.GetGrabItemFrameInfo() != null) {
-                    isValidGrabFrame = (entity.IsInAnimationState(entity.GetGrabItemAnimationState()) 
-                                               && entity.GetGrabItemFrameInfo().IsInFrame(entity.GetCurrentSpriteFrame())); 
-                }
+                bool isCollected = false;
 
                 if (entity != target && (target is Collectable || target.IsEntity(Entity.ObjectType.COLLECTABLE))) {
-                    CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+                    var collectable = target as Collectable;
+
+                    CLNS.BoundingBox tDepthBox = collectable.GetDepthBox();
                     itemPos.X = (float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2));
                     itemPos.Y = tDepthBox.GetRect().Y;
   
                     if (eDepthBox.GetRect().Contains(itemPos) 
-                            && target.GetPosY() == entity.GetPosY()
-                            && target.GetGround() == entity.GetGround()) {
+                            && collectable.GetPosY() == entity.GetPosY()
+                            && collectable.GetGround() == entity.GetGround()) {
 
-                        entity.GetCollisionInfo().SetItem(target);
-
-                        if (isValidGrabFrame) { 
-                            soundInstance2.Play();
-                            GameManager.GetInstance().RemoveEntity(target);
-                        }
+                        CollisionActions.ProcessGrabItem(entity, collectable, ref isCollected);
                     }
                 }
             }

@@ -2627,3 +2627,4 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache

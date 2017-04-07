@@ -1222,6 +1222,16 @@ namespace FusionEngine {
             return currentAction;
         }
 
+        public bool InGrabItemFrameState() {
+            bool isValidGrabFrame = (IsInAnimationAction(Animation.Action.PICKING_UP) && IsAnimationComplete());
+
+            if (GetGrabItemFrameInfo() != null) {
+                isValidGrabFrame = (IsInAnimationState(GetGrabItemAnimationState()) && GetGrabItemFrameInfo().IsInFrame(GetCurrentSpriteFrame())); 
+            }
+
+            return isValidGrabFrame;
+        }
+
         public bool InGrabAttackState() {
             return (IsInAnimationAction(Animation.Action.GRABBING) && GetGrabInfo().grabbed != null);
         }

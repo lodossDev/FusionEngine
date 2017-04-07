@@ -41,7 +41,7 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.LAND1, 3, 1);
 
             AddSprite(Animation.State.PICKUP1, new Sprite("Sprites/Actors/Ryo/PICKUP1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.PICKUP1, 55);
+            SetFrameDelay(Animation.State.PICKUP1, 5);
             SetSpriteOffSet(Animation.State.PICKUP1, 6, 10);
 
             AddSprite(Animation.State.RUN_STOP1, new Sprite("Sprites/Actors/Ryo/RunStop1", Animation.Type.ONCE));

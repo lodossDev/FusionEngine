@@ -71,11 +71,14 @@
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Health.cs" />
+    <Compile Include="Life.cs" />
+    <Compile Include="Money.cs" />
+    <Compile Include="MP.cs" />
     <Compile Include="Obstacles\Drum.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="InputBuffer.cs" />
     <Compile Include="InputControl.cs" />
     <Compile Include="InputHelper.cs" />

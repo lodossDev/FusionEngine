@@ -76,6 +76,10 @@ namespace FusionEngine {
         private Entity currentTarget;
 
         private int entityId;
+        private int mp;
+        private int lives;
+        private int oldPoints;
+        private int points;
         private int health;
         private bool alive;
 
@@ -130,6 +134,7 @@ namespace FusionEngine {
             velocity = Vector3.Zero;
             absoluteVel = Vector3.Zero;
             maxVelocity = new Vector3(15, 5, 5);
+            layerPos = 0;
 
             origin = Vector2.Zero;
             ground = groundBase = 0;
@@ -162,11 +167,14 @@ namespace FusionEngine {
             isRise = false;
             riseTime = maxRiseTime = 50;
 
+            health = 100;
+            points = oldPoints = 0;
+            mp = 0;
+            lives = 3;
+            alive = true;
+            
             id++;
             entityId = id;
-            alive = true;
-            health = 100;
-            layerPos = 0;
         }
 
         public void AddSprite(Animation.State? state, Sprite sprite) {
@@ -493,6 +501,32 @@ namespace FusionEngine {
             GetSprite(state).SetShadowOffset(x, y);
         }
 
+        public void SetLives(int amount) {
+            lives = amount;
+        }
+
+        public void SetMP(int amount) {
+            mp = amount;
+        }
+
+        public void SetPoints(int amount) {
+            points = amount;
+        }
+
+        public void SetOldPoints(int amount) {
+            oldPoints = amount;
+        }
+
+        public void SyncOldPoints(int amount) {
+            if (oldPoints < points) {
+                oldPoints += amount;
+            }
+
+            if (oldPoints > points) {
+                oldPoints = points;
+            }
+        }
+
         public void MoveX(float acc, float dir) {
             this.acceleration.X = acc * Globals.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
@@ -611,7 +645,7 @@ namespace FusionEngine {
         }
 
         public void DecreaseHealth(int amount) {
-            this.health -= amount;
+            health -= amount;
 
             if (health < 0) {
                 health = 0;
@@ -619,11 +653,43 @@ namespace FusionEngine {
         }
 
         public void IncreaseHealth(int amount) {
-            this.health += amount;
+            health += amount;
 
             if (health > 100) {
                 health = 100;
             }
+        }
+
+        public void DecreaseMP(int amount) {
+            mp -= amount;
+
+            if (mp < 0) {
+                mp = 0;
+            }
+        }
+
+        public void IncreaseMP(int amount) {
+            mp += amount;
+
+            if (mp > 100) {
+                mp = 100;
+            }
+        }
+
+        public void DecreaseLives(int amount) {
+            lives -= amount;
+
+            if (lives < 0) {
+                lives = 0;
+            }
+        }
+
+        public void IncreaseLives(int amount) {
+            lives += amount;
+        }
+
+        public void IncreasePoints(int amount) {
+            points += amount;
         }
 
         public void SetAlive(bool alive) {
@@ -699,6 +765,22 @@ namespace FusionEngine {
 
         public int GetHealth() {
             return health;
+        }
+
+        public int GetMP() {
+            return mp;
+        }
+
+        public int GetPoints() {
+            return points;
+        }
+
+        public int GetOldPoints() {
+            return points;
+        }
+
+        public int GetLives() {
+            return lives;
         }
 
         public bool Alive() {

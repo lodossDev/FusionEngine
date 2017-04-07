@@ -150,7 +150,7 @@ namespace FusionEngine {
 
             if (target != entity) {
                 if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
-                    CollisionManager.hiteffect1.CreateInstance().Play();
+                    GameManager.GetInstance().PlaySFX(GameManager.SFX.HIT_DEFAULT);
                     //target.Toss(-5.2f, 0, 200000000);
                     float dir = (entity.IsLeft() ? -1 : 1);
 
@@ -195,10 +195,19 @@ namespace FusionEngine {
                 if (!isCollected) { 
 
                     if (collectable is Health) {
-                        entity.DecreaseHealth(collectable.GetPoints());
+                        entity.IncreaseHealth(collectable.GetPoints());
+
+                    } else if (collectable is Money) {
+                        entity.IncreasePoints(collectable.GetPoints());
+
+                    } else if (collectable is Life) {
+                        entity.IncreaseLives(collectable.GetPoints());
+
+                    } else if (collectable is MP) {
+                        entity.IncreaseMP(collectable.GetPoints());
                     }
 
-                    CollisionManager.soundInstance2.Play();
+                    GameManager.GetInstance().PlaySFX(GameManager.SFX.PICK_UP_ITEM_DEFAULT);
                     isCollected = true;
                 }
 

@@ -12,8 +12,6 @@ namespace FusionEngine
 {
     public class CollisionManager : Manager {
         private static long current_hit_id = 0;
-        public static SoundEffect hiteffect1;
-        public static SoundEffectInstance soundInstance, soundInstance2;
 
         //Grab calculations.
         private Vector2 grabx1;
@@ -31,10 +29,6 @@ namespace FusionEngine
             grabz2 = Vector2.Zero;
             itemPos = Vector2.Zero;
             rnd = new Random();
-
-            hiteffect1 = Globals.contentManager.Load<SoundEffect>("Sounds//hit1");
-            soundInstance = hiteffect1.CreateInstance();
-            soundInstance2 = Globals.contentManager.Load<SoundEffect>("Sounds//test").CreateInstance();
         }
 
         public List<Entity> FindAbove(Entity entity) {

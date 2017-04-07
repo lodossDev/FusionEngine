@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 
 namespace FusionEngine {
+
     public class Animation {
         /**
         * 1 game-tick is 1/60 of a sec, so 60 ticks is 1 second
         */
-        public const float TICK_RATE = (1.0f / 60.0f);
-        public const float DEFAULT_TICKS = TICK_RATE * 3.0f;
+        public static readonly float TICK_RATE = (1.0f / 60.0f);
+        public static readonly float DEFAULT_TICKS = TICK_RATE * 3.0f;
 
         public enum State {
             NONE = -1, STANCE, WALK_TOWARDS, WALK_BACKWARDS,

@@ -38,8 +38,12 @@ namespace FusionEngine {
                 targetHit = true;
             }
 
-            if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
-                AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
+            if (!target.InvalidHitState()) { 
+                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
+                    AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
+                } else {
+                    AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
+                }
             }
         }
 
@@ -149,21 +153,25 @@ namespace FusionEngine {
             target.OnTargetHit(entity, attackBox);
 
             if (target != entity) {
-                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
-                    GameManager.GetInstance().PlaySFX(GameManager.SFX.HIT_DEFAULT);
-                    //target.Toss(-5.2f, 0, 200000000);
-                    float dir = (entity.IsLeft() ? -1 : 1);
+                target.GetAttackInfo().isHit = true;
+                target.GetAttackInfo().lastAttackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
+                target.GetAttackInfo().attacker = entity;
 
-                    EntityActions.SetPainState(entity, target, attackBox);
-                    target.SetPainTime(80);
-                    target.SetRumble(dir, 2.8f);
-                    EntityActions.FaceTarget(target, entity);
-                    EntityActions.CheckMaxGrabHits(entity, target);
-                    target.DecreaseHealth(attackBox.GetHitDamage());
-                    ApplyFrameActions(entity, target, attackBox);
-                    
-                    //target.SetHitPauseTime(50);
-                    //target.MoveY(-125 * attackBox.GetHitStrength());
+                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
+
+                    if (!target.InvalidHitState()) {
+                         
+                        GameManager.GetInstance().PlaySFX("beat1");
+                        float dir = (entity.IsLeft() ? -1 : 1);
+
+                        EntityActions.SetPainState(entity, target, attackBox);
+                        target.SetPainTime(80);
+                        target.SetRumble(dir, 2.8f);
+                        EntityActions.FaceTarget(target, entity);
+                        EntityActions.CheckMaxGrabHits(entity, target);
+                        target.DecreaseHealth(attackBox.GetHitDamage());
+                        ApplyFrameActions(entity, target, attackBox);
+                    }
                 } else {
                     //play blocking sound.
                     AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
@@ -207,7 +215,7 @@ namespace FusionEngine {
                         entity.IncreaseMP(collectable.GetPoints());
                     }
 
-                    GameManager.GetInstance().PlaySFX(GameManager.SFX.PICK_UP_ITEM_DEFAULT);
+                    GameManager.GetInstance().PlaySFX("1up");
                     isCollected = true;
                 }
 

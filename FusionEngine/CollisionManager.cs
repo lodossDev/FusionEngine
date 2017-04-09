@@ -290,7 +290,7 @@ namespace FusionEngine
                                 int jump = rnd.Next(1, 4);
 
                                 if (jump == 2) {
-                                    entity.Toss(-18, entity.GetDirX() * 2.3f);
+                                    if (!entity.IsDying())entity.Toss(-18, entity.GetDirX() * 2.3f);
                                 }
                             }
                         }
@@ -507,12 +507,21 @@ namespace FusionEngine
             }
 
             if (entity.GetGrabInfo().grabbed != null) {
-                if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
-                    EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);
-                    EntityActions.SetGrabGround(entity, entity.GetGrabInfo().grabbed);
-                    EntityActions.ThrowIfNoGrab(entity, entity.GetGrabInfo().grabbed);
-                    EntityActions.SetGrabAnimation(entity, entity.GetGrabInfo().grabbed);
-                    EntityActions.CheckGrabTime(entity, entity.GetGrabInfo().grabbed);
+                if (entity.GetGrabInfo().grabbed.IsDying() 
+                        || entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
+
+                    entity.GetGrabInfo().grabbed.Toss(8);
+                    entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
+                    entity.GetGrabInfo().grabbed.GetGrabInfo().Reset();
+                    entity.GetGrabInfo().Reset();
+                } else { 
+                    if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
+                        EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);
+                        EntityActions.SetGrabGround(entity, entity.GetGrabInfo().grabbed);
+                        EntityActions.ThrowIfNoGrab(entity, entity.GetGrabInfo().grabbed);
+                        EntityActions.SetGrabAnimation(entity, entity.GetGrabInfo().grabbed);
+                        EntityActions.CheckGrabTime(entity, entity.GetGrabInfo().grabbed);
+                    }
                 }
             }
         }

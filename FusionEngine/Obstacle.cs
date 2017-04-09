@@ -9,6 +9,8 @@ namespace FusionEngine {
     public class Obstacle : Entity {
 
         public Obstacle(String name) : base(ObjectType.OBSTACLE, name) {
+            SetDeathMode(DeathType.DEFAULT | DeathType.FLASH);
+            SetDieTime(55);
         }
     }
 }

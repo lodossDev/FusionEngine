@@ -61,6 +61,18 @@ namespace FusionEngine {
                 dir = lastDir = -1;
                 count = 0;
             }
+
+            public void Reset() {
+                lx = 0;
+                isRumble = false;
+                time = 0;
+                maxTime = 100;
+                forceTime = 0;
+                maxForceTime = 25;
+                force = 2.5f;
+                dir = lastDir = -1;
+                count = 0;
+            }
         }
 
         public class CollisionInfo {
@@ -242,14 +254,17 @@ namespace FusionEngine {
             public int hitPauseTime;
             public bool hasHit;
             public bool isHit;
+            public Entity attacker;
+            public int lastAttackDir;
 
 
             public AttackInfo() {
                 Reset();
-                lastHitDirection = 0;
+                lastHitDirection = lastAttackDir = 0;
             }
 
             public void Reset() {
+                attacker = null;
                 lastAttackFrame = -1;
                 lastAttackState = Animation.State.NONE;
                 hitPauseTime = 0;
@@ -312,6 +327,21 @@ namespace FusionEngine {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
                 maxVelocity = new Vector3(10 * Globals.GAME_VELOCITY, 13 * Globals.GAME_VELOCITY, 10 * Globals.GAME_VELOCITY);
+                gravity = 0.48f * Globals.GAME_VELOCITY;
+                inTossFrame = false;
+                isToss = false;
+                hitGoundCount = 0;
+                tossCount = 0;
+                maxHitGround = 3;
+                maxTossCount = 1;
+            }
+
+            public void Reset() {
+                height = tempHeight = 0f;
+                velocity = Vector3.Zero;
+                maxVelocity.X = 10 * Globals.GAME_VELOCITY;
+                maxVelocity.Y = 13 * Globals.GAME_VELOCITY;
+                maxVelocity.Z = 10 * Globals.GAME_VELOCITY;
                 gravity = 0.48f * Globals.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;

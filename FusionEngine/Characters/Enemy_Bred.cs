@@ -29,6 +29,11 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.THROWN1, 0, 15);
             SetFrameScale(Animation.State.THROWN1, -0.4f, 0);
 
+            AddSprite(Animation.State.KNOCKED_DOWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.KNOCKED_DOWN1, 12);
+            SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, 15);
+            SetFrameScale(Animation.State.KNOCKED_DOWN1, -0.4f, 0);
+
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.PAIN1, 6);
             SetSpriteOffSet(Animation.State.PAIN1, 10, 0);
@@ -49,9 +54,12 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.RISE2, 4);
             SetSpriteOffSet(Animation.State.RISE2, 0, 0);
 
-            AddSprite(Animation.State.KO1, new Sprite("Sprites/Actors/Bred/KO1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.KO1, 4);
-            SetSpriteOffSet(Animation.State.KO1, 0, 0);
+            AddSprite(Animation.State.DIE1, new Sprite("Sprites/Actors/Bred/KO1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.DIE1, 6);
+            SetFrameDelay(Animation.State.DIE1, 5, 33);
+            SetFrameDelay(Animation.State.DIE1, 6, 33);
+            SetFrameDelay(Animation.State.DIE1, 7, 43);
+            SetSpriteOffSet(Animation.State.DIE1, 0, 0);
 
             AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Bred/ATTACK1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK1, 4);

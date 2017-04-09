@@ -16,6 +16,9 @@ namespace FusionEngine {
         private static int id = 0;
         public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE}
 
+        [Flags]
+        public enum DeathType {DEFAULT = 1, FLASH = 2, IMMEDIATE_DIE = 4}
+
         private Dictionary<Animation.State?, Sprite> spriteMap;
         private Sprite currentSprite;
         private Attributes.ColourInfo colorInfo;
@@ -80,6 +83,7 @@ namespace FusionEngine {
         private int lives;
         private int oldPoints;
         private int points;
+        private int oldHealth;
         private int health;
         private bool alive;
 
@@ -104,6 +108,9 @@ namespace FusionEngine {
         private bool isRise;
         private int riseTime;
         private int maxRiseTime;
+        private DeathType deathMode;
+        public int deathStep;
+        private int dieTime;
         
 
         public Entity(ObjectType type, string name) {
@@ -166,11 +173,14 @@ namespace FusionEngine {
 
             isRise = false;
             riseTime = maxRiseTime = 50;
+            dieTime = 50;
+            deathStep = -1;
 
-            health = 100;
+            health = oldHealth = 100;
             points = oldPoints = 0;
             mp = 0;
             lives = 3;
+            deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
             
             id++;
@@ -321,8 +331,16 @@ namespace FusionEngine {
             animationSounds.Add(state, Globals.contentManager.Load<SoundEffect>(location));
         }
 
+        public void AddAnimationSound(Animation.State state, SoundEffect effect) {
+            animationSounds.Add(state, effect);
+        }
+
         public SoundEffect GetAnimationSound(Animation.State state) {
-            return animationSounds[state];
+            if (animationSounds.ContainsKey(state)) { 
+                return animationSounds[state];
+            }
+
+            return null;
         }
 
         public void AddCommandMove(InputHelper.CommandMove commandMove) {
@@ -525,6 +543,14 @@ namespace FusionEngine {
             if (oldPoints > points) {
                 oldPoints = points;
             }
+        }
+
+        public void SetDieTime(int time) {
+            dieTime = time;
+        }
+
+        public int GetDieTime() {
+            return dieTime;
         }
 
         public void MoveX(float acc, float dir) {
@@ -1233,13 +1259,16 @@ namespace FusionEngine {
                 return Animation.Action.ATTACKING;
 
             } else {
-                if (currentState.ToString().Contains("RECOVER")) {
+                if (currentState.ToString().Contains("DIE")) {
+                    return Animation.Action.DYING;
+
+                } else if (currentState.ToString().Contains("RECOVER")) {
                     return Animation.Action.RECOVERY;
 
                 } else if (currentState.ToString().Contains("JUMP")) {
                     return Animation.Action.JUMPING;
 
-                } else if (currentState.ToString().Contains("FALL")) {
+                } else if (currentState.ToString().Contains("FALLING")) {
                     return Animation.Action.FALLING;
 
                 } else if (currentState.ToString().Contains("KNOCKED")
@@ -1320,6 +1349,8 @@ namespace FusionEngine {
 
         public bool InvalidGrabbedState() {
             return IsInAnimationAction(Animation.Action.FALLING)
+                        || IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.DYING)
                         || IsInAnimationAction(Animation.Action.RISING)
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.ATTACKING)
@@ -1327,11 +1358,14 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.JUMPING)
                         || IsInAnimationAction(Animation.Action.LANDING)
                         || !(GetGrabInfo().grabbedTime > 0)
+                        || IsDying()
                         || IsToss();
         }
 
         public bool InvalidGrabItemState() {
             return IsInAnimationAction(Animation.Action.FALLING)
+                        || IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.DYING)
                         || IsInAnimationAction(Animation.Action.RISING)
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.GRABBING)
@@ -1343,6 +1377,7 @@ namespace FusionEngine {
                         || InPainTime()
                         || HasGrabbed()
                         || HasHit()
+                        || IsDying()
                         || IsToss();
         }
 
@@ -1585,6 +1620,10 @@ namespace FusionEngine {
             }
         }
 
+        public void TossGravity(float gravity) {
+            tossInfo.gravity = gravity * Globals.GAME_VELOCITY;
+        }
+
         public void ResetToss() {
             velocity.X = 0f;
             velocity.Y = 0f;
@@ -1625,7 +1664,7 @@ namespace FusionEngine {
                     }
                 }
 
-                if ((double)GetPosY() > (double)GetGround() && tossInfo.velocity.Y >= 0) {
+                if ((int)GetPosY() >= (int)GetGround() && tossInfo.velocity.Y >= 0) {
                     tossInfo.hitGoundCount += 1;
 
                     if (tossInfo.hitGoundCount < tossInfo.maxHitGround) {
@@ -1682,7 +1721,7 @@ namespace FusionEngine {
 
         public bool IsExpired() {
              return (IsEntity(Entity.ObjectType.HIT_FLASH) && GetCurrentSprite().IsAnimationComplete())
-                        || (/*IsEntity(Entity.ObjectType.AFTER_IMAGE) &&*/ GetAliveTime() != -1 && GetAliveTime() <= 0);
+                        || (GetAliveTime() != -1 && GetAliveTime() <= 0);
         }
 
         public bool IsNonActionState() { 
@@ -1718,7 +1757,7 @@ namespace FusionEngine {
         }
 
         public bool InResetState() {
-            return (!InAir()
+            return (!InAir() && GetHealth() > 0
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
                                 || IsInAnimationAction(Animation.Action.RUNNING)
                                 || IsActionComplete(Animation.Action.JUMPING)
@@ -1779,6 +1818,10 @@ namespace FusionEngine {
             colorInfo.originalFreq = speed;
             colorInfo.currentFadeTime = 0f;
             colorInfo.maxFadeTime = time;
+        }
+
+        public bool IsFlash() {
+            return (colorInfo.isFlash || colorInfo.alpha != 255);
         }
 
         public void UpdateFade(GameTime gameTime) {
@@ -1852,10 +1895,6 @@ namespace FusionEngine {
                 }
 
                 if (rumble.time >= rumble.maxTime) {
-                    if (!IsToss()) {
-                        //SetPosX(rumble.lx);
-                    }
-
                     rumble.dir = rumble.lastDir;
                     rumble.count = 0;
                     rumble.isRumble = false;
@@ -1903,15 +1942,22 @@ namespace FusionEngine {
             }
 
             if (painTime <= 0) {
-                if (painTime != -1 && IsInAnimationAction(Animation.Action.INPAIN) 
-                        && !grabInfo.isGrabbed) {
+                if (IsDying() || IsInAnimationAction(Animation.Action.KNOCKED)) {
+                    attackInfo.isHit = false;
+                    painTime = -1;
 
-                    if (!currentSprite.IsAnimationComplete()) {
-                         painTime = 0;
-                    } else {
-                        SetAnimationState(Animation.State.STANCE);
-                        attackInfo.isHit = false;
-                        painTime = -1;
+                } else { 
+                    if (painTime != -1 
+                            && IsInAnimationAction(Animation.Action.INPAIN) 
+                            && !grabInfo.isGrabbed) {
+
+                        if (!currentSprite.IsAnimationComplete()) {
+                             painTime = 0;
+                        } else {
+                            SetAnimationState(Animation.State.STANCE);
+                            attackInfo.isHit = false;
+                            painTime = -1;
+                        }
                     }
                 }
             }
@@ -1944,8 +1990,107 @@ namespace FusionEngine {
             }
         }
 
+        public void SetDeathMode(DeathType deathMode) {
+            this.deathMode = deathMode;
+        }
+
+        public DeathType GetDeathMode() {
+            return deathMode;
+        }
+
+        public bool IsDeathMode(DeathType deathMode) {
+            return this.deathMode.HasFlag(deathMode);
+        }
+
+        public bool IsDying() {
+            return (GetHealth() == 0 || IsInAnimationAction(Animation.Action.DYING));
+        }
+
+        public bool InvalidHitState() {
+            return (IsDying() 
+                        || IsRise() 
+                        || IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.RISING));
+        }
+
+        public bool InvalidDeathState() {
+            return (IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.RISING)
+                        || IsRise());
+        }
+
+        public void CheckDeathAction() {
+            if (GetHealth() == 0 && deathStep == 1) {
+
+                if (IsInAnimationAction(Animation.Action.RISING) && IsAnimationComplete()) {
+                    SetAnimationState(Animation.State.DIE1);
+                }
+
+                if (IsInAnimationAction(Animation.Action.DYING)) {
+
+                    if (deathMode.HasFlag(DeathType.FLASH) && !IsFlash()) {
+                        Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
+                    }
+                }
+
+                if (IsInAnimationAction(Animation.Action.DYING) && IsAnimationComplete()) {
+
+                    if (deathMode.HasFlag(DeathType.FLASH) && !IsFlash()) {
+                        Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
+                    }
+
+                    SetAliveTime(dieTime);
+                    deathStep = 2;
+                }
+
+                if (IsInAnimationAction(Animation.Action.INPAIN)) {
+                    deathStep = -1;
+                }
+            }
+        }
+
+        public void UpdateDeath(GameTime gameTime) {
+            if (GetHealth() == 0 && deathStep == -1) {
+                String dieSfx = (this is Drum ? "klunk" : (this is PhoneBooth ? "glass" : "die3"));
+                GameManager.GetInstance().PlaySFX(this, Animation.State.DIE1, dieSfx);
+
+                if (deathMode.HasFlag(DeathType.DEFAULT)) {
+
+                    if (!InvalidDeathState()) {
+
+                        if (IsEntity(ObjectType.OBSTACLE) || this is Obstacle) {
+                            SetAnimationState(Animation.State.DIE1);
+                        } else {
+                            SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                        }
+
+                        float velX = (GetAttackInfo().lastAttackDir > 0 ? -2 : 2);
+                        Toss(-20, velX, 1, 2); 
+                        TossGravity(0.7f);
+                    }
+                }
+
+                if (deathMode.HasFlag(DeathType.IMMEDIATE_DIE)) {
+                    if (!InvalidDeathState()) {
+                        SetAnimationState(Animation.State.DIE1);
+                    }
+                }
+
+                if (deathMode.HasFlag(DeathType.FLASH)) {
+                    Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
+                }
+
+                GetGrabInfo().Reset();
+                GetRumble().Reset(); 
+                deathStep = 1;
+            }
+
+            CheckDeathAction();
+        }
+
         public void Update(GameTime gameTime) {
             UpdatePauseHit(gameTime);
+            UpdateDeath(gameTime);
             UpdateAliveTime(gameTime);
             UpdatePainTime(gameTime);
             UpdateRiseTime(gameTime);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FusionEngine {
     public class Drum : Obstacle {
+
         public Drum() : base("Drum1") {
             AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"), true);
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Misc/Drum/Pain1"));

@@ -271,7 +271,7 @@ namespace FusionEngine
             private Vector2 sparkOffset;
 
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 1 / 60, 
-                                        float painTime = 20 / 60, int hitDamage = 5, int hitPoints = 5, float hitStrength = 0.4f, 
+                                        float painTime = 20 / 60, int hitDamage = 25, int hitPoints = 5, float hitStrength = 0.4f, 
                                         int comboStep = 1, int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,

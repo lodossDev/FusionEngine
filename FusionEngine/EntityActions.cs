@@ -33,7 +33,6 @@ namespace FusionEngine {
         }
 
         public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            target.GetAttackInfo().isHit = true;
 
             if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
                 if (target.GetGrabInfo().isGrabbed) {
@@ -234,12 +233,19 @@ namespace FusionEngine {
 
         public static void Ungrab(Entity entity, Entity target) {
             entity.GetGrabInfo().Reset();
-            target.GetGrabInfo().Reset();
-            //target.SetLayerPos(0);
 
-            if (target.InAir() || target.IsToss()) {
-                target.Toss(8);
-                target.SetGround(target.GetGroundBase());
+            if (target != null) { 
+                target.GetGrabInfo().Reset();
+                //target.SetLayerPos(0);
+
+                if (!target.IsDying() && !target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
+                    if (target.InAir() || target.IsToss()) {
+                        target.Toss(8);
+                        target.SetGround(target.GetGroundBase());
+                    }
+                } else {
+                     target.SetGround(target.GetGroundBase());
+                }
             }
         }
 

@@ -17,7 +17,8 @@ namespace FusionEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player leo;
-        Entity taskMaster, drum, drum2, drum3, drum4, hitSpark1, ryo;
+        Entity taskMaster, drum, drum2, drum4, hitSpark1, ryo;
+        Drum drum3;
         CLNS.BoundingBox box1;
         SpriteFont font1;
         InputControl control;
@@ -263,12 +264,7 @@ namespace FusionEngine
             drum2.SetPostion(500, 0, 200);
            
 
-            drum3 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM3");
-            drum3.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"));
-            drum3.SetAnimationState(Animation.State.STANCE);
-            //drum3.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
-            drum3.AddBoundsBox(125, 210, -63, -15, 40);
-            drum3.SetOnLoadScale(2.2f, 2.6f);
+            drum3 = new Drum();
             drum3.SetPostion(100, 0, 200);
 
             drum4 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM4");
@@ -349,7 +345,8 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                GameManager.GetInstance().GetRenderManager().GetLevels()[0].GetEntities()[1].SetAliveTime(55);
+                level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
+                //GameManager.GetInstance().GetRenderManager().GetLevels()[0].GetEntities()[1].SetAliveTime(55);
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -496,7 +493,9 @@ namespace FusionEngine
                         && !bred.IsInAnimationAction(Animation.Action.KNOCKED)
                         //&& !bred.IsInAnimationAction(Animation.Action.RISING)
                         && !bred.IsRise()
-                        && !bred.InHitPauseTime()) {
+                        && !bred.InHitPauseTime()
+                        && bred.GetHealth() > 0
+                        && !bred.IsDying()) {
 
                     if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
                     bred.ResetToIdle(gameTime);
@@ -508,7 +507,9 @@ namespace FusionEngine
                         && !bred2.IsInAnimationAction(Animation.Action.KNOCKED)
                         //&& !bred2.IsInAnimationAction(Animation.Action.RISING)
                         && !bred2.IsRise()
-                        && !bred2.InHitPauseTime()) {
+                        && !bred2.InHitPauseTime()
+                        && bred2.GetHealth() > 0
+                         && !bred2.IsDying()) {
 
                     if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
                     bred2.ResetToIdle(gameTime);
@@ -582,7 +583,7 @@ namespace FusionEngine
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "GRABBED " + (ryo.GetHealth()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "GRABBED " + (drum3.GetDeathMode()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "DOWN " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).DOWN), new Vector2(20, 90), Color.White);
             spriteBatch.DrawString(font1, "BRED1 Z" + (bred.GetDepthBox().GetRect().Bottom), new Vector2(20, 130), Color.White);
             spriteBatch.DrawString(font1, "BRED2 Z " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);

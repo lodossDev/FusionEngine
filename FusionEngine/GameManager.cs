@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,18 +10,14 @@ using System.Threading.Tasks;
 namespace FusionEngine {
 
     public class GameManager {
-
-        public enum SFX {
-            LIFE_UP_1, PICK_UP_ITEM_DEFAULT, HIT_DEFAULT
-        }
-
         private InputManager inputManager;
         private CollisionManager collisionManager;
         private RenderManager renderManager;
-        private Dictionary<SFX, SoundEffect> defaultSoundEffects;
+        private Dictionary<string, SoundEffect> defaultSoundEffects;
 
         private static GameManager _instance;
         private static int playerIndex;
+        public static readonly int FLASH_TIME_DEATH_DEFAULT = 100000000;
 
 
         private GameManager() {
@@ -29,11 +26,12 @@ namespace FusionEngine {
             renderManager = new RenderManager();
             playerIndex = 0;
 
-            defaultSoundEffects = new Dictionary<SFX, SoundEffect>();
+            defaultSoundEffects = new Dictionary<string, SoundEffect>();
 
-            defaultSoundEffects.Add(SFX.LIFE_UP_1, Globals.contentManager.Load<SoundEffect>("Sounds//1up"));
-            defaultSoundEffects.Add(SFX.PICK_UP_ITEM_DEFAULT, Globals.contentManager.Load<SoundEffect>("Sounds//get"));
-            defaultSoundEffects.Add(SFX.HIT_DEFAULT, Globals.contentManager.Load<SoundEffect>("Sounds//beat2"));
+            foreach (var item in SoundContent.LoadSounds("Sounds/")) {
+                Debug.WriteLine("SFX: " + item.Key);
+                defaultSoundEffects.Add(item.Key, item.Value);
+            }
         }
 
         public static GameManager GetInstance() {
@@ -109,13 +107,28 @@ namespace FusionEngine {
             renderManager.Draw(gameTime);
         }
 
-        public void PlaySFX(SFX sfx) {
+        public void PlaySFX(string sfx) {
             if (defaultSoundEffects.ContainsKey(sfx)) { 
                 defaultSoundEffects[sfx].CreateInstance().Play();
             }
         }
 
-        public SoundEffectInstance PlaySFX(SFX sfx, float volume = 1, float pitch = 0, float pan = 0, bool loop = false) {
+        public SoundEffectInstance PlaySFX(SoundEffect effect, float volume = 1, float pitch = 0, float pan = 0, bool loop = false) {
+            SoundEffectInstance soundInstance = null;
+
+            if (effect != null) { 
+                soundInstance = effect.CreateInstance();
+                soundInstance.Volume = volume;
+                soundInstance.Pitch = pitch;
+                soundInstance.Pan = pan;
+                soundInstance.IsLooped = loop;
+                soundInstance.Play();
+            }
+
+            return soundInstance;
+        }
+
+        public SoundEffectInstance PlaySFX(string sfx, float volume = 1, float pitch = 0, float pan = 0, bool loop = false) {
             SoundEffectInstance soundInstance = GetSoundInstance(sfx);
 
             if (soundInstance != null) {
@@ -128,7 +141,17 @@ namespace FusionEngine {
             return soundInstance;
         }
 
-        public SoundEffectInstance GetSoundInstance(SFX sfx) {
+        public SoundEffectInstance PlaySFX(Entity entity, Animation.State state, String sfx) {
+            SoundEffect soundEffect = entity.GetAnimationSound(Animation.State.DIE1);
+
+            if (soundEffect == null) {
+                soundEffect = GameManager.GetInstance().GetSFX(sfx);
+            }
+
+            return PlaySFX(soundEffect);
+        }
+
+        public SoundEffectInstance GetSoundInstance(string sfx) {
             if (defaultSoundEffects.ContainsKey(sfx)) { 
                 SoundEffectInstance soundInstance = defaultSoundEffects[sfx].CreateInstance();
                 return soundInstance;
@@ -137,7 +160,7 @@ namespace FusionEngine {
             return null;
         }
 
-        public SoundEffect GetSFX(SFX sfx) {
+        public SoundEffect GetSFX(string sfx) {
             if (defaultSoundEffects.ContainsKey(sfx)) { 
                 return defaultSoundEffects[sfx];
             }

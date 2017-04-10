@@ -33,17 +33,17 @@ namespace FusionEngine {
         }
 
         public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
-            if (!targetHit) {
-                OnTargetHit(target, entity, attackBox);
-                targetHit = true;
-            }
-
             if (!target.InvalidHitState()) { 
                 if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
                     AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
                 } else {
                     AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
                 }
+            }
+
+            if (!targetHit) {
+                OnTargetHit(target, entity, attackBox);
+                targetHit = true;
             }
         }
 
@@ -117,6 +117,7 @@ namespace FusionEngine {
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
 
+                GameManager.GetInstance().GetUpdateManager().AddEntity(spark);
                 GameManager.GetInstance().GetRenderManager().AddEntity(spark);
             }
         }
@@ -157,24 +158,28 @@ namespace FusionEngine {
                 target.GetAttackInfo().lastAttackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
                 target.GetAttackInfo().attacker = entity;
 
-                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) {
+                //Put this in inner if after invalidHitState
+                if (!target.InvalidHitState()) {
+                    float dir = (entity.IsLeft() ? -1 : 1);
 
-                    if (!target.InvalidHitState()) {
-                         
-                        GameManager.GetInstance().PlaySFX("beat1");
-                        float dir = (entity.IsLeft() ? -1 : 1);
+                    if (target.IsInAnimationAction(Animation.Action.BLOCKING) 
+                            && target.GetAttackInfo().blockResistance > 0) {
 
+                        GameManager.GetInstance().PlaySFX("block");
+                        target.SetRumble(dir, 1.8f);
+                        EntityActions.FaceTarget(target, entity);
+                        target.GetAttackInfo().blockResistance--;
+               
+                    } else {      
+                        GameManager.GetInstance().PlaySFX("beat2");
                         EntityActions.SetPainState(entity, target, attackBox);
-                        target.SetPainTime(80);
-                        target.SetRumble(dir, 2.8f);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
+                        target.SetPainTime(80);
+                        target.SetRumble(dir, 1.8f);
                         target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
-                } else {
-                    //play blocking sound.
-                    AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
                 }
             }
         }

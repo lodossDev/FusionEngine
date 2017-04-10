@@ -72,6 +72,7 @@
     <Compile Include="GameManager.cs" />
     <Compile Include="Health.cs" />
     <Compile Include="Life.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MP.cs" />
     <Compile Include="Obstacles\Drum.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="TexturePackerLoader\SpriteRender.cs" />
     <Compile Include="TexturePackerLoader\SpriteSheet.cs" />
     <Compile Include="TexturePackerLoader\SpriteSheetLoader.cs" />
+    <Compile Include="UpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

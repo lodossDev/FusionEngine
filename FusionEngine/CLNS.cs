@@ -74,7 +74,7 @@ namespace FusionEngine
                     }
                 }
 
-                sprite = new Texture2D(Globals.graphicsDevice, 1, 1);
+                sprite = new Texture2D(GameManager.GetGraphicsDevice(), 1, 1);
                 Color[] colorData = new Color[1];
                 colorData[0] = color;
                 sprite.SetData<Color>(colorData);
@@ -225,7 +225,7 @@ namespace FusionEngine
                 }
                 
                 if (drawType == DrawType.FILL) {
-                    Globals.spriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY * visibility, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                    GameManager.GetSpriteBatch().Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY * visibility, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 
@@ -239,7 +239,7 @@ namespace FusionEngine
                     rect = new Rectangle((int)A.X, (int)A.Y, thickness, (int)(B.Y - A.Y));
                 }
 
-                Globals.spriteBatch.Draw(tex, rect, color);
+                GameManager.GetSpriteBatch().Draw(tex, rect, color);
             }
         }
 
@@ -271,7 +271,7 @@ namespace FusionEngine
             private Vector2 sparkOffset;
 
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 1 / 60, 
-                                        float painTime = 20 / 60, int hitDamage = 25, int hitPoints = 5, float hitStrength = 0.4f, 
+                                        float painTime = 20 / 60, int hitDamage = 1, int hitPoints = 5, float hitStrength = 0.4f, 
                                         int comboStep = 1, int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,

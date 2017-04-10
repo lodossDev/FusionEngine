@@ -23,7 +23,7 @@ namespace FusionEngine {
         private Vector2 shadowPosition;
         private Vector2 shadowScale;
 
-        public RenderManager() {
+        public RenderManager() : base() {
             renderBoxes = renderAttackBoxes = renderBodyBoxes = renderBoundsBoxes = false;
             renderStanceSprite = false;
             renderBoxes = true;
@@ -145,7 +145,7 @@ namespace FusionEngine {
                         if (entity.Alive()) {
                             entity.Update(gameTime);
                             Sprite currentSprite = entity.GetCurrentSprite();
-                            Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
+                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
                         }
                     }
                 }
@@ -155,7 +155,7 @@ namespace FusionEngine {
                         if (entity.Alive()) {
                             entity.Update(gameTime);
                             Sprite currentSprite = entity.GetCurrentSprite();
-                            Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
+                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
                         }
                     }
                 }
@@ -171,23 +171,9 @@ namespace FusionEngine {
                         if (entity.Alive()) {
                             entity.Update(gameTime);
                             Sprite currentSprite = entity.GetCurrentSprite();
-                            Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
+                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
                         }
                     }
-                }
-            }
-        }
-
-        public void Update(GameTime gameTime) {
-            for (int i = 0; i < entities.Count; i++) {
-                Entity entity = entities[i];
-
-                if (entity.IsExpired()) {
-                    GameManager.GetInstance().RemoveEntity(entity);
-                }
-
-                if (entity.Alive()) {
-                    entity.Update(gameTime);
                 }
             }
         }
@@ -202,9 +188,9 @@ namespace FusionEngine {
                 if (entity != null && entity.Alive()) {
 
                     if (entity.IsEntity(Entity.ObjectType.HIT_FLASH) /*|| entity.IsEntity(Entity.ObjectType.AFTER_IMAGE)*/) {
-                        Globals.graphicsDevice.BlendState = BlendState.Additive;
+                        GameManager.GetGraphicsDevice().BlendState = BlendState.Additive;
                     } else {
-                        Globals.graphicsDevice.BlendState = BlendState.NonPremultiplied;
+                        GameManager.GetGraphicsDevice().BlendState = BlendState.NonPremultiplied;
                     }
 
                     Sprite currentSprite = entity.GetCurrentSprite();
@@ -231,19 +217,19 @@ namespace FusionEngine {
                         shadowScale.Y = (frameScale.Y * 2) / 8f;
 
                         //Shadow
-                        Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, Globals.rotate, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
+                        GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, 0, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
 
                         if (stance != null && (renderStanceSprite == true || entity.GetName().Contains("BRED"))) {
                             //GameSystem.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.Gray * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
                         }
 
                          //Real sprite
-                        Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
 
                     } else {
                         //After image sprite
                         Color desaturatedGreen = Color.Lerp(Color.White, Color.Blue, 0.75f);
-                        Globals.spriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     }
                     
                     
@@ -253,13 +239,13 @@ namespace FusionEngine {
                         baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
                         baseSpriteOrigin.Y = 0;
 
-                        Globals.spriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
+                        GameManager.GetSpriteBatch().Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
 
                     }
                 }
             }
 
-            Globals.graphicsDevice.BlendState = BlendState.NonPremultiplied;
+            GameManager.GetGraphicsDevice().BlendState = BlendState.NonPremultiplied;
             RenderLevelFrontLayers(gameTime);
         }
     }

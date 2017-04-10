@@ -14,7 +14,7 @@ namespace FusionEngine {
         /// <summary>
         /// The virtual screen size. Default is 1280x800. See the non-existent documentation on how this works.
         /// </summary>
-        public static Vector2 VirtualScreen = new Vector2(Globals.RESOLUTION_X, Globals.RESOLUTION_Y);
+        public static Vector2 VirtualScreen = new Vector2(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
 
         /// <summary>
         /// The screen scale

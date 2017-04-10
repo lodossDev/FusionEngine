@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +14,9 @@ namespace FusionEngine {
         public static Dictionary<string, SoundEffect> LoadSounds(string contentFolder) {
             Dictionary<string, SoundEffect> result = new Dictionary<string, SoundEffect>();
 
-            foreach (string file in Directory.EnumerateFiles(Globals.contentManager.RootDirectory + "/" + contentFolder)) {
+            foreach (string file in Directory.EnumerateFiles(GameManager.GetContentManager().RootDirectory + "/" + contentFolder)) {
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(key, Globals.contentManager.Load<SoundEffect>(contentFolder + "/" + key));
+                result.Add(key, GameManager.GetContentManager().Load<SoundEffect>(contentFolder + "/" + key));
             }
 
             return result;

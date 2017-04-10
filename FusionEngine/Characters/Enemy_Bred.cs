@@ -54,6 +54,9 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.RISE2, 4);
             SetSpriteOffSet(Animation.State.RISE2, 0, 0);
 
+            AddSprite(Animation.State.BLOCK1, new Sprite("Sprites/Actors/Bred/BLOCK1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.BLOCK1, 8);
+
             AddSprite(Animation.State.DIE1, new Sprite("Sprites/Actors/Bred/KO1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.DIE1, 6);
             SetFrameDelay(Animation.State.DIE1, 5, 33);

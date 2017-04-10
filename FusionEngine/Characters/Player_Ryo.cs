@@ -17,7 +17,7 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.WALK_TOWARDS, 5, -1);
 
             AddSprite(Animation.State.RUN, new Sprite("Sprites/Actors/Ryo/Run", Animation.Type.REPEAT, 2));
-            SetFrameDelay(Animation.State.RUN, 5);
+            SetFrameDelay(Animation.State.RUN, 4);
             SetSpriteOffSet(Animation.State.RUN, -8, 5);
 
             AddSprite(Animation.State.JUMP_START, new Sprite("Sprites/Actors/Ryo/JumpStart", Animation.Type.ONCE));

@@ -22,7 +22,7 @@ namespace FusionEngine
         private Random rnd;
 
 
-        public CollisionManager() {
+        public CollisionManager() : base() {
             grabx1 = Vector2.Zero;
             grabx2 = Vector2.Zero;
             grabz1 = Vector2.Zero;
@@ -357,7 +357,6 @@ namespace FusionEngine
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
             List<CLNS.AttackBox> attackBoxesHitInFrame = new List<CLNS.AttackBox>();
 
-            Attributes.AttackInfo entityAttackInfo = entity.GetAttackInfo();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
             EntityActions.ResetAttackChain(entity);
 

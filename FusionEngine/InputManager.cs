@@ -11,7 +11,7 @@ namespace FusionEngine {
     public class InputManager : Manager {
         private Dictionary<Entity, InputControl> controllMapEntity;
 
-        public InputManager() {
+        public InputManager() : base() {
             controllMapEntity = new Dictionary<Entity, InputControl>();
         }
 

@@ -25,8 +25,8 @@ namespace FusionEngine {
         
         private Animation.State? currentAnimationState;
         private Animation.State? lastAnimationState;
-
         private Dictionary<Animation.State?, SoundEffect> animationSounds;
+
         private Dictionary<Animation.State?, int> moveFrames;
         private Dictionary<Animation.State?, int> tossFrames;
 
@@ -109,8 +109,12 @@ namespace FusionEngine {
         private int riseTime;
         private int maxRiseTime;
         private DeathType deathMode;
-        public int deathStep;
+        private int deathStep;
         private int dieTime;
+
+        private SoundEffectInstance runSoundInstance;
+        private int runStep;
+        private int attackStep;
         
 
         public Entity(ObjectType type, string name) {
@@ -170,6 +174,10 @@ namespace FusionEngine {
             animationConfig = new Attributes.AnimationConfig();
             rumble = new Attributes.Rumble();
             painTime = -1;
+
+            runSoundInstance = null;
+            runStep = -1;
+            attackStep = -1;
 
             isRise = false;
             riseTime = maxRiseTime = 50;
@@ -233,6 +241,9 @@ namespace FusionEngine {
         }
 
         public void SetAnimationState(Animation.State? state) {
+            SetAttackStep(-1);
+            SetRunStep(-1);
+            
             if (!IsInAnimationState(state)) {
                 attackInfo.lastAttackFrame = -1;
                 attackInfo.lastAttackState = Animation.State.NONE;
@@ -328,7 +339,7 @@ namespace FusionEngine {
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
-            animationSounds.Add(state, Globals.contentManager.Load<SoundEffect>(location));
+            animationSounds.Add(state, GameManager.GetContentManager().Load<SoundEffect>(location));
         }
 
         public void AddAnimationSound(Animation.State state, SoundEffect effect) {
@@ -554,7 +565,7 @@ namespace FusionEngine {
         }
 
         public void MoveX(float acc, float dir) {
-            this.acceleration.X = acc * Globals.GAME_VELOCITY;
+            this.acceleration.X = acc * GameManager.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
             this.direction.X = dir;
         }
@@ -576,7 +587,7 @@ namespace FusionEngine {
         }
 
         public void MoveZ(float acc, float dir) {
-            this.acceleration.Z = acc * Globals.GAME_VELOCITY;
+            this.acceleration.Z = acc * GameManager.GAME_VELOCITY;
             this.maxVelocity.Z = this.acceleration.Z;
             this.direction.Z = dir;
         }
@@ -779,6 +790,36 @@ namespace FusionEngine {
 
         public void SetThrowHeight(int height) {
             grabInfo.throwHeight = height;
+        }
+
+        public void SetRunStep(int step) {
+            runStep = step;
+        }
+
+        public void SetRunSoundInstance(SoundEffectInstance effect) {
+            runSoundInstance = effect;
+        }
+
+        public int GetRunStep() {
+            return runStep;
+        }
+
+        public SoundEffectInstance GetRunSoundInsatnce() {
+            return runSoundInstance;
+        }
+
+        public void StopRunSoundInstance() {
+            if (runSoundInstance != null) {
+                runSoundInstance.Stop();
+            }
+        }
+
+        public void SetAttackStep(int step) {
+            attackStep = step;
+        }
+
+        public int GetAttackStep() {
+            return attackStep;
         }
 
         public string GetName() {
@@ -1488,13 +1529,16 @@ namespace FusionEngine {
         public void ProcessAttackChainStep() {
             if (defaultAttackChain == null) return;
 
-            if (!IsInAnimationAction(Animation.Action.ATTACKING) || InCurrentAttackCancelState()) {
+            if (!IsInAnimationAction(Animation.Action.ATTACKING) 
+                    || InCurrentAttackCancelState()) {
+
                 SetAnimationState(GetCurrentAttackChainState());
             }
 
             if (InCurrentAttackCancelState()) {
                 GetAttackInfo().Reset();
                 GetCurrentSprite().ResetAnimation();
+                SetAttackStep(-1);
             }
         }
 
@@ -1598,12 +1642,12 @@ namespace FusionEngine {
                     direction.X = 1;
                 }
 
-                if ((tossInfo.velocity.Y / Globals.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
+                if ((tossInfo.velocity.Y / GameManager.GAME_VELOCITY) >= -10 && tossInfo.tossCount > 0) { 
                     tossInfo.tempHeight += ((height / 2) * tossInfo.gravity);
                     tossInfo.height = tossInfo.tempHeight;
                     tossInfo.gravity = 0.45f * Math.Abs(tossInfo.height / 15);
                 } else {
-                    tossInfo.tempHeight = height * Globals.GAME_VELOCITY;
+                    tossInfo.tempHeight = height * GameManager.GAME_VELOCITY;
                     tossInfo.height = tossInfo.tempHeight;
                 }
 
@@ -1621,7 +1665,7 @@ namespace FusionEngine {
         }
 
         public void TossGravity(float gravity) {
-            tossInfo.gravity = gravity * Globals.GAME_VELOCITY;
+            tossInfo.gravity = gravity * GameManager.GAME_VELOCITY;
         }
 
         public void ResetToss() {
@@ -1634,7 +1678,7 @@ namespace FusionEngine {
 
             tossInfo.hitGoundCount = 0;
             tossInfo.tossCount = 0;
-            tossInfo.gravity = 0.48f * Globals.GAME_VELOCITY;
+            tossInfo.gravity = 0.48f * GameManager.GAME_VELOCITY;
 
             tossInfo.inTossFrame = false;
             tossInfo.isToss = false;
@@ -1650,7 +1694,15 @@ namespace FusionEngine {
                 }
 
                 if (IsInTossFrame()) {
-                    tossInfo.inTossFrame = true;
+
+                    if (!tossInfo.inTossFrame) { 
+
+                        if (IsInAnimationAction(Animation.Action.JUMPING)) {
+                            GameManager.GetInstance().PlaySFX(this, GetCurrentAnimationState(), "jump");
+                        }
+
+                        tossInfo.inTossFrame = true;
+                    }
                 }
 
                 if (tossInfo.inTossFrame) {
@@ -1682,11 +1734,11 @@ namespace FusionEngine {
                         }
 
                         SetPosY(GetGround());
-                        MoveY(tossInfo.height / Globals.GAME_VELOCITY);
+                        MoveY(tossInfo.height / GameManager.GAME_VELOCITY);
                     }
 
                     tossInfo.velocity.Y = tossInfo.height;
-                    MoveY(tossInfo.height / Globals.GAME_VELOCITY);
+                    MoveY(tossInfo.height / GameManager.GAME_VELOCITY);
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
@@ -1695,6 +1747,10 @@ namespace FusionEngine {
                             SetIsRise(true);
                         } else { 
                             SetAnimationState(Animation.State.LAND1);
+
+                            if (IsInAnimationAction(Animation.Action.LANDING)) {
+                                GameManager.GetInstance().PlaySFX(this, Animation.State.LAND1, "land");
+                            }
                         }
 
                         ResetToss();
@@ -1757,7 +1813,7 @@ namespace FusionEngine {
         }
 
         public bool InResetState() {
-            return (!InAir() && GetHealth() > 0
+            return (GetHealth() > 0 && !InAir()
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
                                 || IsInAnimationAction(Animation.Action.RUNNING)
                                 || IsActionComplete(Animation.Action.JUMPING)
@@ -1767,7 +1823,8 @@ namespace FusionEngine {
                                 || IsActionComplete(Animation.Action.THROWING)      
                                 || IsActionComplete(Animation.Action.INPAIN)     
                                 || IsActionComplete(Animation.Action.RISING)
-                                || IsActionComplete(Animation.Action.PICKING_UP)));
+                                || IsActionComplete(Animation.Action.PICKING_UP)
+                                /*|| IsActionComplete(Animation.Action.BLOCKING)*/));
         }
 
         public virtual void ResetToIdle(GameTime gameTime) {
@@ -2019,78 +2076,22 @@ namespace FusionEngine {
                         || IsRise());
         }
 
-        public void CheckDeathAction() {
-            if (GetHealth() == 0 && deathStep == 1) {
-
-                if (IsInAnimationAction(Animation.Action.RISING) && IsAnimationComplete()) {
-                    SetAnimationState(Animation.State.DIE1);
-                }
-
-                if (IsInAnimationAction(Animation.Action.DYING)) {
-
-                    if (deathMode.HasFlag(DeathType.FLASH) && !IsFlash()) {
-                        Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
-                    }
-                }
-
-                if (IsInAnimationAction(Animation.Action.DYING) && IsAnimationComplete()) {
-
-                    if (deathMode.HasFlag(DeathType.FLASH) && !IsFlash()) {
-                        Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
-                    }
-
-                    SetAliveTime(dieTime);
-                    deathStep = 2;
-                }
-
-                if (IsInAnimationAction(Animation.Action.INPAIN)) {
-                    deathStep = -1;
-                }
-            }
+        public int GetDeathStep() {
+            return deathStep;
         }
 
-        public void UpdateDeath(GameTime gameTime) {
-            if (GetHealth() == 0 && deathStep == -1) {
-                String dieSfx = (this is Drum ? "klunk" : (this is PhoneBooth ? "glass" : "die3"));
-                GameManager.GetInstance().PlaySFX(this, Animation.State.DIE1, dieSfx);
+        public void SetDeathStep(int step) {
+            deathStep = step;
+        }
 
-                if (deathMode.HasFlag(DeathType.DEFAULT)) {
+        public virtual void OnDeath() {
+        }
 
-                    if (!InvalidDeathState()) {
-
-                        if (IsEntity(ObjectType.OBSTACLE) || this is Obstacle) {
-                            SetAnimationState(Animation.State.DIE1);
-                        } else {
-                            SetAnimationState(Animation.State.KNOCKED_DOWN1);
-                        }
-
-                        float velX = (GetAttackInfo().lastAttackDir > 0 ? -2 : 2);
-                        Toss(-20, velX, 1, 2); 
-                        TossGravity(0.7f);
-                    }
-                }
-
-                if (deathMode.HasFlag(DeathType.IMMEDIATE_DIE)) {
-                    if (!InvalidDeathState()) {
-                        SetAnimationState(Animation.State.DIE1);
-                    }
-                }
-
-                if (deathMode.HasFlag(DeathType.FLASH)) {
-                    Flash(GameManager.FLASH_TIME_DEATH_DEFAULT);
-                }
-
-                GetGrabInfo().Reset();
-                GetRumble().Reset(); 
-                deathStep = 1;
-            }
-
-            CheckDeathAction();
+        public virtual void OnRun() {
         }
 
         public void Update(GameTime gameTime) {
             UpdatePauseHit(gameTime);
-            UpdateDeath(gameTime);
             UpdateAliveTime(gameTime);
             UpdatePainTime(gameTime);
             UpdateRiseTime(gameTime);
@@ -2157,15 +2158,15 @@ namespace FusionEngine {
             velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
             if ((double)velocity.X != 0.0) { 
-                absoluteVel.X = (velocity.X / Globals.GAME_VELOCITY);
+                absoluteVel.X = (velocity.X / GameManager.GAME_VELOCITY);
             }
 
             if ((double)velocity.Y != 0.0) { 
-                absoluteVel.Y = (velocity.Y / Globals.GAME_VELOCITY);
+                absoluteVel.Y = (velocity.Y / GameManager.GAME_VELOCITY);
             }
 
             if ((double)velocity.Z != 0.0) { 
-                absoluteVel.Z = (velocity.Z / Globals.GAME_VELOCITY);
+                absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
             }
 
             if (IsInMoveFrame()) { 

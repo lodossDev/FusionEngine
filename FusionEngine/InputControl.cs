@@ -292,10 +292,6 @@ namespace FusionEngine {
         private void ProcessAttack() {
             if (ATTACK_PRESS && !player.InvalidGrabItemState()) {
                 player.SetAnimationState(Animation.State.PICKUP1);
-
-                if (player.IsInAnimationAction(Animation.Action.PICKING_UP) && player.GetCurrentSpriteFrame() >= 1) {
-                    EntityActions.DefaultAttack(player);
-                }
             } else { 
                 if (ATTACK_PRESS) {
                     EntityActions.DefaultAttack(player);

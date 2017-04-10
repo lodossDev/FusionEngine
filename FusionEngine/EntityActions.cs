@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Audio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,11 +34,12 @@ namespace FusionEngine {
         }
 
         public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-
             if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
+
                 if (target.GetGrabInfo().isGrabbed) {
                     target.GetGrabInfo().grabbedTime += 15;
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
+
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
                 }
@@ -83,9 +85,9 @@ namespace FusionEngine {
 
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameManager.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameManager.GAME_VELOCITY));
                 }
             }
 
@@ -112,9 +114,9 @@ namespace FusionEngine {
             
             if (obstacle != null) { 
                 if (target.GetCollisionInfo().IsLeft()) {
-                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
+                    ox = (int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameManager.GAME_VELOCITY));
                 } else if (target.GetCollisionInfo().IsRight()) {
-                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * Globals.GAME_VELOCITY));
+                    ox = -(int)(oWidth / (int)Math.Floor(entity.GetAbsoluteVelX() * GameManager.GAME_VELOCITY));
                 }
             }
 
@@ -236,7 +238,6 @@ namespace FusionEngine {
 
             if (target != null) { 
                 target.GetGrabInfo().Reset();
-                //target.SetLayerPos(0);
 
                 if (!target.IsDying() && !target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
                     if (target.InAir() || target.IsToss()) {
@@ -340,6 +341,103 @@ namespace FusionEngine {
                             && !isThrow) {
 
                    entity.SetAnimationState(Animation.State.GRAB_ATTACK1);
+            }
+        }
+
+        private static void OnDeathStep1(Entity entity) {
+            if (entity.GetHealth() == 0 && entity.GetDeathStep() == 1) {
+
+                if (entity.IsInAnimationAction(Animation.Action.RISING) && entity.IsAnimationComplete()) {
+                    entity.SetAnimationState(Animation.State.DIE1);
+                }
+
+                if (entity.IsInAnimationAction(Animation.Action.DYING)) {
+
+                    if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
+                        entity.Flash(GameManager.DEATH_FLASH_TIME);
+                    }
+                }
+
+                if (entity.IsInAnimationAction(Animation.Action.DYING) && entity.IsAnimationComplete()) {
+
+                    if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
+                        entity.Flash(GameManager.DEATH_FLASH_TIME);
+                    }
+
+                    entity.SetAliveTime(entity.GetDieTime());
+                    entity.SetDeathStep(2);
+                }
+
+                if (entity.IsInAnimationAction(Animation.Action.INPAIN)) {
+                    entity.SetDeathStep(-1);
+                }
+            }
+        }
+
+        public static void OnDeath(Entity entity) {
+            if (entity.GetHealth() == 0 && entity.GetDeathStep() == -1) {
+                entity.OnDeath();
+
+                String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));
+                GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
+
+                if (entity.IsDeathMode(Entity.DeathType.DEFAULT)) {
+
+                    if (!entity.InvalidDeathState()) {
+
+                        if (entity.IsEntity(Entity.ObjectType.OBSTACLE) || entity is Obstacle) {
+                            entity.SetAnimationState(Animation.State.DIE1);
+                        } else {
+                            entity.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                        }
+
+                        float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);
+                        entity.Toss(-17, velX, 1, 2); 
+                        entity.TossGravity(0.7f);
+                    }
+                }
+
+                if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)) {
+                    if (!entity.InvalidDeathState()) {
+                        entity.SetAnimationState(Animation.State.DIE1);
+                    }
+                }
+
+                if (entity.IsDeathMode(Entity.DeathType.FLASH)) {
+                    entity.Flash(GameManager.DEATH_FLASH_TIME);
+                }
+
+                entity.GetGrabInfo().Reset();
+                entity.GetRumble().Reset(); 
+                entity.SetDeathStep(1);
+            }
+
+            OnDeathStep1(entity);
+        }
+
+        public static void OnRun(Entity entity) {
+            if (entity.IsInAnimationAction(Animation.Action.RUNNING)) {
+                if (entity.GetRunStep() != 1) {
+                    entity.StopRunSoundInstance(); 
+                    entity.OnRun();
+
+                    entity.SetRunSoundInstance(GameManager.GetInstance().PlaySFX(entity, Animation.State.RUN, "run2", 1, 0, 0, true));
+                    entity.SetRunStep(1);
+                }
+            } else {
+                entity.StopRunSoundInstance();
+                entity.SetRunStep(-1);
+            }
+        }
+
+        public static void OnAttacking(Entity entity) {
+            if (entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
+                if (entity.GetAttackStep() != 1) { 
+                    GameManager.GetInstance().PlaySFX(entity, entity.GetCurrentAnimationState(), "punch1");
+                    entity.SetAttackStep(1);
+                }
+            } else {
+                entity.SetAttackStep(-1);
             }
         }
     }

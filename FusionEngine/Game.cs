@@ -39,11 +39,15 @@ namespace FusionEngine
         MugenFont gg;
         Vector2 xScroll = Vector2.Zero;
 
+        public static Texture2D sand;
+        Vector2 x_finder;
+        List<Line> lines;
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = Globals.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = Globals.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -61,15 +65,30 @@ namespace FusionEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Globals.graphicsDevice = GraphicsDevice;
-            Globals.contentManager = Content;
-            Globals.spriteBatch = spriteBatch;
+            GameManager.SetupDevice(GraphicsDevice, Content, spriteBatch);
 
             camera = new Camera(GraphicsDevice.Viewport);
             //camera.Parallax = new Vector2(1.0f, 1.0f);
            
             base.Initialize();
         }
+
+        public static Vector2 RotateVector2(Vector2 point, float radians, Vector2 pivot)
+        {
+            float cosRadians = (float)Math.Cos(radians);
+            float sinRadians = (float)Math.Sin(radians);
+
+            Vector2 translatedPoint = new Vector2();
+            translatedPoint.X = point.X - pivot.X;
+            translatedPoint.Y = point.Y - pivot.Y;
+
+            Vector2 rotatedPoint = new Vector2();
+            rotatedPoint.X = translatedPoint.X * cosRadians - translatedPoint.Y * sinRadians + pivot.X;
+            rotatedPoint.Y = translatedPoint.X * sinRadians + translatedPoint.Y * cosRadians + pivot.Y;
+
+            return rotatedPoint;
+        }
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -82,6 +101,26 @@ namespace FusionEngine
             //float screenscaleY = (float)300 / 700;
             // Create the scale transform for Draw. 
             // Do not scale the sprite depth (Z=1).
+
+            sand = Content.Load<Texture2D>("Sprites//sand");
+
+            lines    = new List<Line>();
+
+            //this vector is rotated around vector.zero, so we get an x value that waves up and down...
+            // CHANGE this value to determine how far and fast the waves move
+            x_finder = new Vector2(5, 0);
+
+            //here we add a rectangle for each line of image we want wobbled.
+            //the rectangle will be modified dynamically by the x_finder above.
+
+            for (int i = 0; i < 1080; i++)
+            {
+                lines.Add(new Line(new Rectangle(0, i, 1920, 1)));              
+                x_finder = (RotateVector2(x_finder, 0.02f, Vector2.Zero));
+                lines[i].my_destination = new Rectangle(  (int)x_finder.X , lines[i].my_destination.Y, lines[i].my_destination.Width, lines[i].my_destination.Height);
+                lines[i].x_finder += x_finder;
+                lines[i].my_from = (new Rectangle(0,i,1920,1));
+            }
             
             font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
@@ -330,7 +369,7 @@ namespace FusionEngine
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
-                Globals.CallPause();
+                GameManager.GetInstance().CallPause();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
@@ -345,7 +384,7 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
+                //level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
                 //GameManager.GetInstance().GetRenderManager().GetLevels()[0].GetEntities()[1].SetAliveTime(55);
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -353,6 +392,7 @@ namespace FusionEngine
                 //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 //leo.SetColor(255, 0, 0);
                 //leo.Flash(2);
+                bred.SetAnimationState(Animation.State.BLOCK1);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X))
@@ -436,7 +476,11 @@ namespace FusionEngine
                 level1.ScrollX(5/2f);
             } */
 
-            if (!Globals.IsPause())
+            if (GameManager.GetInstance().IsPause()) {
+                return;
+            }
+
+            if (!GameManager.GetInstance().IsPause())
             {
                 //control.Update(gameTime);
                
@@ -463,7 +507,8 @@ namespace FusionEngine
                 }
 
                 if(Keyboard.GetState().IsKeyDown(Keys.NumPad8)) {
-                    bred.MoveZ(5, -1);
+                    drum3.Toss(-15);
+                    //bred.MoveZ(5, -1);
                     //level1.ScrollY(-5);
                 } else if(Keyboard.GetState().IsKeyDown(Keys.NumPad2)) {
                     //ryo.MoveX(5, 1);
@@ -541,6 +586,12 @@ namespace FusionEngine
             bar.Update(gameTime);
             camera.LookAt(ryo.GetConvertedPosition());
 
+            foreach (Line line in lines)
+            {
+                line.Update();
+            }
+
+
             oldKeyboardState = currentKeyboardState;
 
             base.Update(gameTime);
@@ -553,7 +604,7 @@ namespace FusionEngine
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
-                        Globals.SAMPLER_STATE,
+                        GameManager.SAMPLER_STATE,
                         null,
                         null,
                         null,
@@ -585,8 +636,8 @@ namespace FusionEngine
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "GRABBED " + (drum3.GetDeathMode()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "DOWN " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).DOWN), new Vector2(20, 90), Color.White);
-            spriteBatch.DrawString(font1, "BRED1 Z" + (bred.GetDepthBox().GetRect().Bottom), new Vector2(20, 130), Color.White);
-            spriteBatch.DrawString(font1, "BRED2 Z " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
+            spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 
@@ -606,6 +657,14 @@ namespace FusionEngine
             }*/
 
             //bar.Render();
+
+            //spriteBatch.Draw(sand,Vector2.Zero,Color.White);
+
+            foreach (Line line in lines)
+            {
+                //line.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -96,14 +96,13 @@ namespace FusionEngine {
 
         public void Draw() {
             if (active == false) return;
-
             int index = imageData.Count;
 
             foreach(Entity entity in imageData) {
                 --index;
 
                 if (FrameGapCheck(index) == false) continue;
-                GameManager.GetInstance().GetRenderManager().AddEntity(entity);
+                GameManager.GetInstance().AddTrail(entity);
             }
         }
 

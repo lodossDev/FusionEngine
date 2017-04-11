@@ -117,8 +117,7 @@ namespace FusionEngine {
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
 
-                GameManager.GetInstance().GetUpdateManager().AddEntity(spark);
-                GameManager.GetInstance().GetRenderManager().AddEntity(spark);
+                GameManager.GetInstance().AddSpark(spark);
             }
         }
 
@@ -162,16 +161,14 @@ namespace FusionEngine {
                 if (!target.InvalidHitState()) {
                     float dir = (entity.IsLeft() ? -1 : 1);
 
-                    if (target.IsInAnimationAction(Animation.Action.BLOCKING) 
-                            && target.GetAttackInfo().blockResistance > 0) {
-
+                    if (target.InBlockAction()) {
                         GameManager.GetInstance().PlaySFX("block");
-                        target.SetRumble(dir, 1.8f);
                         EntityActions.FaceTarget(target, entity);
-                        target.GetAttackInfo().blockResistance--;
+                        target.SetRumble(dir, 1.8f);
+                        target.DecreaseBlockResistance();
+                        ApplyFrameActions(entity, target, attackBox);
                
                     } else {      
-                        GameManager.GetInstance().PlaySFX("beat2");
                         EntityActions.SetPainState(entity, target, attackBox);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
@@ -185,9 +182,11 @@ namespace FusionEngine {
         }
 
         public static void ApplyFrameActions(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY) 
+                    && !target.GetGrabInfo().isGrabbed) {
+
                 if (attackBox.GetMoveX() != 0.0) {
-                    if (entity.GetDirX() > 0) {
+                    if (entity.GetPosX() < target.GetPosX()) {
                         target.MoveX(attackBox.GetMoveX());
                     } else {
                         target.MoveX(-attackBox.GetMoveX());

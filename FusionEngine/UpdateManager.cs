@@ -13,7 +13,7 @@ namespace FusionEngine {
 
         }
 
-        private void CheckAnimation(GameTime gameTime) {
+        private void CheckActions(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
 
@@ -32,7 +32,7 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
-            CheckAnimation(gameTime);
+            CheckActions(gameTime);
         }
     }
 }

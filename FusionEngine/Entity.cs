@@ -729,6 +729,19 @@ namespace FusionEngine {
             points += amount;
         }
 
+        public bool InBlockAction() {
+            return (IsInAnimationAction(Animation.Action.BLOCKING) 
+                        && GetAttackInfo().blockResistance > 0);
+        }
+
+        public void DecreaseBlockResistance() {
+            GetAttackInfo().blockResistance --;
+
+            if (GetAttackInfo().blockResistance < 0) {
+                GetAttackInfo().blockResistance = 0;
+            }
+        }
+
         public void SetAlive(bool alive) {
             this.alive = alive;
         }

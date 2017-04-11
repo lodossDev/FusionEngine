@@ -81,6 +81,15 @@ namespace FusionEngine {
             }
         }
 
+        public void AddSpark(Entity entity) {
+            updateManager.AddEntity(entity);
+            renderManager.AddEntity(entity);
+        }
+
+        public void AddTrail(Entity entity) {
+            renderManager.AddEntity(entity);
+        }
+
         public void RemoveEntity(Entity entity) {
             inputManager.RemoveEntity(entity);
             collisionManager.RemoveEntity(entity);

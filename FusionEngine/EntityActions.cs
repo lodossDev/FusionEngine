@@ -12,24 +12,30 @@ namespace FusionEngine {
         public static void SetGrabbedHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
             if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
                 target.SetAnimationState(target.GetLightPainGrabbedState());
+                GameManager.GetInstance().PlaySFX(target, target.GetLightPainGrabbedState(), "beat2");
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {
                 target.SetAnimationState(target.GetMediumPainGrabbedState());
+                GameManager.GetInstance().PlaySFX(target, target.GetMediumPainGrabbedState(), "beat3");
 
             } else if (attackType == CLNS.AttackBox.AttackType.HEAVY) {
                 target.SetAnimationState(target.GetHeavyPainGrabbedState());
+                GameManager.GetInstance().PlaySFX(target, target.GetHeavyPainGrabbedState(), "beat4");
             }
         }
 
         public static void SetDefaultHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
             if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
                 target.SetAnimationState(target.GetLowPainState());
+                GameManager.GetInstance().PlaySFX(target, target.GetLowPainState(), "beat0");
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {
                 target.SetAnimationState(target.GetMediumPainState());
+                GameManager.GetInstance().PlaySFX(target, target.GetMediumPainState(), "beat1");
 
             } else if (attackType == CLNS.AttackBox.AttackType.HEAVY) {
                 target.SetAnimationState(target.GetHeavyPainState());
+                GameManager.GetInstance().PlaySFX(target, target.GetHeavyPainState(), "beat2");
             }
         }
 
@@ -39,7 +45,6 @@ namespace FusionEngine {
                 if (target.GetGrabInfo().isGrabbed) {
                     target.GetGrabInfo().grabbedTime += 15;
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
-
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
                 }

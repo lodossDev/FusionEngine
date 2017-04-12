@@ -164,6 +164,7 @@ namespace FusionEngine {
                     if (target.InBlockAction()) {
                         GameManager.GetInstance().PlaySFX("block");
                         EntityActions.FaceTarget(target, entity);
+                        target.SetPainTime(25);
                         target.SetRumble(dir, 1.8f);
                         target.DecreaseBlockResistance();
                         ApplyFrameActions(entity, target, attackBox);
@@ -185,11 +186,13 @@ namespace FusionEngine {
             if (target.IsEntity(Entity.ObjectType.ENEMY) 
                     && !target.GetGrabInfo().isGrabbed) {
 
-                if (attackBox.GetMoveX() != 0.0) {
-                    if (entity.GetPosX() < target.GetPosX()) {
-                        target.MoveX(attackBox.GetMoveX());
-                    } else {
-                        target.MoveX(-attackBox.GetMoveX());
+                for (int i = 0; i < 2; i++) { 
+                    if (attackBox.GetMoveX() != 0.0) {
+                        if (entity.GetPosX() < target.GetPosX()) {
+                            target.MoveX(attackBox.GetMoveX());
+                        } else {
+                            target.MoveX(-attackBox.GetMoveX());
+                        }
                     }
                 }
 

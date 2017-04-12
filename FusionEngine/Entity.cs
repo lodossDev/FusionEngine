@@ -2022,12 +2022,15 @@ namespace FusionEngine {
                             && !grabInfo.isGrabbed) {
 
                         if (!currentSprite.IsAnimationComplete()) {
-                             painTime = 0;
+                            painTime = 0;
                         } else {
                             SetAnimationState(Animation.State.STANCE);
                             attackInfo.isHit = false;
                             painTime = -1;
                         }
+                    } else {
+                        attackInfo.isHit = false;
+                        painTime = -1;
                     }
                 }
             }

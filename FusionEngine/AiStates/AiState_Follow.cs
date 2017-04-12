@@ -59,7 +59,8 @@ namespace FusionEngine
                 float distanceX = Vector2.Distance(sPx, tPx);
                 float distanceZ = Vector2.Distance(ss1, ss2);
 
-                if (!entity.IsInAnimationAction(Animation.Action.ATTACKING))
+                if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                        && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
                 {
                     if (distanceX > maxDistanceX)
                     {
@@ -122,7 +123,7 @@ namespace FusionEngine
                             entity.SetAnimationState(Animation.State.WALK_TOWARDS);
                         }
                     }
-                    else if (distanceX < maxDistanceX)
+                    else if (distanceX < maxDistanceX + 100)
                     {
                         int mode = rnd.Next(1, 100);
                         //Debug.WriteLine("mode: " + mode);

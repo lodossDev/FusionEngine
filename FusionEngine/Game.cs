@@ -476,10 +476,7 @@ namespace FusionEngine
                 level1.ScrollX(5/2f);
             } */
 
-            if (GameManager.GetInstance().IsPause()) {
-                return;
-            }
-
+            
             if (!GameManager.GetInstance().IsPause())
             {
                 //control.Update(gameTime);
@@ -634,10 +631,10 @@ namespace FusionEngine
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            /*spriteBatch.DrawString(font1, "GRABBED " + (drum3.GetDeathMode()), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "DOWN " + (GameManager.GetInstance().GetInputManager().GetInputControl(ryo).DOWN), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetPainTime()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.IsHit()), new Vector2(20, 90), Color.White);
             spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
-            spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
+            /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
             //spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
 

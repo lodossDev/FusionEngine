@@ -16,18 +16,18 @@ namespace FusionEngine {
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {
                 target.SetAnimationState(target.GetMediumPainGrabbedState());
-                GameManager.GetInstance().PlaySFX(target, target.GetMediumPainGrabbedState(), "beat3");
+                GameManager.GetInstance().PlaySFX(target, target.GetMediumPainGrabbedState(), "beat1");
 
             } else if (attackType == CLNS.AttackBox.AttackType.HEAVY) {
                 target.SetAnimationState(target.GetHeavyPainGrabbedState());
-                GameManager.GetInstance().PlaySFX(target, target.GetHeavyPainGrabbedState(), "beat4");
+                GameManager.GetInstance().PlaySFX(target, target.GetHeavyPainGrabbedState(), "beat2");
             }
         }
 
         public static void SetDefaultHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
             if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
                 target.SetAnimationState(target.GetLowPainState());
-                GameManager.GetInstance().PlaySFX(target, target.GetLowPainState(), "beat0");
+                GameManager.GetInstance().PlaySFX(target, target.GetLowPainState(), "beat2");
 
             } else if (attackType == CLNS.AttackBox.AttackType.MEDIUM) {
                 target.SetAnimationState(target.GetMediumPainState());
@@ -314,6 +314,7 @@ namespace FusionEngine {
 
         public static void DefaultAttack(Entity entity) {
              if (!entity.InNegativeState()) {
+
                 if (!entity.IsToss()) {
                     entity.ProcessAttackChainStep();
 

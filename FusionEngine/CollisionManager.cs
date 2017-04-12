@@ -290,7 +290,7 @@ namespace FusionEngine
                                 int jump = rnd.Next(1, 4);
 
                                 if (jump == 2) {
-                                    if (!entity.IsDying())entity.Toss(-18, entity.GetDirX() * 2.3f);
+                                    //if (!entity.IsDying())entity.Toss(-18, entity.GetDirX() * 2.3f);
                                 }
                             }
                         }

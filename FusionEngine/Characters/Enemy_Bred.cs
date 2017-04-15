@@ -96,6 +96,8 @@ namespace FusionEngine {
             SetShadowOffset(0, -85);
             SetScale(3.2f, 3.2f);
 
+            SetGrabResistance(50);
+
             SetPostion(400, 0, 100);
         }
     }

@@ -406,7 +406,9 @@ namespace FusionEngine
                                     if (attackBox.Intersects(tBodyBox)) {
                                         //Debug.WriteLine("currentAttackHits: " + currentAttackHits);
 
-                                        if (CollisionActions.IsHitFrameProcessed(entity, target, attackBox, currentAttackHits)) {
+                                        if (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
+                                                || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {
+
                                             break;
                                         }
 
@@ -477,6 +479,13 @@ namespace FusionEngine
 
                     float distX = Vector2.Distance(grabx1, grabx2);
                     float distZ = Vector2.Distance(grabz1, grabz2);
+
+                    if ((distX < entity.GetGrabInfo().dist + 120) && distZ <= (tDepthBox.GetHeight() + 10)
+                            && !target.InvalidGrabbedState()
+                            && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))) {
+
+                         target.DecreaseGrabResistance();
+                    }
                     
                     if ((distX < entity.GetGrabInfo().dist) && distZ <= (tDepthBox.GetHeight() / 1.2) 
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
@@ -499,10 +508,15 @@ namespace FusionEngine
             }
 
             if (targets.Count > 0) {
-                List<Entity> nearest = targets.OrderBy(item => item.GetDepthBox().GetRect().Bottom > entity.GetDepthBox().GetRect().Bottom).ToList();
-                Entity target = nearest[0];
+                List<Entity> nearest = targets.Where(item => item.GetGrabResistance() <= 0).OrderBy(item => item.GetDepthBox().GetRect().Bottom > entity.GetDepthBox().GetRect().Bottom).ToList();
 
-                EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
+                if (nearest.Count > 0) { 
+                    Entity target = nearest[0];
+
+                    if (target.GetGrabResistance() <= 0) { 
+                        EntityActions.OnGrab(ref newx, ref x, ref targetx, entity, target);
+                    }
+                }
             }
 
             if (entity.GetGrabInfo().grabbed != null) {
@@ -512,7 +526,10 @@ namespace FusionEngine
                     entity.GetGrabInfo().grabbed.Toss(8);
                     entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
                     entity.GetGrabInfo().grabbed.GetGrabInfo().Reset();
+                    entity.GetGrabInfo().grabbed.GetAttackInfo().Reset();
+                    entity.GetAttackInfo().Reset();
                     entity.GetGrabInfo().Reset();
+
                 } else { 
                     if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
                         EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);
@@ -528,7 +545,6 @@ namespace FusionEngine
         public void BeforeUpdate(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
-
                 entity.GetCollisionInfo().SetItem(null);
 
                 CheckGrabItem(entity);
@@ -540,7 +556,6 @@ namespace FusionEngine
         public void AfterUpdate(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
-
                 entity.GetCollisionInfo().Reset();
 
                 if (!entity.IsEntity(Entity.ObjectType.OBSTACLE)) {

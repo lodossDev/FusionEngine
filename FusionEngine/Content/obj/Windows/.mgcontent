@@ -359,21 +359,6 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame07.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame08.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame09.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame00.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame01.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame010.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame011.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame012.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame013.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame014.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame02.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame03.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame04.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame05.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame06.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame07.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame08.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Hitflash1/Frame09.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame00.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame01.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame02.png</File>
@@ -597,5 +582,24 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/jump.wav</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/land.wav</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/BLOCK1/01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block1/STANCE/guard1.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block2/STANCE/guard_special.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame010.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame011.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame012.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame013.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame014.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/test_0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/test_1.png</File>
   </SourceFiles>
 </SourceFileCollection>

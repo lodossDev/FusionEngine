@@ -16,14 +16,13 @@ namespace FusionEngine {
         private void CheckActions(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
+                SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());
 
-                EntityActions.OnAttacking(entity);
+                entity.Update(gameTime);                
+
+                EntityActions.OnAttacking(entity, soundAction);
                 EntityActions.OnRun(entity);
                 EntityActions.OnDeath(entity);
-
-                if (entity.Alive()) {
-                    entity.Update(gameTime);
-                }
 
                 if (entity.IsExpired()) {
                     GameManager.GetInstance().RemoveEntity(entity);

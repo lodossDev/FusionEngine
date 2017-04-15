@@ -217,6 +217,9 @@ namespace FusionEngine {
             public float throwHeight;
             public int grabHitCount;
             public int maxGrabHits;
+            public bool grabbable;
+            public int grabResistance;
+            public int maxGrabResistance;
 
 
             public GrabInfo() {
@@ -234,6 +237,9 @@ namespace FusionEngine {
                 throwHeight = -15;
                 maxGrabHits = 5;
                 grabHitCount = maxGrabHits;
+                grabbable = true;
+                maxGrabResistance = 0;
+                grabResistance = maxGrabResistance;
             }
 
             public void Reset() {
@@ -243,6 +249,7 @@ namespace FusionEngine {
                 grabDirection = 0;
                 grabbedTime = maxGrabbedTime;
                 grabHitCount = maxGrabHits;
+                grabResistance = maxGrabResistance;
             }
         }
 
@@ -257,6 +264,9 @@ namespace FusionEngine {
             public Entity attacker;
             public int lastAttackDir;
             public int blockResistance;
+            public int maxBlockResistance;
+            public int juggleHits;
+            public int maxJuggleHits;
 
 
             public AttackInfo() {
@@ -269,7 +279,10 @@ namespace FusionEngine {
                 lastAttackFrame = -1;
                 lastAttackState = Animation.State.NONE;
                 hitPauseTime = 0;
-                blockResistance = 100;
+                maxBlockResistance = 100;
+                blockResistance = maxBlockResistance;
+                maxJuggleHits = 4;
+                juggleHits = maxJuggleHits;
                 hasHit = isHit = false;
             }
         }

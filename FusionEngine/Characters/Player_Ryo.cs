@@ -115,7 +115,7 @@ namespace FusionEngine {
             SetTossFrame(Animation.State.JUMP_TOWARDS, 1);
             SetMoveFrame(Animation.State.WALK_TOWARDS, 1);
 
-            AddHitSpark(new Effect("LIGHT_SPARK", "Sprites/Actors/Ryo/Hitflash1", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
+            //AddHitSpark(new Effect("LIGHT_SPARK", "Sprites/Actors/Ryo/Hitflash1", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
 
             SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
                 new ComboAttack.Move(Animation.State.ATTACK1, 2000, 2),

@@ -17,6 +17,8 @@ namespace FusionEngine {
         private UpdateManager updateManager;
         private RenderManager renderManager;
         private Dictionary<string, SoundEffect> defaultSoundEffects;
+        private Dictionary<Effect.State, Effect> blockSparks;
+        private Dictionary<Effect.State, Effect> hitSparks;
         private bool pause;
 
         private static GraphicsDevice graphicsDevice;
@@ -38,13 +40,18 @@ namespace FusionEngine {
             updateManager = new UpdateManager();
             renderManager = new RenderManager();
             defaultSoundEffects = new Dictionary<string, SoundEffect>();
-            pause = false;
-
+            hitSparks = new Dictionary<Effect.State, Effect>();
+            blockSparks = new Dictionary<Effect.State, Effect>();
+            
             foreach (var item in SoundContent.LoadSounds("Sounds/")) {
                 defaultSoundEffects.Add(item.Key, item.Value);
             }
 
+            hitSparks.Add(Effect.State.LIGHT, new Effect("LIGHT_HIT_SPARK", "Sprites/Misc/Hitsparks/Hit1/STANCE", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
+            blockSparks.Add(Effect.State.LIGHT, new Effect("LIGHT_BLOCK_SPARK", "Sprites/Misc/Hitsparks/Block1/STANCE", Effect.Type.BLOCK_SPARK, Effect.State.LIGHT, 1.3f, 1.0f, 0, 50, 5, 180, true));
+
             playerIndex = 0;
+            pause = false;
         }
 
         public static GameManager GetInstance() {
@@ -119,9 +126,22 @@ namespace FusionEngine {
             return renderManager;
         }
 
+        public Effect GetHitSpark(Effect.State state) {
+            return hitSparks[state];
+        }
+
+        public Effect GetBlockSpark(Effect.State state) {
+            return blockSparks[state];
+        }
+
         public Entity GetEntity(Entity entity) {
             int i = GetRenderManager().GetEntities().IndexOf(entity);
-            return GetRenderManager().GetEntities()[i];
+
+            if (i != -1) { 
+                return GetRenderManager().GetEntities()[i];
+            }
+
+            return null;
         }
 
         public void Update(GameTime gameTime) {
@@ -171,7 +191,7 @@ namespace FusionEngine {
         }
 
         public SoundEffectInstance PlaySFX(Entity entity, Animation.State? state, String sfx, float volume = 1, float pitch = 0, float pan = 0, bool loop = false) {
-            SoundEffect soundEffect = entity.GetAnimationSound(Animation.State.DIE1);
+            SoundEffect soundEffect = entity.GetAnimationSound(state);
 
             if (soundEffect == null) {
                 soundEffect = GameManager.GetInstance().GetSFX(sfx);
@@ -197,7 +217,7 @@ namespace FusionEngine {
             return null;
         }
 
-        public void CallPause() {
+        public void PauseGame() {
             pause = !pause;
         }
 

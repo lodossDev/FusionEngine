@@ -117,7 +117,7 @@ namespace FusionEngine {
                 if (renderBoundsBoxes == true) { 
 
                     if (entity.GetBoundsBox() != null && entity.GetBoundsBox().GetBoxType() == CLNS.BoxType.BOUNDS_BOX) {
-                        entity.GetBoundsBox().DrawRectangle(CLNS.DrawType.LINES);
+                        //entity.GetBoundsBox().DrawRectangle(CLNS.DrawType.LINES);
                     }
 
                     if (entity.GetDepthBox() != null && entity.GetDepthBox().GetBoxType() == CLNS.BoxType.DEPTH_BOX) {
@@ -241,6 +241,10 @@ namespace FusionEngine {
 
                         GameManager.GetSpriteBatch().Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
 
+                    }
+
+                    if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
+                        //entity.gg.Draw("077128 000\nh878 78787\n343525 23432", entity.GetConvertedPosition());
                     }
                 }
             }

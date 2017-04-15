@@ -45,6 +45,7 @@ namespace FusionEngine {
                 if (target.GetGrabInfo().isGrabbed) {
                     target.GetGrabInfo().grabbedTime += 15;
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
+
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
                 }
@@ -243,6 +244,7 @@ namespace FusionEngine {
 
             if (target != null) { 
                 target.GetGrabInfo().Reset();
+                target.GetAttackInfo().Reset();
 
                 if (!target.IsDying() && !target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
                     if (target.InAir() || target.IsToss()) {
@@ -422,28 +424,34 @@ namespace FusionEngine {
         }
 
         public static void OnRun(Entity entity) {
-            if (entity.IsInAnimationAction(Animation.Action.RUNNING)) {
-                if (entity.GetRunStep() != 1) {
-                    entity.StopRunSoundInstance(); 
-                    entity.OnRun();
+            SoundAction runSoundAction = entity.GetSoundAction(Animation.State.RUN);
 
-                    entity.SetRunSoundInstance(GameManager.GetInstance().PlaySFX(entity, Animation.State.RUN, "run2", 1, 0, 0, true));
-                    entity.SetRunStep(1);
+            if (runSoundAction != null) { 
+                if (entity.IsInAnimationAction(Animation.Action.RUNNING)) {
+                    if (!runSoundAction.IsActive()) {
+                        runSoundAction.StopSoundInstance(); 
+                        entity.OnRun();
+
+                        runSoundAction.SetSoundInstance(GameManager.GetInstance().PlaySFX(entity, Animation.State.RUN, "run2", 1, 0, 0, true));
+                    }
+                } else {
+                    runSoundAction.Reset();
                 }
-            } else {
-                entity.StopRunSoundInstance();
-                entity.SetRunStep(-1);
             }
         }
 
-        public static void OnAttacking(Entity entity) {
-            if (entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
-                if (entity.GetAttackStep() != 1) { 
-                    GameManager.GetInstance().PlaySFX(entity, entity.GetCurrentAnimationState(), "punch1");
-                    entity.SetAttackStep(1);
+        public static void OnAttacking(Entity entity, SoundAction soundAction) {
+            if (soundAction != null) { 
+                if (entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                        && entity.GetCurrentSpriteFrame() > 0) {
+
+                    if (!soundAction.IsActive()) { 
+                        soundAction.StopSoundInstance();
+                        soundAction.SetSoundInstance(GameManager.GetInstance().PlaySFX(entity, entity.GetCurrentAnimationState(), "punch1"));
+                    }
+                } else if (entity.IsLastAnimationState(soundAction.GetState())) {
+                    soundAction.Reset();
                 }
-            } else {
-                entity.SetAttackStep(-1);
             }
         }
     }

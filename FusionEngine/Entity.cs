@@ -26,6 +26,7 @@ namespace FusionEngine {
         private Animation.State? currentAnimationState;
         private Animation.State? lastAnimationState;
         private Dictionary<Animation.State?, SoundEffect> animationSounds;
+        private Dictionary<Animation.State?, SoundAction> soundActionMap;
 
         private Dictionary<Animation.State?, int> moveFrames;
         private Dictionary<Animation.State?, int> tossFrames;
@@ -111,11 +112,8 @@ namespace FusionEngine {
         private DeathType deathMode;
         private int deathStep;
         private int dieTime;
+        public MugenFont gg;
 
-        private SoundEffectInstance runSoundInstance;
-        private int runStep;
-        private int attackStep;
-        
 
         public Entity(ObjectType type, string name) {
             this.type = type;
@@ -130,6 +128,7 @@ namespace FusionEngine {
 
             animationLinks = new List<Animation.Link>();
             animationSounds = new Dictionary<Animation.State?, SoundEffect>();
+            soundActionMap = new Dictionary<Animation.State?, SoundAction>();
 
             scale = nScale = baseScale = new Vector2(1f, 1f);
             stanceOrigin = Vector2.Zero;
@@ -175,10 +174,6 @@ namespace FusionEngine {
             rumble = new Attributes.Rumble();
             painTime = -1;
 
-            runSoundInstance = null;
-            runStep = -1;
-            attackStep = -1;
-
             isRise = false;
             riseTime = maxRiseTime = 50;
             dieTime = 50;
@@ -190,6 +185,8 @@ namespace FusionEngine {
             lives = 3;
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
+
+            gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
             
             id++;
             entityId = id;
@@ -197,6 +194,7 @@ namespace FusionEngine {
 
         public void AddSprite(Animation.State? state, Sprite sprite) {
             spriteMap.Add(state, sprite);
+            soundActionMap.Add(state, new SoundAction(state));
         }
 
         public void AddSprite(Animation.State? state, Sprite sprite, bool setAsDefaultState) {
@@ -241,9 +239,12 @@ namespace FusionEngine {
         }
 
         public void SetAnimationState(Animation.State? state) {
-            SetAttackStep(-1);
-            SetRunStep(-1);
-            
+            SoundAction soundAction = GetSoundAction(state);
+
+            if (soundAction != null) {
+                soundAction.SetStep(-1);
+            }
+
             if (!IsInAnimationState(state)) {
                 attackInfo.lastAttackFrame = -1;
                 attackInfo.lastAttackState = Animation.State.NONE;
@@ -346,9 +347,17 @@ namespace FusionEngine {
             animationSounds.Add(state, effect);
         }
 
-        public SoundEffect GetAnimationSound(Animation.State state) {
-            if (animationSounds.ContainsKey(state)) { 
+        public SoundEffect GetAnimationSound(Animation.State? state) {
+            if (state != null && animationSounds.ContainsKey(state)) { 
                 return animationSounds[state];
+            }
+
+            return null;
+        }
+
+        public SoundAction GetSoundAction(Animation.State? state) {
+            if (state != null && soundActionMap.ContainsKey(state)) { 
+                return soundActionMap[state];
             }
 
             return null;
@@ -564,6 +573,14 @@ namespace FusionEngine {
             return dieTime;
         }
 
+        public void SetGrabbable(bool status) {
+            grabInfo.grabbable = status;
+        }
+
+        public bool IsGrabbable() {
+            return grabInfo.grabbable;
+        }
+
         public void MoveX(float acc, float dir) {
             this.acceleration.X = acc * GameManager.GAME_VELOCITY;
             this.maxVelocity.X = this.acceleration.X;
@@ -734,8 +751,8 @@ namespace FusionEngine {
                         && GetAttackInfo().blockResistance > 0);
         }
 
-        public void DecreaseBlockResistance() {
-            GetAttackInfo().blockResistance --;
+        public void DecreaseBlockResistance(int amount = 1) {
+            GetAttackInfo().blockResistance -= amount;
 
             if (GetAttackInfo().blockResistance < 0) {
                 GetAttackInfo().blockResistance = 0;
@@ -803,36 +820,6 @@ namespace FusionEngine {
 
         public void SetThrowHeight(int height) {
             grabInfo.throwHeight = height;
-        }
-
-        public void SetRunStep(int step) {
-            runStep = step;
-        }
-
-        public void SetRunSoundInstance(SoundEffectInstance effect) {
-            runSoundInstance = effect;
-        }
-
-        public int GetRunStep() {
-            return runStep;
-        }
-
-        public SoundEffectInstance GetRunSoundInsatnce() {
-            return runSoundInstance;
-        }
-
-        public void StopRunSoundInstance() {
-            if (runSoundInstance != null) {
-                runSoundInstance.Stop();
-            }
-        }
-
-        public void SetAttackStep(int step) {
-            attackStep = step;
-        }
-
-        public int GetAttackStep() {
-            return attackStep;
         }
 
         public string GetName() {
@@ -1282,7 +1269,7 @@ namespace FusionEngine {
             return lastAnimationState;
         }
 
-        public bool IsLastAnimationState(Animation.State state) {
+        public bool IsLastAnimationState(Animation.State? state) {
             return (lastAnimationState == state);
         }
 
@@ -1406,12 +1393,12 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.DYING)
                         || IsInAnimationAction(Animation.Action.RISING)
-                        || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.ATTACKING)
                         || IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.JUMPING)
                         || IsInAnimationAction(Animation.Action.LANDING)
                         || !(GetGrabInfo().grabbedTime > 0)
+                        || !GetGrabInfo().grabbable
                         || IsDying()
                         || IsToss();
         }
@@ -1551,7 +1538,7 @@ namespace FusionEngine {
             if (InCurrentAttackCancelState()) {
                 GetAttackInfo().Reset();
                 GetCurrentSprite().ResetAnimation();
-                SetAttackStep(-1);
+                //SetAttackStep(-1);
             }
         }
 
@@ -1712,6 +1699,11 @@ namespace FusionEngine {
 
                         if (IsInAnimationAction(Animation.Action.JUMPING)) {
                             GameManager.GetInstance().PlaySFX(this, GetCurrentAnimationState(), "jump");
+                        }
+
+                        if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+                            grabInfo.Reset();
+                            attackInfo.Reset();
                         }
 
                         tossInfo.inTossFrame = true;
@@ -2080,7 +2072,7 @@ namespace FusionEngine {
         }
 
         public bool InvalidHitState() {
-            return (IsDying() 
+            return (IsDying()
                         || IsRise() 
                         || IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.RISING));
@@ -2293,8 +2285,51 @@ namespace FusionEngine {
             animationConfig.grabHoldState = state;
         }
 
+        public void SetBlockResistance(int resistance) {
+            attackInfo.maxBlockResistance = attackInfo.blockResistance = resistance;
+        }
+
+        public int GetBlockResistance() {
+            return attackInfo.blockResistance;
+        }
+
+        public void SetGrabResistance(int resistance) {
+            grabInfo.maxGrabResistance = grabInfo.grabResistance = resistance;
+        }
+
+        public int GetGrabResistance() {
+            return grabInfo.grabResistance;
+        }
+
+        public void DecreaseGrabResistance(int amount = 1) {
+            grabInfo.grabResistance -= amount;
+
+            if (grabInfo.grabResistance < 0) {
+                grabInfo.grabResistance = 0;
+            }
+        }
+
         public void SetThrowState(Animation.State state) {
             animationConfig.throwState = state;
+        }
+
+        public bool InJuggleState() {
+            return (GetAttackInfo().juggleHits > 0 
+                        && IsInAnimationAction(Animation.Action.KNOCKED) 
+                        && InAir()
+                        && !IsDying());
+        }
+
+        public void SetJuggleHits(int hits) {
+            attackInfo.maxJuggleHits = attackInfo.juggleHits = hits;
+        }
+
+        public void TakeJuggleHit(int amount = 1) {
+            attackInfo.juggleHits -= amount;
+
+            if (attackInfo.juggleHits < 0) {
+                attackInfo.juggleHits = 0;
+            }
         }
 
         public int CompareTo(Entity other) {

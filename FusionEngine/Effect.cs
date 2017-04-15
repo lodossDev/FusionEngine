@@ -18,9 +18,10 @@ namespace FusionEngine {
         private string name;
         private int delay;
         private int alpha;
+        private bool isLeft;
         
 
-        public Effect(string name, string asset, Type effectType, State effectState, float sx, float sy, float x1 = 0, float y1 = 0, int delay = 2, int alpha = 255) {
+        public Effect(string name, string asset, Type effectType, State effectState, float sx, float sy, float x1 = 0, float y1 = 0, int delay = 2, int alpha = 255, bool isLeft = false) {
             this.name = name;
             this.asset = asset;
 
@@ -32,6 +33,7 @@ namespace FusionEngine {
 
             this.delay = delay;
             this.alpha = alpha;
+            this.isLeft = isLeft;
         }
 
         public string GetName() {
@@ -64,6 +66,10 @@ namespace FusionEngine {
 
         public int GetAlpha() {
             return alpha;
+        }
+
+        public bool IsLeft() {
+            return isLeft;
         }
     }
 }

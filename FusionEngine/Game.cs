@@ -284,7 +284,6 @@ namespace FusionEngine
             leo.SetOnLoadScale(1.6f, 2.2f);
             leo.SetPostion(400, 0, 200);
 
-
             drum = new Entity(Entity.ObjectType.OBSTACLE, "DRUM1");
             drum.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"));
             drum.SetAnimationState(Animation.State.STANCE);
@@ -301,8 +300,6 @@ namespace FusionEngine
             drum2.SetOnLoadScale(2.2f, 2.6f);
 
             drum2.SetPostion(500, 0, 200);
-           
-
             drum3 = new Drum();
             drum3.SetPostion(100, 0, 200);
 
@@ -369,7 +366,7 @@ namespace FusionEngine
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
-                GameManager.GetInstance().CallPause();
+                GameManager.GetInstance().PauseGame();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
@@ -489,8 +486,6 @@ namespace FusionEngine
                 drum3.Update(gameTime);
                 drum4.Update(gameTime);
                 */
-                
-                GameManager.GetInstance().Update(gameTime);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.NumPad4)) {
                     //bred.MoveX(5, -1);
@@ -569,8 +564,9 @@ namespace FusionEngine
                     //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
                     ((Character)taskMaster).ResetToIdle(gameTime);
                 }
-
                 
+                GameManager.GetInstance().Update(gameTime);
+
 
                 /*level1.ScrollX(-leo.GetVelocity().X);
                 drum.MoveX(-leo.GetVelocity().X);
@@ -631,7 +627,7 @@ namespace FusionEngine
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetPainTime()), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetAttackInfo().juggleHits), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "BRED1 " + (bred.IsHit()), new Vector2(20, 90), Color.White);
             spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/

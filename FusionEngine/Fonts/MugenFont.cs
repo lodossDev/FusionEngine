@@ -14,6 +14,7 @@ namespace FusionEngine {
         private Texture2D fontSprite;
         private Dictionary<char, FontItem> fontMap;
         private Vector2 position;
+        private Vector2 offset;
         private int lineHeight;
         private int characterSpacing;
         private int newSpacing;
@@ -21,7 +22,12 @@ namespace FusionEngine {
         private float alpha;
 
 
-        public MugenFont(String path, Vector2 position, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) {
+        public MugenFont(String path, Vector2 position, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) 
+                :this(path, position, Vector2.Zero, lineHeight, characterSpacing, scale) {
+            
+        }
+
+        public MugenFont(String path, Vector2 position, Vector2 offset, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) {
             fontMap = new Dictionary<char, FontItem>();
             StreamReader file = new StreamReader(GameManager.GetContentManager().RootDirectory + "/" + path);
             fontSprite = GameManager.GetContentManager().Load<Texture2D>(path.Replace(".xFont", ""));
@@ -33,6 +39,7 @@ namespace FusionEngine {
             this.alpha = 1f;
 
             this.position = position;
+            this.offset = offset;
             string line;
 
             while ((line = file.ReadLine()) != null) {
@@ -100,6 +107,14 @@ namespace FusionEngine {
             return position.Y;
         }
 
+        public float GetOffsetX() {
+            return offset.X;
+        }
+
+        public float GetOffsetY() {
+            return offset.Y;
+        }
+
         public void SetPosX(float x) {
             position.X = x;
         }
@@ -117,6 +132,13 @@ namespace FusionEngine {
         }
 
         public void Draw(String text) {
+            Draw(text, this.position);
+        }
+
+        public void Draw(String text, Vector2 otherPosition) {
+            position = otherPosition;
+            position.X = position.X + offset.X;
+            position.Y = position.Y + offset.Y;
             Vector2 nextPos = position;
 
             foreach (char c in text) {
@@ -127,7 +149,7 @@ namespace FusionEngine {
                         nextPos.X += (item.width + characterSpacing) * scale;
                     }
                 } else if (c == '\n') {
-                    nextPos.X = position.X;
+                    nextPos.X = this.position.X;
                     nextPos.Y += (fontSprite.Height + lineHeight) * scale;
                 } else if (c == ' ') {
                     nextPos.X += newSpacing * scale;

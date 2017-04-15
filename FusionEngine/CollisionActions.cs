@@ -9,11 +9,6 @@ namespace FusionEngine {
 
     public static class CollisionActions {
 
-        public static bool IsHitFrameProcessed(Entity entity, Entity target, CLNS.AttackBox attackBox, int currentAttackHits) {
-            return (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
-                        || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE));
-        }
-        
         public static void CheckAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
@@ -33,7 +28,7 @@ namespace FusionEngine {
         }
 
         public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
-            if (!target.InvalidHitState()) { 
+            if (!target.InvalidHitState() || target.InJuggleState()) { 
                 if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
                     AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
                 } else {
@@ -90,10 +85,10 @@ namespace FusionEngine {
 
             if (spark == null) {
                 if (effectType == Effect.Type.HIT_SPARK) { 
-                    spark = entity.GetHitSpark(Effect.State.LIGHT);
+                    spark = GameManager.GetInstance().GetHitSpark(Effect.State.LIGHT);
 
                 } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                    spark = entity.GetBlockSpark(Effect.State.LIGHT);
+                    spark = GameManager.GetInstance().GetBlockSpark(Effect.State.LIGHT);
                 }
             }
 
@@ -111,11 +106,20 @@ namespace FusionEngine {
                 spark.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
                 spark.SetAnimationState(Animation.State.STANCE);
                 spark.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
+                spark.SetOffset(Animation.State.STANCE, sparkInfo.GetOffset().X, sparkInfo.GetOffset().Y);
                 spark.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
 
-                spark.SetPostion(x1 , y1, entity.GetPosZ());
+                spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
+
+                if (sparkInfo.IsLeft()) { 
+                    if (entity.GetDirX() > 0) {
+                        spark.SetIsLeft(true);
+                    } else {
+                        spark.SetIsLeft(false);
+                    }
+                }
 
                 GameManager.GetInstance().AddSpark(spark);
             }
@@ -157,7 +161,6 @@ namespace FusionEngine {
                 target.GetAttackInfo().lastAttackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
                 target.GetAttackInfo().attacker = entity;
 
-                //Put this in inner if after invalidHitState
                 if (!target.InvalidHitState()) {
                     float dir = (entity.IsLeft() ? -1 : 1);
 
@@ -178,6 +181,18 @@ namespace FusionEngine {
                         target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
+                }
+
+                if (target.InJuggleState()) {
+                    GameManager.GetInstance().PlaySFX("beat2");
+                    target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                    target.GetCurrentSprite().ResetAnimation();
+
+                    float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);
+                    target.Toss(-13, velX, 50, 1); 
+                    //target.TossGravity(0.7f);
+                    target.SetPainTime(80);
+                    target.DecreaseHealth(attackBox.GetHitDamage());
                 }
             }
         }

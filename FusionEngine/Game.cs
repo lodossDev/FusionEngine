@@ -68,7 +68,7 @@ namespace FusionEngine
             GameManager.SetupDevice(GraphicsDevice, Content, spriteBatch);
 
             camera = new Camera(GraphicsDevice.Viewport);
-            //camera.Parallax = new Vector2(1.0f, 1.0f);
+            camera.Parallax = new Vector2(1.0f, 1.0f);
            
             base.Initialize();
         }
@@ -331,7 +331,7 @@ namespace FusionEngine
             GameManager.GetInstance().AddLevel(level1);
             //renderManager.AddEntity(hitSpark1);
             GameManager.GetInstance().AddEntity(bred);
-            GameManager.GetInstance().AddEntity(bred2);
+            //GameManager.GetInstance().AddEntity(bred2);
            
             leo.SetAnimationState(Animation.State.STANCE);
             leo.SetBaseOffset(-60, -30f);
@@ -628,7 +628,7 @@ namespace FusionEngine
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "BRED1 " + (bred.GetAttackInfo().juggleHits), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.IsHit()), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetTossInfo().height), new Vector2(20, 90), Color.White);
             spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

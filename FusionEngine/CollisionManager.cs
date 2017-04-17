@@ -419,10 +419,10 @@ namespace FusionEngine
 
                                 targetAttackInfo.hitByAttackId = current_hit_id;
                             }
-                         
-                            //Debug.WriteLine("SparkCount: " + renderManager.entities.FindAll(item => item.IsEntity(Entity.EntityType.HIT_FLASH)).ToList().Count);
                         }
                     }
+
+                    target.GetAttackInfo().lastKnockHitId = -1;
                 }
             }
         }

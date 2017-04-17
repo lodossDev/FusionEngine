@@ -198,6 +198,8 @@ namespace FusionEngine {
             target.SetAnimationState(Animation.State.THROWN1);
 
             target.SetIsLeft(false);
+            target.GetAttackInfo().lastKnockHitId += 1;
+
             EntityActions.Ungrab(entity, target);
         }
 

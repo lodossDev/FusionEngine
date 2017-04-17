@@ -1747,6 +1747,7 @@ namespace FusionEngine {
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
+                        ResetJuggleHits();
 
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             SetIsRise(true);
@@ -2315,6 +2316,7 @@ namespace FusionEngine {
 
         public bool InJuggleState() {
             return (GetAttackInfo().juggleHits > 0 
+                        && GetAttackInfo().lastKnockHitId != -1
                         && IsInAnimationAction(Animation.Action.KNOCKED) 
                         && InAir()
                         && !IsDying());
@@ -2330,6 +2332,10 @@ namespace FusionEngine {
             if (attackInfo.juggleHits < 0) {
                 attackInfo.juggleHits = 0;
             }
+        }
+
+        public void ResetJuggleHits() {
+            attackInfo.juggleHits = attackInfo.maxJuggleHits;
         }
 
         public int CompareTo(Entity other) {

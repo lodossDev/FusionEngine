@@ -28,7 +28,13 @@ namespace FusionEngine {
         }
 
         public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
-            if (!target.InvalidHitState() || target.InJuggleState()) { 
+            //this should be move after onTargetHit???
+            if (!target.InvalidHitState() || target.InJuggleState()) {
+
+                if (target.InJuggleState()) {
+                    target.TakeJuggleHit();
+                }
+
                 if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
                     AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
                 } else {
@@ -148,6 +154,7 @@ namespace FusionEngine {
                 entity.GetAttackInfo().hasHit = true;
                 EntityActions.IncrementAttackChain(entity, attackBox);
 
+                target.GetAttackInfo().lastKnockHitId = 1;
                 entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
                 entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();
             }
@@ -183,23 +190,33 @@ namespace FusionEngine {
                     }
                 }
 
-                if (target.InJuggleState()) {
-                    GameManager.GetInstance().PlaySFX("beat2");
-                    target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
-                    target.GetCurrentSprite().ResetAnimation();
+                if (target.InJuggleState() || target.GetAttackInfo().juggleHits == 0) {
 
-                    float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);
-                    target.Toss(-13, velX, 50, 1); 
-                    //target.TossGravity(0.7f);
-                    target.SetPainTime(80);
-                    target.DecreaseHealth(attackBox.GetHitDamage());
-                }
+                    if (target.GetAttackInfo().juggleHits < target.GetAttackInfo().maxJuggleHits) { 
+                        GameManager.GetInstance().PlaySFX("beat2");
+                        target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                        target.GetCurrentSprite().ResetAnimation();
+
+                        float velX = target.GetTossInfo().velocity.X / 4;
+                        float sHeight = -(Math.Abs(target.GetTossInfo().tempHeight) * 1.2f);
+                        float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
+                        target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
+                        target.TossGravity(0.5f);
+                        target.SetPainTime(80);
+                        target.DecreaseHealth(attackBox.GetHitDamage());
+                    }
+
+                    if (target.GetAttackInfo().juggleHits == 0) {
+                        target.GetAttackInfo().juggleHits = -1;
+                    }
+
+                    target.GetAttackInfo().lastKnockHitId = -1;
+                }   
             }
         }
 
         public static void ApplyFrameActions(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (target.IsEntity(Entity.ObjectType.ENEMY) 
-                    && !target.GetGrabInfo().isGrabbed) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
 
                 for (int i = 0; i < 2; i++) { 
                     if (attackBox.GetMoveX() != 0.0) {

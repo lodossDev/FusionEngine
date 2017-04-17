@@ -75,9 +75,9 @@ namespace FusionEngine {
         public Matrix ViewMatrix {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
-                       //Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       Matrix.CreateScale(_zoom, _zoom, 1f) * Resolution.Scale;// *
-                       //Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
+                       Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
+                       Matrix.CreateScale(_zoom, _zoom, 1f) * Resolution.Scale * 
+                       Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }
 

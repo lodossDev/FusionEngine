@@ -17,6 +17,8 @@ namespace FusionEngine {
             AddBoundsBox(141, 380, -80, 10, 60);
             SetOnLoadScale(2.5f, 3.0f);
             SetPostion(200, 0, 200);
+
+            SetHealth(10);
         }
     }
 }

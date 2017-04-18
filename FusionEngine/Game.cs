@@ -46,8 +46,8 @@ namespace FusionEngine
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;//GameManager.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 300;//GameManager.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -69,7 +69,7 @@ namespace FusionEngine
 
             camera = new Camera(GraphicsDevice.Viewport);
             camera.Parallax = new Vector2(0.8f, 0.8f);
-           
+            
             base.Initialize();
         }
 
@@ -626,22 +626,6 @@ namespace FusionEngine
             Entity tp = ryo.GetCollisionInfo().GetItem();
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
-            //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetAttackInfo().juggleHits), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetTossInfo().height), new Vector2(20, 90), Color.White);
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
-            /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
-            //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
-            //spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
-
-            //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
-            //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);
-            //spriteBatch.DrawString(font1, "ACTION: " + (ryo.GetKeyboardKey(InputHelper.ActionButton.ATTACK1)), new Vector2(20, 140), Color.Blue);
-
-            //spriteBatch.DrawString(font1, "X - NEW: " + (inputManager.GetInputControl(ryo).currentKeyboardState.IsKeyDown(Keys.X)), new Vector2(20, 110), Color.Blue);
-            //spriteBatch.DrawString(font1, "X - OLD: " + (inputManager.GetInputControl(ryo).oldKeyboardState.IsKeyUp(Keys.X)), new Vector2(20, 140), Color.Blue);
-
-
             /*int i = 1;
             foreach (Keys key in Keyboard.GetState().GetPressedKeys())
             {
@@ -657,6 +641,32 @@ namespace FusionEngine
             {
                 //line.Draw(spriteBatch);
             }
+
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                        BlendState.NonPremultiplied,
+                        GameManager.SAMPLER_STATE,
+                        null,
+                        null,
+                        null,
+                        null);
+
+            //gg.Draw("077128 000\nh878 78787\n343525 23432");
+            spriteBatch.DrawString(font1, "BRED1 " + (camera.Position.X), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetTossInfo().height), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentAnimationAction()), new Vector2(20, 130), Color.White);
+            /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
+            //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);
+            //spriteBatch.DrawString(testFOnt, "ABZ: " +  ryo.GetAbsoluteVelY(), new Vector2(20, 160), Color.Red);
+
+            //spriteBatch.DrawString(font1, "DISTX: " + (distX), new Vector2(20, 80), Color.Blue);
+            //spriteBatch.DrawString(font1, "DISTZ: " + (distZ), new Vector2(20, 110), Color.Blue);
+            //spriteBatch.DrawString(font1, "ACTION: " + (ryo.GetKeyboardKey(InputHelper.ActionButton.ATTACK1)), new Vector2(20, 140), Color.Blue);
+
+            //spriteBatch.DrawString(font1, "X - NEW: " + (inputManager.GetInputControl(ryo).currentKeyboardState.IsKeyDown(Keys.X)), new Vector2(20, 110), Color.Blue);
+            //spriteBatch.DrawString(font1, "X - OLD: " + (inputManager.GetInputControl(ryo).oldKeyboardState.IsKeyUp(Keys.X)), new Vector2(20, 140), Color.Blue);
+
 
             spriteBatch.End();
 

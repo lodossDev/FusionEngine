@@ -353,6 +353,10 @@ namespace FusionEngine
         }
         
         private void CheckAttack(Entity entity) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
+                return;
+            }
+
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
             List<CLNS.AttackBox> attackBoxesHitInFrame = new List<CLNS.AttackBox>();
@@ -377,8 +381,7 @@ namespace FusionEngine
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetZdepth() + 10 
-                                && entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 10 
                                 && targetBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
@@ -422,7 +425,7 @@ namespace FusionEngine
                         }
                     }
 
-                    target.GetAttackInfo().lastKnockHitId = -1;
+                    target.GetAttackInfo().lastJuggleState = -1;
                 }
             }
         }

@@ -2316,7 +2316,7 @@ namespace FusionEngine {
 
         public bool InJuggleState() {
             return (GetAttackInfo().juggleHits > 0 
-                        && GetAttackInfo().lastKnockHitId != -1
+                        && GetAttackInfo().lastJuggleState != -1
                         && IsInAnimationAction(Animation.Action.KNOCKED) 
                         && InAir()
                         && !IsDying());

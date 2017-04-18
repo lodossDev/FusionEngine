@@ -67,8 +67,11 @@ namespace FusionEngine {
         }
 
         public void LookAt(Vector2 position) {
-            Debug.WriteLine("VIEWPORT: " + _viewport.Width);
+            //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
             Position = position - new Vector2(_viewport.Width / 2, 0);
+
+            if (_position.X < -30)_position.X = -30;
+            if (_position.X > 8400)_position.X = 8400;
         }
 
         /// <summary>

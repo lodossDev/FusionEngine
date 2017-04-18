@@ -265,7 +265,7 @@ namespace FusionEngine {
             public int maxBlockResistance;
             public int juggleHits;
             public int maxJuggleHits;
-            public long lastKnockHitId;
+            public long lastJuggleState;
             public bool hasHit;
             public bool isHit;
 
@@ -278,7 +278,7 @@ namespace FusionEngine {
 
                 lastHitDirection = lastAttackDir = 0;
                 hitByAttackId = 0;
-                lastKnockHitId = -1;
+                lastJuggleState = -1;
             }
 
             public void Reset() {

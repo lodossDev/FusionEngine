@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace FusionEngine {
 
@@ -11,7 +12,7 @@ namespace FusionEngine {
 
         public Camera(Viewport viewport) {
             _viewport = viewport;
-            _origin = new Vector2(_viewport.Width / 2.0f, _viewport.Height / 2.0f);
+            _origin = new Vector2(_viewport.Width / 2, 0);
         }
 
         /// <summary>
@@ -66,7 +67,8 @@ namespace FusionEngine {
         }
 
         public void LookAt(Vector2 position) {
-            Position = position - new Vector2(_viewport.Width / 2.0f, _viewport.Height / 2.0f);
+            Debug.WriteLine("VIEWPORT: " + _viewport.Width);
+            Position = position - new Vector2(_viewport.Width / 2, 0);
         }
 
         /// <summary>
@@ -76,7 +78,8 @@ namespace FusionEngine {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       Matrix.CreateScale(_zoom, _zoom, 1f) * Resolution.Scale * 
+                       Resolution.Scale *
+                       Matrix.CreateScale(_zoom, _zoom, 1f) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }

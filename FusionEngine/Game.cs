@@ -46,8 +46,8 @@ namespace FusionEngine
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = 500;//GameManager.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = 300;//GameManager.RESOLUTION_Y;
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Resolution.Update(graphics);
@@ -68,7 +68,7 @@ namespace FusionEngine
             GameManager.SetupDevice(GraphicsDevice, Content, spriteBatch);
 
             camera = new Camera(GraphicsDevice.Viewport);
-            camera.Parallax = new Vector2(1.0f, 1.0f);
+            camera.Parallax = new Vector2(0.8f, 0.8f);
            
             base.Initialize();
         }
@@ -601,7 +601,7 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        /*camera.ViewMatrix*//*SpriteScale*/ /*Resolution.Scale*/camera.ViewMatrix);
+                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             GameManager.GetInstance().Render(gameTime);

@@ -18,8 +18,6 @@ namespace FusionEngine {
                 Entity entity = entities[i];
                 SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());
 
-                entity.Update(gameTime);                
-
                 EntityActions.OnAttacking(entity, soundAction);
                 EntityActions.OnRun(entity);
                 EntityActions.OnDeath(entity);

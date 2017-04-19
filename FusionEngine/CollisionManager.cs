@@ -485,7 +485,10 @@ namespace FusionEngine
 
                     if ((distX < entity.GetGrabInfo().dist + 120) && distZ <= (tDepthBox.GetHeight() + 10)
                             && !target.InvalidGrabbedState()
-                            && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))) {
+                            && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))
+                            && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
+                            && !entity.IsInAnimationAction(Animation.Action.INPAIN)
+                            && !entity.IsDying()) {
 
                          target.DecreaseGrabResistance();
                     }
@@ -494,13 +497,17 @@ namespace FusionEngine
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
 
+                            //Entity must be moving forward to grab?
+                            && entity.IsMoving()
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
                             && !target.InvalidGrabbedState()
-                            //Entity must be moving forward to grab?
-                            && entity.IsMoving()
+                            //Must not be in these action states.
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                            && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
+                            && !entity.IsInAnimationAction(Animation.Action.INPAIN)
+                            && !entity.IsDying()
                             && entity.GetGrabInfo().grabbed == null) {
 
                         targets.Add(target);

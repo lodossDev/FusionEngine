@@ -186,6 +186,7 @@ namespace FusionEngine {
                 Entity entity = entities[i];
 
                 if (entity != null && entity.Alive()) {
+                    if (!GameManager.GetInstance().IsPause())entity.Update(gameTime);
 
                     if (entity.IsEntity(Entity.ObjectType.HIT_FLASH) /*|| entity.IsEntity(Entity.ObjectType.AFTER_IMAGE)*/) {
                         GameManager.GetGraphicsDevice().BlendState = BlendState.Additive;

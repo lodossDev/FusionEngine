@@ -288,7 +288,7 @@ namespace FusionEngine {
                 hitPauseTime = 0;
                 maxBlockResistance = 100;
                 blockResistance = maxBlockResistance;
-                hasHit = isHit = false;
+                hasHit = false;
             }
         }
 

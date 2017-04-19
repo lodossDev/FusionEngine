@@ -128,8 +128,8 @@ namespace FusionEngine {
                 new ComboAttack.Move(Animation.State.ATTACK2, 2000, 5),
                 new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
                 new ComboAttack.Move(Animation.State.ATTACK2, 2000, 5),
-                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK4, 2000, 4)
+                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4)/*,
+                new ComboAttack.Move(Animation.State.ATTACK4, 2000, 4)*/
             }));
 
             //Normal command moves..

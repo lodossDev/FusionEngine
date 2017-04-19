@@ -1527,18 +1527,22 @@ namespace FusionEngine {
         }
 
         public void ProcessAttackChainStep() {
-            if (defaultAttackChain == null) return;
-
-            if (!IsInAnimationAction(Animation.Action.ATTACKING) 
-                    || InCurrentAttackCancelState()) {
-
-                SetAnimationState(GetCurrentAttackChainState());
-            }
-
-            if (InCurrentAttackCancelState()) {
+            if (defaultAttackChain == null) {
+                SetAnimationState(Animation.State.ATTACK2);
                 GetAttackInfo().Reset();
                 GetCurrentSprite().ResetAnimation();
-                //SetAttackStep(-1);
+
+            } else { 
+                if (!IsInAnimationAction(Animation.Action.ATTACKING) 
+                        || InCurrentAttackCancelState()) {
+
+                    SetAnimationState(GetCurrentAttackChainState());
+                }
+
+                if (InCurrentAttackCancelState()) {
+                    GetAttackInfo().Reset();
+                    GetCurrentSprite().ResetAnimation();
+                }
             }
         }
 
@@ -1747,9 +1751,10 @@ namespace FusionEngine {
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                        ResetJuggleHits();
-
+                       
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+                            ResetJuggleHits();
+                            attackInfo.isHit = false;
                             SetIsRise(true);
                         } else { 
                             SetAnimationState(Animation.State.LAND1);
@@ -2005,7 +2010,7 @@ namespace FusionEngine {
             }
 
             if (painTime <= 0) {
-                if (IsDying() || IsInAnimationAction(Animation.Action.KNOCKED)) {
+                if (IsDying()) {
                     attackInfo.isHit = false;
                     painTime = -1;
 
@@ -2315,11 +2320,12 @@ namespace FusionEngine {
         }
 
         public bool InJuggleState() {
-            return (GetAttackInfo().juggleHits > 0 
+            return (GetAttackInfo().juggleHits >= 0 
                         && GetAttackInfo().lastJuggleState != -1
                         && IsInAnimationAction(Animation.Action.KNOCKED) 
                         && InAir()
-                        && !IsDying());
+                        && !IsDying()
+                        && GetTossInfo().hitGoundCount < 1);
         }
 
         public void SetJuggleHits(int hits) {

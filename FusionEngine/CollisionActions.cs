@@ -164,13 +164,12 @@ namespace FusionEngine {
                         EntityActions.CheckMaxGrabHits(entity, target);
                         target.SetPainTime(80);
                         target.SetRumble(dir, 1.8f);
-                        target.DecreaseHealth(attackBox.GetHitDamage());
+                        //target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
                 }
 
-                if (target.InJuggleState() || target.GetAttackInfo().juggleHits == 0) {
-
+                if (target.InJuggleState()) {
                     if (target.GetAttackInfo().juggleHits < target.GetAttackInfo().maxJuggleHits) { 
                         GameManager.GetInstance().PlaySFX("beat2");
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
@@ -182,10 +181,10 @@ namespace FusionEngine {
                         target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
                         target.TossGravity(0.6f);
                         target.SetPainTime(80);
-                        target.DecreaseHealth(attackBox.GetHitDamage());
+                        //target.DecreaseHealth(attackBox.GetHitDamage());
                     }
 
-                    if (target.GetAttackInfo().juggleHits == 0) {
+                    if (target.GetAttackInfo().juggleHits <= 0) {
                         target.GetAttackInfo().juggleHits = -1;
                     }
 
@@ -194,19 +193,24 @@ namespace FusionEngine {
             }
         }
 
-        public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
-            if (!target.InvalidHitState() || target.InJuggleState()) {
+        public static void AddSparkState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            if (entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                if (!target.InvalidHitState() || target.InJuggleState()) {
+                    if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
+                        AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
 
-                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
-                    AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
-
-                    if (target.InJuggleState()) {
-                        target.TakeJuggleHit();
+                        if (target.InJuggleState()) {
+                            target.TakeJuggleHit();
+                        }
+                    } else {
+                        AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
                     }
-                } else {
-                    AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
                 }
             }
+        }
+
+        public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
+            AddSparkState(entity, target, attackBox);
 
             if (!targetHit) {
                 OnTargetHit(target, entity, attackBox);
@@ -218,6 +222,7 @@ namespace FusionEngine {
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
 
                 for (int i = 0; i < 2; i++) { 
+
                     if (attackBox.GetMoveX() != 0.0) {
                         if (entity.GetPosX() < target.GetPosX()) {
                             target.MoveX(attackBox.GetMoveX());

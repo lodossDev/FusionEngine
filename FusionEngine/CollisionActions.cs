@@ -109,6 +109,10 @@ namespace FusionEngine {
         }
 
         public static void CheckAttack(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
+
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
                     CollisionManager.CreateHitId();
@@ -127,6 +131,10 @@ namespace FusionEngine {
         }
 
         private static void OnAttackHit(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
+
             entity.OnAttackHit(target, attackBox);
 
             if (entity != target) {
@@ -140,21 +148,26 @@ namespace FusionEngine {
         }
 
         private static void OnTargetHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
+
             target.OnTargetHit(entity, attackBox);
 
             if (target != entity) {
+                int attackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
+                float lookDir = (entity.IsLeft() ? -1 : 1);
+
                 target.GetAttackInfo().isHit = true;
-                target.GetAttackInfo().lastAttackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
+                target.GetAttackInfo().lastAttackDir = attackDir;
                 target.GetAttackInfo().attacker = entity;
 
                 if (!target.InvalidHitState()) {
-                    float dir = (entity.IsLeft() ? -1 : 1);
-
                     if (target.InBlockAction()) {
                         GameManager.GetInstance().PlaySFX("block");
                         EntityActions.FaceTarget(target, entity);
                         target.SetPainTime(25);
-                        target.SetRumble(dir, 1.8f);
+                        target.SetRumble(lookDir, 1.8f);
                         target.DecreaseBlockResistance();
                         ApplyFrameActions(entity, target, attackBox);
                
@@ -163,7 +176,7 @@ namespace FusionEngine {
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
                         target.SetPainTime(80);
-                        target.SetRumble(dir, 1.8f);
+                        target.SetRumble(lookDir, 1.8f);
                         //target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
@@ -175,8 +188,8 @@ namespace FusionEngine {
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.GetCurrentSprite().ResetAnimation();
 
-                        float velX = target.GetTossInfo().velocity.X / 2;
-                        float sHeight = -(Math.Abs(target.GetTossInfo().tempHeight) + 2f);
+                        float velX = (Math.Abs(target.GetTossInfo().velocity.X) * lookDir) / 2;
+                        float sHeight = -(Math.Abs(target.GetTossInfo().tempHeight) / 2 + 2f);
                         float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
                         target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
                         target.TossGravity(0.6f);
@@ -194,22 +207,28 @@ namespace FusionEngine {
         }
 
         public static void AddSparkState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
-                if (!target.InvalidHitState() || target.InJuggleState()) {
-                    if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
-                        AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
 
-                        if (target.InJuggleState()) {
-                            target.TakeJuggleHit();
-                        }
-                    } else {
-                        AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
+            if (!target.InvalidHitState() || target.InJuggleState()) {
+                if (!target.IsInAnimationAction(Animation.Action.BLOCKING)) { 
+                    AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
+
+                    if (target.InJuggleState()) {
+                        target.TakeJuggleHit();
                     }
+                } else {
+                    AddSpark(entity, target, attackBox, Effect.Type.BLOCK_SPARK);
                 }
             }
         }
 
         public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
+
             AddSparkState(entity, target, attackBox);
 
             if (!targetHit) {
@@ -219,10 +238,12 @@ namespace FusionEngine {
         }
 
         public static void ApplyFrameActions(Entity entity, Entity target, CLNS.AttackBox attackBox) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                return;    
+            }
+
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
-
                 for (int i = 0; i < 2; i++) { 
-
                     if (attackBox.GetMoveX() != 0.0) {
                         if (entity.GetPosX() < target.GetPosX()) {
                             target.MoveX(attackBox.GetMoveX());
@@ -242,9 +263,7 @@ namespace FusionEngine {
             entity.GetCollisionInfo().SetItem(collectable);
 
             if (entity.InGrabItemFrameState()) {
-
                 if (!isCollected) { 
-
                     if (collectable is Health) {
                         entity.IncreaseHealth(collectable.GetPoints());
 

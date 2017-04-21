@@ -2320,12 +2320,17 @@ namespace FusionEngine {
         }
 
         public bool InJuggleState() {
+            float y1 = Math.Abs(GetPosY());
+            float y2 =  Math.Abs(GetGround());
+            bool inJuggleHitHeight = y1 > y2 + 150;
+
             return (GetAttackInfo().juggleHits >= 0 
                         && GetAttackInfo().lastJuggleState != -1
                         && IsInAnimationAction(Animation.Action.KNOCKED) 
+                        && GetTossInfo().hitGoundCount < 1
+                        && inJuggleHitHeight
                         && InAir()
-                        && !IsDying()
-                        && GetTossInfo().hitGoundCount < 1);
+                        && !IsDying());
         }
 
         public void SetJuggleHits(int hits) {

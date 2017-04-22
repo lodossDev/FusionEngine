@@ -269,20 +269,22 @@ namespace FusionEngine
             private HitType hitType;
             private Effect.State sparkState;
             private Vector2 sparkOffset;
+            private bool isKnock;
 
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 1 / 60, 
                                         float painTime = 20 / 60, int hitDamage = 1, int hitPoints = 5, float hitStrength = 0.4f, 
                                         int comboStep = 1, int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
-                                        float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0)
+                                        float sparkX = 0, float sparkY = 0, float moveX = 5, float tossHeight = -15, bool isKnock = true)
 
                                     : base(BoxType.HIT_BOX, w, h, x, y) {
 
                 sparkOffset = Vector2.Zero;
 
                 SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, 
-                                juggleCost, attackType, attackPosition, blockPosition, hitType, sparkState, sparkX, sparkY);
+                                juggleCost, attackType, attackPosition, blockPosition, hitType, sparkState, 
+                                sparkX, sparkY, moveX, tossHeight, isKnock);
             }
 
             public void SetAttack(float zDepth = 30, float hitPauseTime = 1 / 60, 
@@ -291,7 +293,7 @@ namespace FusionEngine
                                         int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
-                                        float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0) {
+                                        float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
 
                 SetZdepth(zDepth);
                 SetHitPauseTime(hitPauseTime);
@@ -307,6 +309,7 @@ namespace FusionEngine
                 SetSparkOffset(sparkX, sparkY);
                 SetMoveX(moveX);
                 SetTossHeight(tossHeight);
+                SetIsKnock(isKnock);
             }
 
             public void SetHitPauseTime(float pauseTime) {
@@ -366,8 +369,12 @@ namespace FusionEngine
                 tossHeight = height;
             }
 
-             public void SetMoveX(float x) {
+            public void SetMoveX(float x) {
                 moveX = x;
+            }
+
+            public void SetIsKnock(bool status) {
+                isKnock = status;
             }
 
             public AttackType GetAttackType() {
@@ -428,6 +435,10 @@ namespace FusionEngine
 
             public float GetMoveX() {
                 return moveX;
+            }
+
+            public bool IsKnock() {
+                return isKnock;
             }
         }
     }

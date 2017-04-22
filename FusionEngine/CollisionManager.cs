@@ -243,7 +243,9 @@ namespace FusionEngine
                 Entity target = entities[i];
 
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
-                        || (entity.IsEntity(Entity.ObjectType.OBSTACLE) && target.IsEntity(Entity.ObjectType.OBSTACLE)))) {
+                        || (entity.IsEntity(Entity.ObjectType.OBSTACLE) && target.IsEntity(Entity.ObjectType.OBSTACLE)))
+                            && !target.IsInAnimationAction(Animation.Action.KNOCKED)
+                            && !target.IsDying()) {
 
                     Entity aboveTarget = aboveEntities.Find(item => item == target);
                     Entity belowTarget = belowEntities.Find(item => item == target);
@@ -351,6 +353,80 @@ namespace FusionEngine
                 entity.GetTossInfo().velocity.Y = entity.GetTossInfo().maxVelocity.Y;
             }
         }
+
+         private void CheckKnocked(Entity entity) {
+            if (!entity.IsInAnimationAction(Animation.Action.KNOCKED)) {
+                return;
+            }
+
+            List<CLNS.BoundingBox> entityBoxes = entity.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+            entityBoxes.Add(entity.GetBodyBox());
+
+            CLNS.BoundsBox entityBox = entity.GetBoundsBox();
+            CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
+
+            if (entityBoxes != null && entityBoxes.Count > 0 
+                    && entity.GetTossInfo().hitGoundCount < 1 
+                    && entity.GetTossInfo().velocity.Y > -5
+                    && entity.InAir()) {
+
+                for (int i = 0; i < entities.Count; i++) {
+                    Entity target = entities[i];
+
+                    if (entity != target && !target.IsDying()) {
+                        //Get all body boxes for collision with attack boxes.
+                        List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+                        //Add global body box if exists.
+                        targetBoxes.Add(target.GetBodyBox());
+                        
+                        Attributes.AttackInfo targetAttackInfo = target.GetAttackInfo();
+                        CLNS.BoundsBox targetBox = target.GetBoundsBox();
+                        CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+                        bool targetHit = false;
+                       
+                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
+                                && targetBoxes != null && targetBoxes.Count > 0) {
+
+                            if (!target.IsInAnimationAction(Animation.Action.KNOCKED) 
+                                    //&& !target.IsEntity(Entity.ObjectType.PLAYER)
+                                    && target != entity.GetAttackInfo().attacker
+                                    && target.GetKnockedFromKnockedEntityState() == 1
+                                    && target.InAllowedKnockedState(entity.GetCurrentKnockedState())
+                                    /*&& !entity.IsEntity(Entity.ObjectType.PLAYER)*/) {
+
+                                foreach (CLNS.BoundingBox eBodyNode in entityBoxes) {
+
+                                    foreach (CLNS.BoundingBox tBodyNode in targetBoxes) {
+
+                                        if (eBodyNode.Intersects(tBodyNode)) {
+
+                                           if (!targetHit) {
+                                                GameManager.GetInstance().PlaySFX("beat2");
+                                                CollisionActions.AddSpark(entity, target, tBodyNode, CLNS.AttackBox.AttackType.MEDIUM, Effect.Type.HIT_SPARK);
+                                                target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                                                target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
+
+                                                float velX = entity.GetTossInfo().velocity.X / 1.2f;
+                                                target.Toss(-15, velX, 1, 2); 
+
+                                                if (target is Obstacle || target.IsEntity(Entity.ObjectType.OBSTACLE)) {
+                                                    target.DecreaseHealth(100);
+                                                } else {
+                                                    target.DecreaseHealth(10);
+                                                }
+
+                                                target.GetAttackInfo().attacker = entity.GetAttackInfo().attacker;
+                                                targetHit = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         private void CheckAttack(Entity entity) {
             if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
@@ -360,8 +436,8 @@ namespace FusionEngine
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
             List<CLNS.AttackBox> attackBoxesHitInFrame = new List<CLNS.AttackBox>();
-
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
+
             EntityActions.ResetAttackChain(entity);
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
@@ -381,7 +457,7 @@ namespace FusionEngine
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 10 
+                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
                                 && targetBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
@@ -559,6 +635,7 @@ namespace FusionEngine
 
                 CheckGrabItem(entity);
                 CheckGrab(entity);
+                CheckKnocked(entity);
                 CheckAttack(entity);
             }
         }

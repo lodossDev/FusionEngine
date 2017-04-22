@@ -22,6 +22,9 @@ namespace FusionEngine {
             BOTTOM = 3
         }
 
+        [Flags]
+        public enum KnockedState {KNOCKED_DOWN = 1, THROWN = 2, OTHER = 4, NONE = 8}
+
         public class AnimationConfig {
             public Animation.State? lowPainState;
             public Animation.State? mediumPainState;
@@ -266,8 +269,13 @@ namespace FusionEngine {
             public int juggleHits;
             public int maxJuggleHits;
             public long lastJuggleState;
+            public int juggleHitHeight;
             public bool hasHit;
             public bool isHit;
+            public int blockMode;
+            public int knockedFromKnockedEntityState;
+            public KnockedState currentKnockedState;
+            public KnockedState allowedKnockedState;
 
 
             public AttackInfo() {
@@ -278,11 +286,18 @@ namespace FusionEngine {
 
                 lastHitDirection = lastAttackDir = 0;
                 hitByAttackId = 0;
+
                 lastJuggleState = -1;
+                juggleHitHeight = 120;
+
+                blockMode = 1;
+                knockedFromKnockedEntityState = 1;
+
+                currentKnockedState = KnockedState.NONE;
+                allowedKnockedState = KnockedState.KNOCKED_DOWN | KnockedState.THROWN;
             }
 
             public void Reset() {
-                attacker = null;
                 lastAttackFrame = -1;
                 lastAttackState = Animation.State.NONE;
                 hitPauseTime = 0;
@@ -293,7 +308,7 @@ namespace FusionEngine {
         }
 
         public class FrameInfo {
-            public enum FrameState { NO_FRAME = -1 }
+            public enum FrameState {NO_FRAME = -1}
             private int startFrame;
             private int endFrame;
 

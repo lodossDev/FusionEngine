@@ -25,7 +25,6 @@ namespace FusionEngine {
 
             set {
                 _position = value;
-                ValidatePosition();
             }
         }
 
@@ -49,23 +48,10 @@ namespace FusionEngine {
 
             set {
                 _zoom = MathHelper.Max(value, MinZoom);
-                ValidateZoom();
-                ValidatePosition();
             }
         }
 
-        /// <summary>
-        /// Sets a rectangle that describes which region of the world the camera should
-        /// be able to see. Setting it to null removes the limit.
-        /// </summary>
-        public Rectangle? Limits {
-            set {
-                _limits = value;
-                ValidateZoom();
-                ValidatePosition();
-            }
-        }
-
+        
         public void LookAt(Vector2 position) {
             //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
             Position = position - new Vector2(_viewport.Width / 2, 0);
@@ -81,34 +67,8 @@ namespace FusionEngine {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       Resolution.Scale *
-                       Matrix.CreateScale(_zoom, _zoom, 1f) * 
+                       Resolution.Scale * Matrix.CreateScale(_zoom, _zoom, 1f) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
-            }
-        }
-
-        /// <summary>
-        /// When using limiting, makes sure the camera position is valid.
-        /// </summary>
-        private void ValidatePosition() {
-            if (_limits.HasValue) {
-                Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
-                Vector2 cameraSize = new Vector2(_viewport.Width, _viewport.Height) / _zoom;
-                Vector2 limitWorldMin = new Vector2(_limits.Value.Left, _limits.Value.Top);
-                Vector2 limitWorldMax = new Vector2(_limits.Value.Right, _limits.Value.Bottom);
-                Vector2 positionOffset = _position - cameraWorldMin;
-                _position = Vector2.Clamp(cameraWorldMin, limitWorldMin, limitWorldMax - cameraSize) + positionOffset;
-            }
-        }
-
-        /// <summary>
-        /// When using limiting, makes sure the camera zoom is valid.
-        /// </summary>
-        private void ValidateZoom() {
-            if (_limits.HasValue) {
-                float minZoomX = (float)_viewport.Width / _limits.Value.Width;
-                float minZoomY = (float)_viewport.Height / _limits.Value.Height;
-                _zoom = MathHelper.Max(_zoom, MathHelper.Max(minZoomX, minZoomY));
             }
         }
 
@@ -119,7 +79,6 @@ namespace FusionEngine {
 
         private Vector2 _position;
         private float _zoom = 1f;
-        private Rectangle? _limits;
         private Vector2 _parallax = Vector2.Zero;
     }
 }

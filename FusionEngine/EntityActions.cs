@@ -66,6 +66,10 @@ namespace FusionEngine {
         }
 
         public static void CheckMaxGrabHits(Entity entity, Entity target) {
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
+                return ;
+            }
+
             if (target.GetGrabInfo().isGrabbed) { 
                 if (!target.IsToss()) { 
                     target.GetGrabInfo().grabHitCount--;
@@ -74,11 +78,17 @@ namespace FusionEngine {
                 if (target.GetGrabInfo().grabHitCount < 0) {
                     if (target.HasSprite(Animation.State.KNOCKED_DOWN1)) { 
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                        target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
+                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * target.GetGrabInfo().grabDirection, 1, 2);
+
                     } else {
-                        target.SetAnimationState(Animation.State.THROWN1);
+                        if (target.HasSprite(Animation.State.THROW1)) { 
+                            if (entity.GetCurrentAnimationState().ToString().Contains("GRAB")) {
+                                ThrowTarget(entity, target);
+                            }
+                        }
                     }
 
-                    target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * target.GetGrabInfo().grabDirection, 1, 2);
                     Ungrab(entity, target);
                 }
             }
@@ -198,7 +208,9 @@ namespace FusionEngine {
             target.SetAnimationState(Animation.State.THROWN1);
 
             target.SetIsLeft(false);
+            target.SetCurrentKnockedState(Attributes.KnockedState.THROWN);
             target.GetAttackInfo().lastJuggleState += 1;
+            target.GetAttackInfo().attacker = entity;
 
             EntityActions.Ungrab(entity, target);
         }
@@ -229,6 +241,7 @@ namespace FusionEngine {
 
             target.GetGrabInfo().isGrabbed = true;
             target.GetGrabInfo().grabbedBy = entity;
+            target.GetAttackInfo().attacker = entity;
             entity.GetGrabInfo().grabbed = target;
         }
 
@@ -399,6 +412,7 @@ namespace FusionEngine {
                             entity.SetAnimationState(Animation.State.DIE1);
                         } else {
                             entity.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                            entity.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
                         }
 
                         float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);

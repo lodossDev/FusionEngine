@@ -112,7 +112,8 @@ namespace FusionEngine {
         private DeathType deathMode;
         private int deathStep;
         private int dieTime;
-        public MugenFont gg;
+
+        private bool isPlatform;
 
 
         public Entity(ObjectType type, string name) {
@@ -165,6 +166,8 @@ namespace FusionEngine {
             keyboardSettings = new Dictionary<InputHelper.KeyPress, Keys>();
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
 
+            isPlatform = false;
+
             blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
             afterImage = new AfterImage(this);
@@ -186,7 +189,7 @@ namespace FusionEngine {
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
 
-            gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
+            //gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
             
             id++;
             entityId = id;
@@ -433,12 +436,12 @@ namespace FusionEngine {
                                                             int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1, int juggleCost = 0, 
                                                             CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
                                                             CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
-                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0) {
+                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBoxes(state, frame)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
-                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight);
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock);
             }
         }
         
@@ -686,6 +689,34 @@ namespace FusionEngine {
             scale.Y = y;
         }
 
+        public void SetBlockMode(int mode) {
+            GetAttackInfo().blockMode = mode;
+        }
+
+        public int GetBlockMode() {
+            return GetAttackInfo().blockMode;
+        }
+
+        public void SetCanBeKnockedFromKnockedEntity(int state) {
+            GetAttackInfo().knockedFromKnockedEntityState = state;
+        }
+
+        public int GetKnockedFromKnockedEntityState() {
+            return GetAttackInfo().knockedFromKnockedEntityState;
+        }
+
+        public void SetCurrentKnockedState(Attributes.KnockedState state) {
+            GetAttackInfo().currentKnockedState = state;
+        }
+
+        public Attributes.KnockedState GetCurrentKnockedState() {
+            return GetAttackInfo().currentKnockedState;
+        }
+
+        public bool InAllowedKnockedState(Attributes.KnockedState state) {
+            return GetAttackInfo().allowedKnockedState.HasFlag(state);
+        }
+
         public void SetHealth(int health) {
             this.health = health;
         }
@@ -828,6 +859,14 @@ namespace FusionEngine {
 
         public void SetName(String name) {
             this.name = name;
+        }
+
+        public void SetIsPlatform(bool isPlatform) {
+            this.isPlatform = isPlatform;
+        }
+
+        public bool IsPlatform() {
+            return isPlatform;
         }
 
         public int GetHealth() {
@@ -1751,7 +1790,9 @@ namespace FusionEngine {
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                       
+                        attackInfo.attacker = null;
+                        attackInfo.currentKnockedState = Attributes.KnockedState.NONE;
+
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             ResetJuggleHits();
                             attackInfo.isHit = false;
@@ -2322,7 +2363,7 @@ namespace FusionEngine {
         public bool InJuggleState() {
             float y1 = Math.Abs(GetPosY());
             float y2 =  Math.Abs(GetGround());
-            bool inJuggleHitHeight = y1 > y2 + 150;
+            bool inJuggleHitHeight = y1 > y2 + GetJuggleHitHeight();
 
             return (GetAttackInfo().juggleHits >= 0 
                         && GetAttackInfo().lastJuggleState != -1
@@ -2347,6 +2388,14 @@ namespace FusionEngine {
 
         public void ResetJuggleHits() {
             attackInfo.juggleHits = attackInfo.maxJuggleHits;
+        }
+
+        public void SetJuggleHitHeight(int height) {
+            GetAttackInfo().juggleHitHeight = height;
+        }
+
+        public int GetJuggleHitHeight() {
+            return GetAttackInfo().juggleHitHeight;
         }
 
         public int CompareTo(Entity other) {

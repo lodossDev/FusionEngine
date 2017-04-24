@@ -263,8 +263,10 @@ namespace FusionEngine {
             }
         }
 
-        public void AddBox(Animation.State state, int frame, CLNS.BoundingBox box) {
-            GetSprite(state).AddBox(frame, box);
+        public void AddBox(Animation.State? state, int frame, CLNS.BoundingBox box) {
+            if (state != null) { 
+                GetSprite(state).AddBox(frame, box);
+            }
         }
 
         public void AddBodyBox(int w, int h, int x, int y) {
@@ -439,6 +441,19 @@ namespace FusionEngine {
                                                             Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBoxes(state, frame)) { 
+
+                attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock);
+            }
+        }
+
+        public void SetAttackBox(Animation.State state, float zDepth = 30, float hitPauseTime = 1 / 60, float painTime = 20 / 60, int hitDamage = 5,
+                                                            int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1, int juggleCost = 0, 
+                                                            CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
+                                                            CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
+                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
+
+            foreach (CLNS.AttackBox attackBox in GetAttackBox(state)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
                                         attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock);
@@ -1212,6 +1227,10 @@ namespace FusionEngine {
 
         public CLNS.AttackBox GetAttackBox(Animation.State state, int frame) {
             return (CLNS.AttackBox)GetSprite(state).GetBoxes(frame).Last();
+        }
+
+        public List<CLNS.AttackBox> GetAttackBox(Animation.State state) {
+            return GetSprite(state).GetAllBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
         }
 
         public List<CLNS.AttackBox> GetAttackBoxes(Animation.State state, int frame) {

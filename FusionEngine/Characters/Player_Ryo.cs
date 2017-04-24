@@ -100,6 +100,13 @@ namespace FusionEngine {
             GetAttackBox(Animation.State.ATTACK3, 3).SetAttackType(CLNS.AttackBox.AttackType.MEDIUM);
             //AddBox(Animation.State.ATTACK1, 3, new CLNS.AttackBox(100, 80, 132, 45));
 
+            AddBox(Animation.State.JUMP_ATTACK1, 4, new CLNS.AttackBox(160, 160, 50, 15));
+            AddBox(Animation.State.JUMP_ATTACK1, 5, new CLNS.AttackBox(160, 160, 50, 15));
+
+            AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 3, new CLNS.AttackBox(190, 180, 0, 20));
+            AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 4, new CLNS.AttackBox(190, 180, 0, 20));
+            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 0, 0, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 0, 0, 5, -18, true);
+
             AddBox(Animation.State.SPECIAL1, 2, new CLNS.AttackBox(150, 200, 50, 45));
             AddBox(Animation.State.SPECIAL1, 4, new CLNS.AttackBox(150, 200, 50, -15));
             AddBox(Animation.State.SPECIAL1, 6, new CLNS.AttackBox(150, 200, 50, 45));

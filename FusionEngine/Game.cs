@@ -447,21 +447,31 @@ namespace FusionEngine
                 }
             }
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.K))
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad8))
             {
-                drum3.VelX(-0.03f);
-                //drum3.SetIsLeft(true);
-                taskMaster.SetAnimationState(Animation.State.ATTACK2);
+                bred.MoveZ(5, -1);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.L))
+            else if (Keyboard.GetState().IsKeyDown(Keys.NumPad2))
             {
-                drum3.VelX(0.03f);
-                //drum3.SetIsLeft(false);
+                bred.MoveZ(5, 1);
             }
             else
             {
-                drum3.VelX(0);
-            }*/
+                bred.MoveZ(0, 1);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad4))
+            {
+                bred.MoveX(5, -1);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
+            {
+                bred.MoveX(5, 1);
+            }
+            else
+            {
+                bred.MoveX(0, 1);
+            }
 
             /*if (Keyboard.GetState().IsKeyDown(Keys.U))
             {
@@ -486,30 +496,6 @@ namespace FusionEngine
                 drum3.Update(gameTime);
                 drum4.Update(gameTime);
                 */
-
-                if (Keyboard.GetState().IsKeyDown(Keys.NumPad4)) {
-                    //bred.MoveX(5, -1);
-                    //level1.ScrollX(-12);
-                } else if (Keyboard.GetState().IsKeyDown(Keys.NumPad6)) {
-                    //bred.MoveX(5, 1);
-                    //level1.ScrollX(12);
-                } else {
-                    //bred.MoveX(0, 0);
-                    //bred.VelX(0);
-                }
-
-                if(Keyboard.GetState().IsKeyDown(Keys.NumPad8)) {
-                    drum3.Toss(-15);
-                    //bred.MoveZ(5, -1);
-                    //level1.ScrollY(-5);
-                } else if(Keyboard.GetState().IsKeyDown(Keys.NumPad2)) {
-                    //ryo.MoveX(5, 1);
-                   // bred.MoveZ(5, 1);
-                    //level1.ScrollY(5);
-                } else {
-                    //bred.MoveZ(0, 0);
-                    //bred.VelZ(0);
-                }
 
 
                 if ((int)drum.GetPosY() >= 0) {
@@ -653,7 +639,7 @@ namespace FusionEngine
                         Resolution.Scale);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "BRED1 " + (bred.InAllowedKnockedState(bred.GetCurrentKnockedState())), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "BRED1 " + (bred.GetTossInfo().velocity.Y), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "BRED1 " + (bred.GetCurrentKnockedState()), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/

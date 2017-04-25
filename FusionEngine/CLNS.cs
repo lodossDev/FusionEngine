@@ -184,6 +184,10 @@ namespace FusionEngine
                 return this.GetRect().Intersects(box.GetRect());
             }
 
+            public bool Intersects(Rectangle rect) {
+                return this.GetRect().Intersects(rect);
+            }
+
             public Vector2 GetOffset() {
                 return offset;
             }

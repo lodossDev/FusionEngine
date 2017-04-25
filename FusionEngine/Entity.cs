@@ -716,8 +716,23 @@ namespace FusionEngine {
             GetAttackInfo().knockedFromKnockedEntityState = state;
         }
 
+        public void SetHeightKnockedFromKnockedEntity(int height) {
+            GetAttackInfo().knockedFromKnockedEntityHeight = height;
+        }
+
         public int GetKnockedFromKnockedEntityState() {
             return GetAttackInfo().knockedFromKnockedEntityState;
+        }
+
+        public int GetKnockedFromKnockedEntityHeight() {
+            return GetAttackInfo().knockedFromKnockedEntityHeight;
+        }
+
+        public bool CanKnockOtherEntity(){
+            return (IsInAnimationAction(Animation.Action.KNOCKED)
+                        && GetTossInfo().hitGoundCount < 1 
+                        && (GetTossInfo().velocity.Y / GameManager.GAME_VELOCITY) > GetKnockedFromKnockedEntityHeight()
+                        && InAir());
         }
 
         public void SetCurrentKnockedState(Attributes.KnockedState state) {

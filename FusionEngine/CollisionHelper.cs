@@ -202,12 +202,22 @@ namespace FusionEngine
             return (z1 + Math.Round((double)offset) < z2);
         }
 
-        public static bool IsWithinBoundsX(this Entity e1, Entity e2, float offset = 5) {
+        public static bool IsWithinBoundsX1(this Entity e1, Entity e2, float offset = 5) {
             return (e1.HorizontalCollisionLeft(e2, offset) == true && e1.HorizontalCollisionRight(e2, offset) == true);
         }
 
-        public static bool IsWithinBoundsZ(this Entity e1, Entity e2, float offset = 5) {
+        public static bool IsWithinBoundsZ1(this Entity e1, Entity e2, float offset = 5) {
             return (e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == true);
+        }
+
+        public static bool IsWithinBoundsX2(this Entity e1, Entity e2, float offset = 5) {
+            return (e1.HorizontalCollisionLeft(e2, offset) == true && e1.HorizontalCollisionRight(e2, offset) == false
+                        || e1.HorizontalCollisionLeft(e2, offset) == false && e1.HorizontalCollisionRight(e2, offset) == true);
+        }
+
+        public static bool IsWithinBoundsZ2(this Entity e1, Entity e2, float offset = 5) {
+            return (e1.VerticleCollisionTop(e2, offset) == false && e1.VerticleCollisionBottom(e2, offset) == true
+                       || e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == false);
         }
     }
 }

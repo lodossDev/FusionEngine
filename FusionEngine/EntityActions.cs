@@ -96,7 +96,7 @@ namespace FusionEngine {
 
         public static void OnGrab(ref float newx, ref float x, ref float targetx, Entity entity, Entity target) {
             Entity obstacle = target.GetCollisionInfo().GetObstacle();
-            int oWidth = (obstacle != null ? obstacle.GetBoundsBox().GetWidth() : 0);
+            int oWidth = (obstacle != null && target.GetCollisionInfo().GetCollideX() !=  Attributes.CollisionState.NO_COLLISION ? obstacle.GetBoundsBox().GetWidth() : 0);
             int ox = 0;
 
             if (obstacle != null) { 
@@ -125,7 +125,7 @@ namespace FusionEngine {
 
         public static void SetGrabPosition(ref float newx, ref float newz, ref float x, ref float targetx, ref float targetz, Entity entity, Entity target) {
             Entity obstacle = target.GetCollisionInfo().GetObstacle();
-            int oWidth = (obstacle != null ? obstacle.GetBoundsBox().GetWidth() : 0);
+            int oWidth = (obstacle != null && target.GetCollisionInfo().GetCollideX() !=  Attributes.CollisionState.NO_COLLISION ? obstacle.GetBoundsBox().GetWidth() : 0);
             int ox = 0;
             
             if (obstacle != null) { 

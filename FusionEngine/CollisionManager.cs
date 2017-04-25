@@ -70,8 +70,8 @@ namespace FusionEngine
                             && tHeight > ePosY && tPosY > ePosY && tPosY > eHeight
                             && entityBox.GetRect().Top < targetBox.GetRect().Bottom) {
 
-                        bool isWithInBoundsX1 = (entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == true);
-                        bool isWithInBoundsZ1 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
+                        bool isWithInBoundsX1 = entity.IsWithinBoundsX1(target, vx);
+                        bool isWithInBoundsZ1 =  entity.IsWithinBoundsZ1(target, vz);
 
                         if (isWithInBoundsX1 && isWithInBoundsZ1) {
                             entity.GetCollisionInfo().Above();
@@ -118,8 +118,8 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    bool isWithInBoundsX1 = (entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == true);
-                    bool isWithInBoundsZ1 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
+                    bool isWithInBoundsX1 = entity.IsWithinBoundsX1(target, vx);
+                    bool isWithInBoundsZ1 =  entity.IsWithinBoundsZ1(target, vz);
 
                     if (entityBox.Intersects(targetBox) 
                             && eDepthBox.Intersects(tDepthBox) && ePosY >= tHeight - 10
@@ -191,10 +191,12 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    if (entityBox.Intersects(targetBox) && eDepthBox.Intersects(tDepthBox)) {
+                    if (entityBox.Intersects(targetBox) 
+                            && eDepthBox.Intersects(tDepthBox) 
+                            && !target.IsDying()) {
 
-                        bool isWithInBoundsX1 = (entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == true);
-                        bool isWithInBoundsZ1 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
+                        bool isWithInBoundsX1 = entity.IsWithinBoundsX1(target, vx);
+                        bool isWithInBoundsZ1 = entity.IsWithinBoundsZ1(target, vz);
 
                         if (isWithInBoundsX1 && isWithInBoundsZ1
                                 && target == entity.GetCollisionInfo().GetMovingObstacle() 
@@ -205,7 +207,8 @@ namespace FusionEngine
                         }
 
                         if (isWithInBoundsX1 && isWithInBoundsZ1 
-                                && (double)entity.GetVelocity().Y > 0 && ePosY >= tHeight - 10) {
+                                && (double)entity.GetVelocity().Y > 0 
+                                && ePosY >= tHeight - 10) {
 
                             if (target.IsMovingY()) {
                                 entity.GetCollisionInfo().SetMovingObstacle(target);
@@ -243,9 +246,10 @@ namespace FusionEngine
                 Entity target = entities[i];
 
                 if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
-                        || (entity.IsEntity(Entity.ObjectType.OBSTACLE) && target.IsEntity(Entity.ObjectType.OBSTACLE)))
-                            && !target.IsInAnimationAction(Animation.Action.KNOCKED)
-                            && !target.IsDying()) {
+                                                || (entity.IsEntity(Entity.ObjectType.OBSTACLE) 
+                                                        && target.IsEntity(Entity.ObjectType.OBSTACLE)))
+                        && !target.IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !target.IsDying()) {
 
                     Entity aboveTarget = aboveEntities.Find(item => item == target);
                     Entity belowTarget = belowEntities.Find(item => item == target);
@@ -262,40 +266,25 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    int xw = 5;
-                    int pw = Math.Abs(entityBox.GetWidth() - targetBox.GetWidth()) + 5;
+                    int ox = -10;
 
-                    if (entity.GetPosX() < targetBox.GetRect().X + (targetBox.GetWidth() / 2)) {
-                        xw = pw;
+                    if (entityBox.GetRect().X < targetBox.GetRect().X) {
+                         ox = 10;
                     }
+
+                    Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);
                                  
-                    if (Math.Abs(eDepthBox.GetRect().X - tDepthBox.GetRect().X) < tDepthBox.GetWidth() + (xw + vx) 
+                    if (rect1.Intersects(targetBox.GetRect())
                             && entity.DepthCollision(target, vz)
-                            && ePosY <= tHeight - 10 && eHeight >= tPosY 
+                            && ePosY <= tHeight - 10
                             && (aboveTarget != target && belowTarget != target)) {
 
-                        bool isWithInBoundsX1 = ((entity.HorizontalCollisionLeft(target, vx) == true && entity.HorizontalCollisionRight(target, vx) == false
-                                                    || entity.HorizontalCollisionLeft(target, vx) == false && entity.HorizontalCollisionRight(target, vx) == true));
-
-                        bool isWithInBoundsZ1 = (entity.VerticleCollisionTop(target, vz) == false && entity.VerticleCollisionBottom(target, vz) == true
-                                                    || entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == false);
-
-                        bool isWithInBoundsZ2 = (entity.VerticleCollisionTop(target, vz) == true && entity.VerticleCollisionBottom(target, vz) == true);
+                        bool isWithInBoundsX1 = entity.IsWithinBoundsX2(target, vx);
+                        bool isWithInBoundsZ1 = entity.IsWithinBoundsZ2(target, vz);
+                        bool isWithInBoundsZ2 = entity.IsWithinBoundsZ1(target, vz);
 
                         float depthX = (int)Math.Round(entityBox.GetRect().GetHorizontalIntersectionDepth(targetBox.GetRect()));
                         float depthZ = (int)Math.Round(eDepthBox.GetRect().GetVerticalIntersectionDepth(tDepthBox.GetRect()));
-
-                        if (entity.IsEntity(Entity.ObjectType.ENEMY) && !entity.IsGrabbed()) {
-                            int agg = rnd.Next(1, 100);
-
-                            if (agg > 75) {
-                                int jump = rnd.Next(1, 4);
-
-                                if (jump == 2) {
-                                    //if (!entity.IsDying())entity.Toss(-18, entity.GetDirX() * 2.3f);
-                                }
-                            }
-                        }
 
                         if (isWithInBoundsZ1 && !isWithInBoundsX1) { 
 
@@ -359,21 +348,19 @@ namespace FusionEngine
                 return;
             }
 
-            List<CLNS.BoundingBox> entityBoxes = entity.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
-            entityBoxes.Add(entity.GetBodyBox());
+            if (entity.CanKnockOtherEntity()) {
+                List<CLNS.BoundingBox> entityBoxes = entity.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+                entityBoxes.Add(entity.GetBodyBox());
 
-            CLNS.BoundsBox entityBox = entity.GetBoundsBox();
-            CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
-
-            if (entityBoxes != null && entityBoxes.Count > 0 
-                    && entity.GetTossInfo().hitGoundCount < 1 
-                    && entity.GetTossInfo().velocity.Y > -5
-                    && entity.InAir()) {
+                CLNS.BoundsBox entityBox = entity.GetBoundsBox();
+                CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
 
-                    if (entity != target && !target.IsDying()) {
+                    if (entity != target && entityBoxes != null 
+                            && entityBoxes.Count > 0 && !target.IsDying()) {
+
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
                         //Add global body box if exists.
@@ -384,15 +371,13 @@ namespace FusionEngine
                         CLNS.BoundingBox tDepthBox = target.GetDepthBox();
                         bool targetHit = false;
                        
-                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
-                                && targetBoxes != null && targetBoxes.Count > 0) {
+                        if (targetBoxes != null && targetBoxes.Count > 0 
+                                && Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5) {
 
                             if (!target.IsInAnimationAction(Animation.Action.KNOCKED) 
-                                    //&& !target.IsEntity(Entity.ObjectType.PLAYER)
                                     && target != entity.GetAttackInfo().attacker
                                     && target.GetKnockedFromKnockedEntityState() == 1
-                                    && target.InAllowedKnockedState(entity.GetCurrentKnockedState())
-                                    /*&& !entity.IsEntity(Entity.ObjectType.PLAYER)*/) {
+                                    && target.InAllowedKnockedState(entity.GetCurrentKnockedState())) {
 
                                 foreach (CLNS.BoundingBox eBodyNode in entityBoxes) {
 
@@ -417,7 +402,7 @@ namespace FusionEngine
 
                                                 target.GetAttackInfo().attacker = entity.GetAttackInfo().attacker;
                                                 targetHit = true;
-                                            }
+                                           }
                                         }
                                     }
                                 }
@@ -511,10 +496,10 @@ namespace FusionEngine
 
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
-                bool isCollected = false;
-
+                
                 if (entity != target && (target is Collectable || target.IsEntity(Entity.ObjectType.COLLECTABLE))) {
                     var collectable = target as Collectable;
+                    bool isCollected = false;
 
                     CLNS.BoundingBox tDepthBox = collectable.GetDepthBox();
                     itemPos.X = (float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2));

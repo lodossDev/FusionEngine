@@ -114,6 +114,8 @@ namespace FusionEngine {
         private int dieTime;
 
         private bool isPlatform;
+        private Vector2 scrollMin;
+        private Vector2 scrollMax;
 
 
         public Entity(ObjectType type, string name) {
@@ -167,6 +169,8 @@ namespace FusionEngine {
             gamepadSettings = new Dictionary<InputHelper.KeyPress, Buttons>();
 
             isPlatform = false;
+            scrollMin = Vector2.Zero;
+            scrollMax = Vector2.Zero;
 
             blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
@@ -2268,16 +2272,17 @@ namespace FusionEngine {
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            float viewPort = (GameManager.GetResolution().VirtualScreen.X + GameManager.GetGraphicsDevice().Viewport.Width);
-
-            if (boundsBox != null) {
+            if ((this is Player || IsEntity(ObjectType.PLAYER)) && boundsBox != null) {
                 Vector2 screenPosition = Vector2.Transform(GetConvertedPosition(), GameManager.GetCamera().ViewMatrix);
-                Vector2 max = Vector2.Transform(new Vector2(GameManager.GetCamera().ViewPort.Width - 40, 0), Matrix.Invert(GameManager.GetCamera().ViewMatrix));
-                Vector2 min = Vector2.Transform(new Vector2(40, 0), Matrix.Invert(GameManager.GetCamera().ViewMatrix));
+                scrollMax.X = GameManager.GetCamera().ViewPort.Width - 40;
+                scrollMin.X = 40;
 
-                if (screenPosition.X > GameManager.GetCamera().ViewPort.Width - 40) { 
+                Vector2 max = Vector2.Transform(scrollMax, Matrix.Invert(GameManager.GetCamera().ViewMatrix));
+                Vector2 min = Vector2.Transform(scrollMin, Matrix.Invert(GameManager.GetCamera().ViewMatrix));
+
+                if (screenPosition.X > scrollMax.X) { 
                     position.X = max.X;
-                } else if (screenPosition.X < 40) { 
+                } else if (screenPosition.X < scrollMin.X) { 
                     position.X = min.X;
                 }
             }

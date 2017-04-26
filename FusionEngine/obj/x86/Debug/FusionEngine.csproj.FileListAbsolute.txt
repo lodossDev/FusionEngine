@@ -2781,6 +2781,8 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 01.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Die1\Phone 02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Phone\Stance\Phone 01.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.pdb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\MonoGame.Extended.dll
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\MonoGame.Framework.dll
@@ -2804,7 +2806,5 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb

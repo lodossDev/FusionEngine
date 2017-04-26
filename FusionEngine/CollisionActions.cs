@@ -282,7 +282,7 @@ namespace FusionEngine {
             }
 
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
-                float velX = (entity.GetPosX() < target.GetPosX() ? attackBox.GetMoveX() : -attackBox.GetMoveX());
+                float velX = (entity.GetDirX() > 0 ? attackBox.GetMoveX() : -attackBox.GetMoveX());
 
                 if (!attackBox.IsKnock()) {
                     

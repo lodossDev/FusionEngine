@@ -20,16 +20,18 @@ namespace FusionEngine {
         private Dictionary<Effect.State, Effect> blockSparks;
         private Dictionary<Effect.State, Effect> hitSparks;
         private bool pause;
-
+        
+        private static Camera camera;
+        private static Resolution resolution;
         private static GraphicsDevice graphicsDevice;
         private static SpriteBatch spriteBatch;
         private static ContentManager contentManager;
         private static GameManager _instance;
         private static int playerIndex;
-    
+
         public static readonly int DEATH_FLASH_TIME = 100000000;
         public static readonly int RESOLUTION_X = 1280;
-        public static readonly int RESOLUTION_Y = 700;
+        public static readonly int RESOLUTION_Y = 720;
         public static readonly float GAME_VELOCITY = 60;
         public static readonly SamplerState SAMPLER_STATE = SamplerState.PointClamp;
 
@@ -225,6 +227,14 @@ namespace FusionEngine {
             return pause;
         }
 
+        public static Camera GetCamera() {
+            return camera;
+        }
+
+        public static Resolution GetResolution() {
+            return resolution;
+        }
+
         public static GraphicsDevice GetGraphicsDevice() {
             return graphicsDevice;
         }
@@ -235,6 +245,24 @@ namespace FusionEngine {
 
         public static ContentManager GetContentManager() {
             return contentManager;
+        }
+
+        public static void SetupResolution(int width, int height) {
+            resolution = new Resolution(width, height);
+        }
+
+        public static void UpdateResolution(GraphicsDeviceManager device) {
+            resolution.Update(device);
+        }
+
+        public static void SetupCamera(Viewport viewPort, float vx = 0.8f, float vy = 0.8f) {
+            camera = new Camera(viewPort);
+            camera.Parallax = new Vector2(vx, vy);
+        }
+
+        public static void SetupCamera(float vx = 0.8f, float vy = 0.8f) {
+            camera = new Camera(GameManager.graphicsDevice.Viewport);
+            camera.Parallax = new Vector2(vx, vy);
         }
 
         public static void SetupDevice(GraphicsDevice graphicsDevice, ContentManager contentManager) {

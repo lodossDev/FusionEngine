@@ -2268,19 +2268,19 @@ namespace FusionEngine {
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            float viewPort = (Resolution.VirtualScreen.X + GameManager.GetGraphicsDevice().Viewport.Width);
+            float viewPort = (GameManager.GetResolution().VirtualScreen.X + GameManager.GetGraphicsDevice().Viewport.Width);
 
             if (boundsBox != null) {
-                if (position.X - viewPort > viewPort && direction.X > 0) { 
-                    position.X = (position.X - absoluteVel.X);
+                Vector2 screenPosition = Vector2.Transform(GetConvertedPosition(), GameManager.GetCamera().ViewMatrix);
+                Vector2 max = Vector2.Transform(new Vector2(GameManager.GetCamera().ViewPort.Width - 40, 0), Matrix.Invert(GameManager.GetCamera().ViewMatrix));
+                Vector2 min = Vector2.Transform(new Vector2(40, 0), Matrix.Invert(GameManager.GetCamera().ViewMatrix));
 
-                } else if (position.X - viewPort < -viewPort && direction.X < 0) { 
-                    position.X = 0;
+                if (screenPosition.X > GameManager.GetCamera().ViewPort.Width - 40) { 
+                    position.X = max.X;
+                } else if (screenPosition.X < 40) { 
+                    position.X = min.X;
                 }
             }
-
-            //Default bounds check.
-            //Bound x position using the viewport.
         }
 
         public bool IsHit() {

@@ -52,10 +52,16 @@ namespace FusionEngine {
             }
         }
 
+        public Viewport ViewPort {
+            get {
+                return _viewport;
+            }
+        }
+
         
         public void LookAt(Vector2 position) {
             //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
-            Position = position - new Vector2(Resolution.VirtualScreen.X / 2, 0);
+            Position = position - new Vector2(GameManager.GetResolution().VirtualScreen.X / 2, 0);
 
             if (_position.X < -30)_position.X = -30;
             if (_position.X > 8400)_position.X = 8400;
@@ -68,7 +74,7 @@ namespace FusionEngine {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       (Resolution.Scale * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
+                       (GameManager.GetResolution().ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }

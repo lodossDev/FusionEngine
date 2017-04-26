@@ -1863,7 +1863,7 @@ namespace FusionEngine {
 
         public bool IsExpired() {
              return (IsEntity(Entity.ObjectType.HIT_FLASH) && GetCurrentSprite().IsAnimationComplete())
-                        || (GetAliveTime() != -1 && GetAliveTime() <= 0);
+                            || (GetAliveTime() != -1 && GetAliveTime() <= 0);
         }
 
         public bool IsNonActionState() { 
@@ -2267,6 +2267,20 @@ namespace FusionEngine {
             if (IsInMoveFrame()) { 
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+
+            float viewPort = (Resolution.VirtualScreen.X + GameManager.GetGraphicsDevice().Viewport.Width);
+
+            if (boundsBox != null) {
+                if (position.X - viewPort > viewPort && direction.X > 0) { 
+                    position.X = (position.X - absoluteVel.X);
+
+                } else if (position.X - viewPort < -viewPort && direction.X < 0) { 
+                    position.X = 0;
+                }
+            }
+
+            //Default bounds check.
+            //Bound x position using the viewport.
         }
 
         public bool IsHit() {

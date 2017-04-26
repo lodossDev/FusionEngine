@@ -12,7 +12,8 @@ namespace FusionEngine {
 
         public Camera(Viewport viewport) {
             _viewport = viewport;
-            _origin = new Vector2(_viewport.Width / 2, 0);
+            _origin = new Vector2(0, 0);
+            _position = Vector2.Zero;
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace FusionEngine {
         
         public void LookAt(Vector2 position) {
             //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
-            Position = position - new Vector2(_viewport.Width / 2, 0);
+            Position = position - new Vector2(Resolution.VirtualScreen.X / 2, 0);
 
             if (_position.X < -30)_position.X = -30;
             if (_position.X > 8400)_position.X = 8400;
@@ -67,7 +68,7 @@ namespace FusionEngine {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       Resolution.Scale * Matrix.CreateScale(_zoom, _zoom, 1f) * 
+                       (Resolution.Scale * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }

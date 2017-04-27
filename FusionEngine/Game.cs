@@ -569,7 +569,7 @@ namespace FusionEngine
             // TODO: Add your update logic here
             bar.Update(gameTime);
             //camera.LookAt(ryo.GetConvertedPosition());
-            GameManager.GetCamera().LookAt(ryo.GetConvertedPosition());
+            GameManager.GetCamera().LookAt(ryo);
 
             foreach (Line line in lines)
             {
@@ -648,9 +648,9 @@ namespace FusionEngine
             float viewPort = (GameManager.GetCamera().ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "RESOLUTION " + (GameManager.GetCamera().lastPosition.X), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "CAMERA " + (GameManager.GetCamera().Position), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "RYO POS2 " + (pos.X), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "RYO POS2 " + (ryo.GetPosX()), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

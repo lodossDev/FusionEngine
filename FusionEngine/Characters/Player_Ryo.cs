@@ -83,11 +83,11 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.SPECIAL1, 4);
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Ryo/JumpAttack1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.JUMP_ATTACK1, 5);
+            SetFrameDelay(Animation.State.JUMP_ATTACK1, 4);
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
             AddSprite(Animation.State.JUMP_TOWARD_ATTACK1, new Sprite("Sprites/Actors/Ryo/JumpAttack3", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 5);
+            SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 4);
             SetSpriteOffSet(Animation.State.JUMP_TOWARD_ATTACK1, 8, -30);
 
             AddBox(Animation.State.GRAB_ATTACK1, 6, new CLNS.AttackBox(150, 170, 50, 45));

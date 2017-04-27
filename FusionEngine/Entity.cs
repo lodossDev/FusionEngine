@@ -2272,17 +2272,20 @@ namespace FusionEngine {
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            BoundEntityToScreen();
+        }
+
+        public virtual void BoundEntityToScreen() {
             if ((this is Player || IsEntity(ObjectType.PLAYER)) && boundsBox != null) {
-                Vector2 screenPosition = Vector2.Transform(GetConvertedPosition(), GameManager.GetCamera().ViewMatrix);
+                Vector2 screenPosition = GameManager.GetCamera().WorldToScreen(GetConvertedPosition());
                 scrollMax.X = GameManager.GetCamera().ViewPort.Width - 40;
                 scrollMin.X = 40;
 
-                Vector2 max = Vector2.Transform(scrollMax, Matrix.Invert(GameManager.GetCamera().ViewMatrix));
-                Vector2 min = Vector2.Transform(scrollMin, Matrix.Invert(GameManager.GetCamera().ViewMatrix));
+                Vector2 max = GameManager.GetCamera().ScreenToWorld(scrollMax);
+                Vector2 min = GameManager.GetCamera().ScreenToWorld(scrollMin);
 
                 if (screenPosition.X > scrollMax.X) { 
                     position.X = max.X;                   
-
                 } else if (screenPosition.X < scrollMin.X) { 
                     position.X = min.X;
                 }

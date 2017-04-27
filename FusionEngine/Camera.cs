@@ -59,32 +59,23 @@ namespace FusionEngine {
             }
         }
 
-        public void SetParalax(float x, float y) {
-            _parallax.X = x;
-            _parallax.Y = y;
+        public Vector2 WorldToScreen(Vector2 worldPosition) {
+            return Vector2.Transform(worldPosition, ViewMatrix);
         }
-
-        public void SetPosition(float x, float y) {
-            _position.X = x;
-            _position.Y = y;
+ 
+        public Vector2 ScreenToWorld(Vector2 screenPosition) {
+            return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(Vector2 position) {
-            //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
-            Vector2 screenPosition = Vector2.Transform(position, ViewMatrix);
+        public void LookAt(Entity entity) {
+            float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
 
-            Vector2 max = Vector2.Transform(new Vector2(ViewPort.Width - 40, 0), Matrix.Invert(ViewMatrix));
-            Vector2 min = Vector2.Transform(new Vector2(40, 0), Matrix.Invert(ViewMatrix));
-
-            if (screenPosition.X < ViewPort.Width - 40) {
-                _position = (position - lastPosition) - new Vector2(GameManager.GetResolution().VirtualScreen.X / 2, 0);
-            } else {
-                _position.X += 10f;
-                lastPosition = _position;
+            if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                _position.X += velX + (entity.GetTossInfo().velocity.X / 2);
             }
 
-            if (_position.X < -30)_position.X = -30;
-            if (_position.X > 8400)_position.X = 8400;
+            if (_position.X < -30 * (0.8 / _parallax.X))_position.X = -30 * (0.8f / _parallax.X);
+            if (_position.X > 8400 * (0.8 / _parallax.X))_position.X = 8400 * (0.8f / _parallax.X);
         }
 
         /// <summary>

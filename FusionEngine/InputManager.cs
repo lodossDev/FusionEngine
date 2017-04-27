@@ -37,11 +37,20 @@ namespace FusionEngine {
                     foreach (InputHelper.CommandMove command in commandMoves) {
                         if (inputControl.Matches(command)) {
                             entity.OnCommandMoveComplete(command);
+                            Animation.State? state;
 
                             if (entity.HasHit() && command.GetOnHitState() != null) { 
-                                entity.SetAnimationState(command.GetOnHitState());
+                                state = command.GetOnHitState();
                             } else {
-                                entity.SetAnimationState(command.GetAnimationState());
+                                state = command.GetAnimationState();
+                            }
+
+                            if (entity.GetCurrentAnimationAction(state) == Animation.Action.RUNNING) {
+                                if (entity.IsNonActionState()) {
+                                    entity.SetAnimationState(state);
+                                }
+                            } else {
+                                 entity.SetAnimationState(state);
                             }
 
                             break;

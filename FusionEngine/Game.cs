@@ -420,7 +420,7 @@ namespace FusionEngine
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
             {
-                camera.Zoom += 0.2f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                GameManager.GetCamera().Zoom += 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width / 2, Setup.graphicsDevice.Viewport.Height / 2);
                 //Vector2 pos = new Vector2(-(camera.Zoom * 3f), 0);
                 //camera.Move(pos);
@@ -428,7 +428,7 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                camera.Zoom -= 0.2f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                GameManager.GetCamera().Zoom -= 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width/2, Setup.graphicsDevice.Viewport.Height/2);
                 //Vector2 pos = new Vector2((camera.Zoom * 3f), 0);
                 //camera.Move(pos);

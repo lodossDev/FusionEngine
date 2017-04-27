@@ -1877,7 +1877,8 @@ namespace FusionEngine {
                               && !IsInAnimationAction(Animation.Action.PICKING_UP)
                               && !HasGrabbed()
                               && !IsGrabbed()
-                              && !InPainTime());
+                              && !InPainTime()
+                              && !IsDying());
         }
 
         public bool InNegativeState() {
@@ -1887,7 +1888,8 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.RECOVERY)
                         || HasGrabbed()
                         || IsGrabbed()
-                        || InPainTime());
+                        || InPainTime()
+                        || IsDying());
         }
 
         public void SetWalkState() {

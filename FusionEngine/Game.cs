@@ -648,7 +648,7 @@ namespace FusionEngine
             float viewPort = (GameManager.GetCamera().ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "RESOLUTION " + (viewPort), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RESOLUTION " + (GameManager.GetCamera().lastPosition.X), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "RYO POS2 " + (pos.X), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

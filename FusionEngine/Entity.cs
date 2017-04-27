@@ -2281,7 +2281,8 @@ namespace FusionEngine {
                 Vector2 min = Vector2.Transform(scrollMin, Matrix.Invert(GameManager.GetCamera().ViewMatrix));
 
                 if (screenPosition.X > scrollMax.X) { 
-                    position.X = max.X;
+                    position.X = max.X;                   
+
                 } else if (screenPosition.X < scrollMin.X) { 
                     position.X = min.X;
                 }

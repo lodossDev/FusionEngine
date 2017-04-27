@@ -9,6 +9,7 @@ using System.Diagnostics;
 namespace FusionEngine {
 
     public class Camera {
+        public Vector2 lastPosition = Vector2.Zero;
 
         public Camera(Viewport viewport) {
             _viewport = viewport;
@@ -58,10 +59,29 @@ namespace FusionEngine {
             }
         }
 
+        public void SetParalax(float x, float y) {
+            _parallax.X = x;
+            _parallax.Y = y;
+        }
+
+        public void SetPosition(float x, float y) {
+            _position.X = x;
+            _position.Y = y;
+        }
         
         public void LookAt(Vector2 position) {
             //Debug.WriteLine("VIEWPORT: " + _viewport.Width);
-            Position = position - new Vector2(GameManager.GetResolution().VirtualScreen.X / 2, 0);
+            Vector2 screenPosition = Vector2.Transform(position, ViewMatrix);
+
+            Vector2 max = Vector2.Transform(new Vector2(ViewPort.Width - 40, 0), Matrix.Invert(ViewMatrix));
+            Vector2 min = Vector2.Transform(new Vector2(40, 0), Matrix.Invert(ViewMatrix));
+
+            if (screenPosition.X < ViewPort.Width - 40) {
+                _position = (position - lastPosition) - new Vector2(GameManager.GetResolution().VirtualScreen.X / 2, 0);
+            } else {
+                _position.X += 10f;
+                lastPosition = _position;
+            }
 
             if (_position.X < -30)_position.X = -30;
             if (_position.X > 8400)_position.X = 8400;

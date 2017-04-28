@@ -285,7 +285,7 @@ namespace FusionEngine {
                 float velX = (entity.GetDirX() > 0 ? attackBox.GetMoveX() : -attackBox.GetMoveX());
 
                 if (!attackBox.IsKnock()) {
-                    
+
                     if (!target.InBlockAction() || (target.InBlockAction() 
                             && (target.GetAttackInfo().blockMode == 2 
                                     || target.GetAttackInfo().blockMode == 3))) { 
@@ -320,19 +320,19 @@ namespace FusionEngine {
             if (entity.InGrabItemFrameState()) {
                 if (!isCollected) { 
                     if (collectable is Health) {
+                        GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseHealth(collectable.GetPoints());
-
                     } else if (collectable is Money) {
+                        GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreasePoints(collectable.GetPoints());
-
                     } else if (collectable is Life) {
+                        GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseLives(collectable.GetPoints());
-
                     } else if (collectable is MP) {
+                        GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseMP(collectable.GetPoints());
                     }
 
-                    GameManager.GetInstance().PlaySFX("1up");
                     isCollected = true;
                 }
 

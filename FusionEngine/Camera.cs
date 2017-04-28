@@ -74,12 +74,11 @@ namespace FusionEngine {
                 _position.X += velX + (entity.GetTossInfo().velocity.X * 1f);
             }
 
-            if (Zoom < 1.0) {
-                 _position.X += 5f;
-            }
+            //_position = entity.GetConvertedPosition(); //- new Vector2(GameManager.RESOLUTION_X / 2, 0);
+            //Vector2 sx = ScreenToWorld(_position);
 
-            if (_position.X < -600 * (0.8 / _parallax.X))_position.X = -600 * (0.8f / _parallax.X);
-            if (_position.X > 12328 * (0.8 / _parallax.X))_position.X = 12328 * (0.8f / _parallax.X);
+           if (_position.X < -60)_position.X = -60;
+           // if (_position.X > 12328 * (0.8 / _parallax.X))_position.X = 12328 * (0.8f / _parallax.X);
         }
 
         /// <summary>

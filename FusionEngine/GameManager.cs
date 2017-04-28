@@ -20,15 +20,16 @@ namespace FusionEngine {
         private Dictionary<Effect.State, Effect> blockSparks;
         private Dictionary<Effect.State, Effect> hitSparks;
        
-        private static bool pause;
         private static Camera camera;
         private static Resolution resolution;
         private static GraphicsDevice graphicsDevice;
         private static SpriteBatch spriteBatch;
         private static ContentManager contentManager;
         private static GameManager _instance;
-        private static int playerIndex;
         private static FrameRateCounter frameRate;
+
+        private static bool pause = false;
+        private static int playerIndex = 0;
 
         public static readonly int DEATH_FLASH_TIME = 100000000;
         public static readonly int RESOLUTION_X = 1280;
@@ -50,11 +51,8 @@ namespace FusionEngine {
                 defaultSoundEffects.Add(item.Key, item.Value);
             }
 
-            hitSparks.Add(Effect.State.LIGHT, new Effect("LIGHT_HIT_SPARK", "Sprites/Misc/Hitsparks/Hit1/STANCE", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
-            blockSparks.Add(Effect.State.LIGHT, new Effect("LIGHT_BLOCK_SPARK", "Sprites/Misc/Hitsparks/Block1/STANCE", Effect.Type.BLOCK_SPARK, Effect.State.LIGHT, 1.3f, 1.0f, 0, 50, 5, 180, true));
-
-            playerIndex = 0;
-            pause = false;
+            hitSparks.Add(Effect.State.LIGHT, new Effect("HIT_SPARK_LIGHT", "Sprites/Misc/Hitsparks/Hit1/STANCE", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
+            blockSparks.Add(Effect.State.LIGHT, new Effect("BLOCK_SPARK_LIGHT", "Sprites/Misc/Hitsparks/Block1/STANCE", Effect.Type.BLOCK_SPARK, Effect.State.LIGHT, 1.3f, 1.0f, 0, 50, 5, 180, true));
         }
 
         public static GameManager GetInstance() {

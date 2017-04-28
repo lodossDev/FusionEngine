@@ -10,7 +10,7 @@ namespace FusionEngine {
         private List<Entity> entities;
         private Entity mainLayer;
         private String name;
-        private int maxLeft, maxRight;
+        private int xmin, xmax, zmin, zmax;
 
 
         public Level(String name) {
@@ -18,7 +18,7 @@ namespace FusionEngine {
             entities = new List<Entity>();
 
             this.name = name;
-            maxLeft = maxRight = 0;
+            xmin = xmax = zmin = zmax = 0;
 
             Load();
         }
@@ -41,43 +41,11 @@ namespace FusionEngine {
             this.name = name;
         }
 
-        public void SetMainLayer(Entity layer) {
-            mainLayer = layer;
-        }
-
-        public void SetXScrollBoundry(int maxLeft, int maxRight) {
-            this.maxLeft = maxLeft;
-            this.maxRight = maxRight;
-        }
-
-        public virtual void ScrollX(float velX) {
-            if (mainLayer != null) { 
-                List<Entity> entities = this.layers.SelectMany(item => item.Value).ToList();
-                entities.AddRange(this.entities);
-
-                float x1 = mainLayer.GetPosX();
-
-                if ((int)velX < 0 && (int)x1 <= maxRight 
-                        || (int)velX > 0 && (int)x1 >= maxLeft) { 
-                    
-                    return;
-                }
-
-                foreach (Entity entity in entities) {
-                    entity.MoveX(velX);
-                }
-            }
-        }
-
-        public void ScrollY(float velY) {
-            if (mainLayer != null) {
-                List<Entity> entities = this.layers.SelectMany(item => item.Value).ToList();
-                entities.AddRange(this.entities);
-
-                foreach (Entity entity in entities) {
-                    entity.MoveY(velY);
-                }
-            }
+        public void SetBoundries(int xmin, int xmax, int zmin, int zmax) {
+            this.xmin = xmin;
+            this.xmax = xmax;
+            this.zmin = zmin;
+            this.zmax = zmax;
         }
 
         public String GetName() {
@@ -94,18 +62,14 @@ namespace FusionEngine {
 
          public List<Entity> GetEntities() {
             return entities;
+         }
+
+        public int GetXMin() {
+            return xmin;
         }
 
-        public int GetMaxLeft() {
-            return maxLeft;
-        }
-
-        public int GetMaxRight() {
-            return maxRight;
-        }
-
-        public Entity GetMainLayer() {
-            return mainLayer;
+        public int GetXMax() {
+            return xmax;
         }
     }
 }

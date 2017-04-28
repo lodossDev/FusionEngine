@@ -27,7 +27,6 @@ namespace FusionEngine
         Stage1 level1;
         LifeBar bar;
         float barHealth = 100f;
-        FrameRateCounter frameRate = new FrameRateCounter();
         Enemy_Bred bred, bred2;
 
         InputHelper.CommandMove command;
@@ -371,7 +370,7 @@ namespace FusionEngine
             GamePadState padState = GamePad.GetState(PlayerIndex.One);
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P)) {
-                GameManager.GetInstance().PauseGame();
+                GameManager.PauseGame();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
@@ -489,7 +488,7 @@ namespace FusionEngine
             } */
 
             
-            if (!GameManager.GetInstance().IsPause())
+            if (!GameManager.IsPause())
             {
                 //control.Update(gameTime);
                
@@ -607,13 +606,6 @@ namespace FusionEngine
 
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
-            frameRate.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-
-            /*spriteBatch.DrawString(font1, "IS AIR: " + (ryo.InAir()), new Vector2(20, 20), Color.Blue);
-             * 
-             * Vector
-            */
-
             Entity obs = level1.GetEntities()[1];
             Entity tp = ryo.GetCollisionInfo().GetItem();
             Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
@@ -648,9 +640,9 @@ namespace FusionEngine
             float viewPort = (GameManager.GetCamera().ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "CAMERA " + (GameManager.GetCamera().Position), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "FPS " + (GameManager.GetFrameRateCounter().CurrentFramesPerSecond), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "RYO POS2 " + (ryo.GetPosX()), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "RYO POS2 " + (GameManager.GetCamera().Position), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

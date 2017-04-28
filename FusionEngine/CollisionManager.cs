@@ -273,7 +273,7 @@ namespace FusionEngine
                     }
 
                     Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);
-                                 
+                   
                     if (rect1.Intersects(targetBox.GetRect())
                             && entity.DepthCollision(target, vz)
                             && ePosY <= tHeight - 10

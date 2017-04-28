@@ -19,8 +19,8 @@ namespace FusionEngine {
         private Dictionary<string, SoundEffect> defaultSoundEffects;
         private Dictionary<Effect.State, Effect> blockSparks;
         private Dictionary<Effect.State, Effect> hitSparks;
-        private bool pause;
-        
+       
+        private static bool pause;
         private static Camera camera;
         private static Resolution resolution;
         private static GraphicsDevice graphicsDevice;
@@ -28,6 +28,7 @@ namespace FusionEngine {
         private static ContentManager contentManager;
         private static GameManager _instance;
         private static int playerIndex;
+        private static FrameRateCounter frameRate;
 
         public static readonly int DEATH_FLASH_TIME = 100000000;
         public static readonly int RESOLUTION_X = 1280;
@@ -154,6 +155,7 @@ namespace FusionEngine {
         }
 
         public void Render(GameTime gameTime) {
+            GameManager.UpdateFrameRateCounter(gameTime);
             renderManager.Draw(gameTime);
         }
 
@@ -219,11 +221,11 @@ namespace FusionEngine {
             return null;
         }
 
-        public void PauseGame() {
+        public static void PauseGame() {
             pause = !pause;
         }
 
-        public bool IsPause() {
+        public static bool IsPause() {
             return pause;
         }
 
@@ -245,6 +247,18 @@ namespace FusionEngine {
 
         public static ContentManager GetContentManager() {
             return contentManager;
+        }
+
+        public static FrameRateCounter GetFrameRateCounter() {
+            if (frameRate == null) {
+                frameRate = new FrameRateCounter();
+            }
+
+            return frameRate;
+        }
+
+        private static void UpdateFrameRateCounter(GameTime gameTime) {
+            GetFrameRateCounter().Update((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public static void SetupResolution(int width, int height) {

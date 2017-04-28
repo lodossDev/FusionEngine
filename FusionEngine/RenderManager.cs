@@ -186,7 +186,7 @@ namespace FusionEngine {
                 Entity entity = entities[i];
 
                 if (entity != null && entity.Alive()) {
-                    if (!GameManager.GetInstance().IsPause()) {
+                    if (!GameManager.IsPause()) {
                         entity.Update(gameTime);
                     }
 

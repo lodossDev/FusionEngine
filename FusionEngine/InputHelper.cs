@@ -42,8 +42,7 @@ namespace FusionEngine {
 
         internal static readonly int NEGATIVE_EDGE_PRESS = 15;
 
-        public class KeyState
-        {
+        public class KeyState {
             private InputHelper.KeyPress key;
             private InputHelper.ButtonState state;
             private int negativeEdge = NEGATIVE_EDGE_PRESS;
@@ -195,6 +194,10 @@ namespace FusionEngine {
                         Reset();
                     }
                 }
+            }
+
+            public virtual bool CanExecute(Entity entity) {
+                return true;
             }
 
             public int CompareTo(CommandMove other) {

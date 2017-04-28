@@ -10,15 +10,7 @@ namespace FusionEngine {
         protected int points;
 
         public Collectable(String name) : base(Entity.ObjectType.COLLECTABLE, name) {
-            points = 0;
-        }
-
-        public int GetPoints() {
-            return points;
-        }
-
-        public void SetPoints(int points) {
-            this.points = points;
+            SetPoints(0);
         }
     }
 }

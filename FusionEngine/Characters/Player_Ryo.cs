@@ -53,7 +53,7 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.GRAB_HOLD1, 13, 0);
 
             AddSprite(Animation.State.THROW1, new Sprite("Sprites/Actors/Ryo/Throw1", Animation.Type.ONCE));
-            SetFrameDelay(Animation.State.THROW1, 5);
+            SetFrameDelay(Animation.State.THROW1, 4);
             SetSpriteOffSet(Animation.State.THROW1, -20, 0);
 
             //----------------------------------------- ATTACKS -----------------------------------------//

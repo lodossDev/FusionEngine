@@ -35,7 +35,7 @@ namespace FusionEngine {
                     inputControl.Update(gameTime);
                 
                     foreach (InputHelper.CommandMove command in commandMoves) {
-                        if (inputControl.Matches(command)) {
+                        if (inputControl.Matches(command) && command.CanExecute(entity)) {
                             entity.OnCommandMoveComplete(command);
                             Animation.State? state;
 
@@ -46,7 +46,7 @@ namespace FusionEngine {
                             }
 
                             if (entity.GetCurrentAnimationAction(state) == Animation.Action.RUNNING) {
-                                if (entity.IsNonActionState()) {
+                                if (entity.CanRunAction()) {
                                     entity.SetAnimationState(state);
                                 }
                             } else {

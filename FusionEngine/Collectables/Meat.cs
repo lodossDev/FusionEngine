@@ -17,6 +17,8 @@ namespace FusionEngine {
             SetOnLoadScale(3.3f, 3.2f);
 
             SetPostion(600, 0, 400);
+
+            SetPoints(40);
         }
     }
 }

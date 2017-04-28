@@ -70,12 +70,18 @@ namespace FusionEngine {
         public void LookAt(Entity entity) {
             float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
 
-            if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                _position.X += velX + (entity.GetTossInfo().velocity.X / 2);
-            }
+            /*if (_zoom < 1.0) {
+                _position = entity.GetConvertedPosition() - new Vector2(GameManager.GetResolution().VirtualScreen.X / 2, 0);
 
-            if (_position.X < -30 * (0.8 / _parallax.X))_position.X = -30 * (0.8f / _parallax.X);
-            if (_position.X > 8400 * (0.8 / _parallax.X))_position.X = 8400 * (0.8f / _parallax.X);
+            } else {
+                if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                    _position.X += velX + (entity.GetTossInfo().velocity.X * 1.2f);
+                }
+            }*/
+             _position = entity.GetConvertedPosition() - new Vector2(GameManager.GetResolution().VirtualScreen.X * Zoom / 2, 0);
+
+            if (_position.X < -600 * (0.8 / _parallax.X))_position.X = -600 * (0.8f / _parallax.X);
+            if (_position.X > 12328 * (0.8 / _parallax.X))_position.X = 12328 * (0.8f / _parallax.X);
         }
 
         /// <summary>

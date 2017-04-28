@@ -96,7 +96,7 @@
     <Compile Include="SoundAction.cs" />
     <Compile Include="SoundContent.cs" />
     <Compile Include="SpriteClone.cs" />
-    <Compile Include="Stage1.cs" />
+    <Compile Include="Levels\Stage1.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

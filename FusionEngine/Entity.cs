@@ -1881,6 +1881,16 @@ namespace FusionEngine {
                               && !IsDying());
         }
 
+        public bool CanRunAction() {
+            return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
+                              && !IsInAnimationAction(Animation.Action.GRABBING)
+                              && !IsInAnimationAction(Animation.Action.PICKING_UP)
+                              && !HasGrabbed()
+                              && !IsGrabbed()
+                              && !InPainTime()
+                              && !IsDying());
+        }
+
         public bool InNegativeState() {
             return (IsInAnimationAction(Animation.Action.GRABBING)
                         || IsInAnimationAction(Animation.Action.THROWING)
@@ -1905,7 +1915,7 @@ namespace FusionEngine {
         }
 
         public bool InResetState() {
-            return (GetHealth() > 0 && !InAir()
+            return (GetHealth() > 0 && !IsDying() && !InAir()
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
                                 || IsInAnimationAction(Animation.Action.RUNNING)
                                 || IsActionComplete(Animation.Action.JUMPING)

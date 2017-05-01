@@ -99,6 +99,9 @@ namespace FusionEngine {
             SetGrabResistance(50);
 
             SetPostion(400, 0, 100);
+            SetOffsetZ(200);
+
+            SetBoundToLevel(true);
         }
     }
 }

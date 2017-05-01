@@ -150,7 +150,7 @@ namespace FusionEngine
                 entity.GetCollisionInfo().SetMovingObstacle(null);
                 entity.GetCollisionInfo().SetObstacle(null);
 
-                if (!entity.IsToss() && !entity.GetGrabInfo().isGrabbed) {
+                if (!entity.IsToss() && !entity.IsGrabbed()) {
                     entity.SetAnimationState(Animation.State.FALL1);
                     entity.Toss(5);
                 }
@@ -617,6 +617,7 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
                 entity.GetCollisionInfo().SetItem(null);
+                entity.UpdateToss(gameTime);
 
                 CheckGrabItem(entity);
                 CheckGrab(entity);

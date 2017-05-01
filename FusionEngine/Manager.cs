@@ -7,32 +7,19 @@ namespace FusionEngine {
 
     public class Manager {
         protected List<Entity> entities;
-        protected List<Player> players;
-        protected List<Level> levels;
-
-
+        
         public Manager() {
             entities = new List<Entity>();
-            players = new List<Player>();
-            levels = new List<Level>();
         }
 
         public virtual void AddEntity(Entity entity) {
             entities.Add(entity);
-
-            if (entity is Player) {
-                players.Add((Player)entity);
-            }
         }
 
         public virtual void AddEntity(List<Entity> entities) {
             foreach (Entity entity in entities) {
                 AddEntity(entity);
             }
-        }
-
-        public virtual void AddLevel(Level level) {
-            levels.Add(level);
         }
 
         public virtual void RemoveEntity(Entity entity) {
@@ -45,16 +32,8 @@ namespace FusionEngine {
             }
         }
 
-        public List<Player> GetPlayers() {
-            return players;
-        }
-
-        public List<Level> GetLevels() {
-            return levels;
-        }
-
-        public List<Entity> GetEntities() {
-            return entities;
+        public List<Entity> Entities {
+            get { return entities; }
         }
     }
 }

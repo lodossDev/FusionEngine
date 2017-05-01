@@ -67,18 +67,18 @@ namespace FusionEngine {
             return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(Entity entity) {
-            float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
+        public void LookAt(float velX, float velY) {
+            //float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
            
-            if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                _position.X += velX + (entity.GetTossInfo().velocity.X * 1f);
-            }
+            //if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                //_position.X += (float)Math.Round((double)(velX + (entity.GetTossInfo().velocity.X * 1f)));
+            //}
 
-            //_position = entity.GetConvertedPosition(); //- new Vector2(GameManager.RESOLUTION_X / 2, 0);
-            //Vector2 sx = ScreenToWorld(_position);
+            _position.X += velX;
+            _position.Y += velY;
 
-           if (_position.X < -60)_position.X = -60;
-           // if (_position.X > 12328 * (0.8 / _parallax.X))_position.X = 12328 * (0.8f / _parallax.X);
+            if (_position.X < GameManager.GetInstance().CurrentLevel.X_MIN)_position.X = GameManager.GetInstance().CurrentLevel.X_MIN;
+            if (_position.X > GameManager.GetInstance().CurrentLevel.X_MAX)_position.X = GameManager.GetInstance().CurrentLevel.X_MAX;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace FusionEngine {
             get {
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       (GameManager.GetResolution().ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
+                       (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }

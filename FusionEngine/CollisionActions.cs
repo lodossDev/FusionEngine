@@ -174,9 +174,9 @@ namespace FusionEngine {
                 return;    
             }
 
-            entity.OnAttackHit(target, attackBox);
-
             if (entity != target) {
+                entity.OnAttackHit(target, attackBox);
+
                 entity.GetAttackInfo().hasHit = true;
                 EntityActions.IncrementAttackChain(entity, attackBox);
 
@@ -191,9 +191,9 @@ namespace FusionEngine {
                 return;    
             }
 
-            target.OnTargetHit(entity, attackBox);
-
             if (target != entity) {
+                target.OnTargetHit(entity, attackBox);
+
                 int attackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
                 float lookDir = (entity.IsLeft() ? -1 : 1);
 
@@ -210,12 +210,15 @@ namespace FusionEngine {
                         target.GetAttackInfo().isHit = true;
                         target.GetAttackInfo().lastAttackDir = attackDir;
                         target.GetAttackInfo().attacker = entity;
-                          
+                        
                         EntityActions.SetPainState(entity, target, attackBox);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
                         target.SetPainTime(80);
                         target.SetRumble(lookDir, 1.8f);
+                        //target.SetHitPauseTime(10);
+                        //entity.TossFast(-5);
+                        //entity.SetTossGravity(0.83f);
                         //target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
@@ -227,12 +230,13 @@ namespace FusionEngine {
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.GetCurrentSprite().ResetAnimation();
 
-                        float velX = (Math.Abs(target.GetTossInfo().velocity.X) * lookDir) / 2;
+                        float velX = ((5 - target.GetAttackInfo().juggleHits) * lookDir);
                         float sHeight = -((Math.Abs(target.GetTossInfo().tempHeight) / 2) + 2f);
                         float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
                         target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
-                        target.TossGravity(0.6f);
+                        target.SetTossGravity(0.6f);
                         target.SetPainTime(80);
+                        //entity.TossFast(-5);
                         //target.DecreaseHealth(attackBox.GetHitDamage());
                     }
 
@@ -281,11 +285,10 @@ namespace FusionEngine {
                 return;    
             }
 
-            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.GetGrabInfo().isGrabbed) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.IsGrabbed()) {
                 float velX = (entity.GetDirX() > 0 ? attackBox.GetMoveX() : -attackBox.GetMoveX());
 
                 if (!attackBox.IsKnock()) {
-
                     if (!target.InBlockAction() || (target.InBlockAction() 
                             && (target.GetAttackInfo().blockMode == 2 
                                     || target.GetAttackInfo().blockMode == 3))) { 

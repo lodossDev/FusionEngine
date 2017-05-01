@@ -14,7 +14,7 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE}
+        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER}
 
         [Flags]
         public enum DeathType {DEFAULT = 1, FLASH = 2, IMMEDIATE_DIE = 4}
@@ -49,6 +49,7 @@ namespace FusionEngine {
         private ObjectType type;
 
         private Vector3 position;
+        private Vector3 offset;
         private Vector2 convertedPosition;
         private int layerPos;
 
@@ -116,6 +117,7 @@ namespace FusionEngine {
         private bool isPlatform;
         private Vector2 scrollMin;
         private Vector2 scrollMax;
+        private bool boundToLevel;
 
 
         public Entity(ObjectType type, string name) {
@@ -141,6 +143,7 @@ namespace FusionEngine {
 
             position = Vector3.Zero;
             convertedPosition = Vector2.Zero;
+            offset = Vector3.Zero;
 
             acceleration = Vector3.Zero;
             direction = Vector3.Zero;
@@ -171,6 +174,7 @@ namespace FusionEngine {
             isPlatform = false;
             scrollMin = Vector2.Zero;
             scrollMax = Vector2.Zero;
+            boundToLevel = false;
 
             blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
@@ -349,7 +353,7 @@ namespace FusionEngine {
         }
 
         public void AddAnimationSound(Animation.State state, String location) {
-            animationSounds.Add(state, GameManager.GetContentManager().Load<SoundEffect>(location));
+            animationSounds.Add(state, GameManager.ContentManager.Load<SoundEffect>(location));
         }
 
         public void AddAnimationSound(Animation.State state, SoundEffect effect) {
@@ -485,6 +489,24 @@ namespace FusionEngine {
 
         public void SetPosZ(float z) {
             position.Z = z;
+        }
+
+        public void SetOffset(float x, float y, float z) {
+            offset.X = x;
+            offset.Y = y;
+            offset.Z = z;
+        }
+
+        public void SetOffsetX(float x) {
+            offset.X = x;
+        }
+
+        public void SetOffsetY(float y) {
+            offset.Y = y;
+        }
+
+        public void SetOffsetZ(float z) {
+            offset.Z = z;
         }
 
         public void SetCurrentTarget(Entity target) {
@@ -947,6 +969,18 @@ namespace FusionEngine {
             return position.Z;
         }
 
+        public float GetOffsetX() {
+            return offset.X;
+        }
+
+        public float GetOffsetY() {
+            return offset.Y;
+        }
+
+        public float GetOffsetZ() {
+            return offset.Z;
+        }
+
         public float GetVelX() {
             return velocity.X;
         }
@@ -1017,6 +1051,14 @@ namespace FusionEngine {
 
         public void SetHitPauseTime(int time) {
             attackInfo.hitPauseTime = time;
+        }
+
+        public void SetBoundToLevel(bool bound) {
+            boundToLevel = bound;
+        }
+
+        public bool IsBoundToLevel() {
+            return boundToLevel;
         }
 
         public Animation.State? GetGrabItemAnimationState() {
@@ -1716,7 +1758,6 @@ namespace FusionEngine {
 
         public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
             if (tossInfo.tossCount < maxToss) { 
-
                 if ((double)velX < 0.0) {
                     direction.X = -1;
                 } else if ((double)velX > 0.0) {
@@ -1745,7 +1786,12 @@ namespace FusionEngine {
             }
         }
 
-        public void TossGravity(float gravity) {
+        public void TossFast(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
+            tossInfo.tossCount = 0;
+            Toss(height, velX, maxToss, maxHitGround);
+        }
+
+        public void SetTossGravity(float gravity) {
             tossInfo.gravity = gravity * GameManager.GAME_VELOCITY;
         }
 
@@ -2108,7 +2154,7 @@ namespace FusionEngine {
                 } else { 
                     if (painTime != -1 
                             && IsInAnimationAction(Animation.Action.INPAIN) 
-                            && !grabInfo.isGrabbed) {
+                            && !IsGrabbed()) {
 
                         if (!currentSprite.IsAnimationComplete()) {
                             painTime = 0;
@@ -2200,106 +2246,123 @@ namespace FusionEngine {
             UpdateAliveTime(gameTime);
             UpdatePainTime(gameTime);
             UpdateRiseTime(gameTime);
-            Vector2 drawScale = scale;
 
-            afterImage.Draw();
-            afterImage.Update(gameTime);
+            //if (!InHitPauseTime()) { 
+                Vector2 drawScale = scale;
+
+                afterImage.Draw();
+                afterImage.Update(gameTime);
             
-            if (IsEntity(ObjectType.LIFE_BAR)) {
-                drawScale = nScale;
-            }
+                if (IsEntity(ObjectType.LIFE_BAR)) {
+                    drawScale = nScale;
+                }
 
-            foreach (Sprite sprite in spriteMap.Values) {
-                sprite.Update(gameTime, position, drawScale);
-            }
+                foreach (Sprite sprite in spriteMap.Values) {
+                    sprite.Update(gameTime, position, drawScale);
+                }
 
-            UpdateFade(gameTime);
+                UpdateFade(gameTime);
 
-            //Update animation.
-            if (!InHitPauseTime()) {
+                //Update animation.
                 UpdateAnimation(gameTime);
-            }
-
-            UpdateFrameActions(gameTime);
-
-            UpdateDefaultAttackChain(gameTime);
-
-            UpdateRumble(gameTime);
-
-            //Update physics.
-            UpdateToss(gameTime);
-
-            //Update bounding boxes.
-            foreach (CLNS.BoundingBox box in GetAllFrameBoxes()) {
-                box.Update(gameTime, this);
-            }
             
-            if (boundsBox != null) {
-                boundsBox.Update(gameTime, this);
-            }
+                UpdateFrameActions(gameTime);
 
-            if (bodyBox != null) {
-                bodyBox.Update(gameTime, this);
-            }
+                UpdateDefaultAttackChain(gameTime);
 
-            if (depthBox != null) {
-                depthBox.Update(gameTime, this);
-            }
+                UpdateRumble(gameTime);
 
-            if (rayBottom != null) {
-                rayBottom.Update(gameTime, this);
-            }
+                //Update physics.
+                //UpdateToss(gameTime);
 
-            if (rayTop != null) {
-                rayTop.Update(gameTime, this);
-            }
+                //Update bounding boxes.
+                foreach (CLNS.BoundingBox box in GetAllFrameBoxes()) {
+                    box.Update(gameTime, this);
+                }
+            
+                if (boundsBox != null) {
+                    boundsBox.Update(gameTime, this);
+                }
 
-            //Update movement.
-            velocity.X += acceleration.X * direction.X;
-            velocity.Y += acceleration.Y * direction.Y;
-            velocity.Z += acceleration.Z * direction.Z;
+                if (bodyBox != null) {
+                    bodyBox.Update(gameTime, this);
+                }
 
-            velocity.X = MathHelper.Clamp(velocity.X, -maxVelocity.X, maxVelocity.X);
-            velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
+                if (depthBox != null) {
+                    depthBox.Update(gameTime, this);
+                }
 
-            if ((double)velocity.X != 0.0) { 
-                absoluteVel.X = (velocity.X / GameManager.GAME_VELOCITY);
-            }
+                if (rayBottom != null) {
+                    rayBottom.Update(gameTime, this);
+                }
 
-            if ((double)velocity.Y != 0.0) { 
-                absoluteVel.Y = (velocity.Y / GameManager.GAME_VELOCITY);
-            }
+                if (rayTop != null) {
+                    rayTop.Update(gameTime, this);
+                }
 
-            if ((double)velocity.Z != 0.0) { 
-                absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
-            }
+                //Update movement.
+                velocity.X += acceleration.X * direction.X;
+                velocity.Y += acceleration.Y * direction.Y;
+                velocity.Z += acceleration.Z * direction.Z;
 
-            if (IsInMoveFrame()) { 
-                position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
+                velocity.X = MathHelper.Clamp(velocity.X, -maxVelocity.X, maxVelocity.X);
+                velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
-            position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if ((double)velocity.X != 0.0) { 
+                    absoluteVel.X = (velocity.X / GameManager.GAME_VELOCITY);
+                }
 
-            if (IsInMoveFrame()) { 
-                position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
+                if ((double)velocity.Y != 0.0) { 
+                    absoluteVel.Y = (velocity.Y / GameManager.GAME_VELOCITY);
+                }
+
+                if ((double)velocity.Z != 0.0) { 
+                    absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
+                }
+
+                if (IsInMoveFrame()) { 
+                    position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+
+                position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (IsInMoveFrame()) { 
+                    position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+            //}
 
             BoundEntityToScreen();
         }
 
         public virtual void BoundEntityToScreen() {
-            if ((this is Player || IsEntity(ObjectType.PLAYER)) && boundsBox != null) {
-                Vector2 screenPosition = GameManager.GetCamera().WorldToScreen(GetConvertedPosition());
-                scrollMax.X = GameManager.GetCamera().ViewPort.Width - 40;
-                scrollMin.X = 40;
+            if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
+                    && boundsBox != null 
+                    && GameManager.GetInstance().CurrentLevel != null) {
 
-                Vector2 max = GameManager.GetCamera().ScreenToWorld(scrollMax);
-                Vector2 min = GameManager.GetCamera().ScreenToWorld(scrollMin);
+                int sx = (boundsBox.GetWidth() / 2);
+                Vector2 screenPosition = GameManager.Camera.WorldToScreen(GetConvertedPosition());
+                scrollMax.X = GameManager.Camera.ViewPort.Width - sx;
+                scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + sx;
 
-                if (screenPosition.X > scrollMax.X) { 
-                    position.X = max.X;                   
-                } else if (screenPosition.X < scrollMin.X) { 
-                    position.X = min.X;
+                Vector2 max = GameManager.Camera.ScreenToWorld(scrollMax);
+                Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
+
+                if (!HasGrabbed() && !IsGrabbed()) {
+                    if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+                        if ((double)screenPosition.X > (double)scrollMax.X) { 
+                            SetPosX(max.X);            
+                           
+                        } else if ((double)screenPosition.X < (double)scrollMin.X) { 
+                            SetPosX(min.X);
+                        }
+                    }
+
+                    if (GetPosZ() + GetOffsetZ() < GameManager.GetInstance().CurrentLevel.Z_MIN) {
+                        SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MIN - GetOffsetZ());
+
+                    } else if (GetPosZ() + GetOffsetZ() > GameManager.GetInstance().CurrentLevel.Z_MAX) {
+                        SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MAX - GetOffsetZ());
+                    }
                 }
             }
         }

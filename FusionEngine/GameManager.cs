@@ -19,6 +19,9 @@ namespace FusionEngine {
         private Dictionary<string, SoundEffect> defaultSoundEffects;
         private Dictionary<Effect.State, Effect> blockSparks;
         private Dictionary<Effect.State, Effect> hitSparks;
+        private Dictionary<string, Level> levels;
+        private List<Player> players;
+        private Level currentLevel;
        
         private static Camera camera;
         private static Resolution resolution;
@@ -46,6 +49,8 @@ namespace FusionEngine {
             defaultSoundEffects = new Dictionary<string, SoundEffect>();
             hitSparks = new Dictionary<Effect.State, Effect>();
             blockSparks = new Dictionary<Effect.State, Effect>();
+            levels = new Dictionary<string, Level>();
+            players = new List<Player>();
             
             foreach (var item in SoundContent.LoadSounds("Sounds/")) {
                 defaultSoundEffects.Add(item.Key, item.Value);
@@ -64,28 +69,60 @@ namespace FusionEngine {
         }
 
         public void AddEntity(Entity entity) {
-            collisionManager.AddEntity(entity);
-            updateManager.AddEntity(entity);
-            renderManager.AddEntity(entity);
+            if (entity != null) { 
+                collisionManager.AddEntity(entity);
+                updateManager.AddEntity(entity);
+                renderManager.AddEntity(entity);
 
-            if (entity is Player) {
-                inputManager.AddControl(entity, (PlayerIndex)playerIndex);
-                playerIndex++;
+                if (entity is Player) {
+                    AddPlayer((Player)entity);
+                    inputManager.AddControl(entity, (PlayerIndex)playerIndex);
+
+                    playerIndex++;
+                }
             }
         }
 
         public void AddEntity(List<Entity> entities) {
-            foreach(Entity entity in entities) { 
-                AddEntity(entity);
+            if (entities != null && entities.Count > 0) { 
+                foreach(Entity entity in entities) { 
+                    AddEntity(entity);
+                }
             }
         }
 
-        public void AddLevel(Level level) {
-            renderManager.AddLevel(level);
-            List<Entity> miscEntities = level.GetEntities();
+        private void AddPlayer(Player player) {
+            players.Add(player);
+        }
 
-            if (miscEntities != null) { 
-                AddEntity(miscEntities);
+        public void SetLevel(Level level) {
+            //First check if level exists then unload whole level then reload etc..
+            if (levels.ContainsKey(level.GetName())) {
+                Level existing = levels[level.GetName()];
+
+                RemoveEntity(level.Layers);
+                RemoveEntity(level.Enemies.Cast<Entity>().ToList());
+                RemoveEntity(level.Bosses.Cast<Entity>().ToList());
+                RemoveEntity(level.Obstacles.Cast<Entity>().ToList());
+                RemoveEntity(level.Collectables.Cast<Entity>().ToList());
+
+                levels.Remove(level.GetName());
+                existing = null;
+            }
+
+            levels.Add(level.GetName(), level);
+            AddLayers(level.Layers);
+            AddEntity(level.Enemies.Cast<Entity>().ToList());
+            AddEntity(level.Bosses.Cast<Entity>().ToList());
+            AddEntity(level.Obstacles.Cast<Entity>().ToList());
+            AddEntity(level.Collectables.Cast<Entity>().ToList());
+
+            currentLevel = level;
+        }
+
+        public void AddLayers(List<Entity> layers) {
+            foreach (Entity layer in layers) {
+                renderManager.AddEntity(layer);
             }
         }
 
@@ -111,20 +148,38 @@ namespace FusionEngine {
             }
         }
 
-        public InputManager GetInputManager() {
-            return inputManager;
+        public InputManager InputManager {
+            get { return inputManager; }
         }
 
-        public CollisionManager GetCollisionManager() {
-            return collisionManager;
+        public CollisionManager CollisionManager {
+            get { return collisionManager; }
         }
 
-        public UpdateManager GetUpdateManager() {
-            return updateManager;
+        public UpdateManager UpdateManager {
+            get { return updateManager; }
         }
 
-        public RenderManager GetRenderManager() {
-            return renderManager;
+        public RenderManager RenderManager {
+            get { return renderManager; }
+        }
+
+        public Player GetPlayer(int index) {
+            return players[index];
+        }
+
+        public List<Player> Players {
+            get { return players; }
+        }
+
+        public Entity GetEntity(Entity entity) {
+            int i = RenderManager.Entities.IndexOf(entity);
+
+            if (i != -1) { 
+                return RenderManager.Entities[i];
+            }
+
+            return null;
         }
 
         public Effect GetHitSpark(Effect.State state) {
@@ -135,14 +190,8 @@ namespace FusionEngine {
             return blockSparks[state];
         }
 
-        public Entity GetEntity(Entity entity) {
-            int i = GetRenderManager().GetEntities().IndexOf(entity);
-
-            if (i != -1) { 
-                return GetRenderManager().GetEntities()[i];
-            }
-
-            return null;
+        public Level CurrentLevel {
+            get { return currentLevel; }
         }
 
         public void Update(GameTime gameTime) {
@@ -153,7 +202,7 @@ namespace FusionEngine {
         }
 
         public void Render(GameTime gameTime) {
-            GameManager.UpdateFrameRateCounter(gameTime);
+            GameManager.UpdateFrameRate(gameTime);
             renderManager.Draw(gameTime);
         }
 
@@ -227,40 +276,38 @@ namespace FusionEngine {
             return pause;
         }
 
-        public static Camera GetCamera() {
-            return camera;
+        public static Camera Camera {
+            get { return camera; }
         }
 
-        public static Resolution GetResolution() {
-            return resolution;
+        public static Resolution Resolution {
+            get { return resolution; }
         }
 
-        public static GraphicsDevice GetGraphicsDevice() {
-            return graphicsDevice;
+        public static GraphicsDevice GraphicsDevice {
+            get {return graphicsDevice;}
         }
 
-        public static SpriteBatch GetSpriteBatch() {
-            return spriteBatch;
+        public static SpriteBatch SpriteBatch {
+            get { return spriteBatch; }
         }
 
-        public static ContentManager GetContentManager() {
-            return contentManager;
+        public static ContentManager ContentManager {
+            get { return contentManager; }
         }
 
-        public static FrameRateCounter GetFrameRateCounter() {
-            if (frameRate == null) {
-                frameRate = new FrameRateCounter();
+        public static FrameRateCounter FrameRate {
+            get { 
+                if (frameRate == null) {
+                    frameRate = new FrameRateCounter();
+                }
+
+                return frameRate;
             }
-
-            return frameRate;
         }
 
-        private static void UpdateFrameRateCounter(GameTime gameTime) {
-            GetFrameRateCounter().Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-        }
-
-        public static void SetupResolution(int width, int height) {
-            resolution = new Resolution(width, height);
+        private static void UpdateFrameRate(GameTime gameTime) {
+            FrameRate.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public static void UpdateResolution(GraphicsDeviceManager device) {
@@ -277,17 +324,32 @@ namespace FusionEngine {
             camera.Parallax = new Vector2(vx, vy);
         }
 
-        public static void SetupDevice(GraphicsDevice graphicsDevice, ContentManager contentManager) {
-            GameManager.graphicsDevice = graphicsDevice;
+        public static void SetupDevice(GraphicsDeviceManager deviceManager, ContentManager contentManager) {
+            GameManager.graphicsDevice = deviceManager.GraphicsDevice;
             GameManager.contentManager = contentManager;
 
-            spriteBatch = new SpriteBatch(graphicsDevice);
+            spriteBatch = new SpriteBatch(deviceManager.GraphicsDevice);
+            resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
+            UpdateResolution(deviceManager);
         }
 
-        public static void SetupDevice(GraphicsDevice graphicsDevice, ContentManager contentManager, SpriteBatch spriteBatch) {
-            GameManager.graphicsDevice = graphicsDevice;
+        public static void SetupDevice(GraphicsDeviceManager deviceManager, ContentManager contentManager, SpriteBatch spriteBatch) {
+            GameManager.graphicsDevice = deviceManager.GraphicsDevice;
             GameManager.contentManager = contentManager;
             GameManager.spriteBatch = spriteBatch;
+
+            resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
+            UpdateResolution(deviceManager);
+        }
+
+        public static void TakeScreenshot(Game game) {
+            var screenshot = TextureContent.TakeScreenshot(game);
+
+            using (var fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate)) {
+                screenshot.Save(System.Drawing.Imaging.ImageFormat.Png, fs);
+            }
+
+            screenshot.Dispose();
         }
     }
 }

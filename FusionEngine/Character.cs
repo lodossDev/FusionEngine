@@ -82,15 +82,17 @@ namespace FusionEngine {
         }
 
         public virtual void UpdateAI(GameTime gameTime, List<Player> players) {
-            Entity target = GetNearestEntity(players.ToList<Entity>());
-            SetCurrentTarget(target);
+            if (players != null && players.Count > 0) { 
+                Entity target = GetNearestEntity(players.ToList<Entity>());
+                SetCurrentTarget(target);
 
-            if (target != null && !IsJumpingOrInAir()
-                    && !IsInAnimationAction(Animation.Action.ATTACKING)) {
+                if (target != null && !IsJumpingOrInAir()
+                        && !IsInAnimationAction(Animation.Action.ATTACKING)) {
 
-                LookAtTarget(target);
-                aiStateMachine.Update(gameTime);
-                //FollowTarget(target);
+                    LookAtTarget(target);
+                    aiStateMachine.Update(gameTime);
+                    //FollowTarget(target);
+                }
             }
         }
     }

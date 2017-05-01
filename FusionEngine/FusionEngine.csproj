@@ -101,7 +101,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderManager.cs" />
-    <Compile Include="Globals.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="TextureContent.cs" />
     <Compile Include="TexturePackerLoader\SpriteFrame.cs" />
@@ -1170,7 +1169,9 @@
     <None Include="Content\Fonts\MyFont.spritefont" />
     <None Include="Content\Fonts\n1.xFont" />
     <None Include="Content\Fonts\test.fnt" />
-    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\.mgcontent">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\obj\Windows\Fonts\bmpTest.mgcontent" />
     <None Include="Content\obj\Windows\Fonts\combo.mgcontent" />
     <None Include="Content\obj\Windows\Fonts\MyFont.mgcontent" />
@@ -1435,10 +1436,18 @@
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Attack4\Frame7.mgcontent" />
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Attack4\Frame8.mgcontent" />
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Attack4\Frame9.mgcontent" />
-    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame00.mgcontent" />
-    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame01.mgcontent" />
-    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame02.mgcontent" />
-    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame03.mgcontent" />
+    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame00.mgcontent">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame01.mgcontent">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame02.mgcontent">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\obj\Windows\Sprites\Actors\Ryo\Fall1\Frame03.mgcontent">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\FireballTest1\Frame00.mgcontent" />
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\FireballTest1\Frame01.mgcontent" />
     <None Include="Content\obj\Windows\Sprites\Actors\Ryo\FireballTest1\Frame02.mgcontent" />

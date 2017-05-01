@@ -41,6 +41,7 @@ namespace FusionEngine
         public static Texture2D sand;
         Vector2 x_finder;
         List<Line> lines;
+        float x = 0, y = 0;
 
         public Game()
         {
@@ -64,11 +65,7 @@ namespace FusionEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameManager.SetupDevice(GraphicsDevice, Content, spriteBatch);
-
-            GameManager.SetupResolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
-            GameManager.UpdateResolution(graphics);
-
+            GameManager.SetupDevice(graphics, Content, spriteBatch);
             GameManager.SetupCamera();
 
             //camera = new Camera(GraphicsDevice.Viewport);
@@ -106,6 +103,8 @@ namespace FusionEngine
             // Create the scale transform for Draw. 
             // Do not scale the sprite depth (Z=1).
 
+            ryo = new Player_Ryo();
+
             sand = Content.Load<Texture2D>("Sprites//sand");
 
             lines    = new List<Line>();
@@ -138,188 +137,6 @@ namespace FusionEngine
             //ryoSheet = spriteSheetLoader.Load("Sprites/Actors/Ryo/ryo.png");
             //spriteRender = new SpriteRender(spriteBatch);
 
-            leo = new Player("Leo1");
-            taskMaster = new Boss_TaskMaster();
-            ryo = new Player_Ryo();
-
-            leo.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Actors/Leo/Stance"));
-            leo.SetFrameDelay(Animation.State.STANCE, 5);
-
-
-            leo.AddSprite(Animation.State.WALK_TOWARDS, new Sprite("Sprites/Actors/Leo/Walk", Animation.Type.REPEAT));
-            leo.SetSpriteOffSet(Animation.State.WALK_TOWARDS, 0, 240f);
-
-            leo.AddSprite(Animation.State.JUMP_START, new Sprite("Sprites/Actors/Leo/JumpStart", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.JUMP_START, 20, 10);
-            leo.SetFrameDelay(Animation.State.JUMP_START, 5);
-
-            leo.AddSprite(Animation.State.LAND1, new Sprite("Sprites/Actors/Leo/Land", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.LAND1, 30, -11);
-            leo.SetFrameDelay(Animation.State.LAND1, 5);
-
-            leo.AddSprite(Animation.State.JUMP, new Sprite("Sprites/Actors/Leo/Jump", Animation.Type.REPEAT, 13));
-            leo.SetFrameDelay(Animation.State.JUMP, 5);
-            leo.SetSpriteOffSet(Animation.State.JUMP, 10, -80);
-
-            leo.AddSprite(Animation.State.JUMP_TOWARDS, new Sprite("Sprites/Actors/Leo/JumpTowards", Animation.Type.REPEAT, 13));
-            leo.SetFrameDelay(Animation.State.JUMP_TOWARDS, 5);
-            leo.SetFrameDelay(Animation.State.JUMP_TOWARDS, 1, 6);
-            leo.SetSpriteOffSet(Animation.State.JUMP_TOWARDS, 10, -80);
-
-            leo.AddAnimationLink(new Animation.Link(Animation.State.JUMP_START, Animation.State.JUMP, leo.GetSprite(Animation.State.JUMP_START).GetFrames()));
-            leo.SetTossFrame(Animation.State.JUMP, 1);
-            leo.SetTossFrame(Animation.State.JUMP_TOWARDS, 1);
-
-            leo.AddSprite(Animation.State.FALL1, new Sprite("Sprites/Actors/Leo/Falling", Animation.Type.REPEAT, 5));
-            leo.SetSpriteOffSet(Animation.State.FALL1, 10, -80);
-
-            leo.SetAnimationState(Animation.State.STANCE);
-            
-            
-            leo.SetSpriteOffSet(Animation.State.WALK_TOWARDS, 30, -5);
-            leo.SetResetFrame(Animation.State.WALK_TOWARDS, 3);
-            leo.SetMoveFrame(Animation.State.WALK_TOWARDS, 3);
-           
-
-            leo.SetFrameDelay(Animation.State.WALK_TOWARDS, 5);
-            leo.SetFrameDelay(Animation.State.WALK_TOWARDS, 1, 6);
-            leo.SetFrameDelay(Animation.State.WALK_TOWARDS, 2, 6);
-            leo.SetFrameDelay(Animation.State.WALK_TOWARDS, 3, 6);
-
-            leo.AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Leo/Attack1", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.ATTACK1, 40, -35);
-            leo.SetFrameDelay(Animation.State.ATTACK1, 4);
-            leo.SetFrameDelay(Animation.State.ATTACK1, 1, 5);
-            leo.SetFrameDelay(Animation.State.ATTACK1, 2, 5);
-
-            leo.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(100, 80, 132, 45));
-            //leo.GetAttackBox(Animation.State.ATTACK1, 6).SetComboStep(0);
-
-            leo.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(100, 80, 59, 99, 1));
-            leo.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(100, 80, 159, 99, 1));
-            //leo.GetAttackBox(Animation.State.ATTACK1, 6).SetComboStep(1);
-
-            leo.AddBox(Animation.State.ATTACK1, 7, new CLNS.AttackBox(150, 50, 10, 250, 1));
-            //leo.AddBox(Animation.State.ATTACK1, 7, new CLNS.AttackBox(150, 50, -60, 190, 1));
-            leo.GetAttackBox(Animation.State.ATTACK1, 7).SetComboStep(0);
-
-
-            leo.AddSprite(Animation.State.ATTACK2, new Sprite("Sprites/Actors/Leo/Attack2", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.ATTACK2, 25, -37);
-            leo.SetFrameDelay(Animation.State.ATTACK2, 4);
-            leo.AddBox(Animation.State.ATTACK2, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK2, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK2, 6, new CLNS.AttackBox(220, 230, 20, 30));
-
-            leo.AddSprite(Animation.State.ATTACK3, new Sprite("Sprites/Actors/Leo/Attack3", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.ATTACK3, 60, -10);
-            leo.SetFrameDelay(Animation.State.ATTACK3, 4);
-            leo.AddBox(Animation.State.ATTACK3, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK3, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK3, 5, new CLNS.AttackBox(220, 230, 20, 30));
-
-            leo.AddSprite(Animation.State.ATTACK4, new Sprite("Sprites/Actors/Leo/Attack4", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.ATTACK4, 30, 3);
-            leo.SetFrameDelay(Animation.State.ATTACK4, 4);
-            leo.AddBox(Animation.State.ATTACK4, 3, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK4, 5, new CLNS.AttackBox(220, 230, 20, 30));
-
-            leo.AddSprite(Animation.State.ATTACK5, new Sprite("Sprites/Actors/Leo/Attack5", Animation.Type.ONCE));
-            leo.SetSpriteOffSet(Animation.State.ATTACK5, 50, -25);
-            leo.SetFrameDelay(Animation.State.ATTACK5, 4);
-            leo.AddBox(Animation.State.ATTACK5, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK5, 6, new CLNS.AttackBox(220, 230, 20, 30));
-
-            leo.AddSprite(Animation.State.ATTACK6, new Sprite("Sprites/Actors/Leo/Attack6", Animation.Type.ONCE), true);
-            leo.SetSpriteOffSet(Animation.State.ATTACK6, 35, -41);
-            leo.SetFrameDelay(Animation.State.ATTACK6, 4);
-            leo.AddBox(Animation.State.ATTACK6, 5, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK6, 6, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK6, 5, new CLNS.AttackBox(220, 230, 20, 30));
-            leo.AddBox(Animation.State.ATTACK6, 5, new CLNS.AttackBox(220, 230, 20, 30));
-
-            leo.AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Leo/JumpAttack1", Animation.Type.ONCE), true);
-            leo.SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 60, -70);
-            leo.SetFrameDelay(Animation.State.JUMP_ATTACK1, 4);
-            leo.SetFrameDelay(Animation.State.JUMP_ATTACK1, 1, 4);
-            leo.SetFrameDelay(Animation.State.JUMP_ATTACK1, 2, 4);
-
-            leo.AddSprite(Animation.State.JUMP_TOWARD_ATTACK1, new Sprite("Sprites/Actors/Leo/JumpAttack2", Animation.Type.ONCE), true);
-            leo.SetSpriteOffSet(Animation.State.JUMP_TOWARD_ATTACK1, 30, -60);
-            leo.SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 4);
-            leo.SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 1, 4);
-            leo.SetFrameDelay(Animation.State.JUMP_TOWARD_ATTACK1, 2, 4);
-
-            leo.SetTossFrame(Animation.State.JUMP_ATTACK1, 1);
-            leo.SetTossFrame(Animation.State.JUMP_TOWARD_ATTACK1, 1);
-
-            leo.AddSprite(Animation.State.JUMP_RECOVER1, new Sprite("Sprites/Actors/Leo/JumpRecover1", Animation.Type.REPEAT, 3));
-            leo.SetSpriteOffSet(Animation.State.JUMP_RECOVER1, 20, -80);
-            leo.SetFrameDelay(Animation.State.JUMP_RECOVER1, 5);
-            leo.SetFrameDelay(Animation.State.JUMP_RECOVER1, 1, 6);
-            leo.SetFrameDelay(Animation.State.JUMP_RECOVER1, 2, 6);
-
-            leo.AddAnimationLink(new Animation.Link(Animation.State.JUMP_ATTACK1, Animation.State.JUMP_RECOVER1, 8));
-            leo.AddAnimationLink(new Animation.Link(Animation.State.JUMP_TOWARD_ATTACK1, Animation.State.JUMP_RECOVER1, 9));
-
-            leo.SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
-                new ComboAttack.Move(Animation.State.ATTACK1, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK1, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK1, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK4, 222000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK4, 222000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK4, 222000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK2, 222000, 8),
-                new ComboAttack.Move(Animation.State.ATTACK3, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK3, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK3, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK5, 222000, 7),
-                new ComboAttack.Move(Animation.State.ATTACK6, 222000, 8)
-            }));
-
-            /*leo.SetFrameDelay(Animation.State.ATTACK1, 1);
-            leo.SetFrameDelay(Animation.State.ATTACK2, 1);
-            leo.SetFrameDelay(Animation.State.ATTACK3, 1);
-            leo.SetFrameDelay(Animation.State.ATTACK4, 1);
-            leo.SetFrameDelay(Animation.State.ATTACK5, 1);
-            leo.SetFrameDelay(Animation.State.ATTACK6, 1);*/
-
-            leo.AddBoundsBox(125, 283, -30, 80, 50);
-            leo.SetOnLoadScale(1.6f, 2.2f);
-            leo.SetPostion(400, 0, 200);
-
-            drum = new Entity(Entity.ObjectType.OBSTACLE, "DRUM1");
-            drum.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"));
-            drum.SetAnimationState(Animation.State.STANCE);
-            //drum.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
-            drum.AddBoundsBox(125, 210, -63, -15, 40);
-            drum.SetOnLoadScale(2.2f, 2.6f);
-            drum.SetPostion(700, 0, 400);
-
-            drum2 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM2");
-            drum2.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"));
-            drum2.SetAnimationState(Animation.State.STANCE);
-            //drum2.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
-            drum2.AddBoundsBox(125, 210, -63, -15, 40);
-            drum2.SetOnLoadScale(2.2f, 2.6f);
-
-            drum2.SetPostion(500, 0, 200);
-            drum3 = new Drum();
-            drum3.SetPostion(100, 0, 200);
-
-            drum4 = new Entity(Entity.ObjectType.OBSTACLE, "DRUM4");
-            drum4.AddSprite(Animation.State.STANCE, new Sprite("Sprites/Misc/Drum/Stance"));
-            drum4.SetAnimationState(Animation.State.STANCE);
-
-            //drum4.AddBox(new CLNS.BoundingBox(CLNS.BoxType.BODY_BOX, 125, 210, -63, -15));
-            drum4.AddBoundsBox(125, 210, -63, -15, 40);
-
-            drum2.SetOnLoadScale(2.2f, 2.6f);
-            drum2.SetPostion(500, -280, 200);
-            drum2.SetGroundBase(-280);
-           
-            leo.SetOnLoadScale(1.8f, 2.6f);
-
             level1 = new Stage1();
             bar = new LifeBar(0, 0);
 
@@ -332,13 +149,11 @@ namespace FusionEngine
             GameManager.GetInstance().AddEntity(drum2);
             GameManager.GetInstance().AddEntity(drum3);
             //renderManager.AddEntity(drum4);
-            GameManager.GetInstance().AddLevel(level1);
+            GameManager.GetInstance().SetLevel(level1);
             //renderManager.AddEntity(hitSpark1);
             GameManager.GetInstance().AddEntity(bred);
             GameManager.GetInstance().AddEntity(bred2);
            
-            leo.SetAnimationState(Animation.State.STANCE);
-            leo.SetBaseOffset(-60, -30f);
             bred2.SetName("BRED2");
             //control = new InputControl(leo, PlayerIndex.One);
             // TODO: use this.Content to load your game content here
@@ -374,14 +189,22 @@ namespace FusionEngine
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.T) && oldKeyboardState.IsKeyUp(Keys.T)) {
-                level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
-                level1.GetEntities()[0].GetCurrentSprite().SetCurrentFrame(2);
+                //level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
+                //level1.GetEntities()[0].GetCurrentSprite().SetCurrentFrame(2);
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q)) {
-                GameManager.GetInstance().GetRenderManager().RenderBoxes();
+                GameManager.GetInstance().RenderManager.RenderBoxes();
             }
 
+            if (currentKeyboardState.IsKeyDown(Keys.NumPad6)) {
+                x += 5 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.NumPad4)) {
+                x -= 5 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            } else {
+                x = 0;
+            }
             
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
@@ -396,30 +219,13 @@ namespace FusionEngine
                 bred.SetAnimationState(Animation.State.BLOCK1);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.X))
-            {
-                //Setup.rotate -= 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //Setup.scaleY += 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //Setup.scaleX -= 5.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //barHealth += (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                //xScroll.X += -1 * (1 * (float)gameTime.ElapsedGameTime.TotalSeconds);
-
-                //camera.Parallax = new Vector2(xScroll.X, 0);
-                //ryo.SetScale(5, 5);
-                //taskMaster.GetRumble().isRumble = true;
-                //bred.SetIsLeft(true);
-                var screenshot = TextureContent.TakeScreenshot(this);
-
-                using (var fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate)) {
-                    screenshot.Save(System.Drawing.Imaging.ImageFormat.Png, fs);
-                }
-
-                screenshot.Dispose();
+            if (Keyboard.GetState().IsKeyDown(Keys.X)) {
+                GameManager.TakeScreenshot(this);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
             {
-                GameManager.GetCamera().Zoom += 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                GameManager.Camera.Zoom += 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width / 2, Setup.graphicsDevice.Viewport.Height / 2);
                 //Vector2 pos = new Vector2(-(camera.Zoom * 3f), 0);
                 //camera.Move(pos);
@@ -427,7 +233,7 @@ namespace FusionEngine
             
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                GameManager.GetCamera().Zoom -= 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                GameManager.Camera.Zoom -= 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width/2, Setup.graphicsDevice.Viewport.Height/2);
                 //Vector2 pos = new Vector2((camera.Zoom * 3f), 0);
                 //camera.Move(pos);
@@ -435,85 +241,8 @@ namespace FusionEngine
 
             bar.Percent((int)barHealth);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.J))
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.K))
-                {
-                    level1.GetEntities()[0].Toss(-15, -5);
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.L))
-                {
-                    level1.GetEntities()[0].Toss(-15, 5);
-                }
-                else
-                {
-                    level1.GetEntities()[0].Toss(-15);
-                }
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad8))
-            {
-                bred.MoveZ(5, -1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.NumPad2))
-            {
-                bred.MoveZ(5, 1);
-            }
-            else
-            {
-                bred.MoveZ(0, 1);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad4))
-            {
-                bred.MoveX(5, -1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
-            {
-                bred.MoveX(5, 1);
-            }
-            else
-            {
-                bred.MoveX(0, 1);
-            }
-
-            /*if (Keyboard.GetState().IsKeyDown(Keys.U))
-            {
-                level1.ScrollX(-5/2f);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Y))
-            {
-                level1.ScrollX(5/2f);
-            } */
-
-            
             if (!GameManager.IsPause())
             {
-                //control.Update(gameTime);
-               
-                //Toss needs to be updated before collision
-                /*leo.Update(gameTime);
-                leo2.Update(gameTime);
-                drum.Update(gameTime);
-                drum2.Update(gameTime);
-                drum3.Update(gameTime);
-                drum4.Update(gameTime);
-                */
-
-
-                if ((int)drum.GetPosY() >= 0) {
-                    dir = -1 * dir;
-
-                } else if ((int)drum.GetPosY() <= -500)
-                {
-                    dir = -dir;
-                }
-
-                drum.MoveY(0.3f * dir);
-                //level1.ScrollY(leo.GetVelocity().Y/2);
-
-
                 if (bred.GetGrabInfo().isGrabbed == false 
                         && !bred.IsToss() 
                         && !bred.IsInAnimationAction(Animation.Action.INPAIN)
@@ -524,7 +253,7 @@ namespace FusionEngine
                         && bred.GetHealth() > 0
                         && !bred.IsDying()) {
 
-                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
+                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred.ResetToIdle(gameTime);
                 }
 
@@ -538,7 +267,7 @@ namespace FusionEngine
                         && bred2.GetHealth() > 0
                          && !bred2.IsDying()) {
 
-                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().GetCollisionManager().GetPlayers());
+                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred2.ResetToIdle(gameTime);
                 }
 
@@ -549,32 +278,19 @@ namespace FusionEngine
                 if (bred2.IsInAnimationAction(Animation.Action.INPAIN)) {
                     bred2.StopMovement();
                 }
-
-                if (taskMaster.GetGrabInfo().isGrabbed == false && !taskMaster.IsToss()) {
-                    //((Character)taskMaster).UpdateAI(gameTime, collisionManager.GetPlayers());
-                    ((Character)taskMaster).ResetToIdle(gameTime);
-                }
                 
                 GameManager.GetInstance().Update(gameTime);
-
-
-                /*level1.ScrollX(-leo.GetVelocity().X);
-                drum.MoveX(-leo.GetVelocity().X);
-                drum2.MoveX(-leo.GetVelocity().X);
-                drum3.MoveX(-leo.GetVelocity().X);
-                drum4.MoveX(-leo.GetVelocity().X);*/
             }
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
-            //camera.LookAt(ryo.GetConvertedPosition());
-            GameManager.GetCamera().LookAt(ryo);
+            
+            GameManager.Camera.LookAt(x, y);
 
             foreach (Line line in lines)
             {
                 line.Update();
             }
-
 
             oldKeyboardState = currentKeyboardState;
 
@@ -592,7 +308,7 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/GameManager.GetCamera().ViewMatrix);
+                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/GameManager.Camera.ViewMatrix);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             GameManager.GetInstance().Render(gameTime);
@@ -600,15 +316,15 @@ namespace FusionEngine
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 
-            List<CLNS.BoundingBox> targetBoxes = taskMaster.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+           // List<CLNS.BoundingBox> targetBoxes = taskMaster.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
 
             //entity.HorizontalCollisionLeft(target, 5)
 
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
-            Entity obs = level1.GetEntities()[1];
-            Entity tp = ryo.GetCollisionInfo().GetItem();
-            Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
+            //Entity obs = level1.GetEntities()[1];
+            //Entity tp = ryo.GetCollisionInfo().GetItem();
+            //Vector2 sx = new Vector2((float)(obs.GetDepthBox().GetRect().X + (obs.GetDepthBox().GetRect().Width / 2)), obs.GetDepthBox().GetRect().Y);
 
             /*int i = 1;
             foreach (Keys key in Keyboard.GetState().GetPressedKeys())
@@ -634,15 +350,15 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        GameManager.GetResolution().ViewMatrix);
+                        GameManager.Resolution.ViewMatrix);
 
-            Vector2 pos = Vector2.Transform(ryo.GetConvertedPosition(), GameManager.GetCamera().ViewMatrix);
-            float viewPort = (GameManager.GetCamera().ViewPort.Width);
+            Vector2 pos = Vector2.Transform(ryo.GetConvertedPosition(), GameManager.Camera.ViewMatrix);
+            float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "CAMERA POS " + (GameManager.GetCamera().Position), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RYO Z1 " + (GameManager.Camera.Position), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "RYO PO2 " + (ryo.GetPosX()), new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "BRED Z2 " +  bred.GetCurrentAnimationState(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

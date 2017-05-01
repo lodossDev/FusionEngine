@@ -41,11 +41,9 @@ namespace FusionEngine {
 
         public static void SetPainState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
             if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) {
-
-                if (target.GetGrabInfo().isGrabbed) {
+                if (target.IsGrabbed()) {
                     target.GetGrabInfo().grabbedTime += 15;
                     SetGrabbedHitPain(entity, target, attackBox.GetAttackType());
-
                 } else {
                     SetDefaultHitPain(entity, target, attackBox.GetAttackType());
                 }
@@ -70,7 +68,7 @@ namespace FusionEngine {
                 return ;
             }
 
-            if (target.GetGrabInfo().isGrabbed) { 
+            if (target.IsGrabbed()) { 
                 if (!target.IsToss()) { 
                     target.GetGrabInfo().grabHitCount--;
                 }
@@ -127,7 +125,9 @@ namespace FusionEngine {
 
         public static void SetGrabPosition(ref float newx, ref float newz, ref float x, ref float targetx, ref float targetz, Entity entity, Entity target) {
             Entity obstacle = target.GetCollisionInfo().GetObstacle();
-            int oWidth = (obstacle != null && target.GetCollisionInfo().GetCollideX() !=  Attributes.CollisionState.NO_COLLISION ? obstacle.GetBoundsBox().GetWidth() : 0);
+            int oWidth = (obstacle != null 
+                                && (Math.Abs(obstacle.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom) < 10)  
+                                && target.GetCollisionInfo().GetCollideX() !=  Attributes.CollisionState.NO_COLLISION ? obstacle.GetBoundsBox().GetWidth() : 0);
             int ox = 0;
             
             if (obstacle != null) { 
@@ -285,6 +285,7 @@ namespace FusionEngine {
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
                     target.GetAttackInfo().isHit = false;
                     target.GetGrabInfo().grabbedTime = target.GetGrabInfo().maxGrabbedTime;
+                    target.SetAnimationState(Animation.State.FALL1);
                     Ungrab(entity, target);
                 } else {
                     target.GetGrabInfo().Reset();
@@ -293,7 +294,7 @@ namespace FusionEngine {
         }
 
         public static void CheckUnGrabDistance(Entity entity, Entity target, float distX, float distZ) {
-            if (target.GetGrabInfo().isGrabbed && (((distX > entity.GetGrabInfo().dist + 50) 
+            if (target.IsGrabbed() && (((distX > entity.GetGrabInfo().dist + 50) 
                     || distZ > (target.GetDepthBox().GetHeight() / 1.2) + 5))
                     || target.GetGrabInfo().grabbedTime <= 0) {
 
@@ -419,7 +420,7 @@ namespace FusionEngine {
 
                         float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);
                         entity.Toss(-17, velX, 1, 2); 
-                        entity.TossGravity(0.7f);
+                        entity.SetTossGravity(0.7f);
                     }
                 }
 

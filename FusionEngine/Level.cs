@@ -6,16 +6,21 @@ using System.Text;
 namespace FusionEngine {
 
     public abstract class Level {
-        private Dictionary<int, List<Entity>> layers;
-        private List<Entity> entities;
-        private Entity mainLayer;
         private String name;
+        private List<Entity> layers;
         private int xmin, xmax, zmin, zmax;
+        private List<Enemy> enemies;
+        private List<Boss> bosses;
+        private List<Obstacle> obstacles;
+        private List<Collectable> collectables;
 
 
         public Level(String name) {
-            layers = new Dictionary<int, List<Entity>>();
-            entities = new List<Entity>();
+            layers = new List<Entity>();
+            enemies = new List<Enemy>();
+            bosses = new List<Boss>();
+            obstacles = new List<Obstacle>();
+            collectables = new List<Collectable>();
 
             this.name = name;
             xmin = xmax = zmin = zmax = 0;
@@ -24,18 +29,6 @@ namespace FusionEngine {
         }
 
         public abstract void Load();
-
-        public void AddLayer(int z, Entity layer) {
-            if (!layers.ContainsKey(z)) {
-                layers.Add(z, new List<Entity>());
-            }
-
-            layers[z].Add(layer);
-        }
-
-        public void AddEntity(Entity entity) {
-            entities.Add(entity);
-        }
 
         public void SetName(string name) {
             this.name = name;
@@ -48,28 +41,64 @@ namespace FusionEngine {
             this.zmax = zmax;
         }
 
+        public void AddLayer(Entity layer) {
+            layers.Add(layer);
+        }
+
+        public void AddEnemy(Enemy enemy) {
+            enemies.Add(enemy);
+        }
+
+        public void AddBoss(Boss boss) {
+            bosses.Add(boss);
+        }
+
+        public void AddObstacle(Obstacle obstacle) {
+            obstacles.Add(obstacle);
+        }
+
+        public void AddCollectable(Collectable collectable) {
+            collectables.Add(collectable);
+        }
+
         public String GetName() {
             return name;
         }
 
-        public List<Entity> GetLayers(int z) {
-            if (layers.ContainsKey(z)) { 
-                return layers[z];
-            }
-
-            return null;
+        public List<Entity> Layers {
+            get { return layers; }
         }
 
-         public List<Entity> GetEntities() {
-            return entities;
-         }
-
-        public int GetXMin() {
-            return xmin;
+        public List<Enemy> Enemies {
+            get{ return enemies; }
         }
 
-        public int GetXMax() {
-            return xmax;
+        public List<Boss> Bosses {
+            get{ return bosses; }
+        }
+
+        public List<Obstacle> Obstacles {
+            get { return obstacles; }
+        }
+
+        public List<Collectable> Collectables {
+            get { return collectables; }
+        }
+
+        public int X_MIN {
+            get { return xmin; }
+        }
+
+        public int X_MAX {
+            get { return xmax; }
+        }
+
+        public int Z_MIN {
+            get { return zmin; }
+        }
+
+        public int Z_MAX {
+            get { return zmax; }
         }
     }
 }

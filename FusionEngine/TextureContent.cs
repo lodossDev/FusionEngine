@@ -27,9 +27,9 @@ namespace FusionEngine {
         public static List<Texture2D> LoadTextures(string contentFolder) {
             List<Texture2D> result = new List<Texture2D>();
 
-            foreach (string file in Directory.EnumerateFiles(GameManager.GetContentManager().RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
+            foreach (string file in Directory.EnumerateFiles(GameManager.ContentManager.RootDirectory + "/" + contentFolder).CustomSort().ToList()) {
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(GameManager.GetContentManager().Load<Texture2D>(contentFolder + "/" + key));
+                result.Add(GameManager.ContentManager.Load<Texture2D>(contentFolder + "/" + key));
             }
 
             return result;
@@ -37,16 +37,16 @@ namespace FusionEngine {
 
         public static Texture2D TakeScreenshot(Game currentGame) {
             int w, h;
-            w = GameManager.GetGraphicsDevice().PresentationParameters.BackBufferWidth;
-            h = GameManager.GetGraphicsDevice().PresentationParameters.BackBufferHeight;
+            w = GameManager.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            h = GameManager.GraphicsDevice.PresentationParameters.BackBufferHeight;
             RenderTarget2D screenshot;
-            screenshot = new RenderTarget2D(GameManager.GetGraphicsDevice(), w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
-            GameManager.GetGraphicsDevice().SetRenderTarget(screenshot);
+            screenshot = new RenderTarget2D(GameManager.GraphicsDevice, w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
+            GameManager.GraphicsDevice.SetRenderTarget(screenshot);
 
             currentGame.Render(new GameTime());
 
-            GameManager.GetGraphicsDevice().Present();
-            GameManager.GetGraphicsDevice().SetRenderTarget(null);
+            GameManager.GraphicsDevice.Present();
+            GameManager.GraphicsDevice.SetRenderTarget(null);
             return screenshot;
         }
 

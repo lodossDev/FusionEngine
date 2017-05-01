@@ -74,7 +74,7 @@ namespace FusionEngine
                     }
                 }
 
-                sprite = new Texture2D(GameManager.GetGraphicsDevice(), 1, 1);
+                sprite = new Texture2D(GameManager.GraphicsDevice, 1, 1);
                 Color[] colorData = new Color[1];
                 colorData[0] = color;
                 sprite.SetData<Color>(colorData);
@@ -229,7 +229,7 @@ namespace FusionEngine
                 }
                 
                 if (drawType == DrawType.FILL) {
-                    GameManager.GetSpriteBatch().Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY * visibility, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
+                    GameManager.SpriteBatch.Draw(sprite, new Vector2((float)rect.X, (float)rect.Y), rect, color * VISIBILITY * visibility, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0f);
                 }
             }
 
@@ -243,7 +243,7 @@ namespace FusionEngine
                     rect = new Rectangle((int)A.X, (int)A.Y, thickness, (int)(B.Y - A.Y));
                 }
 
-                GameManager.GetSpriteBatch().Draw(tex, rect, color);
+                GameManager.SpriteBatch.Draw(tex, rect, color);
             }
         }
 

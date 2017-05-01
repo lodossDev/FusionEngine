@@ -14,9 +14,9 @@ namespace FusionEngine {
         public static Dictionary<string, SoundEffect> LoadSounds(string contentFolder) {
             Dictionary<string, SoundEffect> result = new Dictionary<string, SoundEffect>();
 
-            foreach (string file in Directory.EnumerateFiles(GameManager.GetContentManager().RootDirectory + "/" + contentFolder)) {
+            foreach (string file in Directory.EnumerateFiles(GameManager.ContentManager.RootDirectory + "/" + contentFolder)) {
                 string key = Path.GetFileNameWithoutExtension(file);
-                result.Add(key, GameManager.GetContentManager().Load<SoundEffect>(contentFolder + "/" + key));
+                result.Add(key, GameManager.ContentManager.Load<SoundEffect>(contentFolder + "/" + key));
             }
 
             return result;

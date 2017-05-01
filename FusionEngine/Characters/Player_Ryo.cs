@@ -216,7 +216,7 @@ namespace FusionEngine {
             AddBoundsBox(160, 340, -60, 15, 50);
 
             SetOnLoadScale(3.3f, 3.2f);
-            SetPostion(400, 0, 200);
+            SetPostion(400, 0, 500);
             SetBaseOffset(50f, 190f);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 10);

@@ -363,7 +363,7 @@ namespace FusionEngine {
             public TossInfo() {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
-                maxVelocity = new Vector3(10 * GameManager.GAME_VELOCITY, 13 * GameManager.GAME_VELOCITY, 10 * GameManager.GAME_VELOCITY);
+                maxVelocity = new Vector3(16 * GameManager.GAME_VELOCITY, 16 * GameManager.GAME_VELOCITY, 16 * GameManager.GAME_VELOCITY);
                 gravity = 0.48f * GameManager.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
@@ -376,9 +376,9 @@ namespace FusionEngine {
             public void Reset() {
                 height = tempHeight = 0f;
                 velocity = Vector3.Zero;
-                maxVelocity.X = 10 * GameManager.GAME_VELOCITY;
-                maxVelocity.Y = 13 * GameManager.GAME_VELOCITY;
-                maxVelocity.Z = 10 * GameManager.GAME_VELOCITY;
+                maxVelocity.X = 16 * GameManager.GAME_VELOCITY;
+                maxVelocity.Y = 16 * GameManager.GAME_VELOCITY;
+                maxVelocity.Z = 16 * GameManager.GAME_VELOCITY;
                 gravity = 0.48f * GameManager.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;

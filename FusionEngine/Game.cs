@@ -198,10 +198,10 @@ namespace FusionEngine
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.NumPad6)) {
-                x += 5 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                x = (15* GameManager.GAME_VELOCITY) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else if (currentKeyboardState.IsKeyDown(Keys.NumPad4)) {
-                x -= 5 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                x = -(15* GameManager.GAME_VELOCITY) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             } else {
                 x = 0;
             }

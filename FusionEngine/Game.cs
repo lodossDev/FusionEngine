@@ -46,8 +46,8 @@ namespace FusionEngine
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = 500;//GameManager.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = 320;//GameManager.RESOLUTION_Y;
 
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
@@ -356,7 +356,7 @@ namespace FusionEngine
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "RYO Z1 " + (GameManager.Camera.Position), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RYO Z1 " + (ryo.GetAbsoluteVelX()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "BRED Z2 " +  bred.GetCurrentAnimationState(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

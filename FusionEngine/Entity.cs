@@ -117,6 +117,7 @@ namespace FusionEngine {
         private bool isPlatform;
         private Vector2 scrollMin;
         private Vector2 scrollMax;
+        private Vector2 scrollOffset;
         private bool boundToLevel;
 
 
@@ -174,6 +175,7 @@ namespace FusionEngine {
             isPlatform = false;
             scrollMin = Vector2.Zero;
             scrollMax = Vector2.Zero;
+            scrollOffset = Vector2.Zero;
             boundToLevel = false;
 
             blendState = BlendState.NonPremultiplied;
@@ -1095,33 +1097,27 @@ namespace FusionEngine {
             return (int)direction.Z;
         }
 
-        public float GetAccelX()
-        {
+        public float GetAccelX() {
             return acceleration.X;
         }
 
-        public float GetAccelY()
-        {
+        public float GetAccelY() {
             return acceleration.Y;
         }
 
-        public float GetAccelZ()
-        {
+        public float GetAccelZ() {
             return acceleration.Z;
         }
 
-        public float GetAbsoluteVelX()
-        {
+        public float GetAbsoluteVelX() {
             return absoluteVel.X;
         }
 
-        public float GetAbsoluteVelY()
-        {
+        public float GetAbsoluteVelY() {
             return absoluteVel.Y;
         }
 
-        public float GetAbsoluteVelZ()
-        {
+        public float GetAbsoluteVelZ() {
             return absoluteVel.Z;
         }
 
@@ -2173,17 +2169,14 @@ namespace FusionEngine {
 
         public void UpdateFrameActions(GameTime gameTime) {
             if (frameActions.Count > 0) {
+
                 foreach (FrameAction action in frameActions) {
                     
                     if (action.GetAnimationState() == GetCurrentAnimationState() 
                             && action.IsInFrame(GetCurrentSpriteFrame())) {
 
                         if (action.GetMoveX() != 0.0) {
-                            if (GetDirX() < 0) {
-                                MoveX(-action.GetMoveX());
-                            } else {
-                                MoveX(action.GetMoveX());
-                            }
+                            MoveX(action.GetMoveX(), GetDirX());
                         }
 
                         if (action.GetMoveY() != 0.0) {
@@ -2339,10 +2332,11 @@ namespace FusionEngine {
                     && boundsBox != null 
                     && GameManager.GetInstance().CurrentLevel != null) {
 
-                int sx = (boundsBox.GetWidth() / 2);
+                scrollOffset.X = boundsBox.GetWidth() / 2;
+                Vector2 offset = GameManager.Camera.WorldToScreen(scrollOffset);
                 Vector2 screenPosition = GameManager.Camera.WorldToScreen(GetConvertedPosition());
-                scrollMax.X = GameManager.Camera.ViewPort.Width - sx;
-                scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + sx;
+                scrollMax.X = GameManager.Camera.ViewPort.Width - offset.X;
+                scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + offset.X;
 
                 Vector2 max = GameManager.Camera.ScreenToWorld(scrollMax);
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);

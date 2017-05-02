@@ -280,7 +280,7 @@ namespace FusionEngine
                                         int comboStep = 1, int juggleCost = 0, AttackType attackType = AttackType.LIGHT,
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
-                                        float sparkX = 0, float sparkY = 0, float moveX = 10, float tossHeight = 0,
+                                        float sparkX = 0, float sparkY = 0, float moveX = 50, float tossHeight = 0,
                                         bool isKnock = false)
 
                                     : base(BoxType.HIT_BOX, w, h, x, y) {

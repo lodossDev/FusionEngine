@@ -28,12 +28,16 @@ namespace FusionEngine
             AddLayer(layer3);
 
             Obstacle phoneBooth = new PhoneBooth();
-            phoneBooth.SetPostion(200, 0, -30);
+            phoneBooth.SetPostion(400, 0, -30);
             AddObstacle(phoneBooth);
 
             phoneBooth = new PhoneBooth();
             phoneBooth.SetPostion(3100, 0, 340);
             AddObstacle(phoneBooth);
+
+            Obstacle drum = new Drum();
+            drum.SetPostion(900, 0, 300);
+            AddObstacle(drum);
 
             Meat meat = new Meat();
             AddCollectable(meat);

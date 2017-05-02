@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.BitmapFonts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TexturePackerLoader;
 
@@ -41,13 +42,13 @@ namespace FusionEngine
         public static Texture2D sand;
         Vector2 x_finder;
         List<Line> lines;
-        float x = 0, y = 0;
+        float x = 0, y = 0, z = 0;
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500;//GameManager.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = 320;//GameManager.RESOLUTION_Y;
+            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
+            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
 
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
@@ -197,15 +198,16 @@ namespace FusionEngine
                 GameManager.GetInstance().RenderManager.RenderBoxes();
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.NumPad6)) {
+            /*if (currentKeyboardState.IsKeyDown(Keys.NumPad6)) {
                 x = (15* GameManager.GAME_VELOCITY) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else if (currentKeyboardState.IsKeyDown(Keys.NumPad4)) {
                 x = -(15* GameManager.GAME_VELOCITY) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             } else {
                 x = 0;
-            }
-            
+            }*/
+
+           
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 //level1.GetEntities()[0].SetAnimationState(Animation.State.DIE1);
@@ -280,12 +282,27 @@ namespace FusionEngine
                 }
                 
                 GameManager.GetInstance().Update(gameTime);
+
+                float velX = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
+               
+                if (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                    x = velX;
+                } else x = 0;
+
+                Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
+
+                float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
+           
+                if (ryo.GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) { 
+                    z = velZ;
+                } else z = 0;
+            
             }
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
             
-            GameManager.Camera.LookAt(x, y);
+            GameManager.Camera.LookAt(x, y, z);
 
             foreach (Line line in lines)
             {
@@ -356,7 +373,7 @@ namespace FusionEngine
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "RYO Z1 " + (ryo.GetAbsoluteVelX()), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RYO Z1 " + (ryo.IsMovingX()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "BRED Z2 " +  bred.GetCurrentAnimationState(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

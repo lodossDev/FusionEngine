@@ -218,7 +218,7 @@ namespace FusionEngine {
                         target.SetRumble(lookDir, 1.8f);
                         //target.SetHitPauseTime(10);
                         //entity.TossFast(-5);
-                        //entity.SetTossGravity(0.83f);
+                        //entity.SetTossGravity(1.83f);
                         //target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
@@ -288,11 +288,12 @@ namespace FusionEngine {
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.IsGrabbed()) {
  
                 if (!attackBox.IsKnock()) {
+
                     if (!target.InBlockAction() || (target.InBlockAction() 
                             && (target.GetAttackInfo().blockMode == 2 
                                     || target.GetAttackInfo().blockMode == 3))) { 
 
-                        target.MoveX(attackBox.GetMoveX(), entity.GetDirX());
+                        target.MoveX((attackBox.GetMoveX() * entity.GetDirX()));
 
                         if (!target.InBlockAction()) {
                             target.Toss(attackBox.GetTossHeight());
@@ -306,7 +307,7 @@ namespace FusionEngine {
                     }
 
                     if (target.InBlockAction() && target.GetAttackInfo().blockMode == 3) {
-                        target.MoveX(attackBox.GetMoveX(), entity.GetDirX());
+                        target.MoveX((attackBox.GetMoveX() * entity.GetDirX()));
                     }
                 }
             }
@@ -316,7 +317,9 @@ namespace FusionEngine {
             entity.GetCollisionInfo().SetItem(collectable);
 
             if (entity.InGrabItemFrameState()) {
+
                 if (!isCollected) { 
+
                     if (collectable is Health) {
                         GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseHealth(collectable.GetPoints());

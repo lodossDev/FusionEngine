@@ -292,7 +292,7 @@ namespace FusionEngine {
                 juggleHitHeight = 120;
 
                 blockMode = 1;
-                knockedFromKnockedEntityHeight = -5;
+                knockedFromKnockedEntityHeight = 1;
                 knockedFromKnockedEntityState = 1;
 
                 currentKnockedState = KnockedState.NONE;

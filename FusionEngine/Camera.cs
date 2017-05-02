@@ -67,7 +67,7 @@ namespace FusionEngine {
             return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(float velX, float velY) {
+        public void LookAt(float velX, float velY, float velZ) {
             //float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
            
             //if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
@@ -75,7 +75,7 @@ namespace FusionEngine {
             //}
 
             _position.X += velX;
-            _position.Y += velY;
+            _position.Y += velY + velZ;
 
             if (_position.X < GameManager.GetInstance().CurrentLevel.X_MIN)_position.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_position.X > GameManager.GetInstance().CurrentLevel.X_MAX)_position.X = GameManager.GetInstance().CurrentLevel.X_MAX;
@@ -86,7 +86,7 @@ namespace FusionEngine {
         /// </summary>
         public Matrix ViewMatrix {
             get {
-                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, 0f * _parallax.Y, 0f)) *
+                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
                        (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));

@@ -53,7 +53,9 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
+                                            || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
 
@@ -105,7 +107,9 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
+                                            || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
 
@@ -192,7 +196,8 @@ namespace FusionEngine
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
                     if (entityBox.Intersects(targetBox) 
-                            && eDepthBox.Intersects(tDepthBox) 
+                            && eDepthBox.Intersects(tDepthBox)
+                            && target.IsPlatform() 
                             && !target.IsDying()) {
 
                         bool isWithInBoundsX1 = entity.IsWithinBoundsX1(target, vx);
@@ -269,7 +274,7 @@ namespace FusionEngine
                     int ox = -10;
 
                     if (entityBox.GetRect().X < targetBox.GetRect().X) {
-                         ox = 10;
+                        ox = 10;
                     }
 
                     Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);

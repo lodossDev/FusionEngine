@@ -2168,6 +2168,7 @@ namespace FusionEngine {
         }
 
         public void UpdateFrameActions(GameTime gameTime) {
+
             if (frameActions.Count > 0) {
 
                 foreach (FrameAction action in frameActions) {
@@ -2176,11 +2177,11 @@ namespace FusionEngine {
                             && action.IsInFrame(GetCurrentSpriteFrame())) {
 
                         if (action.GetMoveX() != 0.0) {
-                            MoveX(action.GetMoveX(), GetDirX());
+                            MoveX((action.GetMoveX() * GetDirX()));
                         }
 
                         if (action.GetMoveY() != 0.0) {
-                             MoveY(action.GetMoveY());
+                            MoveY(action.GetMoveY());
                         }
 
                         if (action.GetTossHeight() != 0.0) {
@@ -2342,14 +2343,14 @@ namespace FusionEngine {
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
 
                 if (!HasGrabbed() && !IsGrabbed()) {
-                    if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+                    //if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
                         if ((double)screenPosition.X > (double)scrollMax.X) { 
                             SetPosX(max.X);            
                            
                         } else if ((double)screenPosition.X < (double)scrollMin.X) { 
                             SetPosX(min.X);
                         }
-                    }
+                    //}
 
                     if (GetPosZ() + GetOffsetZ() < GameManager.GetInstance().CurrentLevel.Z_MIN) {
                         SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MIN - GetOffsetZ());

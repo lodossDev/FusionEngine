@@ -89,6 +89,8 @@ namespace FusionEngine {
         /// </summary>
         public Matrix ViewMatrix {
             get {
+                _viewport = GameManager.GraphicsDevice.Viewport;
+
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
                        (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
@@ -98,7 +100,7 @@ namespace FusionEngine {
 
         private const float MinZoom = 0.01f;
 
-        private readonly Viewport _viewport;
+        private Viewport _viewport;
         private readonly Vector2 _origin;
 
         private Vector2 _position;

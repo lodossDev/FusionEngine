@@ -26,6 +26,7 @@ namespace FusionEngine {
         private static Camera camera;
         private static Resolution resolution;
         private static GraphicsDevice graphicsDevice;
+        private static GraphicsDeviceManager graphicsDeviceManager;
         private static SpriteBatch spriteBatch;
         private static ContentManager contentManager;
         private static GameManager _instance;
@@ -310,36 +311,44 @@ namespace FusionEngine {
             FrameRate.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
-        public static void UpdateResolution(GraphicsDeviceManager device) {
-            resolution.Update(device);
+        private static void UpdateResolution() {
+            resolution.Update(GameManager.graphicsDeviceManager);
         }
 
-        public static void SetupCamera(Viewport viewPort, float vx = 0.8f, float vy = 0.8f) {
+        public static void SetupCamera(Viewport viewPort, float vx = 0.8f, float vy = 0.3f) {
             camera = new Camera(viewPort);
             camera.Parallax = new Vector2(vx, vy);
         }
 
-        public static void SetupCamera(float vx = 0.8f, float vy = 0.8f) {
+        public static void SetupCamera(float vx = 0.8f, float vy = 0.3f) {
             camera = new Camera(GameManager.graphicsDevice.Viewport);
             camera.Parallax = new Vector2(vx, vy);
         }
 
         public static void SetupDevice(GraphicsDeviceManager deviceManager, ContentManager contentManager) {
+            GameManager.graphicsDeviceManager = deviceManager;
             GameManager.graphicsDevice = deviceManager.GraphicsDevice;
             GameManager.contentManager = contentManager;
 
             spriteBatch = new SpriteBatch(deviceManager.GraphicsDevice);
             resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
-            UpdateResolution(deviceManager);
+            ChangeResolution(deviceManager.PreferredBackBufferWidth, deviceManager.PreferredBackBufferHeight);
         }
 
         public static void SetupDevice(GraphicsDeviceManager deviceManager, ContentManager contentManager, SpriteBatch spriteBatch) {
+            GameManager.graphicsDeviceManager = deviceManager;
             GameManager.graphicsDevice = deviceManager.GraphicsDevice;
             GameManager.contentManager = contentManager;
             GameManager.spriteBatch = spriteBatch;
 
             resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
-            UpdateResolution(deviceManager);
+            ChangeResolution(deviceManager.PreferredBackBufferWidth, deviceManager.PreferredBackBufferHeight);
+        }
+
+        public static void ChangeResolution(int width, int height) {
+            GameManager.graphicsDeviceManager.PreferredBackBufferWidth = width;
+            GameManager.graphicsDeviceManager.PreferredBackBufferHeight = height;
+            UpdateResolution();
         }
 
         public static void TakeScreenshot(Game game) {

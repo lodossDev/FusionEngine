@@ -116,8 +116,10 @@ namespace FusionEngine {
 
         private bool isPlatform;
         private Vector2 scrollMin;
-        private Vector2 scrollMax;
-        private Vector2 scrollOffset;
+        public Vector2 scrollMax;
+        public Vector2 scrollOffset;
+        public Vector2 scrollOffsetAspectRatio;
+        public bool scrollCheck;
         private bool boundToLevel;
 
 
@@ -203,6 +205,10 @@ namespace FusionEngine {
             
             id++;
             entityId = id;
+
+
+            scrollCheck = false;
+            scrollOffsetAspectRatio = Vector2.Zero;
         }
 
         public void AddSprite(Animation.State? state, Sprite sprite) {
@@ -2332,22 +2338,21 @@ namespace FusionEngine {
             if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
                     && boundsBox != null 
                     && GameManager.GetInstance().CurrentLevel != null) {
-
-                scrollOffset.X = boundsBox.GetWidth() / 2;
-                Vector2 offset = GameManager.Camera.WorldToScreen(scrollOffset);
-                Vector2 screenPosition = GameManager.Camera.WorldToScreen(GetConvertedPosition());
-                scrollMax.X = GameManager.Camera.ViewPort.Width - offset.X;
-                scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + offset.X;
+                
+                scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * ((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
+                scrollMax.X = GameManager.Camera.ViewPort.Width - scrollOffset.X;
+                scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + scrollOffset.X;
+                Vector2 pos = GameManager.Camera.WorldToScreen(GetConvertedPosition());
 
                 Vector2 max = GameManager.Camera.ScreenToWorld(scrollMax);
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
 
                 if (!HasGrabbed() && !IsGrabbed()) {
                     //if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
-                        if ((double)screenPosition.X > (double)scrollMax.X) { 
+                        if ((double)pos.X > (double)scrollMax.X) { 
                             SetPosX(max.X);            
                            
-                        } else if ((double)screenPosition.X < (double)scrollMin.X) { 
+                        } else if ((double)pos.X < (double)scrollMin.X) { 
                             SetPosX(min.X);
                         }
                     //}

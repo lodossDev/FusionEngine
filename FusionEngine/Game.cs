@@ -283,19 +283,19 @@ namespace FusionEngine
                 
                 GameManager.GetInstance().Update(gameTime);
 
-                float velX = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
-               
+                x = 0;
+
                 if (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                    x = velX;
-                } else x = 0;
+                    x = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
+                }
 
                 Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
 
-                float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
+                z = 0;
            
                 if (ryo.GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) { 
-                    z = velZ;
-                } else z = 0;
+                    z = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
+                }
             
             }
 
@@ -373,7 +373,7 @@ namespace FusionEngine
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "RYO Z1 " + (ryo.IsMovingX()), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RYO Z1 " + (GameManager.Camera.Position.Y), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + (pos.X), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "BRED Z2 " +  bred.GetCurrentAnimationState(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

@@ -77,6 +77,9 @@ namespace FusionEngine {
             _position.X += velX;
             _position.Y += velY + velZ;
 
+            if (_position.Y > GameManager.GetInstance().CurrentLevel.Z_MIN)_position.Y = GameManager.GetInstance().CurrentLevel.Z_MIN;
+            if (_position.Y < -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2))_position.Y = -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2);
+
             if (_position.X < GameManager.GetInstance().CurrentLevel.X_MIN)_position.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_position.X > GameManager.GetInstance().CurrentLevel.X_MAX)_position.X = GameManager.GetInstance().CurrentLevel.X_MAX;
         }

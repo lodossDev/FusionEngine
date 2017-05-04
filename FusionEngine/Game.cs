@@ -43,6 +43,7 @@ namespace FusionEngine
         Vector2 x_finder;
         List<Line> lines;
         float x = 0, y = 0, z = 0;
+        Camera2D ccamera;
 
         public Game()
         {
@@ -52,6 +53,8 @@ namespace FusionEngine
 
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            ccamera = new Camera2D(this);
+            this.Components.Add(ccamera);
         }
 
         /// <summary>
@@ -294,16 +297,20 @@ namespace FusionEngine
                 z = 0;
                 float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
 
+                if (ryo.GetDirZ() < 0 && ryo.GetPosZ() > 400) {
+                    //velZ = 0;
+                }
+
                 if (ryo.GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) { 
                     z = (float)Math.Round((double)(velZ + (ryo.GetTossInfo().velocity.Z * 1f)));;
                 }
-            
             }
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
             
-            GameManager.Camera.LookAt(x, y, z);
+            GameManager.Camera.LookAt(gameTime, x, y, z);
+            //ccamera.Focus = new Vector2(ryo.GetPosX(), ryo.GetPosZ());
 
             foreach (Line line in lines)
             {
@@ -319,6 +326,8 @@ namespace FusionEngine
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
+            
+
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
@@ -326,7 +335,7 @@ namespace FusionEngine
                         null,
                         null,
                         null,
-                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/GameManager.Camera.ViewMatrix);
+                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/GameManager.Camera.ViewMatrix/* ccamera.Transform*/);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             GameManager.GetInstance().Render(gameTime);
@@ -375,9 +384,9 @@ namespace FusionEngine
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "VIEWPORT " + (ryo.scrollOffset.X), new Vector2(20, 0), Color.White);
-            spriteBatch.DrawString(font1, "RYO POS1 " + ((float)((float)GameManager.Camera.ViewPort.Width / (float)GameManager.RESOLUTION_X)), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "RYO POSX " +  ryo.scrollMax.X, new Vector2(20, 90), Color.White);
+            spriteBatch.DrawString(font1, "VIEWPORT " + ((ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ()), new Vector2(20, 0), Color.White);
+            //spriteBatch.DrawString(font1, "RYO POS1 " + ((float)((float)GameManager.Camera.ViewPort.Width / (float)GameManager.RESOLUTION_X)), new Vector2(20, 50), Color.White);
+            //spriteBatch.DrawString(font1, "RYO POSX " +  ryo.scrollMax.X, new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

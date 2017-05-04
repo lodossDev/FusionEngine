@@ -226,6 +226,62 @@ namespace FusionEngine
                 }
             }
         }
+
+        public bool FindObstacle(Entity entity) {
+            CLNS.BoundsBox entityBox = entity.GetBoundsBox();
+            CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
+
+            if (entityBox == null || eDepthBox == null) {
+                return false;
+            }
+           
+            int ePosY = (int)Math.Abs(Math.Round((double)entity.GetPosY()));
+            int ePosZ = (int)Math.Abs(Math.Round((double)entity.GetPosZ()));
+            int eDepth = (int)Math.Abs(Math.Round((double)entityBox.GetZdepth()));
+            int eGround = (int)Math.Abs(Math.Round((double)entity.GetGround()));
+            int eHeight = (int)(ePosY + (entityBox.GetHeight() - eDepth));
+
+            float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
+            float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
+
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
+                if (entity != target && target.IsEntity(Entity.ObjectType.OBSTACLE)
+                        && !target.IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !target.IsDying()) {
+
+                    CLNS.BoundsBox targetBox = target.GetBoundsBox();
+                    CLNS.BoundingBox tDepthBox = target.GetDepthBox();
+
+                    if (targetBox == null || tDepthBox == null) {
+                        continue;
+                    }
+           
+                    int tPosY = (int)Math.Abs(Math.Round((double)target.GetPosY()));
+                    int tDepth = (int)Math.Abs(Math.Round((double)targetBox.GetZdepth()));
+                    int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
+                    int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
+
+                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 8) + vx);
+
+                    if (entityBox.GetRect().X < targetBox.GetRect().X) {
+                        ox = (int)(((double)(targetBox.GetRect().Width) / 8) + vx);
+                    }
+
+                    Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);
+                   
+                    if (rect1.Intersects(targetBox.GetRect())
+                            && entity.DepthCollision(target, vz)
+                            && ePosY <= tHeight - 10) {
+
+                        return true;                        
+                    }
+                }
+            }
+
+            return false;
+        }
         
         private void CheckBounds(Entity entity) {
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
@@ -271,10 +327,10 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    int ox = -10;
+                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 8) + vx);
 
                     if (entityBox.GetRect().X < targetBox.GetRect().X) {
-                        ox = 10;
+                        ox = (int)(((double)(targetBox.GetRect().Width) / 8) + vx);
                     }
 
                     Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);

@@ -286,14 +286,16 @@ namespace FusionEngine {
             }
 
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.IsGrabbed()) {
+                float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == false
+                                    && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION ? entity.GetDirX() : 0);
  
                 if (!attackBox.IsKnock()) {
 
                     if (!target.InBlockAction() || (target.InBlockAction() 
                             && (target.GetAttackInfo().blockMode == 2 
                                     || target.GetAttackInfo().blockMode == 3))) { 
-
-                        target.MoveX((attackBox.GetMoveX() * entity.GetDirX()));
+                        
+                        target.MoveX((attackBox.GetMoveX() * dirX));
 
                         if (!target.InBlockAction()) {
                             target.Toss(attackBox.GetTossHeight());
@@ -303,11 +305,11 @@ namespace FusionEngine {
                     if (!target.InBlockAction()) {
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
-                        target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * entity.GetDirX()));
+                        target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * dirX));
                     }
 
                     if (target.InBlockAction() && target.GetAttackInfo().blockMode == 3) {
-                        target.MoveX((attackBox.GetMoveX() * entity.GetDirX()));
+                        target.MoveX((attackBox.GetMoveX() * dirX));
                     }
                 }
             }

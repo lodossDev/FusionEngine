@@ -42,7 +42,7 @@ namespace FusionEngine
             Meat meat = new Meat();
             AddCollectable(meat);
 
-            SetBoundries(0, 13000, 0, 400);
+            SetBoundries(0, 11055, -30, 400);
         }
     }
 }

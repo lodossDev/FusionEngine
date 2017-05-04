@@ -53,6 +53,7 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="Boss.cs" />
+    <Compile Include="Camera2D.cs" />
     <Compile Include="Characters\Boss_TaskMaster.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Characters\Enemy_Bred.cs" />

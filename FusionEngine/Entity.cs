@@ -116,11 +116,10 @@ namespace FusionEngine {
 
         private bool isPlatform;
         private Vector2 scrollMin;
-        public Vector2 scrollMax;
-        public Vector2 scrollOffset;
-        public Vector2 scrollOffsetAspectRatio;
-        public bool scrollCheck;
+        private Vector2 scrollMax;
+        private Vector2 scrollOffset;
         private bool boundToLevel;
+        private bool isEdgeX, isEdgeZ;
 
 
         public Entity(ObjectType type, string name) {
@@ -179,6 +178,7 @@ namespace FusionEngine {
             scrollMax = Vector2.Zero;
             scrollOffset = Vector2.Zero;
             boundToLevel = false;
+            isEdgeX = isEdgeZ = false;
 
             blendState = BlendState.NonPremultiplied;
             aliveTime = -1;
@@ -205,10 +205,6 @@ namespace FusionEngine {
             
             id++;
             entityId = id;
-
-
-            scrollCheck = false;
-            scrollOffsetAspectRatio = Vector2.Zero;
         }
 
         public void AddSprite(Animation.State? state, Sprite sprite) {
@@ -2182,8 +2178,10 @@ namespace FusionEngine {
                     if (action.GetAnimationState() == GetCurrentAnimationState() 
                             && action.IsInFrame(GetCurrentSpriteFrame())) {
 
-                        if (action.GetMoveX() != 0.0) {
-                            MoveX((action.GetMoveX() * GetDirX()));
+                        if (IsEdgeX() == false && GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                            if (action.GetMoveX() != 0.0) {
+                                MoveX((action.GetMoveX() * GetDirX()));
+                            }
                         }
 
                         if (action.GetMoveY() != 0.0) {
@@ -2339,29 +2337,50 @@ namespace FusionEngine {
                     && boundsBox != null 
                     && GameManager.GetInstance().CurrentLevel != null) {
                 
-                scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * ((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
+                scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * (double)((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
+
                 scrollMax.X = GameManager.Camera.ViewPort.Width - scrollOffset.X;
                 scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + scrollOffset.X;
+
+                float sx1 =  scrollMax.X - 25;
+                float sx2 =  scrollMin.X + 25;
+
                 Vector2 pos = GameManager.Camera.WorldToScreen(GetConvertedPosition());
 
                 Vector2 max = GameManager.Camera.ScreenToWorld(scrollMax);
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
 
                 if (!HasGrabbed() && !IsGrabbed()) {
-                    //if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+                    if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+                        if ((double)pos.X > (double)sx1) { 
+                            isEdgeX = true;          
+                        } else if ((double)pos.X < (double)sx2) { 
+                            isEdgeX = true;
+                        } else {
+                            isEdgeX = false;
+                        }
+
                         if ((double)pos.X > (double)scrollMax.X) { 
                             SetPosX(max.X);            
-                           
                         } else if ((double)pos.X < (double)scrollMin.X) { 
                             SetPosX(min.X);
                         }
-                    //}
+                    }
 
-                    if (GetPosZ() + GetOffsetZ() < GameManager.GetInstance().CurrentLevel.Z_MIN) {
-                        SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MIN - GetOffsetZ());
+                    if (GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) {
+                        if ((GetPosZ() + GetOffsetZ()) < GameManager.GetInstance().CurrentLevel.Z_MIN + 40) {
+                            isEdgeZ = true;
+                        } else if ((GetPosZ() + GetOffsetZ()) > GameManager.GetInstance().CurrentLevel.Z_MAX - 60) {
+                            isEdgeZ = true;
+                        } else {
+                            isEdgeZ = false;
+                        }
 
-                    } else if (GetPosZ() + GetOffsetZ() > GameManager.GetInstance().CurrentLevel.Z_MAX) {
-                        SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MAX - GetOffsetZ());
+                        if ((GetPosZ() + GetOffsetZ()) < GameManager.GetInstance().CurrentLevel.Z_MIN) {
+                            SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MIN - GetOffsetZ());
+                        } else if ((GetPosZ() + GetOffsetZ()) > GameManager.GetInstance().CurrentLevel.Z_MAX) {
+                            SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MAX - GetOffsetZ());
+                        }
                     }
                 }
             }
@@ -2528,6 +2547,14 @@ namespace FusionEngine {
 
         public int GetJuggleHitHeight() {
             return GetAttackInfo().juggleHitHeight;
+        }
+
+        public bool IsEdgeX() {
+            return isEdgeX;
+        }
+
+        public bool IsEdgeZ() {
+            return isEdgeZ;
         }
 
         public int CompareTo(Entity other) {

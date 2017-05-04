@@ -9,12 +9,11 @@ using System.Diagnostics;
 namespace FusionEngine {
 
     public class Camera {
-        public Vector2 lastPosition = Vector2.Zero;
-
+        
         public Camera(Viewport viewport) {
             _viewport = viewport;
             _origin = new Vector2(0, 0);
-            _position = Vector2.Zero;
+            _lastPosition = _l2 = Vector2.Zero;
         }
 
         /// <summary>
@@ -67,21 +66,20 @@ namespace FusionEngine {
             return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(float velX, float velY, float velZ) {
-            //float velX = (entity.GetAccelX() / GameManager.GAME_VELOCITY) * entity.GetDirX();
-           
-            //if (entity.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                //_position.X += (float)Math.Round((double)(velX + (entity.GetTossInfo().velocity.X * 1f)));
-            //}
+        public void LookAt(GameTime gameTime, float velX, float velY, float velZ) {
+            _lastPosition.X += velX;
+            _lastPosition.Y += velY + velZ;
 
-            _position.X += velX;
-            _position.Y += velY + velZ;
-
-            if (_position.Y > GameManager.GetInstance().CurrentLevel.Z_MIN)_position.Y = GameManager.GetInstance().CurrentLevel.Z_MIN;
-            if (_position.Y < -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2))_position.Y = -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2);
+            Vector2 pos1 = Vector2.Lerp(_position, _lastPosition, 1.85f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            
+            _position.X = pos1.X;
+            _position.Y = pos1.Y;
 
             if (_position.X < GameManager.GetInstance().CurrentLevel.X_MIN)_position.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_position.X > GameManager.GetInstance().CurrentLevel.X_MAX)_position.X = GameManager.GetInstance().CurrentLevel.X_MAX;
+
+            if (_position.Y < -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2))_position.Y = -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2);
+            if (_position.Y > GameManager.GetInstance().CurrentLevel.Z_MIN)_position.Y = GameManager.GetInstance().CurrentLevel.Z_MIN;
         }
 
         /// <summary>
@@ -91,7 +89,7 @@ namespace FusionEngine {
             get {
                 _viewport = GameManager.GraphicsDevice.Viewport;
 
-                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.Y, 0f)) *
+                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
                        (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
@@ -99,12 +97,13 @@ namespace FusionEngine {
         }
 
         private const float MinZoom = 0.01f;
-
+        private float _zoom = 1f;
         private Viewport _viewport;
         private readonly Vector2 _origin;
 
         private Vector2 _position;
-        private float _zoom = 1f;
+        private Vector2 _lastPosition;
+        private Vector2 _l2;
         private Vector2 _parallax = Vector2.Zero;
     }
 }

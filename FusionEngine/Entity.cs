@@ -2334,7 +2334,7 @@ namespace FusionEngine {
 
         public virtual void BoundEntityToScreen() {
             if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
-                    && boundsBox != null 
+                    && boundsBox != null && depthBox != null
                     && GameManager.GetInstance().CurrentLevel != null) {
                 
                 scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * (double)((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
@@ -2351,11 +2351,15 @@ namespace FusionEngine {
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
 
                 if (!HasGrabbed() && !IsGrabbed()) {
+
                     if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+
                         if ((double)pos.X > (double)sx1) { 
-                            isEdgeX = true;          
+                            isEdgeX = true;  
+                            
                         } else if ((double)pos.X < (double)sx2) { 
                             isEdgeX = true;
+
                         } else {
                             isEdgeX = false;
                         }
@@ -2368,18 +2372,22 @@ namespace FusionEngine {
                     }
 
                     if (GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) {
+
                         if ((GetPosZ() + GetOffsetZ()) < GameManager.GetInstance().CurrentLevel.Z_MIN + 40) {
                             isEdgeZ = true;
-                        } else if ((GetPosZ() + GetOffsetZ()) > GameManager.GetInstance().CurrentLevel.Z_MAX - 60) {
+
+                        } else if ((GetPosZ() + GetOffsetZ()) > (GameManager.GetInstance().CurrentLevel.Z_MAX - (depthBox.GetRect().Height)) - 60) {
                             isEdgeZ = true;
+
                         } else {
                             isEdgeZ = false;
                         }
 
                         if ((GetPosZ() + GetOffsetZ()) < GameManager.GetInstance().CurrentLevel.Z_MIN) {
                             SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MIN - GetOffsetZ());
-                        } else if ((GetPosZ() + GetOffsetZ()) > GameManager.GetInstance().CurrentLevel.Z_MAX) {
-                            SetPosZ(GameManager.GetInstance().CurrentLevel.Z_MAX - GetOffsetZ());
+
+                        } else if ((GetPosZ() + GetOffsetZ()) > GameManager.GetInstance().CurrentLevel.Z_MAX - (depthBox.GetRect().Height)) {
+                            SetPosZ((GameManager.GetInstance().CurrentLevel.Z_MAX - (depthBox.GetRect().Height)) - GetOffsetZ());
                         }
                     }
                 }

@@ -70,16 +70,16 @@ namespace FusionEngine {
             _lastPosition.X += velX;
             _lastPosition.Y += velY + velZ;
 
-            Vector2 pos1 = Vector2.Lerp(_position, _lastPosition, 1.85f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            Vector2 pos1 = Vector2.Lerp(_position, _lastPosition, 1.35f * (float)gameTime.ElapsedGameTime.TotalSeconds);
             
             _position.X = pos1.X;
             _position.Y = pos1.Y;
 
-            if (_position.X < GameManager.GetInstance().CurrentLevel.X_MIN)_position.X = GameManager.GetInstance().CurrentLevel.X_MIN;
-            if (_position.X > GameManager.GetInstance().CurrentLevel.X_MAX)_position.X = GameManager.GetInstance().CurrentLevel.X_MAX;
+            if (_lastPosition.X < GameManager.GetInstance().CurrentLevel.X_MIN)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MIN;
+            if (_lastPosition.X > GameManager.GetInstance().CurrentLevel.X_MAX)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MAX;
 
-            if (_position.Y < -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2))_position.Y = -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2);
-            if (_position.Y > GameManager.GetInstance().CurrentLevel.Z_MIN)_position.Y = GameManager.GetInstance().CurrentLevel.Z_MIN;
+            if (_lastPosition.Y < -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2))_lastPosition.Y = -(GameManager.GetInstance().CurrentLevel.Z_MAX / 2);
+            if (_lastPosition.Y > GameManager.GetInstance().CurrentLevel.Z_MIN)_lastPosition.Y = GameManager.GetInstance().CurrentLevel.Z_MIN;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace FusionEngine {
             get {
                 _viewport = GameManager.GraphicsDevice.Viewport;
 
-                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y, 0f)) *
+                return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.X, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
                        (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));

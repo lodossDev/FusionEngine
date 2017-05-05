@@ -284,42 +284,46 @@ namespace FusionEngine
                 }
                 
                 GameManager.GetInstance().Update(gameTime);
-
-                x = 0;
-                float velX = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
-
-                if (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                    x = (float)Math.Round((double)(velX + (ryo.GetTossInfo().velocity.X * 1f)));
-                }
-
-                Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
-
-                z = 0;
-                float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
-
-                if (ryo.GetDirZ() < 0 && ryo.GetPosZ() > 400) {
-                    //velZ = 0;
-                }
-
-                if (ryo.GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) { 
-                    z = (float)Math.Round((double)(velZ + (ryo.GetTossInfo().velocity.Z * 1f)));;
-                }
             }
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
-            
-            GameManager.Camera.LookAt(gameTime, x, y, z);
+
             //ccamera.Focus = new Vector2(ryo.GetPosX(), ryo.GetPosZ());
 
-            foreach (Line line in lines)
-            {
+            foreach (Line line in lines){
                 line.Update();
             }
+
+            UpdateCamera(gameTime);
 
             oldKeyboardState = currentKeyboardState;
 
             base.Update(gameTime);
+        }
+
+        private void UpdateCamera(GameTime gameTime) {
+            x = 0;
+            float velX = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
+
+            if (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+                x = (float)Math.Round((double)(velX + (ryo.GetTossInfo().velocity.X * 1f)));
+            }
+
+            Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
+
+            z = 0;
+            float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
+
+            if (ryo.GetDirZ() < 0 && ryo.GetPosZ() > 300) {
+                velZ = 0;
+            }
+
+            if (ryo.GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) { 
+                z = (float)Math.Round((double)(velZ + (ryo.GetTossInfo().velocity.Z * 1f)));;
+            }
+            
+            GameManager.Camera.LookAt(gameTime, x, y, z);
         }
 
         public void Render(GameTime gameTime) {
@@ -339,6 +343,7 @@ namespace FusionEngine
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             GameManager.GetInstance().Render(gameTime);
+            
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame1), new Vector2(200, 200), Color.White, 0, 1);
             //spriteRender.Draw(ryoSheet.Sprite(TexturePackerMonoGameDefinitions.Ryo.Attack4_Frame2), new Vector2(200, 400), Color.White, 0, 1);
             GraphicsDevice.BlendState = BlendState.NonPremultiplied;
@@ -384,7 +389,7 @@ namespace FusionEngine
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "VIEWPORT " + ((ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ()), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "VIEWPORT " + (GameManager.Camera.Position.Y), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + ((float)((float)GameManager.Camera.ViewPort.Width / (float)GameManager.RESOLUTION_X)), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "RYO POSX " +  ryo.scrollMax.X, new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

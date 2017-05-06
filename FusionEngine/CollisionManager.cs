@@ -306,9 +306,7 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
-                                                || (entity.IsEntity(Entity.ObjectType.OBSTACLE) 
-                                                        && target.IsEntity(Entity.ObjectType.OBSTACLE)))
+                if (entity != target && target.GetCollisionInfo().IsCollidable()
                         && !target.IsInAnimationAction(Animation.Action.KNOCKED)
                         && !target.IsDying()) {
 
@@ -420,7 +418,8 @@ namespace FusionEngine
                     Entity target = entities[i];
 
                     if (entity != target && entityBoxes != null 
-                            && entityBoxes.Count > 0 && !target.IsDying()) {
+                            && entityBoxes.Count > 0 && !target.IsDying()
+                            && !(target is Wall)) {
 
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
@@ -678,7 +677,6 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
                 entity.GetCollisionInfo().SetItem(null);
-                entity.UpdateToss(gameTime);
 
                 CheckGrabItem(entity);
                 CheckGrab(entity);

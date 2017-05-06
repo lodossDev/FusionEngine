@@ -217,10 +217,10 @@ namespace FusionEngine
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 //leo.SetColor(255, 0, 0);
                 //leo.Flash(2);
-                bred.SetAnimationState(Animation.State.BLOCK1);
+                //bred.SetAnimationState(Animation.State.BLOCK1);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X)) {
@@ -298,7 +298,7 @@ namespace FusionEngine
             UpdateCamera(gameTime);
 
             oldKeyboardState = currentKeyboardState;
-
+            GameManager.GetInstance().UpdatePosition(gameTime);
             base.Update(gameTime);
         }
 
@@ -329,9 +329,6 @@ namespace FusionEngine
         public void Render(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
-
-            
-
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
@@ -388,6 +385,7 @@ namespace FusionEngine
             Vector2 pos = GameManager.Camera.WorldToScreen(ryo.GetConvertedPosition());
             float viewPort = (GameManager.Camera.ViewPort.Width);
 
+            bar.Render();
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             spriteBatch.DrawString(font1, "VIEWPORT " + (GameManager.Camera.Position.Y), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "RYO POS1 " + ((float)((float)GameManager.Camera.ViewPort.Width / (float)GameManager.RESOLUTION_X)), new Vector2(20, 50), Color.White);

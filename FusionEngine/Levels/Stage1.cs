@@ -42,6 +42,9 @@ namespace FusionEngine
             Meat meat = new Meat();
             AddCollectable(meat);
 
+            Wall wall1 = new Wall("TEST", 200, 400, 10750, -80, 0, 0, 100);
+            AddWall(wall1);
+
             SetBoundries(0, 13000, -30, 400);
         }
     }

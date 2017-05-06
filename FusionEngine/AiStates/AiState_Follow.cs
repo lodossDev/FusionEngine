@@ -135,7 +135,7 @@ namespace FusionEngine
                             if (agg > 75 && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                                     && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
                             {
-                                /*int atk = rnd.Next(1, 6);
+                                int atk = rnd.Next(1, 6);
                                 if (atk == 1)
                                     entity.SetAnimationState(Animation.State.ATTACK1);
                                 else if (atk == 2)
@@ -143,18 +143,16 @@ namespace FusionEngine
                                 else if (atk == 3)
                                    entity.SetAnimationState(Animation.State.ATTACK3);
                                 else if (atk > 3)
-                                    entity.SetAnimationState(Animation.State.BLOCK1);*/
-
-                                entity.SetAnimationState(Animation.State.BLOCK1);
+                                    entity.SetAnimationState(Animation.State.ATTACK4);
                             }
                             else
                             {
-                                if (!entity.IsInAnimationAction(Animation.Action.BLOCKING))entity.SetAnimationState(Animation.State.STANCE);
+                                //if (!entity.IsInAnimationAction(Animation.Action.BLOCKING))entity.SetAnimationState(Animation.State.STANCE);
                             }
                         }
                         else
                         {
-                            //entity.SetAnimationState(Animation.State.STANCE);
+                            entity.SetAnimationState(Animation.State.STANCE);
                         }
 
                         velocity.X = 0f;

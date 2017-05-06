@@ -14,7 +14,9 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER}
+        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
+            WALL
+        }
 
         [Flags]
         public enum DeathType {DEFAULT = 1, FLASH = 2, IMMEDIATE_DIE = 4}
@@ -36,8 +38,6 @@ namespace FusionEngine {
 
         private CLNS.BoundingBox bodyBox;
         private CLNS.BoundingBox depthBox;
-        private CLNS.BoundingBox rayTop;
-        private CLNS.BoundingBox rayBottom;
         private CLNS.BoundsBox boundsBox;
         
         private AfterImage afterImage;
@@ -295,26 +295,9 @@ namespace FusionEngine {
             }
 
             boundsBox = new CLNS.BoundsBox(w, h, x, y, depth);
-            rayTop = new CLNS.BoundingBox(CLNS.BoxType.RAY_BOX, boundsBox.GetRect().Width, 100, x, y - 100);
 
             AddBodyBox(w, h, x, y);
             AddDepthBox(depth);
-        }
-
-        public void SetBoundsTopRay(int w, int h, int x, int y) {
-            if (rayTop != null) {
-                rayTop = null;
-            }
-
-            rayTop = new CLNS.BoundingBox(CLNS.BoxType.RAY_BOX, w, h, x, y);
-        }
-
-        public void SetBoundsBottomRay(int w, int h, int x, int y) {
-            if (rayBottom != null) {
-                rayBottom = null;
-            }
-
-            rayBottom = new CLNS.BoundingBox(CLNS.BoxType.RAY_BOX, w, h, x, y);
         }
 
         public void AddDepthBox(int h, int x = 0, int y = 0) {
@@ -328,8 +311,6 @@ namespace FusionEngine {
                 
                 depthBox = new CLNS.BoundingBox(CLNS.BoxType.DEPTH_BOX, boundsBox.GetRect().Width, h, x1, y1);
                 depthBox.SetZdepth(h);
-
-                rayBottom = new CLNS.BoundingBox(CLNS.BoxType.RAY_BOX, boundsBox.GetRect().Width, 100, x1, y1 + 40);
             }
         }
 
@@ -1139,6 +1120,10 @@ namespace FusionEngine {
             return (this.type == type);
         }
 
+        public void SetObjectType(ObjectType type) {
+            this.type = type;
+        }
+
         public Vector2 GetConvertedPosition() {
             convertedPosition.X = position.X;
             convertedPosition.Y = position.Y + position.Z;
@@ -1320,14 +1305,6 @@ namespace FusionEngine {
 
         public CLNS.BoundingBox GetDepthBox() {
             return depthBox;
-        }
-
-        public CLNS.BoundingBox GetRayTop() {
-            return rayTop;
-        }
-
-        public CLNS.BoundingBox GetRayBottom() {
-            return rayBottom;
         }
 
         public List<CLNS.BoundingBox> GetCurrentBoxes() {
@@ -2240,94 +2217,68 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
-            UpdatePauseHit(gameTime);
-            UpdateAliveTime(gameTime);
-            UpdatePainTime(gameTime);
-            UpdateRiseTime(gameTime);
+            UpdatePosition(gameTime);
+        }
 
-            //if (!InHitPauseTime()) { 
-                Vector2 drawScale = scale;
-
-                afterImage.Draw();
-                afterImage.Update(gameTime);
+        public void UpdateBoxes(GameTime gameTime) {
+            //Update bounding boxes.
+            foreach (CLNS.BoundingBox box in GetAllFrameBoxes()) {
+                box.Update(gameTime, this);
+            }
             
-                if (IsEntity(ObjectType.LIFE_BAR)) {
-                    drawScale = nScale;
-                }
+            if (boundsBox != null) {
+                boundsBox.Update(gameTime, this);
+            }
 
-                foreach (Sprite sprite in spriteMap.Values) {
-                    sprite.Update(gameTime, position, drawScale);
-                }
+            if (bodyBox != null) {
+                bodyBox.Update(gameTime, this);
+            }
 
-                UpdateFade(gameTime);
+            if (depthBox != null) {
+                depthBox.Update(gameTime, this);
+            }
+        }
 
-                //Update animation.
-                UpdateAnimation(gameTime);
-            
-                UpdateFrameActions(gameTime);
+        public void UpdatePosition(GameTime gameTime) {
+            Vector2 drawScale = scale;
 
-                UpdateDefaultAttackChain(gameTime);
+            if (IsEntity(ObjectType.LIFE_BAR)) {
+                drawScale = nScale;
+            }
 
-                UpdateRumble(gameTime);
+            foreach (Sprite sprite in spriteMap.Values) {
+                sprite.Update(gameTime, position, drawScale);
+            }
 
-                //Update physics.
-                //UpdateToss(gameTime);
+            //Update movement.
+            velocity.X += acceleration.X * direction.X;
+            velocity.Y += acceleration.Y * direction.Y;
+            velocity.Z += acceleration.Z * direction.Z;
 
-                //Update bounding boxes.
-                foreach (CLNS.BoundingBox box in GetAllFrameBoxes()) {
-                    box.Update(gameTime, this);
-                }
-            
-                if (boundsBox != null) {
-                    boundsBox.Update(gameTime, this);
-                }
+            velocity.X = MathHelper.Clamp(velocity.X, -maxVelocity.X, maxVelocity.X);
+            velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
 
-                if (bodyBox != null) {
-                    bodyBox.Update(gameTime, this);
-                }
+            if ((double)velocity.X != 0.0) { 
+                absoluteVel.X = (velocity.X / GameManager.GAME_VELOCITY);
+            }
 
-                if (depthBox != null) {
-                    depthBox.Update(gameTime, this);
-                }
+            if ((double)velocity.Y != 0.0) { 
+                absoluteVel.Y = (velocity.Y / GameManager.GAME_VELOCITY);
+            }
 
-                if (rayBottom != null) {
-                    rayBottom.Update(gameTime, this);
-                }
+            if ((double)velocity.Z != 0.0) { 
+                absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
+            }
 
-                if (rayTop != null) {
-                    rayTop.Update(gameTime, this);
-                }
+            if (IsInMoveFrame()) { 
+                position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
-                //Update movement.
-                velocity.X += acceleration.X * direction.X;
-                velocity.Y += acceleration.Y * direction.Y;
-                velocity.Z += acceleration.Z * direction.Z;
+            position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                velocity.X = MathHelper.Clamp(velocity.X, -maxVelocity.X, maxVelocity.X);
-                velocity.Z = MathHelper.Clamp(velocity.Z, -maxVelocity.Z, maxVelocity.Z);
-
-                if ((double)velocity.X != 0.0) { 
-                    absoluteVel.X = (velocity.X / GameManager.GAME_VELOCITY);
-                }
-
-                if ((double)velocity.Y != 0.0) { 
-                    absoluteVel.Y = (velocity.Y / GameManager.GAME_VELOCITY);
-                }
-
-                if ((double)velocity.Z != 0.0) { 
-                    absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
-                }
-
-                if (IsInMoveFrame()) { 
-                    position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-
-                position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                if (IsInMoveFrame()) { 
-                    position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-            //}
+            if (IsInMoveFrame()) { 
+                position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
             BoundEntityToScreen();
         }

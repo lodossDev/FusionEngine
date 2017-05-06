@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -79,6 +80,7 @@ namespace FusionEngine {
                 spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
+                spark.SetBlendState(BlendState.Additive);
 
                 if (sparkInfo.IsLeft()) { 
                     if (entity.GetDirX() > 0) {
@@ -88,7 +90,7 @@ namespace FusionEngine {
                     }
                 }
 
-                GameManager.GetInstance().AddSpark(spark);
+                GameManager.GetInstance().Render(spark);
             }
         }
 
@@ -109,6 +111,7 @@ namespace FusionEngine {
                 spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
                 spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
                 spark.SetFade(sparkInfo.GetAlpha());
+                spark.SetBlendState(BlendState.Additive);
 
                 if (sparkInfo.IsLeft()) { 
                     if (entity.GetDirX() > 0) {
@@ -118,7 +121,7 @@ namespace FusionEngine {
                     }
                 }
 
-                GameManager.GetInstance().AddSpark(spark);
+                GameManager.GetInstance().Render(spark);
             }
         }
 
@@ -126,9 +129,9 @@ namespace FusionEngine {
             float x1 = ((target.GetPosX() + entity.GetPosX()) / 2);
 
             if (entity.IsLeft()) {
-                x1 -= attackBox.GetOffset().X;
+                x1 -= attackBox.GetOffset().X + attackBox.GetSparkOffset().X;
             } else {
-                x1 += attackBox.GetOffset().X;
+                x1 += attackBox.GetOffset().X + attackBox.GetSparkOffset().X;
             }
 
             return x1;
@@ -140,7 +143,7 @@ namespace FusionEngine {
         }
 
         private static float HitBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
-            return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY());
+            return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY()) + attackBox.GetSparkOffset().Y;
         }
 
         private static float HitBodyY(Entity target, Entity entity, CLNS.BoundingBox box) {

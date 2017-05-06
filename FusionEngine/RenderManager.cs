@@ -124,78 +124,28 @@ namespace FusionEngine {
                         entity.GetDepthBox().DrawRectangle(CLNS.DrawType.LINES);
                     }
                 }
+            }
+        }
 
-                if (entity.GetRayBottom() != null) {
-                    //entity.GetBoundsBottomRay().DrawRectangle(CLNS.DrawType.LINES);
-                }
+        public void Update(GameTime gameTime) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
 
-                if (entity.GetRayTop() != null) {
-                    //entity.GetBoundsTopRay().DrawRectangle(CLNS.DrawType.LINES);
+                if (!GameManager.IsPause()) {
+                    entity.Update(gameTime);
                 }
             }
         }
 
-        private void RenderLevelBackLayers(GameTime gameTime) {
-            /*foreach (Level level in levels) {
-                List<Entity> layers1 = level.GetLayers(1);
-                List<Entity> layers2 = level.GetLayers(2);
-
-                if (layers1 != null && layers1.Count > 0) { 
-                    foreach (Entity entity in layers1) {
-                        if (entity.Alive()) {
-                            entity.Update(gameTime);
-                            Sprite currentSprite = entity.GetCurrentSprite();
-                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
-                        }
-                    }
-                }
-
-                if (layers2 != null && layers2.Count > 0) { 
-                    foreach (Entity entity in layers2) {
-                        if (entity.Alive()) {
-                            entity.Update(gameTime);
-                            Sprite currentSprite = entity.GetCurrentSprite();
-                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
-                        }
-                    }
-                }
-            }*/
-        }
-
-        private void RenderLevelFrontLayers(GameTime gameTime) {
-            /*foreach (Level level in levels) {
-                List<Entity> layers3 = level.GetLayers(3);
-
-                if (layers3 != null && layers3.Count > 0) { 
-                    foreach (Entity entity in layers3) {
-                        if (entity.Alive()) {
-                            entity.Update(gameTime);
-                            Sprite currentSprite = entity.GetCurrentSprite();
-                            GameManager.GetSpriteBatch().Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, Color.White * 1f, 0f, entity.GetOrigin(), entity.GetScale(), entity.GetEffects(), 0f);
-                        }
-                    }
-                }
-            }*/
-        }
-
         public void Draw(GameTime gameTime) {
             entities.Sort();
-            RenderLevelBackLayers(gameTime);
 
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
 
                 if (entity != null && entity.Alive()) {
-                    if (!GameManager.IsPause()) {
-                        entity.Update(gameTime);
-                    }
-
-                    if (entity.IsEntity(Entity.ObjectType.HIT_FLASH) /*|| entity.IsEntity(Entity.ObjectType.AFTER_IMAGE)*/) {
-                        GameManager.GraphicsDevice.BlendState = BlendState.Additive;
-                    } else {
-                        GameManager.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
-                    }
-
+                    GameManager.GraphicsDevice.BlendState = entity.GetBlendState();
+                        
                     Sprite currentSprite = entity.GetCurrentSprite();
                     if (currentSprite == null) continue;
 
@@ -211,7 +161,7 @@ namespace FusionEngine {
                             x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X +  + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
                         }
 
-                        float z2 = entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y + currentSprite.GetShadowOffsetY()) * entity.GetScale().Y;
+                        float z2 = (-entity.GetPosition().Y * 0.3f) + entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y + currentSprite.GetShadowOffsetY()) * entity.GetScale().Y;
 
                         shadowPosition.X = x2;
                         shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
@@ -231,10 +181,9 @@ namespace FusionEngine {
 
                     } else {
                         //After image sprite
-                        Color desaturatedGreen = Color.Lerp(Color.White, Color.Blue, 0.75f);
-                        GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, desaturatedGreen * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        Color desaturatedGreen = Color.Lerp(Color.White, Color.Green, 0.75f);
+                        GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor() * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
                     }
-                    
                     
                     RenderBoxes(entity);
 
@@ -253,7 +202,6 @@ namespace FusionEngine {
             }
 
             GameManager.GraphicsDevice.BlendState = BlendState.NonPremultiplied;
-            RenderLevelFrontLayers(gameTime);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FusionEngine {
     public class Life : Collectable {
 
          public Life(String name) : base(name) {
-             points = 1;
+             SetPoints(1);
          }
     }
 }

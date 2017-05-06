@@ -9,7 +9,7 @@ namespace FusionEngine {
     public class Money : Collectable {
 
          public Money(String name) : base(name) {
-             points = 500;
+             SetPoints(500);
          }
     }
 }

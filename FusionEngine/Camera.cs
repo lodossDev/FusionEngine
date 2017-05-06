@@ -13,7 +13,9 @@ namespace FusionEngine {
         public Camera(Viewport viewport) {
             _viewport = viewport;
             _origin = new Vector2(0, 0);
-            _lastPosition = _l2 = Vector2.Zero;
+            _lastPosition = Vector2.Zero;
+            _parallax = Vector2.Zero;
+            _moveSpeed = 1.35f;
         }
 
         /// <summary>
@@ -39,6 +41,16 @@ namespace FusionEngine {
             }
         }
 
+        public float MoveSpeed {
+            get {
+                return _moveSpeed;
+            }
+
+            set {
+                _moveSpeed = value;
+            }
+        } 
+
         /// <summary>
         /// Gets or sets the zoom of the camera.
         /// </summary>
@@ -50,6 +62,11 @@ namespace FusionEngine {
             set {
                 _zoom = MathHelper.Max(value, MinZoom);
             }
+        }
+
+        public Vector2 ScreenCenter {
+            get { return _screenCenter;}
+            protected set { _screenCenter = value; }
         }
 
         public Viewport ViewPort {
@@ -70,10 +87,10 @@ namespace FusionEngine {
             _lastPosition.X += velX;
             _lastPosition.Y += velY + velZ;
 
-            Vector2 pos1 = Vector2.Lerp(_position, _lastPosition, 1.35f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            Vector2 pos = Vector2.Lerp(_position, _lastPosition, _moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
             
-            _position.X = pos1.X;
-            _position.Y = pos1.Y;
+            _position.X = pos.X;
+            _position.Y = pos.Y;
 
             if (_lastPosition.X < GameManager.GetInstance().CurrentLevel.X_MIN)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_lastPosition.X > GameManager.GetInstance().CurrentLevel.X_MAX)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MAX;
@@ -103,7 +120,8 @@ namespace FusionEngine {
 
         private Vector2 _position;
         private Vector2 _lastPosition;
-        private Vector2 _l2;
-        private Vector2 _parallax = Vector2.Zero;
+        private Vector2 _parallax;
+        private float _moveSpeed;
+        private Vector2 _screenCenter;
     }
 }

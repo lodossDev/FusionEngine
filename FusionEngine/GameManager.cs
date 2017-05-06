@@ -20,6 +20,7 @@ namespace FusionEngine {
         private Dictionary<Effect.State, Effect> blockSparks;
         private Dictionary<Effect.State, Effect> hitSparks;
         private Dictionary<string, Level> levels;
+        private List<Entity> entities;
         private List<Player> players;
         private Level currentLevel;
        
@@ -47,9 +48,12 @@ namespace FusionEngine {
             collisionManager = new CollisionManager();
             updateManager = new UpdateManager();
             renderManager = new RenderManager();
+
             defaultSoundEffects = new Dictionary<string, SoundEffect>();
             hitSparks = new Dictionary<Effect.State, Effect>();
             blockSparks = new Dictionary<Effect.State, Effect>();
+
+            entities = new List<Entity>();
             levels = new Dictionary<string, Level>();
             players = new List<Player>();
             
@@ -81,12 +85,14 @@ namespace FusionEngine {
 
                     playerIndex++;
                 }
+
+                entities.Add(entity);
             }
         }
 
         public void AddEntity(List<Entity> entities) {
             if (entities != null && entities.Count > 0) { 
-                foreach(Entity entity in entities) { 
+                foreach (Entity entity in entities) { 
                     AddEntity(entity);
                 }
             }
@@ -106,6 +112,7 @@ namespace FusionEngine {
                 RemoveEntity(level.Bosses.Cast<Entity>().ToList());
                 RemoveEntity(level.Obstacles.Cast<Entity>().ToList());
                 RemoveEntity(level.Collectables.Cast<Entity>().ToList());
+                RemoveEntity(level.Walls.Cast<Entity>().ToList());
 
                 levels.Remove(level.GetName());
                 existing = null;
@@ -113,6 +120,7 @@ namespace FusionEngine {
 
             levels.Add(level.GetName(), level);
             AddLayers(level.Layers);
+            AddWalls(level.Walls);
             AddEntity(level.Enemies.Cast<Entity>().ToList());
             AddEntity(level.Bosses.Cast<Entity>().ToList());
             AddEntity(level.Obstacles.Cast<Entity>().ToList());
@@ -123,16 +131,22 @@ namespace FusionEngine {
 
         public void AddLayers(List<Entity> layers) {
             foreach (Entity layer in layers) {
-                renderManager.AddEntity(layer);
+                Render(layer);
             }
         }
 
-        public void AddSpark(Entity entity) {
-            updateManager.AddEntity(entity);
-            renderManager.AddEntity(entity);
+        public void AddWalls(List<Wall> walls) {
+            foreach (Entity wall in walls) {
+                entities.Add(wall);
+                collisionManager.AddEntity(wall);
+                updateManager.AddEntity(wall);
+                renderManager.AddEntity(wall);
+            }
         }
 
-        public void AddTrail(Entity entity) {
+        public void Render(Entity entity) {
+            entities.Add(entity);
+            updateManager.AddEntity(entity);
             renderManager.AddEntity(entity);
         }
 
@@ -141,10 +155,11 @@ namespace FusionEngine {
             collisionManager.RemoveEntity(entity);
             updateManager.RemoveEntity(entity);
             renderManager.RemoveEntity(entity);
+            entities.Remove(entity);
         }
 
         public void RemoveEntity(List<Entity> entities) {
-            foreach(Entity entity in entities) {
+            foreach (Entity entity in entities) {
                 RemoveEntity(entity);
             }
         }
@@ -174,10 +189,10 @@ namespace FusionEngine {
         }
 
         public Entity GetEntity(Entity entity) {
-            int i = RenderManager.Entities.IndexOf(entity);
+            int i = entities.IndexOf(entity);
 
             if (i != -1) { 
-                return RenderManager.Entities[i];
+                return entities[i];
             }
 
             return null;
@@ -196,10 +211,15 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
+            updateManager.BeforeUpdate(gameTime);
             collisionManager.BeforeUpdate(gameTime);
             inputManager.Update(gameTime);
             collisionManager.AfterUpdate(gameTime);
-            updateManager.Update(gameTime);
+            updateManager.AfterUpdate(gameTime);
+        }
+
+        public void UpdatePosition(GameTime gameTime) {
+            renderManager.Update(gameTime);
         }
 
         public void Render(GameTime gameTime) {

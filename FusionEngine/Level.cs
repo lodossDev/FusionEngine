@@ -13,6 +13,7 @@ namespace FusionEngine {
         private List<Boss> bosses;
         private List<Obstacle> obstacles;
         private List<Collectable> collectables;
+        private List<Wall> walls;
 
 
         public Level(String name) {
@@ -21,6 +22,7 @@ namespace FusionEngine {
             bosses = new List<Boss>();
             obstacles = new List<Obstacle>();
             collectables = new List<Collectable>();
+            walls = new List<Wall>();
 
             this.name = name;
             xmin = xmax = zmin = zmax = 0;
@@ -61,6 +63,10 @@ namespace FusionEngine {
             collectables.Add(collectable);
         }
 
+        public void AddWall(Wall wall) {
+            walls.Add(wall);
+        }
+
         public String GetName() {
             return name;
         }
@@ -83,6 +89,10 @@ namespace FusionEngine {
 
         public List<Collectable> Collectables {
             get { return collectables; }
+        }
+
+        public List<Wall> Walls {
+            get { return walls; }
         }
 
         public int X_MIN {

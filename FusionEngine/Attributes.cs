@@ -86,11 +86,13 @@ namespace FusionEngine {
             private Entity obstacle;
             private Entity item;
             private bool onTop;
+            private bool isCollidable;
 
 
             public CollisionInfo() {
                 Reset();
                 onTop = false;
+                isCollidable = false;
             }
 
             public void Reset() {
@@ -201,6 +203,14 @@ namespace FusionEngine {
 
             public Entity GetItem() {
                 return item;
+            }
+
+            public void SetIsCollidable(bool status) {
+                isCollidable = status;
+            }
+
+            public bool IsCollidable() {
+                return isCollidable;
             }
         }
 

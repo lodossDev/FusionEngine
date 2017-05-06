@@ -13,23 +13,44 @@ namespace FusionEngine {
 
         }
 
-        private void CheckActions(GameTime gameTime) {
+        public void BeforeUpdate(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
-                SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());
 
-                EntityActions.OnAttacking(entity, soundAction);
-                EntityActions.OnRun(entity);
-                EntityActions.OnDeath(entity);
+                entity.UpdateToss(gameTime);
+                entity.UpdatePauseHit(gameTime);
+                entity.UpdateAliveTime(gameTime);
+                entity.UpdatePainTime(gameTime);
+                entity.UpdateRiseTime(gameTime);
+
+                entity.GetAfterImageData().Update(gameTime);
+                entity.UpdateFade(gameTime);
+
+                //Update animation.
+                entity.UpdateAnimation(gameTime);           
+                entity.UpdateFrameActions(gameTime);
+                entity.UpdateDefaultAttackChain(gameTime);
+                entity.UpdateRumble(gameTime);
+                entity.UpdateBoxes(gameTime);
+            }
+        }
+
+        public void AfterUpdate(GameTime gameTime) {
+            for (int i = 0; i < entities.Count; i++) {
+                Entity entity = entities[i];
+
+                if (entity is Character || entity is Obstacle) { 
+                    SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());
+
+                    EntityActions.OnAttacking(entity, soundAction);
+                    EntityActions.OnRun(entity);
+                    EntityActions.OnDeath(entity);
+                }
 
                 if (entity.IsExpired()) {
                     GameManager.GetInstance().RemoveEntity(entity);
                 }
             }
-        }
-
-        public void Update(GameTime gameTime) {
-            CheckActions(gameTime);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace FusionEngine {
             SetOnLoadScale(3.3f, 3.2f);
 
             SetPostion(600, 0, 400);
+            SetShadowOffset(0, -11);
 
             SetPoints(40);
         }

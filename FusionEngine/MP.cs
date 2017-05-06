@@ -9,7 +9,7 @@ namespace FusionEngine {
     public class MP : Collectable {
 
          public MP(String name) : base(name) {
-             points = 35;
+             SetPoints(35);
          }
     }
 }

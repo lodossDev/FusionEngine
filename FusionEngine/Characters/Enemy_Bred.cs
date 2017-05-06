@@ -101,7 +101,7 @@ namespace FusionEngine {
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
 
-            SetBoundToLevel(true);
+            //SetBoundToLevel(true);
         }
     }
 }

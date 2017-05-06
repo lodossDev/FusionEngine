@@ -23,7 +23,7 @@ namespace FusionEngine {
         private Entity entity;
 
 
-        public AfterImage(Entity entity, int length = 20, int timeGap = 1, int frameGap = 4, float time = 1) {
+        public AfterImage(Entity entity, int length = 60, int timeGap = 2, int frameGap = 4, float time = 5) {
             this.entity = entity;
             imageData = new LinkedList<Entity>();
             countDown = new Dictionary<int, float>();
@@ -63,13 +63,15 @@ namespace FusionEngine {
         public void Update(GameTime gameTime) {
             if (active == false) return;
 
+            Draw();
+
             ++timeGapCount;
 
             if (timeGapCount >= timeGap) {
                 isFirstCreated = true;
                 timeGapCount = 0;
 
-                if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
+                if ((entity is Player || entity.IsEntity(Entity.ObjectType.PLAYER))) {
                     Entity afterImage = SpriteClone.CreateAfterImage(entity);
                     //afterImage.SetColor(255, 255, 255);
                     //afterImage.SetFade(100);
@@ -102,7 +104,7 @@ namespace FusionEngine {
                 --index;
 
                 if (FrameGapCheck(index) == false) continue;
-                GameManager.GetInstance().AddTrail(entity);
+                GameManager.GetInstance().Render(entity);
             }
         }
 

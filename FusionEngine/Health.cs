@@ -9,7 +9,7 @@ namespace FusionEngine {
     public class Health : Collectable {
 
          public Health(String name) : base(name) {
-             points = 50;
+             SetPoints(50);
          }
     }
 }

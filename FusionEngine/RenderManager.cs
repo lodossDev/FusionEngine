@@ -190,11 +190,11 @@ namespace FusionEngine {
 
                         RenderBoxes(entity);
 
-                        /*baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
-                        baseSpriteOrigin.Y = 0;
-
-                        GameManager.SpriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
-                        */
+                        if (entity.GetBoundsBox() != null) { 
+                            baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
+                            baseSpriteOrigin.Y = 0;
+                            GameManager.SpriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
+                        }
 
                         if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
                             //entity.gg.Draw("077128 000\nh878 78787\n343525 23432", entity.GetConvertedPosition());

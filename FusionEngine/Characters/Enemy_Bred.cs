@@ -92,7 +92,7 @@ namespace FusionEngine {
             SetOnLoadScale(3.2f, 3.3f);
             AddBoundsBox(160, 300, -60, 240, 50);
 
-            SetBaseOffset(-150, -100);
+            //SetBaseOffset(-150, -100);
             SetShadowOffset(0, -85);
             SetScale(3.2f, 3.2f);
 

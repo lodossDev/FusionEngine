@@ -217,10 +217,11 @@ namespace FusionEngine
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 //leo.SetColor(255, 0, 0);
                 //leo.Flash(2);
                 //bred.SetAnimationState(Animation.State.BLOCK1);
+                ryo.SetScale(4.4f, 4.8f);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X)) {
@@ -387,8 +388,8 @@ namespace FusionEngine
 
             bar.Render();
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "VIEWPORT " + (GameManager.Camera.Position.Y), new Vector2(20, 0), Color.White);
-            //spriteBatch.DrawString(font1, "RYO POS1 " + ((float)((float)GameManager.Camera.ViewPort.Width / (float)GameManager.RESOLUTION_X)), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "VIEWPORT " + (ryo.GetPosZ()), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "RYO POS1 " + (GameManager.GetInstance().CurrentLevel.Z_MIN), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "RYO POSX " +  ryo.scrollMax.X, new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/

@@ -31,6 +31,7 @@ namespace FusionEngine {
             SetPosZ(z); 
 
             SetIsCollidable(true);
+            SetIsPlatform(true);
         }
     }
 }

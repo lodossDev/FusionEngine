@@ -53,8 +53,7 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
-                                            || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+                if (entity != target && (target.IsCollidable() || target.IsPlatform())) {
 
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -107,8 +106,7 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && (target.IsEntity(Entity.ObjectType.OBSTACLE) 
-                                            || entity.IsEntity(Entity.ObjectType.OBSTACLE))) {
+                if (entity != target && (target.IsCollidable() || target.IsPlatform())) {
 
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -181,7 +179,7 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && target.IsEntity(Entity.ObjectType.OBSTACLE)) {
+                if (entity != target && target.IsPlatform()) {
 
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -197,7 +195,6 @@ namespace FusionEngine
 
                     if (entityBox.Intersects(targetBox) 
                             && eDepthBox.Intersects(tDepthBox)
-                            && target.IsPlatform() 
                             && !target.IsDying()) {
 
                         bool isWithInBoundsX1 = entity.IsWithinBoundsX1(target, vx);
@@ -247,7 +244,8 @@ namespace FusionEngine
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
-                if (entity != target && target.IsEntity(Entity.ObjectType.OBSTACLE)
+                if (entity != target && (target is Obstacle || target is Wall)
+                        && (target.IsCollidable() || target.IsPlatform())
                         && !target.IsInAnimationAction(Animation.Action.KNOCKED)
                         && !target.IsDying()) {
 

@@ -1249,21 +1249,11 @@ namespace FusionEngine {
         }
 
         public Vector2 GetBasePosition() {
-            Sprite stance = GetSprite(Animation.State.STANCE);
+            float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX()) + 1;
+            float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY()) + 1;
 
-            float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX());
-            float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY());
-
-            baseCenter.X = (baseOffset.X + (baseOffset.X * diffX)) + (stance.GetCurrentTexture().Width + (stance.GetCurrentTexture().Width * diffX));
-            baseCenter.Y = (baseOffset.Y + (baseOffset.Y * diffY)) + (stance.GetCurrentTexture().Height + (stance.GetCurrentTexture().Height * diffY));
-
-            if (IsLeft()) {
-                basePosition.X = GetConvertedPosition().X - baseCenter.X;
-            } else {
-                basePosition.X = GetConvertedPosition().X + baseCenter.X;
-            }
-
-            basePosition.Y = GetConvertedPosition().Y + stance.GetSpriteOffSet().Y + stance.GetCurrentFrameOffSet().Y + baseCenter.Y;
+            basePosition.X = GetConvertedPosition().X + (baseOffset.X * diffX);
+            basePosition.Y = GetConvertedPosition().Y + boundsBox.GetHeight() + (baseOffset.Y + boundsBox.GetOffset().Y * diffY);
             return basePosition;
         }
 
@@ -2313,6 +2303,9 @@ namespace FusionEngine {
             if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
                     && boundsBox != null && depthBox != null
                     && GameManager.GetInstance().CurrentLevel != null) {
+
+                float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX()) + 1;
+                float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY()) + 1;
                 
                 scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * (double)((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
 

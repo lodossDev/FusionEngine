@@ -156,7 +156,7 @@ namespace FusionEngine
                 offset.Y = baseOffset.Y + (baseOffset.Y * diffY);
 
                 if (entity.IsLeft()) {
-                    rect.X = (int)(entity.GetPosX() - (rect.Width + offset.X - 5));
+                    rect.X = (int)(entity.GetPosX() - (rect.Width + offset.X));
                 } else {
                     rect.X = (int)(entity.GetPosX() + offset.X);
                 }

@@ -11,7 +11,10 @@ namespace FusionEngine {
         public Obstacle(String name) : base(ObjectType.OBSTACLE, name) {
             SetDeathMode(DeathType.DEFAULT | DeathType.FLASH);
             SetDieTime(55);
-            GetCollisionInfo().SetIsCollidable(true);
+
+            SetIsCollidable(true);
+            SetIsHittable(true);
+            SetDrawShadow(true);
         }
     }
 }

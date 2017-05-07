@@ -25,11 +25,12 @@ namespace FusionEngine {
             
             AddSprite(Animation.State.STANCE, new Sprite(pixel, Animation.Type.NONE), true);
             AddBoundsBox(width, height, -(width / 2) + x1, y1, depth);
+
             SetFade(120);
             SetPosX(x);
             SetPosZ(z); 
 
-            GetCollisionInfo().SetIsCollidable(true);
+            SetIsCollidable(true);
         }
     }
 }

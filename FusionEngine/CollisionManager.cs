@@ -490,7 +490,7 @@ namespace FusionEngine
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
 
-                    if (entity != target) {
+                    if (entity != target && target.IsHittable()) {
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
                         //Add global body box if exists.
@@ -590,7 +590,8 @@ namespace FusionEngine
                 Entity target = entities[i];
 
                 if (entity != target && entity.IsEntity(Entity.ObjectType.PLAYER) 
-                        && target.IsEntity(Entity.ObjectType.ENEMY)) {
+                        && target.IsEntity(Entity.ObjectType.ENEMY)
+                        && target.IsGrabbable()) {
 
                     CLNS.BoundsBox targetBox = target.GetBoundsBox();
                     CLNS.BoundingBox tDepthBox = target.GetDepthBox();
@@ -606,6 +607,8 @@ namespace FusionEngine
 
                     if ((distX < entity.GetGrabInfo().dist + 120) && distZ <= (tDepthBox.GetHeight() + 10)
                             && !target.InvalidGrabbedState()
+                            && target.GetPosY() == entity.GetPosY()
+                            && target.GetGround() == entity.GetGround()
                             && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))
                             && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
                             && !entity.IsInAnimationAction(Animation.Action.INPAIN)

@@ -10,6 +10,7 @@ namespace FusionEngine {
         
         public Collectable(String name) : base(Entity.ObjectType.COLLECTABLE, name) {
             SetPoints(0);
+            SetDrawShadow(true);
         }
     }
 }

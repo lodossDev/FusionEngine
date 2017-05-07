@@ -120,6 +120,7 @@ namespace FusionEngine {
         private Vector2 scrollOffset;
         private bool boundToLevel;
         private bool isEdgeX, isEdgeZ;
+        private bool drawShadow;
 
 
         public Entity(ObjectType type, string name) {
@@ -200,6 +201,7 @@ namespace FusionEngine {
             lives = 3;
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
+            drawShadow = false;
 
             //gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
             
@@ -2181,6 +2183,30 @@ namespace FusionEngine {
             return deathMode;
         }
 
+        public bool IsHittable() {
+            return attackInfo.isHittable;
+        }
+
+        public void SetIsHittable(bool status) {
+            attackInfo.isHittable = status;
+        }
+
+        public bool IsCollidable() {
+            return collisionInfo.IsCollidable();
+        }
+
+        public void SetIsCollidable(bool status) {
+            collisionInfo.SetIsCollidable(status);
+        }
+
+        public bool IsDrawShadow() {
+            return drawShadow;
+        }
+
+        public void SetDrawShadow(bool status) {
+            drawShadow = status;
+        }
+
         public bool IsDeathMode(DeathType deathMode) {
             return this.deathMode.HasFlag(deathMode);
         }
@@ -2297,7 +2323,6 @@ namespace FusionEngine {
                 float sx2 =  scrollMin.X + 25;
 
                 Vector2 pos = GameManager.Camera.WorldToScreen(GetConvertedPosition());
-
                 Vector2 max = GameManager.Camera.ScreenToWorld(scrollMax);
                 Vector2 min = GameManager.Camera.ScreenToWorld(scrollMin);
 

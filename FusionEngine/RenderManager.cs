@@ -154,49 +154,51 @@ namespace FusionEngine {
                     frameScale.X = entity.GetScale().X + currentSprite.GetCurrentScaleFrame().X;
                     frameScale.Y = entity.GetScale().Y + currentSprite.GetCurrentScaleFrame().Y;
 
-                    if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE) == false) { 
-                        float x2 = entity.GetPosition().X + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
+                    if (entity.IsDrawShadow()) {
+                        float x2 = entity.GetPosX() + (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
 
                         if (entity.IsLeft()) {
-                            x2 = entity.GetPosition().X - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X +  + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
+                            x2 = entity.GetPosX() - (float)((currentSprite.GetSpriteOffSet().X + currentSprite.GetCurrentFrameOffSet().X + currentSprite.GetShadowOffsetX()) * entity.GetScale().X);
                         }
 
-                        float z2 = (-entity.GetPosition().Y * 0.3f) + entity.GetPosition().Z + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y + currentSprite.GetShadowOffsetY()) * entity.GetScale().Y;
+                        float z2 = (-entity.GetPosY() * 0.3f) + entity.GetPosZ() + (currentSprite.GetSpriteOffSet().Y + currentSprite.GetCurrentFrameOffSet().Y + currentSprite.GetShadowOffsetY()) * entity.GetScale().Y;
+
+                        shadowScale.X = frameScale.X;
+                        shadowScale.Y = (frameScale.Y * 2) / 8.2f;
 
                         shadowPosition.X = x2;
                         shadowPosition.Y = z2 + entity.GetCurrentSpriteHeight();
 
-                        shadowScale.X = frameScale.X;
-                        shadowScale.Y = (frameScale.Y * 2) / 8f;
-
                         //Shadow
                         GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), shadowPosition, null, Color.Black * 0.6f, 0, entity.GetOrigin(), shadowScale, currentSprite.GetEffects() | SpriteEffects.FlipVertically, 0f);
+                    } 
 
+                    if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE)) {
+                        //After image sprite
+                        Color desaturatedGreen = Color.Lerp(Color.White, Color.Green, 0.75f);
+                        GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor() * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+
+                    } else { 
                         if (stance != null && (renderStanceSprite == true || entity.GetName().Contains("BRED"))) {
                             //GameSystem.spriteBatch.Draw(stance.GetTextures()[0], stance.GetPosition(), null, Color.Gray * 0.8f, 0f, entity.GetStanceOrigin(), entity.GetScale(), stance.GetEffects(), 0f);
                         }
 
-                         //Real sprite
-                        GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        //Real sprite
+                        if (!(entity is Wall)) {
+                            GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor(), 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
+                        }
 
-                    } else {
-                        //After image sprite
-                        Color desaturatedGreen = Color.Lerp(Color.White, Color.Green, 0.75f);
-                        GameManager.SpriteBatch.Draw(currentSprite.GetCurrentTexture(), currentSprite.GetPosition(), null, entity.GetSpriteColor() * 0.5f, 0f, entity.GetOrigin(), frameScale, entity.GetEffects(), 0f);
-                    }
-                    
-                    RenderBoxes(entity);
+                        RenderBoxes(entity);
 
-                    if (entity.IsEntity(Entity.ObjectType.AFTER_IMAGE) == false) { 
                         /*baseSpriteOrigin.X = (entity.GetBaseSprite().GetCurrentTexture().Width / 2);
                         baseSpriteOrigin.Y = 0;
 
                         GameManager.SpriteBatch.Draw(entity.GetBaseSprite().GetCurrentTexture(), entity.GetBasePosition(), null, Color.White * 1f, 0f, baseSpriteOrigin, baseSpriteScale, SpriteEffects.None, 0f);
                         */
-                    }
 
-                    if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
-                        //entity.gg.Draw("077128 000\nh878 78787\n343525 23432", entity.GetConvertedPosition());
+                        if (entity.IsEntity(Entity.ObjectType.PLAYER)) {
+                            //entity.gg.Draw("077128 000\nh878 78787\n343525 23432", entity.GetConvertedPosition());
+                        }
                     }
                 }
             }

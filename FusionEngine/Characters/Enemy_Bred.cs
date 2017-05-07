@@ -26,13 +26,13 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.THROWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.THROWN1, 12);
-            SetSpriteOffSet(Animation.State.THROWN1, 0, 15);
-            SetFrameScale(Animation.State.THROWN1, -0.4f, 0);
+            SetSpriteOffSet(Animation.State.THROWN1, 0, 5);
+            SetFrameScale(Animation.State.THROWN1, -0.3f, 0);
 
             AddSprite(Animation.State.KNOCKED_DOWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.KNOCKED_DOWN1, 12);
-            SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, 15);
-            SetFrameScale(Animation.State.KNOCKED_DOWN1, -0.4f, 0);
+            SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, 5);
+            SetFrameScale(Animation.State.KNOCKED_DOWN1, -0.3f, 0);
 
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.PAIN1, 6);
@@ -97,6 +97,7 @@ namespace FusionEngine {
             SetScale(3.2f, 3.2f);
 
             SetGrabResistance(50);
+            SetGrabbable(true);
 
             SetPostion(400, 0, 100);
             SetOffsetZ(200);

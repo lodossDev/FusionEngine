@@ -17,6 +17,9 @@ namespace FusionEngine {
             aiStateMachine.Add("FOLLOW_PATH", new AiState_Follow(this));
             aiStateMachine.Add("FOLLOW_XPATH", new AiState_FollowXPath(this));
             aiStateMachine.Change("FOLLOW_PATH");
+
+            SetDrawShadow(true);
+            SetIsHittable(true);
         }
 
         public virtual Entity GetNearestEntity(List<Entity> entities) {

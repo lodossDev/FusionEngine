@@ -250,7 +250,7 @@ namespace FusionEngine {
                 throwHeight = -15;
                 maxGrabHits = 5;
                 grabHitCount = maxGrabHits;
-                grabbable = true;
+                grabbable = false;
                 maxGrabResistance = 0;
                 grabResistance = maxGrabResistance;
             }
@@ -282,6 +282,7 @@ namespace FusionEngine {
             public int juggleHitHeight;
             public bool hasHit;
             public bool isHit;
+            public bool isHittable;
             public int blockMode;
             public int knockedFromKnockedEntityHeight;
             public int knockedFromKnockedEntityState;
@@ -307,6 +308,8 @@ namespace FusionEngine {
 
                 currentKnockedState = KnockedState.NONE;
                 allowedKnockedState = KnockedState.KNOCKED_DOWN | KnockedState.THROWN;
+
+                isHittable = false;
             }
 
             public void Reset() {

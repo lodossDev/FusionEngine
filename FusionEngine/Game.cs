@@ -26,7 +26,7 @@ namespace FusionEngine
         Camera camera;
         float ticks = 0f;
         Stage1 level1;
-        LifeBar bar;
+        LifeBar bar,bar2;
         float barHealth = 100f;
         Enemy_Bred bred, bred2;
 
@@ -143,7 +143,8 @@ namespace FusionEngine
 
             level1 = new Stage1();
             bar = new LifeBar(0, 0);
-
+            bar2 = new LifeBar(600, 0, 3.8f, 3, true);
+           
             bred2.SetPostion(600, 0, 600);
            
             //renderManager.AddEntity(leo);
@@ -217,11 +218,12 @@ namespace FusionEngine
                 //ryo.SetAnimationState(Animation.State.PICKUP1);
                 //Setup.rotate += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //Setup.scaleY += 2.5f * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                barHealth -= (50.05f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                //bar.SetIsLeft(true);
                 //leo.SetColor(255, 0, 0);
                 //leo.Flash(2);
                 //bred.SetAnimationState(Animation.State.BLOCK1);
-                ryo.SetScale(4.4f, 4.8f);
+                //ryo.SetScale(4.4f, 4.8f);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X)) {
@@ -289,6 +291,7 @@ namespace FusionEngine
 
             // TODO: Add your update logic here
             bar.Update(gameTime);
+            bar2.Update(gameTime);
 
             //ccamera.Focus = new Vector2(ryo.GetPosX(), ryo.GetPosZ());
 
@@ -385,11 +388,12 @@ namespace FusionEngine
        
 
             bar.Render();
+            bar2.Render();
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             //spriteBatch.DrawString(font1, "RYO Z " + (pos1.Y), new Vector2(20, 0), Color.White);
-            spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
-            spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
+            //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
+            //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

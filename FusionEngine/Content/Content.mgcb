@@ -2024,42 +2024,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Actors/Leo/JumpAttack2/JumpAttack2_08.png
 
-#begin Sprites/LifeBars/RedEarth/Bar/bar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/LifeBars/RedEarth/Bar/bar.png
-
-#begin Sprites/LifeBars/RedEarth/Container/container.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/LifeBars/RedEarth/Container/container.png
-
-#begin Sprites/LifeBars/RedEarth/Placeholder/placeholder.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/LifeBars/RedEarth/Placeholder/placeholder.png
-
 #begin Sprites/Actors/Leo/Spark1/Spark00.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6917,4 +6881,40 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:test_1.png
+
+#begin Sprites/LifeBars/SFIII/BAR/bar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LifeBars/SFIII/BAR/bar.png
+
+#begin Sprites/LifeBars/SFIII/PLACEHOLDER/placeholder.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LifeBars/SFIII/PLACEHOLDER/placeholder.png
+
+#begin Sprites/LifeBars/SFIII/CONTAINER/container.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LifeBars/SFIII/CONTAINER/container.png
 

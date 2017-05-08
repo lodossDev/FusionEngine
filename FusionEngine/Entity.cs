@@ -63,7 +63,7 @@ namespace FusionEngine {
         private Vector2 scale;
         private Vector2 currentScale;
        
-        private Vector2 nScale;
+        private Vector2 tempScale;
         private Vector2 stanceOrigin;
 
         private float ground;
@@ -139,7 +139,10 @@ namespace FusionEngine {
             animationSounds = new Dictionary<Animation.State?, SoundEffect>();
             soundActionMap = new Dictionary<Animation.State?, SoundAction>();
 
-            scale = nScale = baseScale = currentScale = new Vector2(1f, 1f);
+            scale = new Vector2(1f, 1f);
+            tempScale = new Vector2(1f, 1f); 
+            baseScale = new Vector2(1f, 1f);
+            currentScale = new Vector2(1f, 1f);
             stanceOrigin = Vector2.Zero;
 
             currentAnimationState = Animation.State.NONE;
@@ -2278,7 +2281,7 @@ namespace FusionEngine {
             Vector2 drawScale = scale;
 
             if (IsEntity(ObjectType.LIFE_BAR)) {
-                drawScale = nScale;
+                drawScale = tempScale;
             }
 
             foreach (Sprite sprite in spriteMap.Values) {

@@ -2741,9 +2741,8 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\bar.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\container.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\placeholder.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Bar\bar.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Container\container.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\Placeholder\placeholder.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\BAR\bar.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\PLACEHOLDER\placeholder.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\base.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Apple\STANCE\apple.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Cake\STANCE\cake.xnb
@@ -2805,6 +2804,6 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.XInput.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\SharpDX.Direct3D9.xml
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\CONTAINER\container.xnb

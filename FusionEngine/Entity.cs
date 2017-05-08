@@ -1840,11 +1840,12 @@ namespace FusionEngine {
                       
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                        attackInfo.attacker = null;
-                        attackInfo.currentKnockedState = Attributes.KnockedState.NONE;
-
+                       
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             ResetJuggleHits();
+                            attackInfo.attacker = null;
+                            attackInfo.currentKnockedState = Attributes.KnockedState.NONE;
+                            attackInfo.currentAttackTime = 0;
                             attackInfo.isHit = false;
                             SetIsRise(true);
                         } else { 
@@ -1963,6 +1964,16 @@ namespace FusionEngine {
         public void UpdateAnimation(GameTime gameTime) {
             currentSprite.UpdateAnimation(gameTime);
             UpdateAnimationLinks(gameTime);
+        }
+
+        public void UpdateNextAttackTime(GameTime gameTime) {
+            if (attackInfo.currentAttackTime > 0) {
+                attackInfo.currentAttackTime --;
+            }
+
+            if (attackInfo.currentAttackTime < 0) {
+                attackInfo.currentAttackTime = 0;
+            }
         }
 
         public void UpdateDefaultAttackChain(GameTime gameTime) {
@@ -2126,6 +2137,7 @@ namespace FusionEngine {
                             painTime = 0;
                         } else {
                             SetAnimationState(Animation.State.STANCE);
+                            attackInfo.currentAttackTime = 0;
                             attackInfo.isHit = false;
                             painTime = -1;
                         }
@@ -2186,6 +2198,14 @@ namespace FusionEngine {
 
         public void SetIsCollidable(bool status) {
             collisionInfo.SetIsCollidable(status);
+        }
+
+        public bool CanHurtOthers() {
+            return attackInfo.canHurtOthers;
+        }
+
+        public void SetCanHurtOthers(bool status) {
+            attackInfo.canHurtOthers = status;
         }
 
         public bool IsDrawShadow() {
@@ -2527,6 +2547,12 @@ namespace FusionEngine {
 
         public int GetJuggleHitHeight() {
             return GetAttackInfo().juggleHitHeight;
+        }
+
+        public void SetAttackState(Animation.State attack) {
+            if ((double)attackInfo.currentAttackTime == 0.0) {
+                SetAnimationState(attack);
+            }
         }
 
         public bool IsEdgeX() {

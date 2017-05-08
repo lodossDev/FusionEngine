@@ -83,6 +83,10 @@ namespace FusionEngine {
             SetFrameDelay(Animation.State.JUMP_ATTACK1, 5);
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
+            AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(150, 170, 50, 145));
+            AddBox(Animation.State.ATTACK2, 2, new CLNS.AttackBox(150, 170, 50, 145));
+            AddBox(Animation.State.ATTACK3, 2, new CLNS.AttackBox(150, 170, 50, 145));
+
             SetAnimationState(Animation.State.STANCE);
 
             SetLowPainGrabbedState(Animation.State.PAIN2);
@@ -101,6 +105,8 @@ namespace FusionEngine {
 
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
+
+            SetCanHurtOthers(true);
 
             //SetBoundToLevel(true);
         }

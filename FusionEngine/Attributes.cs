@@ -288,6 +288,9 @@ namespace FusionEngine {
             public int knockedFromKnockedEntityState;
             public KnockedState currentKnockedState;
             public KnockedState allowedKnockedState;
+            public bool canHurtOthers;
+            public int nextAttackTime;
+            public int currentAttackTime;
 
 
             public AttackInfo() {
@@ -310,6 +313,10 @@ namespace FusionEngine {
                 allowedKnockedState = KnockedState.KNOCKED_DOWN | KnockedState.THROWN;
 
                 isHittable = false;
+                canHurtOthers = false;
+
+                nextAttackTime = 100;
+                currentAttackTime = 0;
             }
 
             public void Reset() {

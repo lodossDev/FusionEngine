@@ -137,13 +137,13 @@ namespace FusionEngine
                             {
                                 int atk = rnd.Next(1, 6);
                                 if (atk == 1)
-                                    entity.SetAnimationState(Animation.State.ATTACK1);
+                                    entity.SetAttackState(Animation.State.ATTACK1);
                                 else if (atk == 2)
-                                    entity.SetAnimationState(Animation.State.ATTACK2);
+                                    entity.SetAttackState(Animation.State.ATTACK2);
                                 else if (atk == 3)
-                                   entity.SetAnimationState(Animation.State.ATTACK3);
+                                   entity.SetAttackState(Animation.State.ATTACK3);
                                 else if (atk > 3)
-                                    entity.SetAnimationState(Animation.State.ATTACK4);
+                                   entity.SetAttackState(Animation.State.ATTACK2);
                             }
                             else
                             {

@@ -167,6 +167,7 @@ namespace FusionEngine {
             if (entity != target) {
                 entity.OnAttackHit(target, attackBox);
 
+                entity.GetAttackInfo().currentAttackTime = entity.GetAttackInfo().nextAttackTime;
                 entity.GetAttackInfo().hasHit = true;
                 EntityActions.IncrementAttackChain(entity, attackBox);
 

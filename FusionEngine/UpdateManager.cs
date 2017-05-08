@@ -30,6 +30,7 @@ namespace FusionEngine {
                 entity.UpdateAnimation(gameTime);           
                 entity.UpdateFrameActions(gameTime);
                 entity.UpdateDefaultAttackChain(gameTime);
+                entity.UpdateNextAttackTime(gameTime);
                 entity.UpdateRumble(gameTime);
                 entity.UpdateBoxes(gameTime);
             }

@@ -388,7 +388,7 @@ namespace FusionEngine
 
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
             //spriteBatch.DrawString(font1, "RYO Z " + (pos1.Y), new Vector2(20, 0), Color.White);
-            spriteBatch.DrawString(font1, "LEVEL MIN Z " + (GameManager.GetInstance().CurrentLevel.Z_MIN), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/

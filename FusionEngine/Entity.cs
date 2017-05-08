@@ -61,7 +61,8 @@ namespace FusionEngine {
 
         private Vector2 origin;
         private Vector2 scale;
-        private Vector2 baseScale;
+        private Vector2 currentScale;
+       
         private Vector2 nScale;
         private Vector2 stanceOrigin;
 
@@ -69,7 +70,7 @@ namespace FusionEngine {
         private float groundBase;
 
         private Sprite baseSprite;
-        private Vector2 baseCenter;
+        private Vector2 baseScale;
         private Vector2 baseOffset;
         private Vector2 basePosition;
 
@@ -138,7 +139,7 @@ namespace FusionEngine {
             animationSounds = new Dictionary<Animation.State?, SoundEffect>();
             soundActionMap = new Dictionary<Animation.State?, SoundAction>();
 
-            scale = nScale = baseScale = new Vector2(1f, 1f);
+            scale = nScale = baseScale = currentScale = new Vector2(1f, 1f);
             stanceOrigin = Vector2.Zero;
 
             currentAnimationState = Animation.State.NONE;
@@ -159,8 +160,7 @@ namespace FusionEngine {
             ground = groundBase = 0;
 
             baseSprite = new Sprite("Sprites/Misc/Marker");
-            baseCenter = new Vector2(0f, 0f);
-            baseOffset = new Vector2(0f, 0f);
+            baseOffset = Vector2.Zero;
             basePosition = Vector2.Zero;
 
             collisionInfo = new Attributes.CollisionInfo();
@@ -1249,11 +1249,10 @@ namespace FusionEngine {
         }
 
         public Vector2 GetBasePosition() {
-            float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX()) + 1;
-            float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY()) + 1;
-
-            basePosition.X = GetConvertedPosition().X + (baseOffset.X * diffX);
-            basePosition.Y = GetConvertedPosition().Y + boundsBox.GetHeight() + (baseOffset.Y + boundsBox.GetOffset().Y * diffY);
+            Vector2 diffScale = GetCurrentScale();
+          
+            basePosition.X = GetConvertedPosition().X + (baseOffset.X * diffScale.X);
+            basePosition.Y = GetConvertedPosition().Y + boundsBox.GetHeight() + (baseOffset.Y + boundsBox.GetOffset().Y * diffScale.Y);
             return basePosition;
         }
 
@@ -2299,16 +2298,20 @@ namespace FusionEngine {
             BoundEntityToScreen();
         }
 
+        public Vector2 GetCurrentScale() {
+            currentScale.X = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX()) + 1;
+            currentScale.Y = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY()) + 1;
+            return currentScale;
+        }
+
         public virtual void BoundEntityToScreen() {
             if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
                     && boundsBox != null && depthBox != null
                     && GameManager.GetInstance().CurrentLevel != null) {
 
-                float diffX = ((GetScaleX() - GetBaseScaleX()) / GetBaseScaleX()) + 1;
-                float diffY = ((GetScaleY() - GetBaseScaleY()) / GetBaseScaleY()) + 1;
+                Vector2 diffScale = GetCurrentScale();
                 
                 scrollOffset.X = (float)((boundsBox.GetWidth() / 2) * (double)((double)GameManager.Camera.ViewPort.Width / (double)GameManager.RESOLUTION_X));
-
                 scrollMax.X = GameManager.Camera.ViewPort.Width - scrollOffset.X;
                 scrollMin.X = GameManager.GetInstance().CurrentLevel.X_MIN + scrollOffset.X;
 

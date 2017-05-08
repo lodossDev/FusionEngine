@@ -382,15 +382,14 @@ namespace FusionEngine
                         null,
                         GameManager.Resolution.ViewMatrix);
 
-            //Vector2 pos = Vector2.Transform(ryo.GetConvertedPosition(), GameManager.Camera.ViewMatrix);
-            Vector2 pos = GameManager.Camera.WorldToScreen(ryo.GetConvertedPosition());
-            float viewPort = (GameManager.Camera.ViewPort.Width);
+       
 
             bar.Render();
+
             //gg.Draw("077128 000\nh878 78787\n343525 23432");
-            spriteBatch.DrawString(font1, "VIEWPORT " + (ryo.GetPosZ()), new Vector2(20, 0), Color.White);
-            spriteBatch.DrawString(font1, "RYO POS1 " + (GameManager.GetInstance().CurrentLevel.Z_MIN), new Vector2(20, 50), Color.White);
-            //spriteBatch.DrawString(font1, "RYO POSX " +  ryo.scrollMax.X, new Vector2(20, 90), Color.White);
+            //spriteBatch.DrawString(font1, "RYO Z " + (pos1.Y), new Vector2(20, 0), Color.White);
+            spriteBatch.DrawString(font1, "LEVEL MIN Z " + (GameManager.GetInstance().CurrentLevel.Z_MIN), new Vector2(20, 50), Color.White);
+            spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);
             /*spriteBatch.DrawString(font1, "BRED2  " + (bred2.GetDepthBox().GetRect().Bottom), new Vector2(20, 180), Color.White);*/
             //spriteBatch.DrawString(testFOnt, "BRED2 GRABBED: " + (ryo.GetCurrentAnimationAction()), new Vector2(20, 100), Color.Red);

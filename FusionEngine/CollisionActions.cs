@@ -10,53 +10,78 @@ namespace FusionEngine {
 
     public static class CollisionActions {
 
-        public static Effect GetSpark(Entity entity, CLNS.AttackBox.AttackType state, Effect.Type effectType) {
+        private static Effect GetEffectState(Entity entity, Effect.Type effectType, Effect.State effectState) {
             Effect spark = null;
 
-            switch(state) {
-                case CLNS.AttackBox.AttackType.LIGHT: 
-                    if (effectType == Effect.Type.HIT_SPARK) { 
-                        spark = entity.GetHitSpark(Effect.State.LIGHT);
+            if (effectType == Effect.Type.HIT_SPARK) { 
+                spark = entity.GetHitSpark(effectState);
 
-                    } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                        spark = entity.GetBlockSpark(Effect.State.LIGHT);
-                    }
-                break;
+            } else if (effectType == Effect.Type.BLOCK_SPARK) {
+                spark = entity.GetBlockSpark(effectState);
 
-                case CLNS.AttackBox.AttackType.MEDIUM: 
-                    if (effectType == Effect.Type.HIT_SPARK) { 
-                        spark = entity.GetHitSpark(Effect.State.MEDIUM);
-
-                    } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                        spark = entity.GetBlockSpark(Effect.State.MEDIUM);
-                    }
-                break;
-
-                case CLNS.AttackBox.AttackType.HEAVY: 
-                    if (effectType == Effect.Type.HIT_SPARK) { 
-                        spark = entity.GetHitSpark(Effect.State.HEAVY);
-
-                    } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                        spark = entity.GetBlockSpark(Effect.State.HEAVY);
-                    }
-                break;
-
-                default:
-                    if (effectType == Effect.Type.HIT_SPARK) { 
-                        spark = entity.GetHitSpark(Effect.State.LIGHT);
-
-                    } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                        spark = entity.GetBlockSpark(Effect.State.LIGHT);
-                    }
-                break;
-            }
+            } 
 
             if (spark == null) {
                 if (effectType == Effect.Type.HIT_SPARK) { 
-                    spark = GameManager.GetInstance().GetHitSpark(Effect.State.LIGHT);
+                    spark = GameManager.GetInstance().GetHitSpark(effectState);
 
                 } else if (effectType == Effect.Type.BLOCK_SPARK) {
-                    spark = GameManager.GetInstance().GetBlockSpark(Effect.State.LIGHT);
+                    spark = GameManager.GetInstance().GetBlockSpark(effectState);
+                }
+            }
+
+            return spark;
+        }
+
+        public static Effect GetSpark(Entity entity, CLNS.AttackBox.AttackType state, Effect.Type effectType) {
+            Effect spark = null;
+            Effect.State effectState;
+
+            switch(state) {
+                case CLNS.AttackBox.AttackType.LIGHT: 
+                    effectState = Effect.State.LIGHT;
+                break;
+
+                case CLNS.AttackBox.AttackType.MEDIUM: 
+                    effectState = Effect.State.MEDIUM;
+                break;
+
+                case CLNS.AttackBox.AttackType.HEAVY: 
+                    effectState = Effect.State.HEAVY;
+                break;
+
+                default:
+                    effectState = Effect.State.LIGHT;
+                break;
+            }
+
+            spark = GetEffectState(entity, effectType, effectState);
+
+            if (spark == null) {
+               spark = GetEffectState(entity, effectType, Effect.State.LIGHT);
+            }
+
+            return spark;
+        }
+
+        private static Entity CreateSpark(Effect sparkInfo, Entity entity, Entity target, float x1, float y1) {
+            Entity spark = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
+            spark.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
+            spark.SetAnimationState(Animation.State.STANCE);
+            spark.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
+            spark.SetOffset(Animation.State.STANCE, sparkInfo.GetOffset().X, sparkInfo.GetOffset().Y);
+            spark.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
+
+            spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
+            spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
+            spark.SetFade(sparkInfo.GetAlpha());
+            spark.SetBlendState(BlendState.Additive);
+
+            if (sparkInfo.IsLeft()) { 
+                if (entity.GetDirX() > 0) {
+                    spark.SetIsLeft(true);
+                } else {
+                    spark.SetIsLeft(false);
                 }
             }
 
@@ -70,26 +95,7 @@ namespace FusionEngine {
                 float x1 = HitBodyX(target, entity, box);
                 float y1 = HitBodyY(target, entity, box);
 
-                Entity spark = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
-                spark.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
-                spark.SetAnimationState(Animation.State.STANCE);
-                spark.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
-                spark.SetOffset(Animation.State.STANCE, sparkInfo.GetOffset().X, sparkInfo.GetOffset().Y);
-                spark.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
-
-                spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
-                spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
-                spark.SetFade(sparkInfo.GetAlpha());
-                spark.SetBlendState(BlendState.Additive);
-
-                if (sparkInfo.IsLeft()) { 
-                    if (entity.GetDirX() > 0) {
-                        spark.SetIsLeft(true);
-                    } else {
-                        spark.SetIsLeft(false);
-                    }
-                }
-
+                Entity spark = CreateSpark(sparkInfo, entity, target, x1, y1);
                 GameManager.GetInstance().Render(spark);
             }
         }
@@ -101,26 +107,7 @@ namespace FusionEngine {
                 float x1 = HitBodyX(target, entity, attackBox);
                 float y1 = HitBodyY(target, entity, attackBox);
 
-                Entity spark = new Entity(Entity.ObjectType.HIT_FLASH, sparkInfo.GetName());
-                spark.AddSprite(Animation.State.STANCE, new Sprite(sparkInfo.GetAsset(), Animation.Type.ONCE));
-                spark.SetAnimationState(Animation.State.STANCE);
-                spark.SetFrameDelay(Animation.State.STANCE, sparkInfo.GetDelay());
-                spark.SetOffset(Animation.State.STANCE, sparkInfo.GetOffset().X, sparkInfo.GetOffset().Y);
-                spark.SetScale(sparkInfo.GetScale().X, sparkInfo.GetScale().Y);
-
-                spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
-                spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
-                spark.SetFade(sparkInfo.GetAlpha());
-                spark.SetBlendState(BlendState.Additive);
-
-                if (sparkInfo.IsLeft()) { 
-                    if (entity.GetDirX() > 0) {
-                        spark.SetIsLeft(true);
-                    } else {
-                        spark.SetIsLeft(false);
-                    }
-                }
-
+                Entity spark = CreateSpark(sparkInfo, entity, target, x1, y1);
                 GameManager.GetInstance().Render(spark);
             }
         }

@@ -199,11 +199,19 @@ namespace FusionEngine {
         }
 
         public Effect GetHitSpark(Effect.State state) {
-            return hitSparks[state];
+            if (hitSparks.ContainsKey(state)) {
+                return hitSparks[state];
+            }
+
+            return null;
         }
 
         public Effect GetBlockSpark(Effect.State state) {
-            return blockSparks[state];
+            if (blockSparks.ContainsKey(state)) {
+                return blockSparks[state];
+            }
+
+            return null;
         }
 
         public Level CurrentLevel {

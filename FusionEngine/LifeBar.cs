@@ -25,9 +25,9 @@ namespace FusionEngine {
         }
 
         public virtual void Load(int posx, int posy, int ox, int oy, float sx, float sy) {
-            AddSprite(SpriteType.PLACEHOLDER, "Sprites/LifeBars/SFIII/PLACEHOLDER", posx, posy, 0, 0, sx, sy);
-            AddSprite(SpriteType.CONTAINER, "Sprites/LifeBars/SFIII/CONTAINER", posx, posy, ox, oy, sx, sy);
-            AddSprite(SpriteType.BAR, "Sprites/LifeBars/SFIII/BAR", posx, posy, ox, oy, sx, sy);
+            AddSprite(SpriteType.PLACEHOLDER, "Sprites/LifeBars/SFIII/LIFEBAR/PLACEHOLDER", posx, posy, 0, 0, sx, sy);
+            AddSprite(SpriteType.CONTAINER, "Sprites/LifeBars/SFIII/LIFEBAR/CONTAINER", posx, posy, ox, oy, sx, sy);
+            AddSprite(SpriteType.BAR, "Sprites/LifeBars/SFIII/LIFEBAR/BAR", posx, posy, ox, oy, sx, sy);
         }
 
         public void AddSprite(SpriteType type, String location, int posx, int posy, int offx, int offy, float sx, float sy) {

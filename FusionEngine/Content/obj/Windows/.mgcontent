@@ -598,12 +598,13 @@
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame09.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/test_0.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/test_1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/BAR/bar.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/PLACEHOLDER/placeholder.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/CONTAINER/container.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_timer.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PORTRAIT/portrait.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER1/timer.png</File>
     <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER2/timer.png</File>
+    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/BAR/bar.png</File>
+    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/CONTAINER/container.png</File>
+    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/PLACEHOLDER/placeholder.png</File>
+    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.png</File>
   </SourceFiles>
 </SourceFileCollection>

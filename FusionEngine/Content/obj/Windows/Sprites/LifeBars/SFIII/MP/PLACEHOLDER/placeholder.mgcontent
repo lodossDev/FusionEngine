@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/CONTAINER/container.png</SourceFile>
-  <SourceTime>2017-05-09T10:21:46.3962756+01:00</SourceTime>
-  <DestFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/LifeBars/SFIII/CONTAINER/container.xnb</DestFile>
-  <DestTime>2017-05-09T11:31:26.7342773+01:00</DestTime>
+  <SourceFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.png</SourceFile>
+  <SourceTime>2017-05-09T17:41:25.885562+01:00</SourceTime>
+  <DestFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.xnb</DestFile>
+  <DestTime>2017-05-09T17:41:30.9770711+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

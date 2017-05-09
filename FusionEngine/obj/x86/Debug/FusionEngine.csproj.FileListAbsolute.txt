@@ -2745,9 +2745,6 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\bar.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\container.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\RedEarth\placeholder.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\BAR\bar.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\CONTAINER\container.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\PLACEHOLDER\placeholder.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\base.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Apple\STANCE\apple.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Misc\Cake\STANCE\cake.xnb
@@ -2813,3 +2810,7 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\Fus
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Ryo\PORTRAIT\portrait.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\TIMER1\timer.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\TIMER2\timer.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\LIFEBAR\BAR\bar.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\LIFEBAR\CONTAINER\container.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\LIFEBAR\PLACEHOLDER\placeholder.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\MP\PLACEHOLDER\placeholder.xnb

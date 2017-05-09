@@ -15,7 +15,9 @@ namespace FusionEngine {
     public class Entity : IComparable<Entity> {
         private static int id = 0;
         public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
-            WALL
+            WALL,
+            PORTRAIT,
+            SYSTEM
         }
 
         [Flags]

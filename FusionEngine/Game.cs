@@ -29,9 +29,11 @@ namespace FusionEngine
         LifeBar bar,bar2;
         float barHealth = 100f;
         Enemy_Bred bred, bred2;
+        GameSystem system;
 
         InputHelper.CommandMove command;
         static int padCount = 0;
+        int timer = 0;
 
         SpriteRender spriteRender;
         SpriteSheet ryoSheet;
@@ -111,7 +113,7 @@ namespace FusionEngine
 
             sand = Content.Load<Texture2D>("Sprites//sand");
 
-            lines    = new List<Line>();
+            lines = new List<Line>();
 
             //this vector is rotated around vector.zero, so we get an x value that waves up and down...
             // CHANGE this value to determine how far and fast the waves move
@@ -132,7 +134,9 @@ namespace FusionEngine
             font1 = Content.Load<SpriteFont>("Fonts/Texture");
             testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
-            gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
+            system = new GameSystem();
+
+            //gg = new MugenFont("Fonts/sfiii_timer.xFont", new Vector2(200, 200), 4, 0, 3.2f);
 
             bred = new Enemy_Bred();
             bred2 = new Enemy_Bred();
@@ -142,8 +146,11 @@ namespace FusionEngine
             //spriteRender = new SpriteRender(spriteBatch);
 
             level1 = new Stage1();
-            bar = new LifeBar(0, 0);
-            bar2 = new LifeBar(600, 0, 3.8f, 3, true);
+
+            //bar = new LifeBar(46, 0, 19, 18, 3.8f, 3f);
+            //bar.SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 69, 45, 0, 0, 3.8f, 3f);
+
+            //bar2 = new LifeBar(635, 0, 85, 18, 3.8f, 3f, SpriteEffects.FlipHorizontally);
            
             bred2.SetPostion(600, 0, 600);
            
@@ -246,7 +253,7 @@ namespace FusionEngine
                 //camera.Move(pos);
             }
 
-            bar.Percent((int)barHealth);
+            //bar.Percent((int)barHealth);
 
             if (!GameManager.IsPause())
             {
@@ -290,8 +297,9 @@ namespace FusionEngine
             }
 
             // TODO: Add your update logic here
-            bar.Update(gameTime);
-            bar2.Update(gameTime);
+            //bar.Update(gameTime);
+            //bar2.Update(gameTime);
+            system.Update(gameTime);
 
             //ccamera.Focus = new Vector2(ryo.GetPosX(), ryo.GetPosZ());
 
@@ -385,12 +393,12 @@ namespace FusionEngine
                         null,
                         GameManager.Resolution.ViewMatrix);
 
-       
+            //bar.Render();
+            //bar2.Render();
+            //timer += gameTime.TotalGameTime.Seconds;
+            //gg.Draw("" + timer);
+            system.Render(gameTime);
 
-            bar.Render();
-            bar2.Render();
-
-            //gg.Draw("077128 000\nh878 78787\n343525 23432");
             //spriteBatch.DrawString(font1, "RYO Z " + (pos1.Y), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);

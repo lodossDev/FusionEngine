@@ -16,6 +16,9 @@ namespace FusionEngine {
         private int time;
         private int currentTime;
         private MugenFont timeFont;
+        private MugenFont nameFont;
+        private MugenFont comboFont;
+        private MugenFont numberFont;
 
 
         public GameSystem() {
@@ -27,20 +30,26 @@ namespace FusionEngine {
         }
 
         private void Load() {
-            LifeBar bar = new LifeBar(46, 20, 19, 18, 3.8f, 3f);
-            bar.SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 69, 65, 0, 0, 3.8f, 3f);
+            LifeBar bar = new SFIII_Lifebar(44, 20, 19, 18, 3.8f, 3f);
+            bar.SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 66, 65, 0, 0, 3.8f, 3f);
             playerLifeBars.Add(bar);
 
-            bar = new LifeBar(639, 20, 85, 18, 3.8f, 3f, SpriteEffects.FlipHorizontally);
+            bar = new SFIII_MPbar(46, 640, 163, 45, 3.8f, 3.8f);
+            playerMPBars.Add(bar);
+
+            bar = new SFIII_Lifebar(641, 20, 89, 18, 3.8f, 3f, SpriteEffects.FlipHorizontally);
             playerLifeBars.Add(bar);
 
             Entity timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER");
-            timePlaceHolder.AddSprite(Animation.State.STANCE, "Sprites/LifeBars/SFIII/TIMER2", true);
+            timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER2", true);
             timePlaceHolder.SetScale(3.8f, 3f);
             timePlaceHolder.SetPostion(550, 20);
             timePlaceHolders.Add(timePlaceHolder);
 
             timeFont = new MugenFont("Fonts/sfiii_timer.xFont", new Vector2(619, 1), 4, 0, 2.8f);
+            nameFont = new MugenFont("Fonts/sfiii_name.xFont", new Vector2(619, 1), 4, 0, 2.8f);
+            comboFont = new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(619, 1), 4, 0, 2.8f);
+            numberFont = new MugenFont("Fonts/sfiii_number.xFont", new Vector2(619, 1), 4, 0, 2.8f);
 
             time = 0;
             currentTime = 0;
@@ -100,6 +109,11 @@ namespace FusionEngine {
                 }
 
                 timeFont.Draw("" + time);
+            }
+
+            if (nameFont != null) {
+                nameFont.Draw("RYO1", new Vector2(300, 56));
+                nameFont.Draw("RYO2", new Vector2(900, 56));
             }
         }
     }

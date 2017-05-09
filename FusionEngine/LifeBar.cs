@@ -8,9 +8,9 @@ using System.Text;
 
 namespace FusionEngine {
 
-    public class LifeBar {
+    public abstract class LifeBar {
         public enum SpriteType {PLACEHOLDER, CONTAINER, BAR}
-        private Dictionary<SpriteType, Entity> sprites;
+        protected Dictionary<SpriteType, Entity> sprites;
         private Vector2 scale;
         private SpriteEffects spriteEffect;
         private Entity portrait;
@@ -24,15 +24,12 @@ namespace FusionEngine {
             Load(posx, posy, ox, oy, sx, sy);
         }
 
-        public virtual void Load(int posx, int posy, int ox, int oy, float sx, float sy) {
-            AddSprite(SpriteType.PLACEHOLDER, "Sprites/LifeBars/SFIII/LIFEBAR/PLACEHOLDER", posx, posy, 0, 0, sx, sy);
-            AddSprite(SpriteType.CONTAINER, "Sprites/LifeBars/SFIII/LIFEBAR/CONTAINER", posx, posy, ox, oy, sx, sy);
-            AddSprite(SpriteType.BAR, "Sprites/LifeBars/SFIII/LIFEBAR/BAR", posx, posy, ox, oy, sx, sy);
-        }
+        public abstract void Load(int posx, int posy, int ox, int oy, float sx, float sy);
 
         public void AddSprite(SpriteType type, String location, int posx, int posy, int offx, int offy, float sx, float sy) {
             Entity entity = new Entity(Entity.ObjectType.LIFE_BAR, type.ToString());
             entity.AddSprite(Animation.State.NONE, location, true);
+            entity.GetSprite(Animation.State.NONE).SetAnimationType(Animation.Type.REPEAT);
             SetSprite(entity, posx, posy, offx, offy, sx, sy);
 
             sprites.Add(type, entity);
@@ -50,12 +47,14 @@ namespace FusionEngine {
             SetSprite(portrait, posx, posy, offx, offy, sx, sy);
         }
 
-        public void Update(GameTime gameTime) {
+        public virtual void Update(GameTime gameTime) {
             foreach (Entity bar in sprites.Values) {
+                bar.UpdateAnimation(gameTime);
                 bar.Update(gameTime);
             }
 
             if (portrait != null) {
+                portrait.UpdateAnimation(gameTime);
                 portrait.Update(gameTime);
             }
         }
@@ -70,19 +69,26 @@ namespace FusionEngine {
             bar.SetScaleX(sx);
         }
 
-        public void Render() {
-            Entity placeholder = sprites[SpriteType.PLACEHOLDER];
-            Entity container = sprites[SpriteType.CONTAINER];
-            Entity bar = sprites[SpriteType.BAR];
+        public virtual void Render() {
+            Entity placeholder = (sprites.ContainsKey(SpriteType.PLACEHOLDER) ? sprites[SpriteType.PLACEHOLDER] : null);
+            Entity container = (sprites.ContainsKey(SpriteType.CONTAINER) ? sprites[SpriteType.CONTAINER] : null);
+            Entity bar = (sprites.ContainsKey(SpriteType.BAR) ? sprites[SpriteType.BAR] : null);
 
-            GameManager.SpriteBatch.Draw(container.GetCurrentSprite().GetCurrentTexture(), container.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, container.GetScale(), spriteEffect, 0f);
-            GameManager.SpriteBatch.Draw(bar.GetCurrentSprite().GetCurrentTexture(), bar.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, bar.GetScale(), spriteEffect, 0f);
-            
+            if (container != null) { 
+                GameManager.SpriteBatch.Draw(container.GetCurrentSprite().GetCurrentTexture(), container.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, container.GetScale(), spriteEffect, 0f);
+            }
+
+            if (bar != null) { 
+                GameManager.SpriteBatch.Draw(bar.GetCurrentSprite().GetCurrentTexture(), bar.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, bar.GetScale(), spriteEffect, 0f);
+            }
+
             if (portrait != null) {
                 GameManager.SpriteBatch.Draw(portrait.GetCurrentSprite().GetCurrentTexture(), portrait.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, portrait.GetScale(), spriteEffect, 0f);
             }
 
-            GameManager.SpriteBatch.Draw(placeholder.GetCurrentSprite().GetCurrentTexture(), placeholder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, placeholder.GetScale(), spriteEffect, 0f);
+            if (placeholder != null) { 
+                GameManager.SpriteBatch.Draw(placeholder.GetCurrentSprite().GetCurrentTexture(), placeholder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, placeholder.GetScale(), spriteEffect, 0f);
+            }
         }
     }
 }

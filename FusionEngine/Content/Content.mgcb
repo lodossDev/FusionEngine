@@ -254,13 +254,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Actors/Leo/Stance/Stance19.png
 
-#begin Fonts/MyFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/MyFont.spritefont
-
 #begin Sprites/Actors/Leo/Walk/Walk00.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5223,136 +5216,6 @@
 #begin Sprites/Actors/Ryo/ryo.txt
 /copy:Sprites/Actors/Ryo/ryo.txt
 
-#begin Fonts/test.fnt
-/importer:BitmapFontImporter
-/processor:BitmapFontProcessor
-/build:Fonts/test.fnt
-
-#begin Fonts/test_0.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_0.png
-
-#begin Fonts/test_1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_1.png
-
-#begin Fonts/test_2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_2.png
-
-#begin Fonts/test_3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_3.png
-
-#begin Fonts/test_4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_4.png
-
-#begin Fonts/test_5.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/test_5.png
-
-#begin Fonts/Texture.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter= 
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:Fonts/Texture.png
-
-#begin Fonts/bmpTest.xFont
-/copy:Fonts/bmpTest.xFont
-
-#begin Fonts/bmpTest.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/bmpTest.png
-
-#begin Fonts/n1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/n1.png
-
-#begin Fonts/n1.xFont
-/copy:Fonts/n1.xFont
-
-#begin Fonts/combo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/combo.png
-
-#begin Fonts/combo.xFont
-/copy:Fonts/combo.xFont
-
 #begin Sprites/Misc/Phone/Die1/Phone 01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6883,9 +6746,6 @@
 /processorParam:TextureFormat=Color
 /build:test_1.png
 
-#begin Fonts/Metrics.xml
-/copy:Fonts/Metrics.xml
-
 #begin Fonts/sfiii_timer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6984,4 +6844,73 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.png
+
+#begin Sprites/LifeBars/SFIII/MP/BAR/bar1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LifeBars/SFIII/MP/BAR/bar1.png
+
+#begin Sprites/LifeBars/SFIII/MP/BAR/bar2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/LifeBars/SFIII/MP/BAR/bar2.png
+
+#begin Fonts/sfiii_combo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,255,0,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/sfiii_combo.png
+
+#begin Fonts/sfiii_combo.xFont
+/copy:Fonts/sfiii_combo.xFont
+
+#begin Fonts/sfiii_name.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,255,0,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/sfiii_name.png
+
+#begin Fonts/sfiii_name.xFont
+/copy:Fonts/sfiii_name.xFont
+
+#begin Fonts/sfiii_number.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,255,0,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/sfiii_number.png
+
+#begin Fonts/sfiii_number.xFont
+/copy:Fonts/sfiii_number.xFont
 

@@ -52,6 +52,7 @@ namespace FusionEngine
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
             graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
+            graphics.IsFullScreen = false;
 
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
@@ -131,8 +132,8 @@ namespace FusionEngine
                 lines[i].my_from = (new Rectangle(0,i,1920,1));
             }
             
-            font1 = Content.Load<SpriteFont>("Fonts/Texture");
-            testFOnt = Content.Load<BitmapFont>("Fonts/test");
+            //font1 = Content.Load<SpriteFont>("Fonts/Texture");
+            //testFOnt = Content.Load<BitmapFont>("Fonts/test");
 
             system = new GameSystem();
 

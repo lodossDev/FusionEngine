@@ -140,6 +140,14 @@ namespace FusionEngine {
             alpha = a;
         }
 
+        public void Flash(GameTime gameTime, float a) {
+            alpha -= a * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (alpha < 0.0) {
+                alpha = 1f;
+            }
+        }
+
         public void Draw(String text) {
             Draw(text, this.position);
         }
@@ -154,14 +162,14 @@ namespace FusionEngine {
                 if (c != ' ' && c != '\n') {
                     if (fontMap.ContainsKey(c)) {  
                         FontItem item = fontMap[c]; 
-                        GameManager.SpriteBatch.Draw(fontSprite, nextPos, item.rect, Color.White * alpha, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-                        nextPos.X += (item.width + characterSpacing) * scale;
+                        GameManager.SpriteBatch.Draw(fontSprite, nextPos, item.rect, Color.White * alpha, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+                        nextPos.X += (item.width + characterSpacing) * this.scale;
                     }
                 } else if (c == '\n') {
                     nextPos.X = this.position.X;
-                    nextPos.Y += (fontSprite.Height + lineHeight) * scale;
+                    nextPos.Y += (fontSprite.Height + lineHeight) * this.scale;
                 } else if (c == ' ') {
-                    nextPos.X += newSpacing * scale;
+                    nextPos.X += newSpacing * this.scale;
                 }
             }
         }

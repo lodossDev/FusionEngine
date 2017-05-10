@@ -328,7 +328,7 @@ namespace FusionEngine
             z = 0;
             float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
 
-            if (ryo.GetDirZ() < 0 && ryo.GetPosZ() > 300) {
+            if (ryo.GetDirZ() < 0 && ryo.GetPosZ() > 420) {
                 velZ = 0;
             }
 

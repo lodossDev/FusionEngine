@@ -15,15 +15,15 @@ namespace FusionEngine
             Entity layer1 = new Entity(Entity.ObjectType.LEVEL, "LAYER 1");
             layer1.AddSprite(Animation.State.NONE, new Sprite(GameManager.ContentManager.Load<Texture2D>("Sprites/Levels/Stage1/normal01")), true);
 
-            layer1.SetPostion(5850, 0, -200);
-            layer1.SetScale(4.5f, 3.8f);
+            layer1.SetPostion(5850, 0, -280);
+            layer1.SetScale(4.5f, 4.5f);
             AddLayer(layer1);
 
             Entity layer3 = new Entity(Entity.ObjectType.LEVEL, "LAYER 3");
             layer3.AddSprite(Animation.State.NONE, new Sprite(GameManager.ContentManager.Load<Texture2D>("Sprites/Levels/Stage1/front")), true);
 
-            layer3.SetPostion(5850, 0, -200);
-            layer3.SetScale(4.5f, 3.8f);
+            layer3.SetPostion(5850, 0, -280);
+            layer3.SetScale(4.5f, 4.5f);
             layer3.SetLayerPos(5000);
             AddLayer(layer3);
 
@@ -45,7 +45,7 @@ namespace FusionEngine
             Wall wall1 = new Wall("TEST", 200, 340, 10750, -5, 0, 50, 100);
             AddWall(wall1);
 
-            SetBoundries(0, 13000, -30, 400);
+            SetBoundries(0, 13000, 0, 500);
         }
     }
 }

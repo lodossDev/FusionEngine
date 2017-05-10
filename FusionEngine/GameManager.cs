@@ -38,7 +38,7 @@ namespace FusionEngine {
 
         public static readonly int DEATH_FLASH_TIME = 100000000;
         public static readonly int RESOLUTION_X = 1280;
-        public static readonly int RESOLUTION_Y = 720;
+        public static readonly int RESOLUTION_Y = 800;
         public static readonly float GAME_VELOCITY = 60;
         public static readonly SamplerState SAMPLER_STATE = SamplerState.PointClamp;
 

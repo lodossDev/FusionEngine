@@ -4,600 +4,600 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance16.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance17.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance18.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance19.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump16.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump16.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame000.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame010.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0100.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0110.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0120.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0130.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame020.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame030.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame040.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame050.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame060.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame070.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame080.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame090.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Marker/Marker.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/front.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/front2.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/normal01.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Stance/drum.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Pain1/drum.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Pain2/drum.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Die1/drum.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame16.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame17.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame18.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame19.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame20.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame21.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame22.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame23.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame24.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame25.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame26.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame27.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame28.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame29.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame30.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame31.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame32.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame33.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame34.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame35.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame36.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame37.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpStart/jump_start.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Land1/IMG00000.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Land1/IMG00001.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00000.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00001.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00002.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00003.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00004.bmp</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame13.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame14.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame15.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame10.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame11.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame12.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame6.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame7.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame8.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame9.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/RunStop1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/RunStop1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Stance/Phone 01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA4.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA5.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN2/HIT-M_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN2/HIT-M_02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUAT.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUATCAN.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUATTRN.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/STANCE/WALK01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/INGRAB1/HIT-M_01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame3.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat1.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat2.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat3.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/bg.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddbg1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddpanel1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/pal.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/panel.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Apple/STANCE/apple.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Cake/STANCE/cake.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold00.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold01.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold02.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold03.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hamburger/STANCE/hambur.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/base.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/1up.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/get.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat0.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat1.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat3.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat4.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat5.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat6.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat7.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/block.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die1.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die10.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die11.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die12.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die3.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die4.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die5.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die6.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die7.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die8.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/die9.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall02.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall3.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/fast.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass1.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass3.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/glasss.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/klunk.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch1.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch3.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/run.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/run2.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/wood.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/sand.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/jump.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sounds/land.wav</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/BLOCK1/01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block1/STANCE/guard1.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block2/STANCE/guard_special.gif</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame00.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame01.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame010.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame011.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame012.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame013.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame014.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame02.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame03.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame04.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame05.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame06.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame07.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame08.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame09.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/test_0.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/test_1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_timer.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PORTRAIT/portrait.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER1/timer.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER2/timer.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/BAR/bar.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/CONTAINER/container.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/PLACEHOLDER/placeholder.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/BAR/bar1.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/BAR/bar2.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_combo.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_name.png</File>
-    <File>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_number.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance16.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance17.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance18.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Stance/Stance19.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpStart/JumpStart02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Jump/Jump16.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpTowards/JumpTowards14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Land/Land06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Falling/Jump16.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack1/Attack1_10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack2/Attack2_09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack3/Attack3_10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack4/Attack4_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack5/Attack5_09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Attack6/Attack6_09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack1/JumpAttack1_7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpRecover1/JumpRecover1_3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/JumpAttack2/JumpAttack2_08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Spark1/Spark15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame000.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame010.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0100.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0110.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0120.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame0130.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame020.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame030.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame040.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame050.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame060.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame070.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame080.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Stance/Frame090.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Marker/Marker.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Towards/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Walk Backwards/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack1/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack2/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack3/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Taskmaster/Attack4/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/front.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/front2.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/normal01.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Stance/drum.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Pain1/drum.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Pain2/drum.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Drum/Die1/drum.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame16.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame17.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame18.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame19.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame20.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame21.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame22.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame23.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame24.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame25.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame26.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame27.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame28.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame29.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame30.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame31.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame32.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame33.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame34.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame35.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame36.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame37.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Stance/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/WalkTowards/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpStart/jump_start.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Jump/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Land1/IMG00000.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Land1/IMG00001.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00000.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00001.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00002.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00003.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack1/IMG00004.bmp</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack1/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack2/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack3/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fall1/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame13.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame14.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame15.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Special1/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack4/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Run/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Grab1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/GrabAttack1/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame10.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame11.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame12.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Throw1/Frame9.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/RunStop1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/RunStop1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Die1/Phone 02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Phone/Stance/Phone 01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK1/PUNCHA5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK2/KICKA04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/ATTACK3/KNEE03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN1/HIT-H_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN2/HIT-M_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/PAIN2/HIT-M_02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE1/GETUP07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUAT.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUATCAN.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/RISE2/SQUATTRN.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/STANCE/WALK01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/WALK_TOWARDS/WALK06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP_ATTACK1/JKICKA03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/INGRAB1/HIT-M_01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/FALL1/JUMP02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KNOCK_DOWN1/FALL02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/JUMP/JUMP05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PICKUP1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat1.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat2.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat3.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/bg.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddbg1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddpanel1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/pal.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/panel.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Apple/STANCE/apple.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Cake/STANCE/cake.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold00.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold01.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold02.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Gold/STANCE/gold03.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hamburger/STANCE/hambur.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/base.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/1up.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/get.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/KO1/07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat0.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat3.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat4.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat5.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat6.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/beat7.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/block.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die10.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die11.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die12.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die3.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die4.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die5.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die6.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die7.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die8.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/die9.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall02.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/fall3.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/fast.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/glass3.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/glasss.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/klunk.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/punch3.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/run.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/run2.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/wood.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/sand.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/jump.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sounds/land.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Bred/BLOCK1/01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block1/STANCE/guard1.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Block2/STANCE/guard_special.gif</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame010.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame011.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame012.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame013.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame014.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Hitsparks/Hit1/STANCE/Frame09.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/test_0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/test_1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_timer.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/PORTRAIT/portrait.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER1/timer.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/TIMER2/timer.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/BAR/bar.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/CONTAINER/container.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/LIFEBAR/PLACEHOLDER/placeholder.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/PLACEHOLDER/placeholder.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/BAR/bar1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/LifeBars/SFIII/MP/BAR/bar2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_combo.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_name.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Fonts/sfiii_number.png</File>
   </SourceFiles>
 </SourceFileCollection>

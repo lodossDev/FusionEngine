@@ -1513,23 +1513,11 @@ C:\Users\ahafeez\Desktop\FusionEngine\FusionEngine\FusionEngine\obj\x86\Debug\Fu
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\test_0.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\test_1.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bmpTest.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\combo.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\Metrics.xml
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\MyFont.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xFont
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\n1.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_timer.xFont
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_timer.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_0.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_1.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_2.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_3.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_4.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\test_5.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\Texture.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sounds\1up.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sounds\beat0.xnb
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sounds\beat1.xnb
@@ -2818,3 +2806,11 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_name.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_number.xFont
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_number.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_combo.xFont
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_name.xFont
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_number.xFont
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_combo.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_name.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\sfiii_number.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\MP\BAR\bar1.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\LifeBars\SFIII\MP\BAR\bar2.xnb

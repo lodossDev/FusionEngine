@@ -67,7 +67,7 @@
     <Compile Include="CollisionManager.cs" />
     <Compile Include="ComboAttack.cs" />
     <Compile Include="EntityActions.cs" />
-    <Compile Include="Fonts\MugenFont.cs" />
+    <Compile Include="MugenFont.cs" />
     <Compile Include="FrameAction.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="GameManager.cs" />
@@ -137,7 +137,9 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

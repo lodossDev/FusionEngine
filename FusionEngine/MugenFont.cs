@@ -22,6 +22,11 @@ namespace FusionEngine {
         private float alpha;
 
 
+        public MugenFont(String path, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) 
+                :this(path, Vector2.Zero, Vector2.Zero, lineHeight, characterSpacing, scale) {
+            
+        }
+
         public MugenFont(String path, Vector2 position, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) 
                 :this(path, position, Vector2.Zero, lineHeight, characterSpacing, scale) {
             
@@ -129,6 +134,10 @@ namespace FusionEngine {
 
         public void MoveY(float vel) {
             position.Y += vel;
+        }
+
+        public void SetAlpha(float a) {
+            alpha = a;
         }
 
         public void Draw(String text) {

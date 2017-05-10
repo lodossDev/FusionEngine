@@ -36,7 +36,7 @@ namespace FusionEngine {
             playerLifeBars.Add(bar);
 
             bar = new SFIII_Lifebar(635, 20, 93, 18, 4.08f, 3f, SpriteEffects.FlipHorizontally);
-            playerLifeBars.Add(bar);
+            //playerLifeBars.Add(bar);
 
             bar = new SFIII_MPbar(5, 725, 163, 45, 3.8f, 3.8f);
             playerMPBars.Add(bar);
@@ -45,7 +45,7 @@ namespace FusionEngine {
             playerMPBars.Add(bar);
 
             Entity timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER");
-            timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER2", true);
+            timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER1", true);
             timePlaceHolder.SetScale(3.8f, 3f);
             timePlaceHolder.SetPostion(550, 20);
             timePlaceHolders.Add(timePlaceHolder);

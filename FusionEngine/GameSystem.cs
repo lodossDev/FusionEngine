@@ -52,8 +52,10 @@ namespace FusionEngine {
 
             timeFont = new MugenFont("Fonts/sfiii_timer.xFont", 4, 0, 2.8f);
             nameFont = new MugenFont("Fonts/sfiii_name.xFont", 4, 0, 2.8f);
-            comboFont = new MugenFont("Fonts/sfiii_combo.xFont", 4, 0, 2.8f);
+            comboFont = new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(-200, 280), 4, 0, 2.8f);
             numberFont = new MugenFont("Fonts/sfiii_number.xFont", 4, 0, 2.8f);
+
+            comboFont.Translate(200, 0, 8, 0, 200);
 
             time = 0;
             currentTime = 0;
@@ -85,9 +87,9 @@ namespace FusionEngine {
 
         public void Render(GameTime gameTime) {
             if (comboFont != null) {
-                comboFont.Flash(gameTime, 1f);
-                comboFont.Draw("999 H", new Vector2(200, 80));
-                comboFont.Draw("999 H", new Vector2(780, 80));
+                //comboFont.Flash(gameTime, 1f);
+                
+                comboFont.Draw("999 H");
             }
 
             foreach (LifeBar bar in playerLifeBars) {
@@ -130,7 +132,9 @@ namespace FusionEngine {
                 numberFont.Draw("0000000", new Vector2(15, 0));
                 numberFont.Draw("0000000", new Vector2(1106, 0));
 
-                Debug.WriteLine("SCALE: " + numberFont.GetScale());
+                Debug.WriteLine("TIME: " + comboFont.transTime);
+                Debug.WriteLine("A1: " + comboFont.isTransForward);
+                Debug.WriteLine("A2: " + comboFont.isTransBack);
             }
         }
     }

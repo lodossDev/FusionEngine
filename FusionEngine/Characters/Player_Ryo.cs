@@ -218,6 +218,7 @@ namespace FusionEngine {
             SetOnLoadScale(3.3f, 3.2f);
             SetPostion(400, 0, 500);
             //SetBaseOffset(50f, 190f);
+            SetShadowOffset(0, -5);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 20);
         }

@@ -21,6 +21,13 @@ namespace FusionEngine {
         private float scale;
         private float alpha;
 
+        public bool isTransForward;
+        public bool isTransBack;
+        private Vector2 transVel;
+        private Vector2 transPos;
+        public int transTime;
+        private int maxTransTime;
+
 
         public MugenFont(String path, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) 
                 :this(path, Vector2.Zero, Vector2.Zero, lineHeight, characterSpacing, scale) {
@@ -33,6 +40,13 @@ namespace FusionEngine {
         }
 
         public MugenFont(String path, Vector2 position, Vector2 offset, int lineHeight = 0, int characterSpacing = 0, float scale = 1f) {
+            isTransForward = false;
+            isTransBack = false;
+            transTime = 0;
+            maxTransTime = 100;
+            transPos = Vector2.Zero;
+            transVel = Vector2.Zero;
+
             fontMap = new Dictionary<char, FontItem>();
             StreamReader file = new StreamReader(GameManager.ContentManager.RootDirectory + "/" + path);
             fontSprite = GameManager.ContentManager.Load<Texture2D>(path.Replace(".xFont", ""));
@@ -140,6 +154,18 @@ namespace FusionEngine {
             alpha = a;
         }
 
+        public void Translate(float x, float y, float vx, float vy, int time) {
+            isTransForward = true;
+            isTransBack = false;
+
+            transPos.X = x;
+            transPos.Y = y;
+            transVel.X = vx;
+            transVel.Y = vy;
+            maxTransTime = time;
+            transTime = 0;
+        }
+
         public void Flash(GameTime gameTime, float a) {
             alpha -= a * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -151,12 +177,34 @@ namespace FusionEngine {
         public void Draw(String text) {
             Draw(text, this.position);
         }
-
+        
         public void Draw(String text, Vector2 otherPosition) {
             position = otherPosition;
             position.X = position.X + offset.X;
             position.Y = position.Y + offset.Y;
             Vector2 nextPos = position;
+
+            if (isTransForward) {
+                transTime ++;
+
+                if (transTime > maxTransTime) {
+                    transTime = 0;
+                    isTransForward = false;
+                    isTransBack = true;
+                }
+
+                if (nextPos.X < transPos.X) {
+                    MoveX(transVel.X);
+                }
+            }
+
+            if (isTransBack) {
+                if (nextPos.X > -400) {
+                     MoveX(-transVel.X);
+                } else {
+                    isTransBack = false;
+                }
+            }
 
             foreach (char c in text) {
                 if (c != ' ' && c != '\n') {

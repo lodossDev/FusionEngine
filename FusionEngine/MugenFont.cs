@@ -21,11 +21,11 @@ namespace FusionEngine {
         private float scale;
         private float alpha;
 
-        public bool isTransForward;
-        public bool isTransBack;
+        private bool isTransForward;
+        private bool isTransBack;
         private Vector2 transVel;
         private Vector2 transPos;
-        public int transTime;
+        private int transTime;
         private int maxTransTime;
 
 
@@ -162,6 +162,7 @@ namespace FusionEngine {
             transPos.Y = y;
             transVel.X = vx;
             transVel.Y = vy;
+
             maxTransTime = time;
             transTime = 0;
         }

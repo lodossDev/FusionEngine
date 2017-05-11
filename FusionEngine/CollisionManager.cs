@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Audio;
+using CSScriptLibrary;
 
 namespace FusionEngine
 {
@@ -21,6 +22,8 @@ namespace FusionEngine
         private Vector2 itemPos;
         private Random rnd;
 
+        private Object script;
+        private AsmHelper helper;
 
         public CollisionManager() : base() {
             grabx1 = Vector2.Zero;
@@ -29,6 +32,10 @@ namespace FusionEngine
             grabz2 = Vector2.Zero;
             itemPos = Vector2.Zero;
             rnd = new Random();
+
+            helper = new AsmHelper(CSScript.LoadFiles(new string[] { "Scripts/Collision.xcs" }));
+
+            script = helper.CreateObject("CollisionScript");
         }
 
         public List<Entity> FindAbove(Entity entity) {
@@ -701,6 +708,8 @@ namespace FusionEngine
                 CheckBounds(entity);
                 CheckLand(entity);
                 CheckFall(entity);
+
+                helper.InvokeInst(script, "Test", entity);
             }
         }
 

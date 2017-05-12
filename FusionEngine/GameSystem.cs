@@ -18,7 +18,7 @@ namespace FusionEngine {
         private int currentTime;
         private MugenFont timeFont;
         private MugenFont nameFont;
-        private MugenFont comboFont;
+        private List<MugenFont> comboFonts;
         private MugenFont numberFont;
 
 
@@ -52,10 +52,11 @@ namespace FusionEngine {
 
             timeFont = new MugenFont("Fonts/sfiii_timer.xFont", 4, 0, 2.8f);
             nameFont = new MugenFont("Fonts/sfiii_name.xFont", 4, 0, 2.8f);
-            comboFont = new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(-200, 280), 4, 0, 2.8f);
             numberFont = new MugenFont("Fonts/sfiii_number.xFont", 4, 0, 2.8f);
 
-            comboFont.Translate(100, 0, 10, 0, 100);
+            comboFonts = new List<MugenFont>();
+            comboFonts.Add(new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(-200, 280), 4, 0, 2.8f));
+            comboFonts[0].Translate(100, 0, 10, 0, 100);
 
             time = 0;
             currentTime = 0;
@@ -85,8 +86,16 @@ namespace FusionEngine {
         }
 
         public void Render(GameTime gameTime) {
-            if (comboFont != null) {
-                comboFont.Draw("999 H");
+            /*if (comboFont != null) {
+                comboFont.Draw("999 H\n99 H");
+            }*/
+
+            int playerIndex = 0;
+
+            comboFonts[0].Draw("999 H\n99 H");
+
+            foreach (MugenFont font in comboFonts) {
+
             }
 
             foreach (LifeBar bar in playerLifeBars) {

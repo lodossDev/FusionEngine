@@ -34,7 +34,6 @@ namespace FusionEngine
             rnd = new Random();
 
             helper = new AsmHelper(CSScript.LoadFiles(new string[] { "Scripts/Collision.xcs" }));
-
             script = helper.CreateObject("CollisionScript");
         }
 

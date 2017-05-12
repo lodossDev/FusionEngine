@@ -39,16 +39,26 @@ namespace FusionEngine {
             //playerLifeBars.Add(bar);
 
             bar = new SFIII_MPbar(5, 725, 163, 45, 3.8f, 3.8f);
+            bar.Percent(0);
             playerMPBars.Add(bar);
 
             bar = new SFIII_MPbar(792, 725, 15, 45, 3.8f, 3.8f, SpriteEffects.FlipHorizontally);
+            bar.Percent(0);
             playerMPBars.Add(bar);
 
-            Entity timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER");
+            Entity timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER1");
             timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER1", true);
             timePlaceHolder.SetScale(3.8f, 3f);
             timePlaceHolder.SetPostion(550, 20);
             timePlaceHolders.Add(timePlaceHolder);
+
+            timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER2");
+            timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER2", true);
+            timePlaceHolder.SetScale(3.8f, 3f);
+            timePlaceHolder.SetPostion(550, 20);
+            timePlaceHolders.Add(timePlaceHolder);
+
+            currentTimePlaceHolder = timePlaceHolders[0];
 
             timeFont = new MugenFont("Fonts/sfiii_timer.xFont", 4, 0, 2.8f);
             nameFont = new MugenFont("Fonts/sfiii_name.xFont", 4, 0, 2.8f);
@@ -106,10 +116,8 @@ namespace FusionEngine {
                 bar.Render();
             }
 
-            if (timePlaceHolders.Count > 0) {
-                foreach (Entity entity in timePlaceHolders) {
-                    GameManager.SpriteBatch.Draw(entity.GetCurrentSprite().GetCurrentTexture(), entity.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, entity.GetScale(), SpriteEffects.None, 0f);
-                }
+            if (currentTimePlaceHolder != null) {
+                GameManager.SpriteBatch.Draw(currentTimePlaceHolder.GetCurrentSprite().GetCurrentTexture(), currentTimePlaceHolder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, currentTimePlaceHolder.GetScale(), SpriteEffects.None, 0f);
             }
 
             if (timeFont != null) {

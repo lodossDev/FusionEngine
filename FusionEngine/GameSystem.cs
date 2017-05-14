@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace FusionEngine {
 
     public class GameSystem {
-        private List<LifeBar> playerLifeBars;
-        private List<LifeBar> playerMPBars;
+        private List<SFIII_Lifebar> playerLifeBars;
+        private List<SFIII_MPbar> playerMPBars;
         private List<Entity> timePlaceHolders;
         private Entity currentTimePlaceHolder;
         private int time;
@@ -23,28 +23,33 @@ namespace FusionEngine {
 
 
         public GameSystem() {
-            playerLifeBars = new List<LifeBar>();
-            playerMPBars = new List<LifeBar>();
+            playerLifeBars = new List<SFIII_Lifebar>();
+            playerMPBars = new List<SFIII_MPbar>();
             timePlaceHolders = new List<Entity>();
 
             Load();
         }
 
         private void Load() {
-            LifeBar bar = new SFIII_Lifebar(5, 20, 21, 18, 4.08f, 3f);
+            SFIII_Lifebar bar = new SFIII_Lifebar(5, 20, 21, 18, 4.08f, 3f);
             bar.SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 29, 65, 0, 0, 4.08f, 3f);
             playerLifeBars.Add(bar);
 
             bar = new SFIII_Lifebar(635, 20, 93, 18, 4.08f, 3f, SpriteEffects.FlipHorizontally);
             //playerLifeBars.Add(bar);
 
-            bar = new SFIII_MPbar(5, 725, 163, 45, 3.8f, 3.8f);
-            bar.Percent(0);
-            playerMPBars.Add(bar);
+            SFIII_MPbar mpbar = new SFIII_MPbar(5, 725, 163, 45, 3.8f, 3.8f);
+            mpbar.SetPercent(0);
+            mpbar.SetMpLevelFont(15, 731, 3.8f);
+            mpbar.SetMpMaxLevelFont(11, 763, 1.5f);
+            mpbar.SetMaxLevel(5);
+            mpbar.SetCurrentLevel(5);
+            playerMPBars.Add(mpbar);
 
-            bar = new SFIII_MPbar(792, 725, 15, 45, 3.8f, 3.8f, SpriteEffects.FlipHorizontally);
-            bar.Percent(0);
-            playerMPBars.Add(bar);
+            mpbar = new SFIII_MPbar(792, 725, 15, 45, 3.8f, 3.8f, SpriteEffects.FlipHorizontally);
+            mpbar.SetPercent(0);
+            mpbar.SetMpLevelFont(1155, 732, 3.8f);
+            playerMPBars.Add(mpbar);
 
             Entity timePlaceHolder = new Entity(Entity.ObjectType.SYSTEM, "TIME_PLACEHOLDER1");
             timePlaceHolder.AddSprite(Animation.State.NONE, "Sprites/LifeBars/SFIII/TIMER1", true);

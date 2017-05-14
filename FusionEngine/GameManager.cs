@@ -379,7 +379,7 @@ namespace FusionEngine {
             UpdateResolution();
         }
 
-        public static void TakeScreenshot(Game game) {
+        public static void TakeScreenshot(IGameScreen game) {
             var screenshot = TextureContent.TakeScreenshot(game);
 
             using (var fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate)) {

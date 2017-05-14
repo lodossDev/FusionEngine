@@ -494,10 +494,9 @@ namespace FusionEngine
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
 
-                    if (entity != target && target.IsHittable() 
-                            && (((entity is Player && target is Enemy || entity is Enemy && target is Player) 
-                                        || entity is Enemy && target is Enemy && entity.CanHurtOthers()))) {
+                    bool canHit = (entity.CanHurtOthers() ? (entity.CanHurtOthers() && target.IsHittable()) : target.IsHittable());
 
+                    if (entity != target && canHit) {
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
                         //Add global body box if exists.

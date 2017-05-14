@@ -210,7 +210,7 @@ namespace FusionEngine {
                         //target.SetHitPauseTime(10);
                         //entity.TossFast(-5);
                         //entity.SetTossGravity(1.83f);
-                        //target.DecreaseHealth(attackBox.GetHitDamage());
+                        target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
                 }
@@ -228,7 +228,7 @@ namespace FusionEngine {
                         target.SetTossGravity(0.6f);
                         target.SetPainTime(80);
                         //entity.TossFast(-5);
-                        //target.DecreaseHealth(attackBox.GetHitDamage());
+                        target.DecreaseHealth(attackBox.GetHitDamage());
                     }
 
                     if (target.GetAttackInfo().juggleHits <= 0) {

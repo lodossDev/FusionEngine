@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace FusionEngine {
         private List<Obstacle> obstacles;
         private List<Collectable> collectables;
         private List<Wall> walls;
+        public Vector2 basePosition;
 
 
         public Level(String name) {

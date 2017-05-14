@@ -12,7 +12,7 @@ namespace FusionEngine {
         
         public Camera(Viewport viewport) {
             _viewport = viewport;
-            _origin = new Vector2(0, 0);
+            _origin = new Vector2(viewport.Width / 2, viewport.Height / 2);
             _lastPosition = Vector2.Zero;
             _parallax = Vector2.Zero;
             _moveSpeed = 1.35f;
@@ -64,11 +64,6 @@ namespace FusionEngine {
             }
         }
 
-        public Vector2 ScreenCenter {
-            get { return _screenCenter;}
-            protected set { _screenCenter = value; }
-        }
-
         public Viewport ViewPort {
             get {
                 return _viewport;
@@ -83,14 +78,22 @@ namespace FusionEngine {
             return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(GameTime gameTime, float velX, float velY, float velZ) {
+        public void LookAt(GameTime gameTime, float velX, float velY, float velZ, Entity entity) {
             _lastPosition.X += velX;
-            _lastPosition.Y += velY + velZ;
+            _lastPosition.Y += (velY + velZ);
+
+            if (_zoom > 1.0) {
+                Vector2 sx = WorldToScreen(new Vector2((entity.GetPosX() + (entity.GetBoundsBox().GetRect().Width / 2)), (entity.GetPosZ() + (entity.GetBoundsBox().GetRect().Height / 2))));
+                _lastPosition.X = sx.X;
+                _lastPosition.Y = sx.Y / 2;
+            }
 
             Vector2 pos = Vector2.Lerp(_position, _lastPosition, _moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
             
             _position.X = pos.X;
             _position.Y = pos.Y;
+
+            Debug.WriteLine("_lastPosition.Y: " + _lastPosition.Y);
 
             if (_lastPosition.X < GameManager.GetInstance().CurrentLevel.X_MIN)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_lastPosition.X > GameManager.GetInstance().CurrentLevel.X_MAX)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MAX;
@@ -105,6 +108,8 @@ namespace FusionEngine {
         public Matrix ViewMatrix {
             get {
                 _viewport = GameManager.GraphicsDevice.Viewport;
+                _origin.X = 0;
+                _origin.Y = 0;
 
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.X, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
@@ -116,12 +121,11 @@ namespace FusionEngine {
         private const float MinZoom = 0.01f;
         private float _zoom = 1f;
         private Viewport _viewport;
-        private readonly Vector2 _origin;
+        public Vector2 _origin;
 
         private Vector2 _position;
-        private Vector2 _lastPosition;
+        public Vector2 _lastPosition;
         private Vector2 _parallax;
         private float _moveSpeed;
-        private Vector2 _screenCenter;
     }
 }

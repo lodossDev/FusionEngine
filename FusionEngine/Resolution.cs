@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FusionEngine {
 
     public class Resolution {
-        private Vector3 _scalingFactor;
+        public Vector3 _scalingFactor;
         private int _preferredBackBufferWidth;
         private int _preferredBackBufferHeight;
 
@@ -30,7 +30,7 @@ namespace FusionEngine {
         /// <summary>
         /// The scale result of merging VirtualScreen with WindowScreen.
         /// </summary>
-        private Vector2 _screenScale;
+        public Vector2 _screenScale;
 
         
         public Resolution(int width, int height) {

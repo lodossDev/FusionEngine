@@ -35,7 +35,7 @@ namespace FusionEngine {
             return result;
         }
 
-        public static Texture2D TakeScreenshot(Game currentGame) {
+        public static Texture2D TakeScreenshot(IGameScreen currentGame) {
             int w, h;
             w = GameManager.GraphicsDevice.PresentationParameters.BackBufferWidth;
             h = GameManager.GraphicsDevice.PresentationParameters.BackBufferHeight;

@@ -6914,3 +6914,63 @@
 #begin Fonts/sfiii_number.xFont
 /copy:Fonts/sfiii_number.xFont
 
+#begin Fonts/sfiii_mp_state_p1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/sfiii_mp_state_p1.png
+
+#begin Fonts/sfiii_mp_state_p1.xFont
+/copy:Fonts/sfiii_mp_state_p1.xFont
+
+#begin Fonts/sfiii_mp_state_p2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/sfiii_mp_state_p2.png
+
+#begin Fonts/sfiii_mp_state_p2.xFont
+/copy:Fonts/sfiii_mp_state_p2.xFont
+
+#begin Fonts/kof_name.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/kof_name.png
+
+#begin Fonts/kof_name.xFont
+/copy:Fonts/kof_name.xFont
+
+#begin Fonts/power_16.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,248,0,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/power_16.png
+
+#begin Fonts/power_16.xFont
+/copy:Fonts/power_16.xFont
+

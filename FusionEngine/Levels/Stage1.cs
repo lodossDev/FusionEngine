@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace FusionEngine
             Wall wall1 = new Wall("TEST", 200, 340, 10750, -5, 0, 50, 100);
             AddWall(wall1);
 
+            basePosition = new Vector2(5850, -280);
             SetBoundries(0, 13000, 0, 500);
         }
     }

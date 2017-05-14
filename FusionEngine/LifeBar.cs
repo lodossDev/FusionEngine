@@ -8,23 +8,25 @@ using System.Text;
 
 namespace FusionEngine {
 
-    public abstract class LifeBar {
+    public class LifeBar {
         public enum SpriteType {PLACEHOLDER, CONTAINER, BAR}
         protected Dictionary<SpriteType, Entity> sprites;
         private Vector2 scale;
-        private SpriteEffects spriteEffect;
+        protected SpriteEffects spriteEffect;
         private Entity portrait;
+        private float percent;
 
 
         public LifeBar(int posx, int posy, int ox, int oy, float sx, float sy, SpriteEffects spriteEffect = SpriteEffects.None) {
             sprites = new Dictionary<SpriteType, Entity>();
             scale = new Vector2(sx, sy);
+            percent = 0;
             this.spriteEffect = spriteEffect;
 
             Load(posx, posy, ox, oy, sx, sy);
         }
 
-        public abstract void Load(int posx, int posy, int ox, int oy, float sx, float sy);
+        public virtual void Load(int posx, int posy, int ox, int oy, float sx, float sy) { }
 
         public void AddSprite(SpriteType type, String location, int posx, int posy, int offx, int offy, float sx, float sy) {
             Entity entity = new Entity(Entity.ObjectType.LIFE_BAR, type.ToString());
@@ -59,12 +61,30 @@ namespace FusionEngine {
             }
         }
 
-        public void Percent(int percent) {
-            Entity bar = sprites[SpriteType.BAR];
+        public void Increase(float amount) {
+            percent += amount;
+            UpdateBar();
+        }
 
+        public void Decrease(float amount) {
+            percent -= amount;
+            UpdateBar();
+        }
+
+        public void SetPercent(float amount) {
+            percent = amount;
+            UpdateBar();
+        }
+
+        public float GetPercent() {
+            return percent;
+        }
+
+        private void UpdateBar() {
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
 
+            Entity bar = sprites[SpriteType.BAR];
             float sx = (scale.X * (float)((double)percent / (double)100));
             bar.SetScaleX(sx);
         }

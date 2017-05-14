@@ -53,7 +53,6 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="Boss.cs" />
-    <Compile Include="Camera2D.cs" />
     <Compile Include="Characters\Boss_TaskMaster.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Characters\Enemy_Bred.cs" />
@@ -67,6 +66,8 @@
     <Compile Include="CollisionManager.cs" />
     <Compile Include="ComboAttack.cs" />
     <Compile Include="EntityActions.cs" />
+    <Compile Include="GameScreen.cs" />
+    <Compile Include="IGameScreen.cs" />
     <Compile Include="MugenFont.cs" />
     <Compile Include="FrameAction.cs" />
     <Compile Include="FrameRateCounter.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="LifeBar.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Characters\Player_Leo.cs" />
+    <Compile Include="ScreenManager.cs" />
     <Compile Include="Scripting.evaluator.cs" />
     <Compile Include="Scripting.Extensions.cs" />
     <Compile Include="Scripting.native.cs" />

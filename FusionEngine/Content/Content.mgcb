@@ -6974,3 +6974,33 @@
 #begin Fonts/power_16.xFont
 /copy:Fonts/power_16.xFont
 
+#begin Fonts/xmen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/xmen.png
+
+#begin Fonts/xmen.xFont
+/copy:Fonts/xmen.xFont
+
+#begin Fonts/bigfont.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/bigfont.png
+
+#begin Fonts/bigfont.xFont
+/copy:Fonts/bigfont.xFont
+

@@ -437,5 +437,15 @@ namespace FusionEngine {
                 return new Color((byte)r, (byte)g, (byte)b, (byte)MathHelper.Clamp(alpha, 0, 255));
             } 
         }
+
+        public class Portrait {
+            public string location;
+            public int posx;
+            public int posy;
+            public int offx;
+            public int offy;
+            public float sx;
+            public float sy;
+        }
     }
 }

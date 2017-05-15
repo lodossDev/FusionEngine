@@ -85,12 +85,15 @@ namespace FusionEngine {
 
         private int entityId;
         private int mp;
+        private int currentMpLevel;
+        private int maxMpLevel;
         private int lives;
         private int oldPoints;
         private int points;
         private int oldHealth;
         private int health;
         private bool alive;
+        private Attributes.Portrait portrait;
 
         private Dictionary<InputHelper.KeyPress, Keys> keyboardSettings;
         private Dictionary<InputHelper.KeyPress, Keys> keyboardBtnsOnly;
@@ -200,6 +203,9 @@ namespace FusionEngine {
             dieTime = 50;
             deathStep = -1;
 
+            portrait = null;
+            currentMpLevel = 0;
+            maxMpLevel = 3;
             health = oldHealth = 100;
             points = oldPoints = 0;
             mp = 0;
@@ -208,8 +214,6 @@ namespace FusionEngine {
             alive = true;
             drawShadow = false;
 
-            //gg = new MugenFont("Fonts/combo.xFont", new Vector2(200, 200));
-            
             id++;
             entityId = id;
         }
@@ -805,7 +809,13 @@ namespace FusionEngine {
             mp += amount;
 
             if (mp > 100) {
-                mp = 100;
+                IncreaseMpLevel(1);
+
+                if (currentMpLevel > maxMpLevel) {
+                    currentMpLevel = 0;
+                }
+
+                mp = 0;
             }
         }
 
@@ -915,6 +925,53 @@ namespace FusionEngine {
 
         public bool IsPlatform() {
             return isPlatform;
+        }
+
+        public void SetMpLevel(int level) {
+            maxMpLevel = level;
+        }
+
+        public void SetCurrentMpLevel(int level) {
+            currentMpLevel = level;
+        }
+
+        public int GetMaxMpLevel() {
+            return maxMpLevel;
+        }
+
+        public int GetCurrentMpLevel() {
+            return currentMpLevel;
+        }
+
+        public void IncreaseMpLevel(int amount) {
+            currentMpLevel += amount;
+
+            if (currentMpLevel > maxMpLevel) {
+                //currentMpLevel = maxMpLevel;
+            }
+        }
+
+        public void DecreaseMpLevel(int amount) {
+            currentMpLevel -= amount;
+
+            if (currentMpLevel < 0) {
+                currentMpLevel = 0;
+            }
+        }
+
+        public void SetPortrait(string location, int posx, int posy, int offx, int offy, float sx, float sy) {
+            portrait = new Attributes.Portrait();
+            portrait.location = location;
+            portrait.posx = posx;
+            portrait.posy = posy;
+            portrait.offx = offx;
+            portrait.offy = offy;
+            portrait.sx = sx;
+            portrait.sy = sy;
+        }
+
+        public Attributes.Portrait GetPortrait() {
+            return portrait;
         }
 
         public int GetHealth() {

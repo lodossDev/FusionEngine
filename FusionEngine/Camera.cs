@@ -78,22 +78,14 @@ namespace FusionEngine {
             return Vector2.Transform(screenPosition, Matrix.Invert(ViewMatrix));
         }
         
-        public void LookAt(GameTime gameTime, float velX, float velY, float velZ, Entity entity) {
+        public void LookAt(GameTime gameTime, float velX, float velY, float velZ) {
             _lastPosition.X += velX;
             _lastPosition.Y += (velY + velZ);
-
-            if (_zoom > 1.0) {
-                Vector2 sx = WorldToScreen(new Vector2((entity.GetPosX() + (entity.GetBoundsBox().GetRect().Width / 2)), (entity.GetPosZ() + (entity.GetBoundsBox().GetRect().Height / 2))));
-                _lastPosition.X = sx.X;
-                _lastPosition.Y = sx.Y / 2;
-            }
 
             Vector2 pos = Vector2.Lerp(_position, _lastPosition, _moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
             
             _position.X = pos.X;
             _position.Y = pos.Y;
-
-            Debug.WriteLine("_lastPosition.Y: " + _lastPosition.Y);
 
             if (_lastPosition.X < GameManager.GetInstance().CurrentLevel.X_MIN)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_lastPosition.X > GameManager.GetInstance().CurrentLevel.X_MAX)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MAX;

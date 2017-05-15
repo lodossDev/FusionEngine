@@ -210,6 +210,7 @@ namespace FusionEngine {
                         //target.SetHitPauseTime(10);
                         //entity.TossFast(-5);
                         //entity.SetTossGravity(1.83f);
+                        entity.IncreaseMP(20);
                         target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }

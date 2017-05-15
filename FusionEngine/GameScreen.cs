@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace FusionEngine {
     public class GameScreen : IGameScreen {
-        private Entity ryo;
+        private Player ryo;
         private Enemy_Bred bred, bred2;
         private GameSystem system;
         private Stage1 level1;
@@ -20,6 +20,7 @@ namespace FusionEngine {
         private List<Line> lines;
         private float x = 0, y = 0, z = 0;
         private ScreenManager manager;
+        private MugenFont font1;
 
 
         public GameScreen(ScreenManager manager) {
@@ -50,6 +51,7 @@ namespace FusionEngine {
             }
      
             system = new GameSystem();
+            system.AddPlayer(ryo);
 
             bred = new Enemy_Bred();
 
@@ -58,6 +60,8 @@ namespace FusionEngine {
             bred2.SetName("BRED2");
 
             level1 = new Stage1();
+
+            font1 = new MugenFont("Fonts/bigfont.xFont", -8, 32, 1);
 
             GameManager.GetInstance().AddEntity(ryo);
             GameManager.GetInstance().SetLevel(level1);
@@ -183,7 +187,7 @@ namespace FusionEngine {
                 z = (float)Math.Round((double)(velZ + (ryo.GetTossInfo().velocity.Z * 1f)));;
             }
             
-            GameManager.Camera.LookAt(gameTime, x, y, z, ryo);
+            GameManager.Camera.LookAt(gameTime, x, y, z);
         }
 
         public void Render(GameTime gameTime) {
@@ -244,7 +248,8 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            //spriteBatch.DrawString(font1, "RYO Z " + (pos1.Y), new Vector2(20, 0), Color.White);
+            font1.Draw("MP - " + ryo.GetMP(), new Vector2(80, 100));
+            //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

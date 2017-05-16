@@ -13,11 +13,11 @@ namespace FusionEngine {
         }
 
         public void SetPlayerIndex(int index) {
-            playerIndex = index;
+            playerIndex = index - 1;
         }
 
         public int GetPlayerIndex() {
-            return playerIndex;
+            return playerIndex + 1;
         }
     }
 }

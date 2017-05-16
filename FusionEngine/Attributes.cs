@@ -233,6 +233,7 @@ namespace FusionEngine {
             public bool grabbable;
             public int grabResistance;
             public int maxGrabResistance;
+            public bool inGrabHeight;
 
 
             public GrabInfo() {
@@ -253,6 +254,7 @@ namespace FusionEngine {
                 grabbable = false;
                 maxGrabResistance = 0;
                 grabResistance = maxGrabResistance;
+                inGrabHeight = false;
             }
 
             public void Reset() {
@@ -292,6 +294,14 @@ namespace FusionEngine {
             public int nextAttackTime;
             public int currentAttackTime;
 
+            public int targetComboHits;
+            public int showComboHits;
+            public int comboHits;
+            public int comboPoints;
+
+            public float comboHitTime;
+            public float lastComboHitTime;
+
 
             public AttackInfo() {
                 Reset();
@@ -317,6 +327,12 @@ namespace FusionEngine {
 
                 nextAttackTime = 100;
                 currentAttackTime = 0;
+
+                showComboHits = 0;
+                targetComboHits = 4;
+                comboHits = comboPoints = 0;
+                comboHitTime = 0;
+                lastComboHitTime = 0;
             }
 
             public void Reset() {

@@ -15,7 +15,7 @@ namespace FusionEngine {
         private MugenFont mpMaxLevelFont;
 
         public SFIII_MPbar(int posx, int posy, int ox, int oy, float sx, float sy, SpriteEffects spriteEffect = SpriteEffects.None) : base(posx, posy, ox, oy, sx, sy, spriteEffect) {
-            levels = 1;
+            levels = 3;
             currentLevel = 0;
         }
 

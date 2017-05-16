@@ -105,7 +105,7 @@ namespace FusionEngine {
 
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
-
+            SetHealth(100000);
             SetCanHurtOthers(true);
 
             //SetBoundToLevel(true);

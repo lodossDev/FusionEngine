@@ -179,7 +179,7 @@ namespace FusionEngine {
         }
 
         public void Translate(float x, float y, float vx, float vy, int time, int dir) {
-            isTransForward = true;
+            isTransForward = false;
             isTransBack = false;
 
             transPos.X = x;
@@ -192,6 +192,12 @@ namespace FusionEngine {
             transTime = 0;
         }
 
+        public void Translate() {
+            isTransForward = true;
+            isTransBack = false;
+            transTime = 0;
+        }
+
         public void Flash(GameTime gameTime, float a) {
             alpha -= a * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -200,16 +206,7 @@ namespace FusionEngine {
             }
         }
 
-        public void Draw(String text) {
-            Draw(text, this.position);
-        }
-        
-        public void Draw(String text, Vector2 otherPosition) {
-            position = otherPosition;
-            position.X = position.X + offset.X;
-            position.Y = position.Y + offset.Y;
-            Vector2 nextPos = position;
-
+        private void UpdateTranslate(Vector2 nextPos) {
             if (isTransForward) {
                 transTime ++;
 
@@ -232,7 +229,7 @@ namespace FusionEngine {
 
             if (isTransBack) {
                 if (transDir > 0) { 
-                    if (nextPos.X > -400) {
+                    if (nextPos.X > -240) {
                          MoveX(-(transVel.X * transDir));
                     } else {
                         isTransBack = false;
@@ -245,6 +242,23 @@ namespace FusionEngine {
                     }
                 }
             }
+        }
+
+        public bool IsNotShowing() {
+            return (isTransBack == false && isTransForward == false);
+        }
+
+        public void Draw(String text) {
+            Draw(text, this.position);
+        }
+        
+        public void Draw(String text, Vector2 otherPosition) {
+            position = otherPosition;
+            position.X = position.X + offset.X;
+            position.Y = position.Y + offset.Y;
+            Vector2 nextPos = position;
+
+            UpdateTranslate(nextPos);
 
             foreach (char c in text) {
                 if (c != ' ' && c != '\n') {

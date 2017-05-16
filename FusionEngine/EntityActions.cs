@@ -53,12 +53,15 @@ namespace FusionEngine {
         }
 
         public static void FaceTarget(Entity target, Entity entity) {
-            if (target.IsEntity(Entity.ObjectType.ENEMY)) { 
-                if (entity.GetDirX() > 0) {
-                    target.SetIsLeft(true);
+            if (target is Character 
+                    && !target.HasGrabbed() 
+                    && !target.GetGrabInfo().inGrabHeight) { 
 
-                } else if (entity.GetDirX() < 0){
-                    target.SetIsLeft(false); 
+                if (entity.GetPosX() > target.GetPosX() + 20) {
+                    target.SetIsLeft(false);
+
+                } else if (entity.GetPosX() + 20 < target.GetPosX()){
+                    target.SetIsLeft(true); 
                 }
             }
         }
@@ -250,6 +253,7 @@ namespace FusionEngine {
         public static void SetGrabHeight(Entity entity, Entity target) {
             target.SetPosY((entity.GetGround() + entity.GetGrabInfo().grabHeight));
             target.SetGround((entity.GetGround() + entity.GetGrabInfo().grabHeight));
+            target.GetGrabInfo().inGrabHeight = true;
         }
 
         public static void SetGrabGround(Entity entity, Entity target) {
@@ -262,6 +266,10 @@ namespace FusionEngine {
             if (target != null) { 
                 target.GetGrabInfo().Reset();
                 target.GetAttackInfo().Reset();
+
+                if (!target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
+                    target.SetAnimationState(Animation.State.FALL1);
+                }
 
                 if (!target.IsDying() && !target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
                     if (target.InAir() || target.IsToss()) {
@@ -285,7 +293,6 @@ namespace FusionEngine {
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
                     target.GetAttackInfo().isHit = false;
                     target.GetGrabInfo().grabbedTime = target.GetGrabInfo().maxGrabbedTime;
-                    target.SetAnimationState(Animation.State.FALL1);
                     Ungrab(entity, target);
                 } else {
                     target.GetGrabInfo().Reset();

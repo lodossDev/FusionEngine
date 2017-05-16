@@ -88,12 +88,13 @@ namespace FusionEngine {
         private int currentMpLevel;
         private int maxMpLevel;
         private int lives;
-        private int oldPoints;
-        private int points;
+        private long oldPoints;
+        private long points;
         private int oldHealth;
         private int health;
         private bool alive;
         private Attributes.Portrait portrait;
+        private MugenFont comboFont;
 
         private Dictionary<InputHelper.KeyPress, Keys> keyboardSettings;
         private Dictionary<InputHelper.KeyPress, Keys> keyboardBtnsOnly;
@@ -207,7 +208,7 @@ namespace FusionEngine {
             currentMpLevel = 0;
             maxMpLevel = 3;
             health = oldHealth = 100;
-            points = oldPoints = 0;
+            points = oldPoints = 0000000;
             mp = 0;
             lives = 3;
             deathMode = DeathType.IMMEDIATE_DIE;
@@ -945,10 +946,6 @@ namespace FusionEngine {
 
         public void IncreaseMpLevel(int amount) {
             currentMpLevel += amount;
-
-            if (currentMpLevel > maxMpLevel) {
-                //currentMpLevel = maxMpLevel;
-            }
         }
 
         public void DecreaseMpLevel(int amount) {
@@ -982,11 +979,11 @@ namespace FusionEngine {
             return mp;
         }
 
-        public int GetPoints() {
+        public long GetPoints() {
             return points;
         }
 
-        public int GetOldPoints() {
+        public long GetOldPoints() {
             return points;
         }
 
@@ -1316,6 +1313,36 @@ namespace FusionEngine {
             basePosition.X = GetConvertedPosition().X + (baseOffset.X * diffScale.X);
             basePosition.Y = GetConvertedPosition().Y + boundsBox.GetHeight() + (baseOffset.Y + boundsBox.GetOffset().Y * diffScale.Y);
             return basePosition;
+        }
+
+        public void SetComboFont(MugenFont comboFont) {
+            this.comboFont = comboFont;
+        }
+
+        public MugenFont GetComboFont() {
+            return comboFont;
+        }
+
+        public virtual void ComboFont() {
+            if (comboFont == null) {
+                if (this is Player) {
+                    if (((Player)this).GetPlayerIndex() == 1) { 
+                        comboFont = new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(-200, 240), 4, 0, 2.8f);
+                        comboFont.Translate(50, 0, 13, 0, 80, 1);
+                    } else {
+                        comboFont = new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(1300, 240), 4, 0, 2.8f);
+                        comboFont.Translate(1000, 0, 13, 0, 80, -1);
+                    } 
+                } 
+            }
+
+            CallComboFont();
+        }
+
+        public void CallComboFont() {
+            if (comboFont != null) {
+                comboFont.Translate();
+            }
         }
 
         public CLNS.BoundingBox GetLastBoxFrame(Animation.State state, int frame) {
@@ -1918,6 +1945,7 @@ namespace FusionEngine {
                             }
                         }
 
+                        GetGrabInfo().inGrabHeight = false;
                         ResetToss();
                     }
                 }
@@ -2212,9 +2240,7 @@ namespace FusionEngine {
         }
 
         public void UpdateFrameActions(GameTime gameTime) {
-
             if (frameActions.Count > 0) {
-
                 foreach (FrameAction action in frameActions) {
                     
                     if (action.GetAnimationState() == GetCurrentAnimationState() 

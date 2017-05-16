@@ -169,11 +169,34 @@ namespace FusionEngine {
 
                 entity.GetAttackInfo().currentAttackTime = entity.GetAttackInfo().nextAttackTime;
                 entity.GetAttackInfo().hasHit = true;
-                EntityActions.IncrementAttackChain(entity, attackBox);
 
+                EntityActions.IncrementAttackChain(entity, attackBox);
+                
                 target.GetAttackInfo().lastJuggleState = 1;
                 entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
                 entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();
+            }
+        }
+
+        private static void CheckComboHitsStats(Entity entity) {
+            if (entity != null) {
+
+                if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+                    return;    
+                }
+                 
+                if (entity.GetAttackInfo().comboHitTime < 200) { 
+                    entity.GetAttackInfo().showComboHits += 1;
+                    entity.GetAttackInfo().comboHitTime = 0;
+                }
+
+                if (entity.GetAttackInfo().showComboHits >= entity.GetAttackInfo().targetComboHits) { 
+                    entity.GetAttackInfo().comboHits += 1;
+
+                    if (entity is Player) {
+                        entity.ComboFont();
+                    }
+                }
             }
         }
 
@@ -197,20 +220,24 @@ namespace FusionEngine {
                         target.DecreaseBlockResistance();
                         ApplyFrameActions(entity, target, attackBox);
                
-                    } else {    
+                    } else {
                         target.GetAttackInfo().isHit = true;
                         target.GetAttackInfo().lastAttackDir = attackDir;
                         target.GetAttackInfo().attacker = entity;
-                        
+
+                        CheckComboHitsStats(entity);
+
                         EntityActions.SetPainState(entity, target, attackBox);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
+
                         target.SetPainTime(80);
                         target.SetRumble(lookDir, 1.8f);
                         //target.SetHitPauseTime(10);
                         //entity.TossFast(-5);
                         //entity.SetTossGravity(1.83f);
                         entity.IncreaseMP(20);
+                        entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
                         ApplyFrameActions(entity, target, attackBox);
                     }
@@ -225,10 +252,15 @@ namespace FusionEngine {
                         float velX = ((5 - target.GetAttackInfo().juggleHits) * lookDir);
                         float sHeight = -((Math.Abs(target.GetTossInfo().tempHeight) / 2) + 2f);
                         float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
+
+                        CheckComboHitsStats(entity);
+
                         target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
                         target.SetTossGravity(0.6f);
                         target.SetPainTime(80);
                         //entity.TossFast(-5);
+                        entity.IncreaseMP(20);
+                        entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
                     }
 
@@ -279,7 +311,8 @@ namespace FusionEngine {
 
             if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.IsGrabbed()) {
                 float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == false
-                                    && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION ? entity.GetDirX() : 0);
+                                    && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 
+                                            ? (entity.IsLeft() ? -1 : 1) : 0);
  
                 if (!attackBox.IsKnock()) {
 
@@ -316,16 +349,16 @@ namespace FusionEngine {
 
                     if (collectable is Health) {
                         GameManager.GetInstance().PlaySFX("1up");
-                        entity.IncreaseHealth(collectable.GetPoints());
+                        entity.IncreaseHealth((int)collectable.GetPoints());
                     } else if (collectable is Money) {
                         GameManager.GetInstance().PlaySFX("1up");
-                        entity.IncreasePoints(collectable.GetPoints());
+                        entity.IncreasePoints((int)collectable.GetPoints());
                     } else if (collectable is Life) {
                         GameManager.GetInstance().PlaySFX("1up");
-                        entity.IncreaseLives(collectable.GetPoints());
+                        entity.IncreaseLives((int)collectable.GetPoints());
                     } else if (collectable is MP) {
                         GameManager.GetInstance().PlaySFX("1up");
-                        entity.IncreaseMP(collectable.GetPoints());
+                        entity.IncreaseMP((int)collectable.GetPoints());
                     }
 
                     isCollected = true;

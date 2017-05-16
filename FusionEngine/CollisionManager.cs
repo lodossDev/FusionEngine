@@ -661,7 +661,12 @@ namespace FusionEngine
 
             if (entity.GetGrabInfo().grabbed != null) {
                 if (entity.GetGrabInfo().grabbed.IsDying() 
-                        || entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
+                        || entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)
+                        || entity.IsHit()) {
+
+                    if (!entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
+                        entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1);
+                    }
 
                     entity.GetGrabInfo().grabbed.Toss(8);
                     entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
@@ -687,10 +692,27 @@ namespace FusionEngine
                 Entity entity = entities[i];
                 entity.GetCollisionInfo().SetItem(null);
 
+                float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
+                entity.GetAttackInfo().comboHitTime = time - entity.GetAttackInfo().lastComboHitTime;
+
+                if (entity.GetAttackInfo().comboHitTime > 1000) {
+                   entity.GetAttackInfo().showComboHits = 0;
+                }
+
                 CheckGrabItem(entity);
                 CheckGrab(entity);
                 CheckKnocked(entity);
                 CheckAttack(entity);
+
+                if (entity.HasHit()) {
+                    entity.GetAttackInfo().lastComboHitTime = time;
+                }
+
+                if (entity.GetComboFont() != null 
+                        && entity.GetComboFont().IsNotShowing()) {
+                    
+                    entity.GetAttackInfo().comboHits = 0;
+                }
             }
         }
 

@@ -219,6 +219,7 @@ namespace FusionEngine {
             SetPostion(400, 0, 500);
             //SetBaseOffset(50f, 190f);
             SetShadowOffset(0, -5);
+            SetPlayerIndex(2);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 20);
         }

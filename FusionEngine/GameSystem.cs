@@ -19,8 +19,8 @@ namespace FusionEngine {
         private int currentTime;
         private MugenFont timeFont;
         private MugenFont nameFont;
-        private List<MugenFont> comboFonts;
         private MugenFont numberFont;
+        Vector2 p1NamePos, p2NamePos, p1LivesPos, p2LivesPos, p1PointsPos, p2PointsPos;
 
 
         public GameSystem() {
@@ -28,7 +28,7 @@ namespace FusionEngine {
             playerLifeBars = new List<SFIII_Lifebar>();
             playerMPBars = new List<SFIII_MPbar>();
             timePlaceHolders = new List<Entity>();
-            comboFonts = new List<MugenFont>();
+            p1NamePos = p2NamePos = p1LivesPos = p2LivesPos = p1PointsPos = p2PointsPos = Vector2.Zero;
 
             Load();
         }
@@ -86,16 +86,20 @@ namespace FusionEngine {
             mpbar = new SFIII_MPbar(792, 725, 15, 45, 3.8f, 3.8f, SpriteEffects.FlipHorizontally);
             mpbar.SetPercent(0);
             mpbar.SetMpLevelFont(1155, 732, 3.8f);
+            mpbar.SetMpMaxLevelFont(1238, 765, 1.5f);
             playerMPBars.Add(mpbar);
                
             timeFont = new MugenFont("Fonts/sfiii_timer.xFont", 4, 0, 2.8f);
             nameFont = new MugenFont("Fonts/sfiii_name.xFont", 4, 0, 2.8f);
             numberFont = new MugenFont("Fonts/sfiii_number.xFont", 4, 0, 2.8f);
 
-            comboFonts.Add(new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(-200, 280), 4, 0, 2.8f));
-            comboFonts.Add(new MugenFont("Fonts/sfiii_combo.xFont", new Vector2(1300, 280), 4, 0, 2.8f));
-            comboFonts[0].Translate(100, 0, 10, 0, 100, 1);
-            comboFonts[1].Translate(700, 0, 10, 0, 100, -1);
+            p1NamePos = new Vector2(300, 56);
+            p1LivesPos = new Vector2(500, 10); 
+            p1PointsPos = new Vector2(15, 0);
+
+            p2NamePos = new Vector2(900, 56);
+            p2LivesPos = new Vector2(735, 10);
+            p2PointsPos = new Vector2(1085, 0);
 
             time = 0;
             currentTime = 0;
@@ -137,17 +141,15 @@ namespace FusionEngine {
         }
 
         public void Render(GameTime gameTime) {
-            /*if (comboFont != null) {
-                comboFont.Draw("999 H\n99 H");
-            }*/
+            Player player1 = (players.Count >= 1 ? players[0] : null); 
+            Player player2 = (players.Count >= 2 ? players[1] : null);   
+                       
+            foreach (Player player in players) {
+                MugenFont comboFont = player.GetComboFont();
 
-            int playerIndex = 0;
-
-            comboFonts[0].Draw("999 H\n99 H");
-            comboFonts[1].Draw("999 H\n99 H");
-
-            foreach (MugenFont font in comboFonts) {
-
+                if (comboFont != null) {
+                    comboFont.Draw("" + player.GetAttackInfo().comboHits + " H");
+                }
             }
 
             foreach (LifeBar bar in playerLifeBars) {
@@ -180,14 +182,26 @@ namespace FusionEngine {
             }
 
             if (nameFont != null) {
-                nameFont.Draw("RYO1", new Vector2(300, 56));
-                nameFont.Draw("X3", new Vector2(500, 10));
-                nameFont.Draw("RYO2", new Vector2(900, 56));
+                if (player1 != null) { 
+                    nameFont.Draw("" + player1.GetName(), p1NamePos);
+                    nameFont.Draw("X" + player1.GetLives(), p1LivesPos);
+                }
+
+                if (player2 != null) { 
+                    nameFont.Draw("" + player2.GetName(), p2NamePos);
+                    nameFont.Draw("" + player2.GetLives() + "X", p2LivesPos);
+                }
             }
 
             if (numberFont != null) {
-                numberFont.Draw("0000000", new Vector2(15, 0));
-                numberFont.Draw("0000000", new Vector2(1106, 0));
+                if (player1 != null) { 
+                    numberFont.Draw("" + player1.GetPoints().ToString("D8"), p1PointsPos);
+                    numberFont.Draw("" + player1.GetPoints().ToString("D8"), p2PointsPos);
+                }
+
+                if (player2 != null) { 
+                    numberFont.Draw("" + player2.GetPoints().ToString("D8"), p2PointsPos);
+                }
             }
         }
     }

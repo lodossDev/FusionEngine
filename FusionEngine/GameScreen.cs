@@ -139,7 +139,7 @@ namespace FusionEngine {
                         && !bred2.IsRise()
                         && !bred2.InHitPauseTime()
                         && bred2.GetHealth() > 0
-                         && !bred2.IsDying()) {
+                        && !bred2.IsDying()) {
 
                     if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred2.ResetToIdle(gameTime);
@@ -248,7 +248,7 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            font1.Draw("MP - " + ryo.GetMP(), new Vector2(80, 100));
+            font1.Draw("MP - " + ryo.GetAttackInfo().showComboHits, new Vector2(80, 100));
             //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);

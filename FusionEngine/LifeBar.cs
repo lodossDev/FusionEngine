@@ -20,7 +20,7 @@ namespace FusionEngine {
         public LifeBar(int posx, int posy, int ox, int oy, float sx, float sy, SpriteEffects spriteEffect = SpriteEffects.None) {
             sprites = new Dictionary<SpriteType, Entity>();
             scale = new Vector2(sx, sy);
-            percent = 0;
+            percent = 100;
             this.spriteEffect = spriteEffect;
 
             Load(posx, posy, ox, oy, sx, sy);
@@ -44,9 +44,11 @@ namespace FusionEngine {
         }
 
         public void SetPortrait(String location, int posx, int posy, int offx, int offy, float sx, float sy) {
-            portrait = new Entity(Entity.ObjectType.PORTRAIT, "PORTRAIT");
-            portrait.AddSprite(Animation.State.NONE, location, true);
-            SetSprite(portrait, posx, posy, offx, offy, sx, sy);
+            if (portrait == null) { 
+                portrait = new Entity(Entity.ObjectType.PORTRAIT, "PORTRAIT");
+                portrait.AddSprite(Animation.State.NONE, location, true);
+                SetSprite(portrait, posx, posy, offx, offy, sx, sy);
+            }
         }
 
         public virtual void Update(GameTime gameTime) {
@@ -108,6 +110,28 @@ namespace FusionEngine {
 
             if (placeholder != null) { 
                 GameManager.SpriteBatch.Draw(placeholder.GetCurrentSprite().GetCurrentTexture(), placeholder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, placeholder.GetScale(), spriteEffect, 0f);
+            }
+        }
+
+        public virtual void Render(Vector2 holderPos, Vector2 barPos, Vector2 portraitPos, SpriteEffects effects = SpriteEffects.None) {
+            Entity placeholder = (sprites.ContainsKey(SpriteType.PLACEHOLDER) ? sprites[SpriteType.PLACEHOLDER] : null);
+            Entity container = (sprites.ContainsKey(SpriteType.CONTAINER) ? sprites[SpriteType.CONTAINER] : null);
+            Entity bar = (sprites.ContainsKey(SpriteType.BAR) ? sprites[SpriteType.BAR] : null);
+
+            if (container != null) { 
+                GameManager.SpriteBatch.Draw(container.GetCurrentSprite().GetCurrentTexture(), barPos, null, Color.White * 1f, 0f, Vector2.Zero, container.GetScale(), effects, 0f);
+            }
+
+            if (bar != null) { 
+                GameManager.SpriteBatch.Draw(bar.GetCurrentSprite().GetCurrentTexture(), barPos, null, Color.White * 1f, 0f, Vector2.Zero, bar.GetScale(), effects, 0f);
+            }
+
+            if (portrait != null) {
+                GameManager.SpriteBatch.Draw(portrait.GetCurrentSprite().GetCurrentTexture(), portraitPos, null, Color.White * 1f, 0f, Vector2.Zero, portrait.GetScale(), effects, 0f);
+            }
+
+            if (placeholder != null) { 
+                GameManager.SpriteBatch.Draw(placeholder.GetCurrentSprite().GetCurrentTexture(), holderPos, null, Color.White * 1f, 0f, Vector2.Zero, placeholder.GetScale(), effects, 0f);
             }
         }
     }

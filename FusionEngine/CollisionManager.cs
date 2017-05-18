@@ -477,10 +477,8 @@ namespace FusionEngine
             }
         }
         
-        private void CheckAttack(Entity entity) {
-            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
-                return;
-            }
+        private void CheckAttack(GameTime gameTime, Entity entity) {
+            
 
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
@@ -488,6 +486,12 @@ namespace FusionEngine
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
             EntityActions.ResetAttackChain(entity);
+            float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
+            entity.GetAttackInfo().comboHitTime = time - entity.GetAttackInfo().lastComboHitTime;
+
+            if (entity.GetAttackInfo().comboHitTime > 1000) {
+                entity.GetAttackInfo().showComboHits = 0;
+            }
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
 
@@ -542,7 +546,7 @@ namespace FusionEngine
                                             break;
                                         }
 
-                                        CollisionActions.SetTargetHit(entity, target, attackBox, ref targetHit);
+                                        CollisionActions.SetTargetHit(entity, target, attackBox, ref targetHit, time);
                                         currentAttackHits++;
                                     }
                                 }
@@ -692,21 +696,10 @@ namespace FusionEngine
                 Entity entity = entities[i];
                 entity.GetCollisionInfo().SetItem(null);
 
-                float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
-                entity.GetAttackInfo().comboHitTime = time - entity.GetAttackInfo().lastComboHitTime;
-
-                if (entity.GetAttackInfo().comboHitTime > 1000) {
-                   entity.GetAttackInfo().showComboHits = 0;
-                }
-
                 CheckGrabItem(entity);
                 CheckGrab(entity);
                 CheckKnocked(entity);
-                CheckAttack(entity);
-
-                if (entity.HasHit()) {
-                    entity.GetAttackInfo().lastComboHitTime = time;
-                }
+                CheckAttack(gameTime, entity);
 
                 if (entity.GetComboFont() != null 
                         && entity.GetComboFont().IsNotShowing()) {

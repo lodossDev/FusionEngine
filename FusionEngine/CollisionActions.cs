@@ -194,7 +194,7 @@ namespace FusionEngine {
                     entity.GetAttackInfo().comboHits += 1;
 
                     if (entity is Player) {
-                        entity.ComboFont();
+                        entity.ExpandComboFont();
                     }
                 }
             }
@@ -226,7 +226,7 @@ namespace FusionEngine {
                         target.GetAttackInfo().attacker = entity;
 
                         CheckComboHitsStats(entity);
-
+                        
                         EntityActions.SetPainState(entity, target, attackBox);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
@@ -239,6 +239,13 @@ namespace FusionEngine {
                         entity.IncreaseMP(20);
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
+                        target.SetLifebarPercent(target.GetHealth());
+                        
+                        if (entity is Player) {
+                            ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
+                            ((Player)entity).SetLifebarHitTime(80);
+                        }
+
                         ApplyFrameActions(entity, target, attackBox);
                     }
                 }
@@ -262,6 +269,12 @@ namespace FusionEngine {
                         entity.IncreaseMP(20);
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
+                        target.SetLifebarPercent(target.GetHealth());
+
+                        if (entity is Player) {
+                            ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
+                            ((Player)entity).SetLifebarHitTime(80);
+                        }
                     }
 
                     if (target.GetAttackInfo().juggleHits <= 0) {
@@ -291,7 +304,7 @@ namespace FusionEngine {
             }
         }
 
-        public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit) {
+        public static void SetTargetHit(Entity entity, Entity target, CLNS.AttackBox attackBox, ref bool targetHit, float time) {
             if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
                 return;    
             }
@@ -300,6 +313,7 @@ namespace FusionEngine {
 
             if (!targetHit) {
                 OnTargetHit(target, entity, attackBox);
+                entity.GetAttackInfo().lastComboHitTime = time;
                 targetHit = true;
             }
         }

@@ -20,8 +20,9 @@ namespace FusionEngine {
         private MugenFont timeFont;
         private MugenFont nameFont;
         private MugenFont numberFont;
-        Vector2 p1NamePos, p2NamePos, p1LivesPos, p2LivesPos, p1PointsPos, p2PointsPos;
-
+        private Vector2 p1NamePos, p2NamePos, p1LivesPos, p2LivesPos, p1PointsPos, p2PointsPos;
+        private Vector2 hitHolderPos1, hitBarPos1, hitPortraitPos1, hitHolderPos2, hitBarPos2, hitPortraitPos2; 
+             
 
         public GameSystem() {
             players = new List<Player>();
@@ -29,6 +30,7 @@ namespace FusionEngine {
             playerMPBars = new List<SFIII_MPbar>();
             timePlaceHolders = new List<Entity>();
             p1NamePos = p2NamePos = p1LivesPos = p2LivesPos = p1PointsPos = p2PointsPos = Vector2.Zero;
+            hitHolderPos1 = hitBarPos1 = hitPortraitPos1 = hitHolderPos2 = hitBarPos2 = hitPortraitPos2 = Vector2.Zero;
 
             Load();
         }
@@ -39,6 +41,16 @@ namespace FusionEngine {
 
         public void AddPlayer(List<Player> players) {
             players.AddRange(players);
+        }
+
+        public void RemovePlayer(Player player) {
+            players.Remove(player);
+        }
+
+        public void RemovePlayer(List<Player> players) {
+            foreach (Player player in players) {
+                RemovePlayer(player);
+            }
         }
 
         private void SetPortrait(SFIII_Lifebar bar, Player player) {
@@ -67,20 +79,15 @@ namespace FusionEngine {
             currentTimePlaceHolder = timePlaceHolders[1];
 
             SFIII_Lifebar bar = new SFIII_Lifebar(5, 20, 21, 18, 4.08f, 3f);
-            //bar.SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 29, 65, 0, 0, 4.08f, 3f);
-            //SetPortrait(bar, players[0]);
             playerLifeBars.Add(bar);
 
             SFIII_MPbar mpbar = new SFIII_MPbar(5, 725, 163, 45, 3.8f, 3.8f);
             mpbar.SetPercent(0);
             mpbar.SetMpLevelFont(15, 731, 3.8f);
             mpbar.SetMpMaxLevelFont(16, 765, 1.5f);
-            //mpbar.SetMaxLevel(players[0].GetMaxMpLevel());
-            //mpbar.SetCurrentLevel(players[0].GetCurrentMpLevel());
             playerMPBars.Add(mpbar);
 
             bar = new SFIII_Lifebar(635, 20, 93, 18, 4.08f, 3f, SpriteEffects.FlipHorizontally);
-            //SetPortrait(bar, players[1]);
             playerLifeBars.Add(bar);
 
             mpbar = new SFIII_MPbar(792, 725, 15, 45, 3.8f, 3.8f, SpriteEffects.FlipHorizontally);
@@ -101,6 +108,14 @@ namespace FusionEngine {
             p2LivesPos = new Vector2(735, 10);
             p2PointsPos = new Vector2(1085, 0);
 
+            hitHolderPos1 = Vector2.Zero;
+            hitBarPos1 = new Vector2(220, 110);
+            hitPortraitPos1 = new Vector2(160, 85);
+
+            hitHolderPos2 = Vector2.Zero;
+            hitBarPos2 = new Vector2(803, 110);
+            hitPortraitPos2 = new Vector2(1055, 85);
+
             time = 0;
             currentTime = 0;
         }
@@ -108,20 +123,23 @@ namespace FusionEngine {
         public void Update(GameTime gameTime) {
             if (GameManager.IsPause())return;
 
+            Player player1 = (players.Count >= 1 ? players[0] : null); 
+            Player player2 = (players.Count >= 2 ? players[1] : null); 
+
             foreach (LifeBar bar in playerLifeBars) {
                 bar.Update(gameTime);
             }
 
-            if (players.Count >= 1) {
-                playerMPBars[0].SetMaxLevel(players[0].GetMaxMpLevel());
-                playerMPBars[0].SetCurrentLevel(players[0].GetCurrentMpLevel());
-                playerMPBars[0].SetPercent(players[0].GetMP());
+            if (player1 != null) {
+                playerMPBars[0].SetMaxLevel(player1.GetMaxMpLevel());
+                playerMPBars[0].SetCurrentLevel(player1.GetCurrentMpLevel());
+                playerMPBars[0].SetPercent(player1.GetMP());
+            }
 
-                if (players.Count >= 2) {
-                    playerMPBars[1].SetMaxLevel(players[1].GetMaxMpLevel());
-                    playerMPBars[1].SetCurrentLevel(players[1].GetCurrentMpLevel());
-                    playerMPBars[1].SetPercent(players[1].GetMP());
-                }
+             if (player2 != null) {
+                playerMPBars[1].SetMaxLevel(player2.GetMaxMpLevel());
+                playerMPBars[1].SetCurrentLevel(player2.GetCurrentMpLevel());
+                playerMPBars[1].SetPercent(player2.GetMP());
             }
 
             foreach (LifeBar bar in playerMPBars) {
@@ -142,22 +160,34 @@ namespace FusionEngine {
 
         public void Render(GameTime gameTime) {
             Player player1 = (players.Count >= 1 ? players[0] : null); 
-            Player player2 = (players.Count >= 2 ? players[1] : null);   
-                       
+            Player player2 = (players.Count >= 2 ? players[1] : null); 
+            
+            if (player1 != null) {
+                SetPortrait(playerLifeBars[0], player1);
+                playerLifeBars[0].Render();
+                playerLifeBars[1].Render();
+                playerMPBars[0].Render();
+                playerMPBars[1].Render();
+                player1.RenderHitLifebar(hitHolderPos1, hitBarPos1, hitPortraitPos1);
+                player1.RenderHitLifebar(hitHolderPos2, hitBarPos2, hitPortraitPos2, SpriteEffects.FlipHorizontally);
+            }  
+
+            if (player2 != null) {
+                currentTimePlaceHolder = timePlaceHolders[1];
+                SetPortrait(playerLifeBars[1], player2);
+                playerLifeBars[1].Render();
+                playerMPBars[1].Render();
+                player2.RenderHitLifebar();
+            } else {
+                currentTimePlaceHolder = timePlaceHolders[0];
+            }
+                     
             foreach (Player player in players) {
                 MugenFont comboFont = player.GetComboFont();
 
                 if (comboFont != null) {
                     comboFont.Draw("" + player.GetAttackInfo().comboHits + " H");
                 }
-            }
-
-            foreach (LifeBar bar in playerLifeBars) {
-                bar.Render();
-            }
-
-            foreach (LifeBar bar in playerMPBars) {
-                bar.Render();
             }
 
             if (currentTimePlaceHolder != null) {
@@ -196,7 +226,6 @@ namespace FusionEngine {
             if (numberFont != null) {
                 if (player1 != null) { 
                     numberFont.Draw("" + player1.GetPoints().ToString("D8"), p1PointsPos);
-                    numberFont.Draw("" + player1.GetPoints().ToString("D8"), p2PointsPos);
                 }
 
                 if (player2 != null) { 

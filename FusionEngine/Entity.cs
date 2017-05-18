@@ -95,6 +95,8 @@ namespace FusionEngine {
         private bool alive;
         private Attributes.Portrait portrait;
         private MugenFont comboFont;
+        private MugenFont nameFont;
+        private SFIII_SimpleLifebar lifeBar;
 
         private Dictionary<InputHelper.KeyPress, Keys> keyboardSettings;
         private Dictionary<InputHelper.KeyPress, Keys> keyboardBtnsOnly;
@@ -371,6 +373,18 @@ namespace FusionEngine {
             }
 
             return null;
+        }
+
+        public void SetLifeBar(SFIII_SimpleLifebar lifeBar) {
+            this.lifeBar = lifeBar;
+        }
+
+        public void SetNameFont(MugenFont nameFont) {
+            this.nameFont = nameFont;
+        }
+
+        public MugenFont GetNameFont() {
+            return nameFont;
         }
 
         public void AddCommandMove(InputHelper.CommandMove commandMove) {
@@ -1323,7 +1337,7 @@ namespace FusionEngine {
             return comboFont;
         }
 
-        public virtual void ComboFont() {
+        public virtual void ExpandComboFont() {
             if (comboFont == null) {
                 if (this is Player) {
                     if (((Player)this).GetPlayerIndex() == 1) { 
@@ -1336,10 +1350,10 @@ namespace FusionEngine {
                 } 
             }
 
-            CallComboFont();
+            ShowComboFont();
         }
 
-        public void CallComboFont() {
+        public void ShowComboFont() {
             if (comboFont != null) {
                 comboFont.Translate();
             }
@@ -2341,6 +2355,40 @@ namespace FusionEngine {
 
         public void Update(GameTime gameTime) {
             UpdatePosition(gameTime);
+        }
+
+        public SFIII_SimpleLifebar GetLifeBar() {
+            return lifeBar;
+        }
+
+        public void RenderLifebar() {
+            if (lifeBar != null) {
+                lifeBar.Render();
+            }
+        }
+
+        public void UpdateLifebar(GameTime gameTime) {
+            if (lifeBar != null) {
+                lifeBar.Update(gameTime);
+            }
+        }
+
+        public void SetLifebarPercent(float percent) {
+            if (lifeBar != null) {
+                lifeBar.SetPercent(percent);
+            }
+        }
+
+        public void IncreaseLifebar(float amount) {
+            if (lifeBar != null) {
+                lifeBar.Increase(amount);
+            }
+        }
+
+        public void DecreaseLifebar(float amount) {
+            if (lifeBar != null) {
+                lifeBar.Decrease(amount);
+            }
         }
 
         public void UpdateBoxes(GameTime gameTime) {

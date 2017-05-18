@@ -17,6 +17,11 @@ namespace FusionEngine {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
 
+                if (entity is Player) {
+                    ((Player)entity).UpdateHitLifebarTimer(gameTime);
+                }
+
+                entity.UpdateLifebar(gameTime);
                 entity.UpdateToss(gameTime);
                 entity.UpdatePauseHit(gameTime);
                 entity.UpdateAliveTime(gameTime);

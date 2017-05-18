@@ -2894,3 +2894,4 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Deb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bigfont.xFont
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Fonts\bigfont.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\PORTRAIT\ICON16.xnb

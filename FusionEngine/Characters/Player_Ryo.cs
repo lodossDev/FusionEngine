@@ -220,6 +220,7 @@ namespace FusionEngine {
             //SetBaseOffset(50f, 190f);
             SetShadowOffset(0, -5);
             SetPlayerIndex(2);
+            SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 29, 65, 0, 0, 4.08f, 3f);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 20);
         }

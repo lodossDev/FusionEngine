@@ -68,6 +68,7 @@
     <Compile Include="EntityActions.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="IGameScreen.cs" />
+    <Compile Include="Lifebars\SFIII_SimpleLifebar.cs" />
     <Compile Include="MugenFont.cs" />
     <Compile Include="FrameAction.cs" />
     <Compile Include="FrameRateCounter.cs" />

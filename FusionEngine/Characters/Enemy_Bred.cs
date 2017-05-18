@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace FusionEngine {
 
     public class Enemy_Bred : Enemy {
+        private static int count = 0;
 
         public Enemy_Bred() : base("BRED") {
             AddSprite(Animation.State.STANCE, new Sprite("Sprites/Actors/Bred/STANCE"), true);
@@ -105,8 +106,14 @@ namespace FusionEngine {
 
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
-            SetHealth(100000);
+            SetHealth(100);
             SetCanHurtOthers(true);
+
+            count++;
+
+            SFIII_SimpleLifebar lifeBar = new SFIII_SimpleLifebar(225, 110, 0 , 0, 2.0f, 4.5f);
+            lifeBar.SetPortrait("Sprites/Actors/Bred/PORTRAIT", 160, 90, 0, 0, 4.08f, 3f);
+            SetLifeBar(lifeBar);
 
             //SetBoundToLevel(true);
         }

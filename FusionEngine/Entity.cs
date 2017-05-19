@@ -87,11 +87,13 @@ namespace FusionEngine {
         private int mp;
         private int currentMpLevel;
         private int maxMpLevel;
+        private int maxLives;
         private int lives;
         private long oldPoints;
         private long points;
         private int oldHealth;
         private int health;
+        private int maxHealth;
         private bool alive;
         private Attributes.Portrait portrait;
         private MugenFont comboFont;
@@ -209,10 +211,10 @@ namespace FusionEngine {
             portrait = null;
             currentMpLevel = 0;
             maxMpLevel = 3;
-            health = oldHealth = 100;
+            health = oldHealth = maxHealth = 100;
             points = oldPoints = 0000000;
             mp = 0;
-            lives = 3;
+            lives = maxLives = 3;
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
             drawShadow = false;
@@ -598,6 +600,11 @@ namespace FusionEngine {
             lives = amount;
         }
 
+        public void SetMaxLives(int amount) {
+            maxLives = amount;
+            lives = amount;
+        }
+
         public void SetMP(int amount) {
             mp = amount;
         }
@@ -788,6 +795,11 @@ namespace FusionEngine {
             this.health = health;
         }
 
+        public void SetMaxHealth(int health) {
+            this.maxHealth = health;
+            this.health = health;
+        }
+
         public void SetMaxRiseTime(int riseTime) {
             maxRiseTime = riseTime;
         }
@@ -800,7 +812,13 @@ namespace FusionEngine {
             health -= amount;
 
             if (health < 0) {
-                health = 0;
+                DecreaseLives(1);
+
+                if (lives > 1) {
+                    health = 100;
+                } else {
+                    health = 0;
+                }
             }
         }
 
@@ -837,8 +855,8 @@ namespace FusionEngine {
         public void DecreaseLives(int amount) {
             lives -= amount;
 
-            if (lives < 0) {
-                lives = 0;
+            if (lives < 1) {
+                lives = 1;
             }
         }
 
@@ -987,6 +1005,14 @@ namespace FusionEngine {
 
         public int GetHealth() {
             return health;
+        }
+
+        public int GetMaxHealth() {
+            return maxHealth;
+        }
+
+        public int GetMaxLives() {
+            return maxLives;
         }
 
         public int GetMP() {
@@ -2032,7 +2058,7 @@ namespace FusionEngine {
         }
 
         public bool InResetState() {
-            return (GetHealth() > 0 && !IsDying() && !InAir()
+            return (!IsDying() && !InAir()
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
                                 || IsInAnimationAction(Animation.Action.RUNNING)
                                 || IsActionComplete(Animation.Action.JUMPING)
@@ -2323,7 +2349,7 @@ namespace FusionEngine {
         }
 
         public bool IsDying() {
-            return (GetHealth() == 0 || IsInAnimationAction(Animation.Action.DYING));
+            return ((GetHealth() <= 0 && lives <= 1) || IsInAnimationAction(Animation.Action.DYING));
         }
 
         public bool InvalidHitState() {

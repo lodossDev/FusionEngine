@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk03.png</SourceFile>
-  <SourceTime>2017-02-23T19:19:29.3608926+00:00</SourceTime>
-  <DestFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/Actors/Leo/Walk/Walk03.xnb</DestFile>
-  <DestTime>2017-05-12T20:36:56.0805887+01:00</DestTime>
+  <SourceFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Leo/Walk/Walk03.png</SourceFile>
+  <SourceTime>2017-03-28T15:46:18.2694061+01:00</SourceTime>
+  <DestFile>C:/Users/ahafeez/Desktop/Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Sprites/Actors/Leo/Walk/Walk03.xnb</DestFile>
+  <DestTime>2017-05-19T12:35:04.5814039+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
+  <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2016-03-30T07:36:08+01:00</ProcessorTime>
+  <ProcessorTime>2017-03-01T15:05:36+00:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

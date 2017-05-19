@@ -378,7 +378,7 @@ namespace FusionEngine {
         }
 
         private static void OnDeathStep1(Entity entity) {
-            if (entity.GetHealth() == 0 && entity.GetDeathStep() == 1) {
+            if ((entity.GetHealth() == 0  && entity.GetLives() <= 1) && entity.GetDeathStep() == 1) {
 
                 if (entity.IsInAnimationAction(Animation.Action.RISING) && entity.IsAnimationComplete()) {
                     entity.SetAnimationState(Animation.State.DIE1);
@@ -408,7 +408,7 @@ namespace FusionEngine {
         }
 
         public static void OnDeath(Entity entity) {
-            if (entity.GetHealth() == 0 && entity.GetDeathStep() == -1) {
+            if ((entity.GetHealth() == 0 && entity.GetLives() <= 1) && entity.GetDeathStep() == -1) {
                 entity.OnDeath();
 
                 String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));

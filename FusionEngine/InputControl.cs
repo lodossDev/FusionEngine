@@ -298,7 +298,7 @@ namespace FusionEngine {
                 }
             }
 
-            if (ATTACK_PRESS && player.InGrabAttackState()) {
+            if (ATTACK_PRESS && player.InGrabAttackState() && !player.GetCurrentAnimationState().ToString().Contains("SPECIAL")) {
                 InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
                 
                 if (player.GetDirX() > 0) {
@@ -340,12 +340,39 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
+            //put in manager
             currentKeyboardState = Keyboard.GetState();
             currentPadState = GamePad.GetState(playerIndex);
 
             ReadPressedInputBuffer(gameTime);
             ReadHeldInputBuffer(gameTime);
             ReadReleasedInputBuffer(gameTime);
+
+            List<InputHelper.CommandMove> commandMoves = player.GetCommandMoves();
+                commandMoves.Sort();
+
+            foreach (InputHelper.CommandMove command in commandMoves) {
+                if (Matches(command) && command.CanExecute(player)) {
+                    player.OnCommandMoveComplete(command);
+                    Animation.State? state;
+
+                    if (player.HasHit() && command.GetOnHitState() != null) { 
+                        state = command.GetOnHitState();
+                    } else {
+                        state = command.GetAnimationState();
+                    }
+
+                    if (player.GetCurrentAnimationAction(state) == Animation.Action.RUNNING) {
+                        if (player.CanRunAction()) {
+                            player.SetAnimationState(state);
+                        }
+                    } else {
+                            player.SetAnimationState(state);
+                    }
+
+                    break;
+                }
+            }
             
             UpdateDefaultControls(gameTime);
 

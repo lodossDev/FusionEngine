@@ -19,7 +19,8 @@ namespace FusionEngine {
             SetPostion(200, 0, 200);
             SetShadowOffset(0, -10);
 
-            SetHealth(10);
+            SetMaxHealth(10);
+            SetMaxLives(1);
         }
     }
 }

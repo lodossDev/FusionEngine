@@ -105,7 +105,7 @@ namespace FusionEngine {
 
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
-            SetHealth(100);
+            SetMaxHealth(100);
             SetCanHurtOthers(true);
 
             SFIII_SimpleLifebar lifeBar = new SFIII_SimpleLifebar(225, 110, 0 , 0, 2.0f, 4.5f);
@@ -113,6 +113,7 @@ namespace FusionEngine {
             SetLifeBar(lifeBar);
 
             SetMaxLives(3);
+            SetDeathMode(DeathType.DEFAULT | DeathType.FLASH);
 
             //SetBoundToLevel(true);
         }

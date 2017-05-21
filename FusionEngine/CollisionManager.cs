@@ -620,6 +620,7 @@ namespace FusionEngine
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
                             && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))
+                            && !entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
                             && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
                             && !entity.IsInAnimationAction(Animation.Action.INPAIN)
                             && !entity.IsDying()) {
@@ -641,6 +642,7 @@ namespace FusionEngine
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
                             && !entity.IsInAnimationAction(Animation.Action.INPAIN)
+                            && !entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
                             && !entity.IsDying()
                             && entity.GetGrabInfo().grabbed == null) {
 
@@ -666,13 +668,16 @@ namespace FusionEngine
             if (entity.GetGrabInfo().grabbed != null) {
                 if (entity.GetGrabInfo().grabbed.IsDying() 
                         || entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)
+                        || entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
                         || entity.IsHit()) {
 
-                    if (!entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
-                        entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1);
-                    }
+                    if (!entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")) { 
+                        if (!entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
+                            entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1);
+                            entity.GetGrabInfo().grabbed.Toss(8);
+                        }
+                    } 
 
-                    entity.GetGrabInfo().grabbed.Toss(8);
                     entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
                     entity.GetGrabInfo().grabbed.GetGrabInfo().Reset();
                     entity.GetGrabInfo().grabbed.GetAttackInfo().Reset();
@@ -696,11 +701,11 @@ namespace FusionEngine
                 Entity entity = entities[i];
                 entity.GetCollisionInfo().SetItem(null);
 
+                CheckAttack(gameTime, entity);
                 CheckGrabItem(entity);
                 CheckGrab(entity);
                 CheckKnocked(entity);
-                CheckAttack(gameTime, entity);
-
+ 
                 if (entity.GetComboFont() != null 
                         && entity.GetComboFont().IsNotShowing()) {
                     

@@ -270,6 +270,7 @@ namespace FusionEngine {
 
         public class AttackInfo {
             public Entity attacker;
+            public Entity victim;
             public Animation.State? lastAttackState;
             public long hitByAttackId;
             public int lastAttackFrame;
@@ -333,6 +334,9 @@ namespace FusionEngine {
                 comboHits = comboPoints = 0;
                 comboHitTime = 0;
                 lastComboHitTime = 0;
+
+                attacker = null;
+                victim = null;
             }
 
             public void Reset() {

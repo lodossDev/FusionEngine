@@ -56,7 +56,7 @@ namespace FusionEngine {
             bred = new Enemy_Bred();
 
             bred2 = new Enemy_Bred();
-            bred2.SetPostion(600, 0, 600);
+            bred2.SetPostion(600, 0, 200);
             bred2.SetName("BRED2");
 
             level1 = new Stage1();
@@ -94,23 +94,28 @@ namespace FusionEngine {
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X)) {
-                GameManager.TakeScreenshot(this);
+                //GameManager.TakeScreenshot(this);
+                GameManager.GetInstance().DropAllEnemies();
+                ryo.SetAnimationState(Animation.State.SPECIAL2);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
             {
-                GameManager.Camera.Zoom += 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //GameManager.Camera.Zoom += 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width / 2, Setup.graphicsDevice.Viewport.Height / 2);
                 //Vector2 pos = new Vector2(-(camera.Zoom * 3f), 0);
                 //camera.Move(pos);
+                ryo.DecreaseHealth(1);
             }
             
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                GameManager.Camera.Zoom -= 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //GameManager.Camera.Zoom -= 0.8f * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width/2, Setup.graphicsDevice.Viewport.Height/2);
                 //Vector2 pos = new Vector2((camera.Zoom * 3f), 0);
                 //camera.Move(pos);
+                //ryo.SetHealth(100);
+                ryo.IncreaseHealth(10);
             }
 
             //bar.Percent((int)barHealth);
@@ -125,9 +130,9 @@ namespace FusionEngine {
                         && !bred.IsRise()
                         && !bred.InHitPauseTime()
                         && bred.GetHealth() > 0
-                        && !bred.IsDying()) {
+                        ) {
 
-                    if(!bred.IsInAnimationAction(Animation.Action.RISING))bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    //if(!bred.IsInAnimationAction(Animation.Action.RISING) && !bred.IsDying())bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred.ResetToIdle(gameTime);
                 }
 
@@ -139,9 +144,9 @@ namespace FusionEngine {
                         && !bred2.IsRise()
                         && !bred2.InHitPauseTime()
                         && bred2.GetHealth() > 0
-                        && !bred2.IsDying()) {
+                        ) {
 
-                    if(!bred2.IsInAnimationAction(Animation.Action.RISING))bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    //if(!bred2.IsInAnimationAction(Animation.Action.RISING) && !bred2.IsDying())bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred2.ResetToIdle(gameTime);
                 }
 
@@ -162,11 +167,11 @@ namespace FusionEngine {
                 line.Update();
             }*/
 
-            UpdateCamera(gameTime);
+            if (GameManager.GetInstance().slowTime <= 0)UpdateCamera(gameTime);
             GameManager.GetInstance().UpdatePosition(gameTime);
         }
 
-         private void UpdateCamera(GameTime gameTime) {
+        private void UpdateCamera(GameTime gameTime) {
             x = 0;
             float velX = (ryo.GetAccelX() / GameManager.GAME_VELOCITY) * ryo.GetDirX();
 
@@ -248,7 +253,8 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            //font1.Draw("MP - " + bred.GetHealth(), new Vector2(80, 100));
+            font1.Draw("CURRENT - " + (bred.GetCurrentAnimationState()), new Vector2(80, 100));
+            //font1.Draw("TRANSITION - " + (bred.GetHealth()), new Vector2(80, 200));
             //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);

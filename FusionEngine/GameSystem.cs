@@ -131,12 +131,14 @@ namespace FusionEngine {
             }
 
             if (player1 != null) {
+                playerLifeBars[0].SetPercent(player1.GetHealth());
                 playerMPBars[0].SetMaxLevel(player1.GetMaxMpLevel());
                 playerMPBars[0].SetCurrentLevel(player1.GetCurrentMpLevel());
                 playerMPBars[0].SetPercent(player1.GetMP());
             }
 
              if (player2 != null) {
+                playerLifeBars[1].SetPercent(player1.GetHealth());
                 playerMPBars[1].SetMaxLevel(player2.GetMaxMpLevel());
                 playerMPBars[1].SetCurrentLevel(player2.GetCurrentMpLevel());
                 playerMPBars[1].SetPercent(player2.GetMP());
@@ -170,6 +172,8 @@ namespace FusionEngine {
                 playerMPBars[1].Render();
                 player1.RenderHitLifebar(hitHolderPos1, hitBarPos1, hitPortraitPos1);
                 player1.RenderHitLifebar(hitHolderPos2, hitBarPos2, hitPortraitPos2, SpriteEffects.FlipHorizontally);
+                player1.RenderHitName(new Vector2(230, 84));
+                player1.RenderHitName(new Vector2(880, 84));
             }  
 
             if (player2 != null) {
@@ -191,7 +195,9 @@ namespace FusionEngine {
             }
 
             if (currentTimePlaceHolder != null) {
-                GameManager.SpriteBatch.Draw(currentTimePlaceHolder.GetCurrentSprite().GetCurrentTexture(), currentTimePlaceHolder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, Vector2.Zero, currentTimePlaceHolder.GetScale(), SpriteEffects.None, 0f);
+                GameManager.SpriteBatch.Draw(currentTimePlaceHolder.GetCurrentSprite().GetCurrentTexture(), 
+                                                currentTimePlaceHolder.GetCurrentSprite().GetPosition(), null, Color.White * 1f, 0f, 
+                                                Vector2.Zero, currentTimePlaceHolder.GetScale(), SpriteEffects.None, 0f);
             }
 
             if (timeFont != null) {

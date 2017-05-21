@@ -187,7 +187,6 @@ namespace FusionEngine {
                  
                 if (entity.GetAttackInfo().comboHitTime < 200) { 
                     entity.GetAttackInfo().showComboHits += 1;
-                    entity.GetAttackInfo().comboHitTime = 0;
                 }
 
                 if (entity.GetAttackInfo().showComboHits >= entity.GetAttackInfo().targetComboHits) { 
@@ -224,6 +223,7 @@ namespace FusionEngine {
                         target.GetAttackInfo().isHit = true;
                         target.GetAttackInfo().lastAttackDir = attackDir;
                         target.GetAttackInfo().attacker = entity;
+                        entity.GetAttackInfo().victim = target;
 
                         CheckComboHitsStats(entity);
                         
@@ -238,12 +238,12 @@ namespace FusionEngine {
                         //entity.SetTossGravity(1.83f);
                         entity.IncreaseMP(20);
                         entity.IncreasePoints(attackBox.GetHitPoints());
-                        target.DecreaseHealth(attackBox.GetHitDamage());
-                        target.SetLifebarPercent(target.GetHealth());
+                        target.DecreaseHealth(attackBox.GetHitDamage() + 20);
+                        //target.SetLifebarPercent(target.GetHealth());
                         
                         if (entity is Player) {
                             ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
-                            ((Player)entity).SetLifebarHitTime(80);
+                            ((Player)entity).SetLifebarHitTime(12000);
                         }
 
                         ApplyFrameActions(entity, target, attackBox);
@@ -269,7 +269,7 @@ namespace FusionEngine {
                         entity.IncreaseMP(20);
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
-                        target.SetLifebarPercent(target.GetHealth());
+                        //target.SetLifebarPercent(target.GetHealth());
 
                         if (entity is Player) {
                             ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
@@ -282,7 +282,7 @@ namespace FusionEngine {
                     }
 
                     target.GetAttackInfo().lastJuggleState = -1;
-                }   
+                }  
             }
         }
 
@@ -334,21 +334,34 @@ namespace FusionEngine {
                             && (target.GetAttackInfo().blockMode == 2 
                                     || target.GetAttackInfo().blockMode == 3))) { 
                         
-                        target.MoveX((attackBox.GetMoveX() * dirX));
+                        if (attackBox.GetMoveX() != 0.0) {
+                            target.MoveX((attackBox.GetMoveX() * dirX));
+                        }
 
                         if (!target.InBlockAction()) {
-                            target.Toss(attackBox.GetTossHeight());
+                            if (attackBox.GetTossHeight() != 0.0) {
+                                target.Toss(attackBox.GetTossHeight());
+                            }
                         }
                     }
                 } else {
                     if (!target.InBlockAction()) {
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
-                        target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * dirX));
+
+                        if (attackBox.GetTossHeight() != 0.0) {
+                            target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * dirX));
+                        }
                     }
 
                     if (target.InBlockAction() && target.GetAttackInfo().blockMode == 3) {
-                        target.MoveX((attackBox.GetMoveX() * dirX));
+                        if (attackBox.GetMoveX() != 0.0) {
+                            target.MoveX((attackBox.GetMoveX() * dirX));
+                        }
+                    }
+
+                    if (entity.GetGrabInfo().grabbed != null) { 
+                        EntityActions.Ungrab(entity, entity.GetGrabInfo().grabbed);
                     }
                 }
             }
@@ -364,12 +377,15 @@ namespace FusionEngine {
                     if (collectable is Health) {
                         GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseHealth((int)collectable.GetPoints());
+
                     } else if (collectable is Money) {
                         GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreasePoints((int)collectable.GetPoints());
+
                     } else if (collectable is Life) {
                         GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseLives((int)collectable.GetPoints());
+
                     } else if (collectable is MP) {
                         GameManager.GetInstance().PlaySFX("1up");
                         entity.IncreaseMP((int)collectable.GetPoints());

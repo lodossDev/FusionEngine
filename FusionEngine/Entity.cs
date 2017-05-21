@@ -14,10 +14,11 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-        public enum ObjectType {PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL, LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
-            WALL,
-            PORTRAIT,
-            SYSTEM
+
+        public enum ObjectType {
+            PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL,
+            LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
+            WALL, PORTRAIT, SYSTEM
         }
 
         [Flags]
@@ -207,14 +208,19 @@ namespace FusionEngine {
             riseTime = maxRiseTime = 50;
             dieTime = 50;
             deathStep = -1;
-
+            
+            comboFont = null;
+            nameFont = new MugenFont("Fonts/sfiii_name.xFont", 4, 0, 2.8f);
             portrait = null;
+            lifeBar = null;
+
+            health = oldHealth = maxHealth = 100;
+            points = oldPoints = 0;
             currentMpLevel = 0;
             maxMpLevel = 3;
-            health = oldHealth = maxHealth = 100;
-            points = oldPoints = 0000000;
             mp = 0;
             lives = maxLives = 3;
+
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
             drawShadow = false;
@@ -795,9 +801,14 @@ namespace FusionEngine {
             this.health = health;
         }
 
+        public void SetOldHealth(int health) {
+            this.oldHealth = health;
+        }
+
         public void SetMaxHealth(int health) {
             this.maxHealth = health;
             this.health = health;
+            this.oldHealth = health;
         }
 
         public void SetMaxRiseTime(int riseTime) {
@@ -809,24 +820,24 @@ namespace FusionEngine {
         }
 
         public void DecreaseHealth(int amount) {
-            health -= amount;
+            oldHealth -= amount;
 
-            if (health < 0) {
+            if (oldHealth < 0) {
                 DecreaseLives(1);
 
-                if (lives > 1) {
-                    health = 100;
+                if (lives > 0) {
+                    oldHealth = maxHealth;
                 } else {
-                    health = 0;
+                    oldHealth = 0;
                 }
             }
         }
 
         public void IncreaseHealth(int amount) {
-            health += amount;
+            oldHealth += amount;
 
-            if (health > 100) {
-                health = 100;
+            if (oldHealth > 100) {
+                oldHealth = 100;
             }
         }
 
@@ -855,8 +866,8 @@ namespace FusionEngine {
         public void DecreaseLives(int amount) {
             lives -= amount;
 
-            if (lives < 1) {
-                lives = 1;
+            if (lives < 0) {
+                lives = 0;
             }
         }
 
@@ -1005,6 +1016,10 @@ namespace FusionEngine {
 
         public int GetHealth() {
             return health;
+        }
+
+        public int GetOldHealth() {
+            return oldHealth;
         }
 
         public int GetMaxHealth() {
@@ -1337,6 +1352,10 @@ namespace FusionEngine {
 
         public Color GetSpriteColor() {
             return colorInfo.GetColor();
+        }
+
+        public Attributes.ColourInfo GetColourInfo() {
+            return colorInfo;
         }
 
         public Color GetBaseColor() {
@@ -1916,9 +1935,7 @@ namespace FusionEngine {
                 }
 
                 if (IsInTossFrame()) {
-
                     if (!tossInfo.inTossFrame) { 
-
                         if (IsInAnimationAction(Animation.Action.JUMPING)) {
                             GameManager.GetInstance().PlaySFX(this, GetCurrentAnimationState(), "jump");
                         }
@@ -1943,7 +1960,7 @@ namespace FusionEngine {
                     }
                 }
 
-                if ((int)GetPosY() >= (int)GetGround() && tossInfo.velocity.Y >= 0) {
+                if ((int)GetPosY() > (int)GetGround()) {
                     tossInfo.hitGoundCount += 1;
 
                     if (tossInfo.hitGoundCount < tossInfo.maxHitGround) {
@@ -1978,8 +1995,22 @@ namespace FusionEngine {
                             attackInfo.isHit = false;
                             SetIsRise(true);
                         } else { 
-                            SetAnimationState(Animation.State.LAND1);
+                            if (!IsDying()) { 
+                                if (HasSprite(Animation.State.LAND1)) { 
+                                    SetAnimationState(Animation.State.LAND1);
+                                } else {
+                                    SetAnimationState(Animation.State.STANCE);
+                                }
+                            } else {
+                                if (IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)) {
+                                    if (InvalidDeathState()) {
+                                        SetAnimationState(Animation.State.DIE1);
+                                    }
+                                }
 
+                                SetDeathStep(1);
+                            }
+                            
                             if (IsInAnimationAction(Animation.Action.LANDING)) {
                                 GameManager.GetInstance().PlaySFX(this, Animation.State.LAND1, "land");
                             }
@@ -2058,9 +2089,10 @@ namespace FusionEngine {
         }
 
         public bool InResetState() {
-            return (!IsDying() && !InAir()
+            return (!IsDying() && !InAir() && !InPainTime()
                         &&  (IsInAnimationAction(Animation.Action.WALKING)
                                 || IsInAnimationAction(Animation.Action.RUNNING)
+                                || IsInAnimationState(Animation.State.NONE)
                                 || IsActionComplete(Animation.Action.JUMPING)
                                 || IsActionComplete(Animation.Action.LANDING)
                                 || IsActionComplete(Animation.Action.ATTACKING)
@@ -2069,6 +2101,7 @@ namespace FusionEngine {
                                 || IsActionComplete(Animation.Action.INPAIN)     
                                 || IsActionComplete(Animation.Action.RISING)
                                 || IsActionComplete(Animation.Action.PICKING_UP)
+                                || IsActionComplete(Animation.Action.FALLING)
                                 /*|| IsActionComplete(Animation.Action.BLOCKING)*/));
         }
 
@@ -2169,6 +2202,15 @@ namespace FusionEngine {
                     }
                 }
             }
+        }
+
+        public void UpdateHealth(GameTime gameTime) { 
+            if (health < oldHealth) {
+                health++;
+            }
+
+            health = (int)MathHelper.Lerp((float)health, (float)oldHealth, 8.0f * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            SetLifebarPercent(health);
         }
 
         public void SetRumble(float dir = 1f, float force = 2.8f, float time = 50f, float maxForce = 20f) {
@@ -2280,11 +2322,16 @@ namespace FusionEngine {
         }
 
         public void UpdateFrameActions(GameTime gameTime) {
+
             if (frameActions.Count > 0) {
+                //Debug.WriteLine("FRAME ACTION COUNT: {0}", frameActions.Count);
+
                 foreach (FrameAction action in frameActions) {
                     
                     if (action.GetAnimationState() == GetCurrentAnimationState() 
                             && action.IsInFrame(GetCurrentSpriteFrame())) {
+
+                        //Debug.WriteLine("FRAME ACTION: {0} {1}", GetName(), action.GetAnimationState());
 
                         if (IsEdgeX() == false && GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
                             if (action.GetMoveX() != 0.0) {
@@ -2349,7 +2396,7 @@ namespace FusionEngine {
         }
 
         public bool IsDying() {
-            return ((GetHealth() <= 0 && lives <= 1) || IsInAnimationAction(Animation.Action.DYING));
+            return ((GetOldHealth() <= 0 && lives <= 0) || IsInAnimationAction(Animation.Action.DYING));
         }
 
         public bool InvalidHitState() {
@@ -2395,6 +2442,12 @@ namespace FusionEngine {
 
         public void UpdateLifebar(GameTime gameTime) {
             if (lifeBar != null) {
+                if (IsDying()) {
+                    if (!lifeBar.GetPortrait().IsFlash()) {
+                        lifeBar.GetPortrait().Flash(GameManager.DEATH_FLASH_TIME);
+                    }
+                }
+
                 lifeBar.Update(gameTime);
             }
         }

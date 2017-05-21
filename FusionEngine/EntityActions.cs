@@ -378,21 +378,25 @@ namespace FusionEngine {
         }
 
         private static void OnDeathStep1(Entity entity) {
-            if ((entity.GetHealth() == 0  && entity.GetLives() <= 1) && entity.GetDeathStep() == 1) {
+            if ((entity.GetOldHealth() == 0 && entity.GetLives() <= 0) && entity.GetDeathStep() == 1) {
+
+                if (!entity.IsToss() && entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)
+                        && !entity.IsInAnimationState(Animation.State.DIE1)) {
+
+                    entity.SetAnimationState(Animation.State.DIE1);
+                }
 
                 if (entity.IsInAnimationAction(Animation.Action.RISING) && entity.IsAnimationComplete()) {
                     entity.SetAnimationState(Animation.State.DIE1);
                 }
 
                 if (entity.IsInAnimationAction(Animation.Action.DYING)) {
-
                     if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
                         entity.Flash(GameManager.DEATH_FLASH_TIME);
                     }
                 }
 
                 if (entity.IsInAnimationAction(Animation.Action.DYING) && entity.IsAnimationComplete()) {
-
                     if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
                         entity.Flash(GameManager.DEATH_FLASH_TIME);
                     }
@@ -401,23 +405,38 @@ namespace FusionEngine {
                     entity.SetDeathStep(2);
                 }
 
-                if (entity.IsInAnimationAction(Animation.Action.INPAIN)) {
+                if (entity.IsInAnimationAction(Animation.Action.INPAIN) 
+                        || entity.IsInAnimationAction(Animation.Action.FALLING)) {
+
                     entity.SetDeathStep(-1);
                 }
             }
         }
 
         public static void OnDeath(Entity entity) {
-            if ((entity.GetHealth() == 0 && entity.GetLives() <= 1) && entity.GetDeathStep() == -1) {
+            if ((entity.GetOldHealth() == 0 && entity.GetLives() <= 0) && entity.GetDeathStep() == -1) {
                 entity.OnDeath();
 
                 String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));
-                GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
 
-                if (entity.IsDeathMode(Entity.DeathType.DEFAULT)) {
+                if (!entity.IsInAnimationAction(Animation.Action.DYING)) {
+                    GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
+                }
+
+                if (entity.IsDeathMode(Entity.DeathType.FLASH)) {
+                    entity.Flash(GameManager.DEATH_FLASH_TIME);
+                }
+
+                if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)) {
+                    if (!entity.InvalidDeathState()) {
+                        entity.SetAnimationState(Animation.State.DIE1);
+                    }
+
+                    entity.SetDeathStep(1);
+
+                } else if (entity.IsDeathMode(Entity.DeathType.DEFAULT)) {
 
                     if (!entity.InvalidDeathState()) {
-
                         if (entity.IsEntity(Entity.ObjectType.OBSTACLE) || entity is Obstacle) {
                             entity.SetAnimationState(Animation.State.DIE1);
                         } else {
@@ -429,21 +448,12 @@ namespace FusionEngine {
                         entity.Toss(-17, velX, 1, 2); 
                         entity.SetTossGravity(0.7f);
                     }
-                }
 
-                if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)) {
-                    if (!entity.InvalidDeathState()) {
-                        entity.SetAnimationState(Animation.State.DIE1);
-                    }
-                }
-
-                if (entity.IsDeathMode(Entity.DeathType.FLASH)) {
-                    entity.Flash(GameManager.DEATH_FLASH_TIME);
+                    entity.SetDeathStep(1);
                 }
 
                 entity.GetGrabInfo().Reset();
                 entity.GetRumble().Reset(); 
-                entity.SetDeathStep(1);
             }
 
             OnDeathStep1(entity);

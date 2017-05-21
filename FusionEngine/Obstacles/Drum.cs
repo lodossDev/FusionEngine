@@ -19,7 +19,8 @@ namespace FusionEngine {
             SetOnLoadScale(2.2f, 2.6f);
             SetPostion(0, 0, 0);
 
-            SetHealth(1);
+            SetMaxHealth(1);
+            SetMaxLives(1);
             SetIsPlatform(true);
         }
     }

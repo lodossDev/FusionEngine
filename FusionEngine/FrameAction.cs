@@ -14,6 +14,7 @@ namespace FusionEngine {
         private Animation.State animationState;
 
         public FrameAction(Animation.State animationState, int startFrame, int endFrame, float moveX, float moveY, float tossHeight) {
+            this.animationState = animationState;
             frameInfo = new Attributes.FrameInfo(startFrame - 1, endFrame - 1);
             this.moveX = moveX;
             this.moveY = moveY;

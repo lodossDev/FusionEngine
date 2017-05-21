@@ -81,6 +81,13 @@ namespace FusionEngine {
             AddSprite(Animation.State.SPECIAL1, new Sprite("Sprites/Actors/Ryo/Special1", Animation.Type.ONCE));
             SetSpriteOffSet(Animation.State.SPECIAL1, 20, -32);
             SetFrameDelay(Animation.State.SPECIAL1, 4);
+            
+
+            AddSprite(Animation.State.SPECIAL2, new Sprite("Sprites/Actors/Ryo/SPECIAL2", Animation.Type.ONCE));
+            SetSpriteOffSet(Animation.State.SPECIAL2, 5, -32);
+            SetFrameDelay(Animation.State.SPECIAL2, 4);
+            AddFrameAction(Animation.State.SPECIAL2, 3, 3, 10, 0, -15);
+            AddAnimationSound(Animation.State.SPECIAL2, "Sprites/Actors/Ryo/SOUNDS/ryosp1");
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Ryo/JumpAttack1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.JUMP_ATTACK1, 4);
@@ -115,12 +122,17 @@ namespace FusionEngine {
             AddBox(Animation.State.SPECIAL1, 12, new CLNS.AttackBox(150, 200, 50, -15));
             AddBox(Animation.State.SPECIAL1, 14, new CLNS.AttackBox(150, 200, 50, 45));
 
+            AddBox(Animation.State.SPECIAL2, 3, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, -15,  0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+
             AddAnimationLink(new Animation.Link(Animation.State.JUMP_START, Animation.State.JUMP, 1));
 
             SetTossFrame(Animation.State.JUMP_START, 1);
             SetTossFrame(Animation.State.JUMP, 1);
             SetTossFrame(Animation.State.JUMP_TOWARDS, 1);
             SetMoveFrame(Animation.State.WALK_TOWARDS, 1);
+            SetMoveFrame(Animation.State.RUN, 2);
 
             //AddHitSpark(new Effect("LIGHT_SPARK", "Sprites/Actors/Ryo/Hitflash1", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
 
@@ -197,6 +209,22 @@ namespace FusionEngine {
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
+            }, 500);
+
+            AddCommandMove(command);
+
+            command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
+                new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.DOWN_LEFT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
+            }, 500);
+
+            AddCommandMove(command);
+
+            command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
+                new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.DOWN_RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
             }, 500);
 

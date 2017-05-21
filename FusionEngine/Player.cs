@@ -55,5 +55,13 @@ namespace FusionEngine {
                 }
             }
         }
+
+        public void RenderHitName(Vector2 pos) {
+            if (lifeBarHitTime > 0) {
+                if (GetAttackInfo().victim != null) {
+                    GetNameFont().Draw("" + GetAttackInfo().victim.GetName() + " X" + GetAttackInfo().victim.GetLives(), pos);
+                }
+            }
+        }
     }
 }

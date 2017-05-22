@@ -1636,23 +1636,23 @@ namespace FusionEngine {
                         || IsToss();
         }
 
-        public bool InvalidGrabItemState() {
-            return IsInAnimationAction(Animation.Action.FALLING)
-                        || IsInAnimationAction(Animation.Action.KNOCKED)
-                        || IsInAnimationAction(Animation.Action.DYING)
-                        || IsInAnimationAction(Animation.Action.RISING)
-                        || IsInAnimationAction(Animation.Action.KNOCKED)
-                        || IsInAnimationAction(Animation.Action.GRABBING)
-                        || IsInAnimationAction(Animation.Action.JUMPING)
-                        || IsInAnimationAction(Animation.Action.LANDING)
-                        || IsInAnimationAction(Animation.Action.INPAIN)
-                        || IsInAnimationAction(Animation.Action.ATTACKING)
-                        || GetCollisionInfo().GetItem() == null
-                        || InPainTime()
-                        || HasGrabbed()
-                        || HasHit()
-                        || IsDying()
-                        || IsToss();
+        public bool ValidGrabItemState() {
+            return !IsInAnimationAction(Animation.Action.FALLING)
+                        && !IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !IsInAnimationAction(Animation.Action.DYING)
+                        && !IsInAnimationAction(Animation.Action.RISING)
+                        && !IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !IsInAnimationAction(Animation.Action.GRABBING)
+                        && !IsInAnimationAction(Animation.Action.JUMPING)
+                        && !IsInAnimationAction(Animation.Action.LANDING)
+                        && !IsInAnimationAction(Animation.Action.INPAIN)
+                        && !IsInAnimationAction(Animation.Action.ATTACKING)
+                        && GetCollisionInfo().GetItem() != null
+                        && !InPainTime()
+                        && !HasGrabbed()
+                        && !HasHit()
+                        && !IsDying()
+                        && !IsToss();
         }
 
         public bool IsInMoveFrame() {
@@ -1784,12 +1784,22 @@ namespace FusionEngine {
             return IsInAnimationAction(Animation.Action.ATTACKING) && attackBoxes != null && attackBoxes.Count > 0;
         }
 
+        public void RefreshComboHits(){
+            if (GetComboFont() != null && GetComboFont().IsNotShowing()) { 
+                GetAttackInfo().comboHits = 0;
+            }
+        }
+
         public Attributes.CollisionInfo GetCollisionInfo() {
             return collisionInfo;
         }
 
         public Attributes.AttackInfo GetAttackInfo() {
             return attackInfo;
+        }
+
+        public bool InSpecialAttack() {
+            return GetCurrentAnimationState().ToString().Contains("SPECIAL");
         }
 
         public bool IsJumpingOrInAir() {
@@ -2049,6 +2059,7 @@ namespace FusionEngine {
                               && !IsInAnimationAction(Animation.Action.GRABBING)
                               && !IsInAnimationAction(Animation.Action.THROWING)
                               && !IsInAnimationAction(Animation.Action.PICKING_UP)
+                              && !IsInAnimationAction(Animation.Action.THROWING)
                               && !HasGrabbed()
                               && !IsGrabbed()
                               && !InPainTime()

@@ -19,8 +19,8 @@ namespace FusionEngine {
         private InputDirection inputDirection;
         private PlayerIndex playerIndex;
 
-        public KeyboardState oldKeyboardState, currentKeyboardState;
-        public GamePadState oldPadState, currentPadState;
+        private KeyboardState oldKeyboardState, currentKeyboardState;
+        private GamePadState oldPadState, currentPadState;
 
         private InputBuffer pressedState;
         private InputBuffer releasedState;
@@ -290,7 +290,7 @@ namespace FusionEngine {
         }
 
         private void ProcessAttack() {
-            if (ATTACK_PRESS && !player.InvalidGrabItemState()) {
+            if (ATTACK_PRESS && player.ValidGrabItemState()) {
                 player.SetAnimationState(Animation.State.PICKUP1);
             } else { 
                 if (ATTACK_PRESS) {
@@ -298,7 +298,7 @@ namespace FusionEngine {
                 }
             }
 
-            if (ATTACK_PRESS && player.InGrabAttackState() && !player.GetCurrentAnimationState().ToString().Contains("SPECIAL")) {
+            if (ATTACK_PRESS && player.InGrabAttackState() && !player.InSpecialAttack()) {
                 InputHelper.KeyPress throwKey = InputHelper.KeyPress.RIGHT | InputHelper.KeyPress.DOWN_RIGHT | InputHelper.KeyPress.UP_RIGHT;
                 
                 if (player.GetDirX() > 0) {
@@ -309,197 +309,8 @@ namespace FusionEngine {
             } 
         }
 
-        public void ReadPressedInputBuffer(GameTime gameTime) {
-            InputHelper.KeyPress pressedButtonState = InputHelper.KeyPress.NONE;
-            InputHelper.KeyPress pressedDirectionState = InputHelper.KeyPress.NONE;
-
-            pressedButtonState = InputHelper.GetPressedButtons(player.GetKeyboardButtonsOnly(), player.GetGamepadButtonsOnly(), oldPadState, oldKeyboardState, currentPadState, currentKeyboardState);
-            pressedDirectionState = InputHelper.GetPressedDirections(player.GetKeyboardSettings(), oldPadState, oldKeyboardState, currentPadState, currentKeyboardState);
-
-            pressedState.ReadInputBuffer(gameTime, pressedButtonState, pressedDirectionState);
-        }
-
-        public void ReadReleasedInputBuffer(GameTime gameTime) {
-            InputHelper.KeyPress releasedButtonState = InputHelper.KeyPress.NONE;
-            InputHelper.KeyPress releasedDirectionState = InputHelper.KeyPress.NONE;
-
-            releasedButtonState = InputHelper.GetReleasedButtons(player.GetKeyboardButtonsOnly(), player.GetGamepadButtonsOnly(), oldPadState, oldKeyboardState, currentPadState, currentKeyboardState);
-            releasedDirectionState = InputHelper.GetReleasedDirections(player.GetKeyboardSettings(), oldPadState, oldKeyboardState, currentPadState, currentKeyboardState);
-
-            releasedState.ReadInputBuffer(gameTime, releasedButtonState, releasedDirectionState);
-        }
-
-        public void ReadHeldInputBuffer(GameTime gameTime) {
-            InputHelper.KeyPress heldButtonState = InputHelper.KeyPress.NONE;
-            InputHelper.KeyPress heldDirectionState = InputHelper.KeyPress.NONE;
-
-            heldButtonState = InputHelper.GetHeldButtons(player.GetKeyboardButtonsOnly(), player.GetGamepadButtonsOnly(), currentPadState, currentKeyboardState);
-            heldDirectionState = InputHelper.GetHeldDirections(player.GetKeyboardSettings(), currentPadState, currentKeyboardState);
-
-            heldState.ReadInputBuffer(gameTime, heldButtonState, heldDirectionState);
-        }
-
-        public void Update(GameTime gameTime) {
-            //put in manager
-            currentKeyboardState = Keyboard.GetState();
-            currentPadState = GamePad.GetState(playerIndex);
-
-            ReadPressedInputBuffer(gameTime);
-            ReadHeldInputBuffer(gameTime);
-            ReadReleasedInputBuffer(gameTime);
-
-            List<InputHelper.CommandMove> commandMoves = player.GetCommandMoves();
-                commandMoves.Sort();
-
-            foreach (InputHelper.CommandMove command in commandMoves) {
-                if (Matches(command) && command.CanExecute(player)) {
-                    player.OnCommandMoveComplete(command);
-                    Animation.State? state;
-
-                    if (player.HasHit() && command.GetOnHitState() != null) { 
-                        state = command.GetOnHitState();
-                    } else {
-                        state = command.GetAnimationState();
-                    }
-
-                    if (player.GetCurrentAnimationAction(state) == Animation.Action.RUNNING) {
-                        if (player.CanRunAction()) {
-                            player.SetAnimationState(state);
-                        }
-                    } else {
-                            player.SetAnimationState(state);
-                    }
-
-                    break;
-                }
-            }
-            
-            UpdateDefaultControls(gameTime);
-
-            if (IsInputDirection(InputDirection.NONE)) {
-                player.StopMovement();
-                player.ResetToIdle(gameTime);
-            }
-
-            oldKeyboardState = currentKeyboardState;
-            oldPadState = currentPadState;
-        }
-
-        private void ResetBuffers() {
-            pressedState.GetBuffer().Clear();
-            releasedState.GetBuffer().Clear();
-            heldState.GetBuffer().Clear();
-        }
-
-        private InputBuffer GetNextBuffer(InputHelper.KeyState currentKeyPress) {
-            InputBuffer currentBuffer = null;
-
-            if (currentKeyPress.GetState() == InputHelper.ButtonState.Pressed) {
-                currentBuffer = pressedState;
-
-            } else if (currentKeyPress.GetState() == InputHelper.ButtonState.Released) {
-                currentBuffer = releasedState;
-
-            } else if (currentKeyPress.GetState() == InputHelper.ButtonState.Held) {
-                currentBuffer = heldState;
-            }
-
-            return currentBuffer;
-        }
-
-        private void checkHeld(InputHelper.CommandMove command, InputHelper.KeyState currentKeyState) {
-            int held = 0;
-            //Debug.WriteLine("HELD KEY: " + currentKeyState.GetState());
-            currentKeyState = command.GetCurrentMove();
-
-            if (command.IsMaxNegativeReached() == true) {
-                command.Reset();
-                held = 0;
-            }
-
-            if (releasedState.GetCurrentInputState() != InputHelper.KeyPress.NONE) {
-
-                if (releasedState.IsCurrentPress(currentKeyState.GetKey())
-                        || ((releasedState.GetCurrentInputState(releasedState.GetCurrentStateStep() - 2) & currentKeyState.GetKey()) != 0
-                                && !releasedState.IsKeyPressed(currentKeyState.GetKey()))) {
-
-                    command.Reset();
-                }
-            }
-
-            for (int i = 0; i < heldState.GetBuffer().Count - 1; i++) {
-
-                bool reset = (releasedState.GetBuffer().Count >= i + 2
-                                    && (releasedState.GetBuffer()[i + 1] & currentKeyState.GetKey()) != 0);
-
-                if (reset) {
-                    held = 0;
-                    command.IncrementNegativeCount();
-                    break;
-                }
-
-                if ((heldState.GetBuffer()[i + 1] & currentKeyState.GetKey()) != 0) {
-                    held++;
-                    command.ResetNegativeEdge();
-
-                } else {
-                    held = 0;
-                    command.Reset();
-                    break;
-                }
-            }
-
-            //Debug.WriteLine("HELD COUNT: " + held);
-            //Debug.WriteLine("HELD TIME: " + currentKeyState.GetKeyHeldTime());
-
-            if (held >= currentKeyState.GetKeyHeldTime()) {
-                command.Next();
-            } else {
-                command.IncrementNegativeCount();
-            }
-        }
-
-        public bool Matches(InputHelper.CommandMove command) {
-            InputHelper.KeyState previousKeyState = command.GetPreviousMove();
-            InputHelper.KeyState currentKeyState = command.GetCurrentMove();
-            InputBuffer currentBuffer = GetNextBuffer(currentKeyState);
-
-            if (currentKeyState.GetState() != InputHelper.ButtonState.Held) {
-                if (command.IsMaxNegativeReached() == true) {
-                    command.Reset();
-                    return false;
-                }
-                
-                if (currentBuffer.IsCurrentPress(currentKeyState.GetKey())) {
-                    command.Next();
-
-                    if (command.GetCurrentMoveStep() >= command.GetMoves().Count - 1) {
-                        currentKeyState = command.GetMoves()[command.GetMoves().Count - 1];
-
-                    } else {
-                        currentKeyState = command.GetCurrentMove();
-                    }
-
-                    currentBuffer = GetNextBuffer(currentKeyState);
-                    //Debug.WriteLine("NEXT BUFFER: " + currentKeyState.GetState());
-                } else {
-                    command.IncrementNegativeCount();
-                }
-            } else {
-                //Debug.WriteLine("IN HELD");
-                checkHeld(command, currentKeyState);
-            }
-
-            //Debug.WriteLine("CURRENTMOVE STEP: " + command.GetCurrentMoveStep());
-
-            if (command.IsComplete()) {
-                //Debug.WriteLine("IS COMPLETE");
-                command.Reset();
-                ResetBuffers();
-                return true;
-            }
-
-            return false;
+        public Entity GetPlayer() {
+            return player;
         }
 
         public InputDirection GetInputDirection() {
@@ -523,6 +334,38 @@ namespace FusionEngine {
                         || IsInputDirection(InputDirection.DOWN_RIGHT)
                         || IsInputDirection(InputDirection.UP_LEFT)
                         || IsInputDirection(InputDirection.UP_RIGHT));
+        }
+
+        public KeyboardState GetOldKeyboardState() {
+            return oldKeyboardState;
+        }
+
+        public void SetOldKeyboardState(KeyboardState state) {
+            this.oldKeyboardState = state;
+        }
+
+        public KeyboardState GetCurrentKeyboardState() {
+            return currentKeyboardState;
+        }
+
+        public void SetCurrentKeyboardState(KeyboardState state) {
+            this.currentKeyboardState = state;
+        }
+
+        public GamePadState GetOldPadState() {
+            return oldPadState;
+        }
+
+        public void SetOldPadState(GamePadState state) {
+            this.oldPadState = state;
+        }
+
+        public GamePadState GetCurrentPadState() {
+            return currentPadState;
+        }
+
+        public void SetCurrentPadState(GamePadState state) {
+            this.currentPadState = state;
         }
 
         public InputBuffer GetPressedState() {

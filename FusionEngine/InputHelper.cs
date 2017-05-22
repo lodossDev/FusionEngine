@@ -108,7 +108,8 @@ namespace FusionEngine {
             }
 
             public CommandMove(string name, Animation.State animationState, List<InputHelper.KeyState> moves, 
-                                    float maxMoveTime = 1000f, double priority = 1) : this(name, animationState, null, moves, maxMoveTime, priority) {
+                                    float maxMoveTime = 1000f, double priority = 1) 
+                                            : this(name, animationState, null, moves, maxMoveTime, priority) {
                
             }
 

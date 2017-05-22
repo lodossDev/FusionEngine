@@ -668,19 +668,20 @@ namespace FusionEngine
             if (entity.GetGrabInfo().grabbed != null) {
                 if (entity.GetGrabInfo().grabbed.IsDying() 
                         || entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)
-                        || entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
+                        || entity.InSpecialAttack()
                         || entity.IsHit()) {
 
-                    if (!entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")) { 
-                        if (!entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) {
-                            entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1);
-                            entity.GetGrabInfo().grabbed.Toss(8);
-                        }
+                    if (!entity.InSpecialAttack()
+                            && !entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) { 
+
+                        entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1); 
+                        entity.GetGrabInfo().grabbed.Toss(8);
                     } 
 
                     entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
                     entity.GetGrabInfo().grabbed.GetGrabInfo().Reset();
                     entity.GetGrabInfo().grabbed.GetAttackInfo().Reset();
+
                     entity.GetAttackInfo().Reset();
                     entity.GetGrabInfo().Reset();
 
@@ -706,11 +707,7 @@ namespace FusionEngine
                 CheckGrab(entity);
                 CheckKnocked(entity);
  
-                if (entity.GetComboFont() != null 
-                        && entity.GetComboFont().IsNotShowing()) {
-                    
-                    entity.GetAttackInfo().comboHits = 0;
-                }
+                entity.RefreshComboHits();
             }
         }
 

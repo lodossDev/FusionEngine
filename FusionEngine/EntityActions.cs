@@ -71,17 +71,18 @@ namespace FusionEngine {
                 return ;
             }
 
-            if (target.IsGrabbed()) { 
+            if ((target.IsGrabbed() || entity.InSpecialAttack()) && target.IsHit()) { 
                 if (!target.IsToss()) { 
                     target.GetGrabInfo().grabHitCount--;
                 }
 
-                if (target.GetGrabInfo().grabHitCount < 0) {
+                if (target.GetGrabInfo().grabHitCount <= 0) {
                     if (target.HasSprite(Animation.State.KNOCKED_DOWN1)) { 
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
-                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * target.GetGrabInfo().grabDirection, 1, 2);
 
+                        float dir  = (entity.InSpecialAttack() ? (entity.IsLeft() ?  -1 : 1) : target.GetGrabInfo().grabDirection);
+                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2);
                     } else {
                         if (target.HasSprite(Animation.State.THROW1)) { 
                             if (entity.GetCurrentAnimationState().ToString().Contains("GRAB")) {
@@ -387,6 +388,10 @@ namespace FusionEngine {
                 }
 
                 if (entity.IsInAnimationAction(Animation.Action.RISING) && entity.IsAnimationComplete()) {
+                    if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
+                        entity.Flash(GameManager.DEATH_FLASH_TIME);
+                    }
+
                     entity.SetAnimationState(Animation.State.DIE1);
                 }
 
@@ -423,7 +428,9 @@ namespace FusionEngine {
                     GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
                 }
 
-                if (entity.IsDeathMode(Entity.DeathType.FLASH)) {
+                if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE) 
+                        && entity.IsDeathMode(Entity.DeathType.FLASH)) {
+
                     entity.Flash(GameManager.DEATH_FLASH_TIME);
                 }
 

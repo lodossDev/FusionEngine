@@ -178,7 +178,7 @@ namespace FusionEngine {
             }
         }
 
-        private static void CheckComboHitsStats(Entity entity) {
+        private static void CheckComboHitStats(Entity entity) {
             if (entity != null) {
 
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
@@ -225,13 +225,13 @@ namespace FusionEngine {
                         target.GetAttackInfo().attacker = entity;
                         entity.GetAttackInfo().victim = target;
 
-                        CheckComboHitsStats(entity);
+                        CheckComboHitStats(entity);
                         
                         EntityActions.SetPainState(entity, target, attackBox);
                         EntityActions.FaceTarget(target, entity);
                         EntityActions.CheckMaxGrabHits(entity, target);
 
-                        target.SetPainTime(80);
+                        target.SetPainTime((entity is Player ? 40 : 80));
                         target.SetRumble(lookDir, 1.8f);
                         //target.SetHitPauseTime(10);
                         //entity.TossFast(-5);
@@ -260,7 +260,7 @@ namespace FusionEngine {
                         float sHeight = -((Math.Abs(target.GetTossInfo().tempHeight) / 2) + 2f);
                         float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
 
-                        CheckComboHitsStats(entity);
+                        CheckComboHitStats(entity);
 
                         target.Toss(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
                         target.SetTossGravity(0.6f);

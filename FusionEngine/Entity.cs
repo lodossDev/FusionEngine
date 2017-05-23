@@ -417,6 +417,12 @@ namespace FusionEngine {
             return commandMoves;
         }
 
+        public void UpdateCommandMoves(GameTime gameTime) {
+            foreach (InputHelper.CommandMove command in commandMoves) {
+                command.Update(gameTime);
+            }
+        }
+
         public void SetFrameScale(Animation.State? state, int frame, float x, float y) {
             GetSprite(state).SetFrameScale(frame, x, y);
         }
@@ -2531,13 +2537,15 @@ namespace FusionEngine {
                 absoluteVel.Z = (velocity.Z / GameManager.GAME_VELOCITY);
             }
 
-            if (IsInMoveFrame()) { 
+            if (IsInMoveFrame() && InHitPauseTime() == false) { 
                 position.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
-            position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(InHitPauseTime() == false) {
+                position.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
-            if (IsInMoveFrame()) { 
+            if (IsInMoveFrame() && InHitPauseTime() == false) { 
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 

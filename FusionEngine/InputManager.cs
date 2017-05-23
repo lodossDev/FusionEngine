@@ -27,7 +27,7 @@ namespace FusionEngine {
             commandMoves.Sort();
 
             foreach (InputHelper.CommandMove command in commandMoves) {
-                command.Update(gameTime);
+                //command.Update(gameTime);
 
                 if (Matches(inputControl, command) && command.CanExecute(entity)) {
                     entity.OnCommandMoveComplete(command);
@@ -49,6 +49,8 @@ namespace FusionEngine {
 
                     break;
                 }
+
+                //command.Update(gameTime);
             }
         }
 
@@ -224,9 +226,7 @@ namespace FusionEngine {
 
                     currentBuffer = GetNextBuffer(inputControl, currentKeyState);
                     //Debug.WriteLine("NEXT BUFFER: " + currentKeyState.GetState());
-                } else {
-                    command.IncrementNegativeCount();
-                }
+                } 
             } else {
                 //Debug.WriteLine("IN HELD");
                 checkHeld(inputControl, command, currentKeyState);

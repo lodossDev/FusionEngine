@@ -191,7 +191,7 @@ namespace FusionEngine {
 
                     currentMoveTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                    if (currentMoveTime >= maxMoveTime) {
+                    if (currentMoveTime > maxMoveTime) {
                         Reset();
                     }
                 }
@@ -199,6 +199,14 @@ namespace FusionEngine {
 
             public virtual bool CanExecute(Entity entity) {
                 return true;
+            }
+
+            public float GetTime() {
+                return currentMoveTime;
+            }
+
+            public float GetMax() {
+                return maxMoveTime;
             }
 
             public int CompareTo(CommandMove other) {

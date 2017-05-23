@@ -21,21 +21,26 @@ namespace FusionEngine {
                     ((Player)entity).UpdateHitLifebarTimer(gameTime);
                 }
 
-                entity.UpdateLifebar(gameTime);
-                entity.UpdateToss(gameTime);
                 entity.UpdatePauseHit(gameTime);
-                entity.UpdateAliveTime(gameTime);
-                entity.UpdatePainTime(gameTime);
-                entity.UpdateRiseTime(gameTime);
+                
+                if (entity.InHitPauseTime() == false) {
+                    entity.UpdateAliveTime(gameTime);
+
+                    entity.UpdateLifebar(gameTime);
+                    entity.UpdateToss(gameTime);
+                
+                    entity.UpdatePainTime(gameTime);
+                    entity.UpdateRiseTime(gameTime);
+                    entity.UpdateFade(gameTime);
+
+                    //Update animation.
+                    entity.UpdateAnimation(gameTime);           
+                    entity.UpdateFrameActions(gameTime);
+                    entity.UpdateDefaultAttackChain(gameTime);
+                    entity.UpdateNextAttackTime(gameTime);
+                }
 
                 entity.GetAfterImageData().Update(gameTime);
-                entity.UpdateFade(gameTime);
-
-                //Update animation.
-                entity.UpdateAnimation(gameTime);           
-                entity.UpdateFrameActions(gameTime);
-                entity.UpdateDefaultAttackChain(gameTime);
-                entity.UpdateNextAttackTime(gameTime);
                 entity.UpdateRumble(gameTime);
                 entity.UpdateBoxes(gameTime);
             }
@@ -45,6 +50,7 @@ namespace FusionEngine {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
 
+                entity.UpdateCommandMoves(gameTime);
                 entity.UpdateHealth(gameTime);
 
                 if (entity is Character || entity is Obstacle) { 

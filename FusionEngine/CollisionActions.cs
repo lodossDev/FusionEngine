@@ -233,7 +233,13 @@ namespace FusionEngine {
 
                         target.SetPainTime((entity is Player ? 40 : 80));
                         target.SetRumble(lookDir, 1.8f);
-                        //target.SetHitPauseTime(10);
+                        //target.SetHitPauseTime(60);
+
+                        if (entity.InSpecialAttack()) {
+                            target.SetHitPauseTime(60);
+                            entity.SetHitPauseTime(60);
+                        }
+
                         //entity.TossFast(-5);
                         //entity.SetTossGravity(1.83f);
                         entity.IncreaseMP(20);
@@ -267,6 +273,12 @@ namespace FusionEngine {
                         target.SetPainTime(80);
                         //entity.TossFast(-5);
                         entity.IncreaseMP(20);
+
+                        if (entity.InSpecialAttack()) {
+                            target.SetHitPauseTime(60);
+                            entity.SetHitPauseTime(60);
+                        }
+
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         target.DecreaseHealth(attackBox.GetHitDamage());
                         //target.SetLifebarPercent(target.GetHealth());

@@ -244,7 +244,7 @@ namespace FusionEngine {
                         //entity.SetTossGravity(1.83f);
                         entity.IncreaseMP(20);
                         entity.IncreasePoints(attackBox.GetHitPoints());
-                        target.DecreaseHealth(attackBox.GetHitDamage() + 20);
+                        //target.DecreaseHealth(attackBox.GetHitDamage() + 20);
                         //target.SetLifebarPercent(target.GetHealth());
                         
                         if (entity is Player) {
@@ -280,7 +280,7 @@ namespace FusionEngine {
                         }
 
                         entity.IncreasePoints(attackBox.GetHitPoints());
-                        target.DecreaseHealth(attackBox.GetHitDamage());
+                        //target.DecreaseHealth(attackBox.GetHitDamage());
                         //target.SetLifebarPercent(target.GetHealth());
 
                         if (entity is Player) {

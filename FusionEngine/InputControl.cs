@@ -290,6 +290,8 @@ namespace FusionEngine {
         }
 
         private void ProcessAttack() {
+            if (player.InSpecialAttack()) return;
+
             if (ATTACK_PRESS && player.ValidGrabItemState()) {
                 player.SetAnimationState(Animation.State.PICKUP1);
             } else { 

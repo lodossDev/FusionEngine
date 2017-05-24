@@ -122,7 +122,7 @@ namespace FusionEngine {
             AddBox(Animation.State.SPECIAL1, 12, new CLNS.AttackBox(150, 200, 50, -15));
             AddBox(Animation.State.SPECIAL1, 14, new CLNS.AttackBox(150, 200, 50, 45));
 
-            AddBox(Animation.State.SPECIAL2, 3, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+            AddBox(Animation.State.SPECIAL2, 3, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0));
             AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, -15,  0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
             AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
 
@@ -218,15 +218,16 @@ namespace FusionEngine {
                 new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
-            }, 600);
+            }, 800);
 
             AddCommandMove(command);
 
             command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_RIGHT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Released),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
-            }, 600);
+            }, 800);
 
             AddCommandMove(command);
 

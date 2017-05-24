@@ -173,6 +173,10 @@ namespace FusionEngine {
                 target.SetPosZ(newz + zOffset);
             }
             
+            if (!target.IsInAnimationAction(Animation.Action.INPAIN)) {
+                target.GetRumble().Reset();
+            }
+
             target.StopMovement();        
         }
 
@@ -210,7 +214,7 @@ namespace FusionEngine {
             entity.SetAnimationState(Animation.State.THROW1);
 
             float velX = entity.GetGrabInfo().throwVelX * -entity.GetDirX();
-            target.Toss(entity.GetGrabInfo().throwHeight, velX, 1, 2);
+            target.Toss(entity.GetGrabInfo().throwHeight - 2, velX, 1, 2);
             target.SetAnimationState(Animation.State.THROWN1);
 
             target.SetIsLeft(false);

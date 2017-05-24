@@ -66,15 +66,11 @@ namespace FusionEngine {
             }
 
             public void Reset() {
-                lx = 0;
+                dir = lastDir;
+                count = 0;
                 isRumble = false;
                 time = 0;
-                maxTime = 100;
-                forceTime = 0;
-                maxForceTime = 25;
-                force = 2.5f;
-                dir = lastDir = -1;
-                count = 0;
+                forceTime = maxForceTime;
             }
         }
 

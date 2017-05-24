@@ -276,13 +276,13 @@ namespace FusionEngine {
         }
 
         public void SetAnimationState(Animation.State? state) {
-            SoundAction soundAction = GetSoundAction(state);
-
-            if (soundAction != null) {
-                soundAction.SetStep(-1);
-            }
-
             if (!IsInAnimationState(state)) {
+                SoundAction soundAction = GetSoundAction(state);
+
+                if (soundAction != null) {
+                    soundAction.SetStep(-1);
+                }
+
                 attackInfo.lastAttackFrame = -1;
                 attackInfo.lastAttackState = Animation.State.NONE;
                 Sprite newSprite = GetSprite(state);
@@ -1765,11 +1765,31 @@ namespace FusionEngine {
                         && IsFrameComplete(attackStates[0].GetState(), attackStates[0].GetCancelFrame() + 1);
         }
 
+        public void ResetCurrentAnimation() {
+            GetAttackInfo().Reset();
+            GetCurrentSprite().ResetAnimation();
+            SoundAction soundAction = GetSoundAction(GetCurrentAttackChainState());
+
+            if (soundAction != null) {
+                soundAction.SetStep(-1);
+            }
+        }
+
+         public void ResetAnimation(Animation.State state) {
+            SetAnimationState(state);
+            GetAttackInfo().Reset();
+            GetCurrentSprite().ResetAnimation();
+
+            SoundAction soundAction = GetSoundAction(state);
+
+            if (soundAction != null) {
+                soundAction.SetStep(-1);
+            }
+        }
+
         public void ProcessAttackChainStep() {
             if (defaultAttackChain == null) {
-                SetAnimationState(Animation.State.ATTACK2);
-                GetAttackInfo().Reset();
-                GetCurrentSprite().ResetAnimation();
+                ResetAnimation(Animation.State.ATTACK1);
 
             } else { 
                 if (!IsInAnimationAction(Animation.Action.ATTACKING) 
@@ -1779,8 +1799,7 @@ namespace FusionEngine {
                 }
 
                 if (InCurrentAttackCancelState()) {
-                    GetAttackInfo().Reset();
-                    GetCurrentSprite().ResetAnimation();
+                    ResetCurrentAnimation();
                 }
             }
         }
@@ -1977,9 +1996,8 @@ namespace FusionEngine {
                 }
 
                 if ((int)GetPosY() > (int)GetGround()) {
-                    tossInfo.hitGoundCount += 1;
-
-                    if (tossInfo.hitGoundCount < tossInfo.maxHitGround) {
+                   
+                    if (tossInfo.hitGoundCount < tossInfo.maxHitGround - 1) {
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             SetAnimationState(Animation.State.BOUNCE1);
                             currentSprite.ResetAnimation();
@@ -1994,12 +2012,10 @@ namespace FusionEngine {
                         }
 
                         SetPosY(GetGround());
+                        tossInfo.velocity.Y = tossInfo.height;
                         MoveY(tossInfo.height / GameManager.GAME_VELOCITY);
                     }
 
-                    tossInfo.velocity.Y = tossInfo.height;
-                    MoveY(tossInfo.height / GameManager.GAME_VELOCITY);
-                      
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
                        
@@ -2035,6 +2051,8 @@ namespace FusionEngine {
                         GetGrabInfo().inGrabHeight = false;
                         ResetToss();
                     }
+
+                    tossInfo.hitGoundCount += 1;
                 }
             }
         }
@@ -2076,6 +2094,7 @@ namespace FusionEngine {
             return (!IsToss() && !IsInAnimationAction(Animation.Action.ATTACKING) 
                               && !IsInAnimationAction(Animation.Action.GRABBING)
                               && !IsInAnimationAction(Animation.Action.PICKING_UP)
+                              && !IsInAnimationAction(Animation.Action.THROWING)
                               && !HasGrabbed()
                               && !IsGrabbed()
                               && !InPainTime()

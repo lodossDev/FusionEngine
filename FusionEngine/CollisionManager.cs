@@ -620,7 +620,7 @@ namespace FusionEngine
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
                             && (entity.IsMoving() || entity.IsInAnimationAction(Animation.Action.ATTACKING))
-                            && !entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
+                            && !entity.InSpecialAttack()
                             && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
                             && !entity.IsInAnimationAction(Animation.Action.INPAIN)
                             && !entity.IsDying()) {
@@ -642,7 +642,7 @@ namespace FusionEngine
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
                             && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
                             && !entity.IsInAnimationAction(Animation.Action.INPAIN)
-                            && !entity.GetCurrentAnimationState().ToString().Contains("SPECIAL")
+                            && !entity.InSpecialAttack()
                             && !entity.IsDying()
                             && entity.GetGrabInfo().grabbed == null) {
 

@@ -26,12 +26,12 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.THROWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.THROWN1, 12);
-            SetSpriteOffSet(Animation.State.THROWN1, 0, 5);
+            SetSpriteOffSet(Animation.State.THROWN1, 0, -15);
             SetFrameScale(Animation.State.THROWN1, -0.3f, 0);
 
             AddSprite(Animation.State.KNOCKED_DOWN1, new Sprite("Sprites/Actors/Bred/KNOCK_DOWN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.KNOCKED_DOWN1, 12);
-            SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, 5);
+            SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, -15);
             SetFrameScale(Animation.State.KNOCKED_DOWN1, -0.3f, 0);
 
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));

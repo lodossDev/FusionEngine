@@ -71,7 +71,7 @@ namespace FusionEngine {
                 return ;
             }
 
-            if ((target.IsGrabbed() || entity.InSpecialAttack()) && target.IsHit()) { 
+            if (target.IsGrabbed() && target.IsHit()) { 
                 if (!target.IsToss()) { 
                     target.GetGrabInfo().grabHitCount--;
                 }
@@ -82,7 +82,7 @@ namespace FusionEngine {
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
 
                         float dir  = (entity.InSpecialAttack() ? (entity.IsLeft() ?  -1 : 1) : target.GetGrabInfo().grabDirection);
-                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2);
+                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2, true);
                     } else {
                         if (target.HasSprite(Animation.State.THROW1)) { 
                             if (entity.GetCurrentAnimationState().ToString().Contains("GRAB")) {
@@ -214,7 +214,7 @@ namespace FusionEngine {
             entity.SetAnimationState(Animation.State.THROW1);
 
             float velX = entity.GetGrabInfo().throwVelX * -entity.GetDirX();
-            target.Toss(entity.GetGrabInfo().throwHeight - 2, velX, 1, 2);
+            target.Toss(entity.GetGrabInfo().throwHeight - 2, velX, 1, 2, true);
             target.SetAnimationState(Animation.State.THROWN1);
 
             target.SetIsLeft(false);

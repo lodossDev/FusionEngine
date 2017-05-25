@@ -199,6 +199,13 @@ namespace FusionEngine {
             }
         }
 
+        public static void ShowEnemyLifebar(Entity entity, Entity target) {
+            if (entity is Player) {
+                ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
+                ((Player)entity).SetLifebarHitTime(12000);
+            }
+        }
+
         private static void OnTargetHit(Entity target, Entity entity, CLNS.AttackBox attackBox) {
             if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
                 return;    
@@ -236,8 +243,8 @@ namespace FusionEngine {
                         //target.SetHitPauseTime(60);
 
                         if (entity.InSpecialAttack()) {
-                            target.SetHitPauseTime(60);
-                            entity.SetHitPauseTime(60);
+                            target.SetHitPauseTime(36);
+                            entity.SetHitPauseTime(36);
                         }
 
                         //entity.TossFast(-5);
@@ -247,11 +254,7 @@ namespace FusionEngine {
                         //target.DecreaseHealth(attackBox.GetHitDamage() + 20);
                         //target.SetLifebarPercent(target.GetHealth());
                         
-                        if (entity is Player) {
-                            ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
-                            ((Player)entity).SetLifebarHitTime(12000);
-                        }
-
+                        ShowEnemyLifebar(entity, target);
                         ApplyFrameActions(entity, target, attackBox);
                     }
                 }
@@ -274,19 +277,16 @@ namespace FusionEngine {
                         //entity.TossFast(-5);
                         entity.IncreaseMP(20);
 
-                        if (entity.InSpecialAttack()) {
-                            target.SetHitPauseTime(60);
-                            entity.SetHitPauseTime(60);
-                        }
+                        //if (entity.InSpecialAttack()) {
+                            target.SetHitPauseTime(10);
+                            entity.SetHitPauseTime(10);
+                        //}
 
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         //target.DecreaseHealth(attackBox.GetHitDamage());
                         //target.SetLifebarPercent(target.GetHealth());
 
-                        if (entity is Player) {
-                            ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
-                            ((Player)entity).SetLifebarHitTime(80);
-                        }
+                        ShowEnemyLifebar(entity, target);
                     }
 
                     if (target.GetAttackInfo().juggleHits <= 0) {
@@ -335,7 +335,7 @@ namespace FusionEngine {
                 return;    
             }
 
-            if (target.IsEntity(Entity.ObjectType.ENEMY) && !target.IsGrabbed()) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY)) {
                 float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == false
                                     && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 
                                             ? (entity.IsLeft() ? -1 : 1) : 0);
@@ -362,7 +362,7 @@ namespace FusionEngine {
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
 
                         if (attackBox.GetTossHeight() != 0.0) {
-                            target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * dirX));
+                            target.Toss(attackBox.GetTossHeight(), (attackBox.GetMoveX() * dirX), 1, 2, true);
                         }
                     }
 
@@ -375,6 +375,9 @@ namespace FusionEngine {
                     if (entity.GetGrabInfo().grabbed != null) { 
                         EntityActions.Ungrab(entity, entity.GetGrabInfo().grabbed);
                     }
+
+                    target.SetHitPauseTime(10);
+                    entity.SetHitPauseTime(10);
                 }
             }
         }

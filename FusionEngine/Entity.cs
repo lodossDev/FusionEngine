@@ -1638,6 +1638,7 @@ namespace FusionEngine {
                         || IsInAnimationAction(Animation.Action.LANDING)
                         || !(GetGrabInfo().grabbedTime > 0)
                         || !GetGrabInfo().grabbable
+                        || IsKnocked()
                         || IsDying()
                         || IsToss();
         }
@@ -1905,7 +1906,7 @@ namespace FusionEngine {
             aliveTime = t;
         }
 
-        public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
+        public void Toss(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1, bool isKnock = false) {
             if (tossInfo.tossCount < maxToss) { 
                 if ((double)velX < 0.0) {
                     direction.X = -1;
@@ -1931,13 +1932,14 @@ namespace FusionEngine {
                 tossInfo.hitGoundCount = 0;
                 tossInfo.maxTossCount = maxToss;
                 tossInfo.maxHitGround = maxHitGround;
+                tossInfo.isKnock = isKnock;
                 tossInfo.tossCount ++;
             }
         }
 
-        public void TossFast(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1) {
+        public void TossFast(float height = -20, float velX = 0f, int maxToss = 1, int maxHitGround = 1, bool isKnock = false) {
             tossInfo.tossCount = 0;
-            Toss(height, velX, maxToss, maxHitGround);
+            Toss(height, velX, maxToss, maxHitGround, isKnock);
         }
 
         public void SetTossGravity(float gravity) {
@@ -1962,7 +1964,6 @@ namespace FusionEngine {
 
         public void UpdateToss(GameTime gameTime) {
             if (tossInfo.isToss) {
-
                 if ((double)tossInfo.velocity.X < 0.0) {
                     direction.X = -1;
                 } else if ((double)tossInfo.velocity.X > 0.0) {
@@ -2018,7 +2019,8 @@ namespace FusionEngine {
 
                     if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                       
+                        GetTossInfo().isKnock = false;
+
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             ResetJuggleHits();
                             attackInfo.attacker = null;
@@ -2139,6 +2141,10 @@ namespace FusionEngine {
                                 || IsActionComplete(Animation.Action.PICKING_UP)
                                 || IsActionComplete(Animation.Action.FALLING)
                                 /*|| IsActionComplete(Animation.Action.BLOCKING)*/));
+        }
+
+        public bool IsKnocked() {
+            return (IsInAnimationAction(Animation.Action.KNOCKED) || GetTossInfo().isKnock);
         }
 
         public virtual void ResetToIdle(GameTime gameTime) {

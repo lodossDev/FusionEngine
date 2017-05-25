@@ -394,6 +394,7 @@ namespace FusionEngine {
             public int hitGoundCount;
             public int tossCount;
             public int maxTossCount;
+            public bool isKnock;
 
 
             public TossInfo() {
@@ -407,6 +408,7 @@ namespace FusionEngine {
                 tossCount = 0;
                 maxHitGround = 3;
                 maxTossCount = 1;
+                isKnock = false;
             }
 
             public void Reset() {
@@ -422,6 +424,7 @@ namespace FusionEngine {
                 tossCount = 0;
                 maxHitGround = 3;
                 maxTossCount = 1;
+                isKnock = false;
             }
         }
 

@@ -218,16 +218,15 @@ namespace FusionEngine {
                 new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
-            }, 800);
+            }, 600);
 
             AddCommandMove(command);
 
             command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_RIGHT, InputHelper.ButtonState.Pressed),
-                new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Released),
-                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
-            }, 800);
+                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
+            }, 600);
 
             AddCommandMove(command);
 

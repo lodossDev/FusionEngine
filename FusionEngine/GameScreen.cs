@@ -132,7 +132,7 @@ namespace FusionEngine {
                         && bred.GetHealth() > 0
                         ) {
 
-                    //if(!bred.IsInAnimationAction(Animation.Action.RISING) && !bred.IsDying())bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    if(!bred.IsInAnimationAction(Animation.Action.RISING) && !bred.IsDying())bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred.ResetToIdle(gameTime);
                 }
 
@@ -146,7 +146,7 @@ namespace FusionEngine {
                         && bred2.GetHealth() > 0
                         ) {
 
-                    //if(!bred2.IsInAnimationAction(Animation.Action.RISING) && !bred2.IsDying())bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    if(!bred2.IsInAnimationAction(Animation.Action.RISING) && !bred2.IsDying())bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred2.ResetToIdle(gameTime);
                 }
 
@@ -253,7 +253,7 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            font1.Draw("CURRENT - " + (bred.InHitPauseTime()), new Vector2(80, 100));
+            font1.Draw("CURRENT - " + (bred.GetTossInfo().isKnock), new Vector2(80, 100));
             font1.Draw("TRANSITION - " + ryo.GetCommandMoves()[4].GetCurrentMoveStep(), new Vector2(80, 200));
             //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);

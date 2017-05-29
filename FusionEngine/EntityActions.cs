@@ -82,7 +82,7 @@ namespace FusionEngine {
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
 
                         float dir  = (entity.InSpecialAttack() ? (entity.IsLeft() ?  -1 : 1) : target.GetGrabInfo().grabDirection);
-                        target.Toss(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2, true);
+                        target.TossFast(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2, true);
                     } else {
                         if (target.HasSprite(Animation.State.THROW1)) { 
                             if (entity.GetCurrentAnimationState().ToString().Contains("GRAB")) {
@@ -214,7 +214,7 @@ namespace FusionEngine {
             entity.SetAnimationState(Animation.State.THROW1);
 
             float velX = entity.GetGrabInfo().throwVelX * -entity.GetDirX();
-            target.Toss(entity.GetGrabInfo().throwHeight - 2, velX, 1, 2, true);
+            target.TossFast(entity.GetGrabInfo().throwHeight - 2, velX, 1, 2, true);
             target.SetAnimationState(Animation.State.THROWN1);
 
             target.SetIsLeft(false);
@@ -278,7 +278,7 @@ namespace FusionEngine {
 
                 if (!target.IsDying() && !target.IsInAnimationAction(Animation.Action.KNOCKED)) { 
                     if (target.InAir() || target.IsToss()) {
-                        target.Toss(8);
+                        target.TossFast(8);
                         target.SetGround(target.GetGroundBase());
                     }
                 } else {
@@ -371,6 +371,10 @@ namespace FusionEngine {
                     && !entity.IsInAnimationAction(Animation.Action.THROWING)
                     && isThrow) {
 
+                    entity.GetGrabInfo().grabbed.DecreaseHealth(15);
+                    entity.GetGrabInfo().grabbed.SetLifebarPercent(entity.GetGrabInfo().grabbed.GetHealth());
+
+                    CollisionActions.ShowEnemyLifebar(entity, entity.GetGrabInfo().grabbed);
                     EntityActions.ThrowTarget(entity, entity.GetGrabInfo().grabbed);
 
             } else if (entity.IsInAnimationAction(Animation.Action.GRABBING)
@@ -384,6 +388,7 @@ namespace FusionEngine {
 
         private static void OnDeathStep1(Entity entity) {
             if ((entity.GetOldHealth() == 0 && entity.GetLives() <= 0) && entity.GetDeathStep() == 1) {
+                String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));
 
                 if (!entity.IsToss() && entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)
                         && !entity.IsInAnimationState(Animation.State.DIE1)) {
@@ -394,6 +399,10 @@ namespace FusionEngine {
                 if (entity.IsInAnimationAction(Animation.Action.RISING) && entity.IsAnimationComplete()) {
                     if (entity.IsDeathMode(Entity.DeathType.FLASH) && !entity.IsFlash()) {
                         entity.Flash(GameManager.DEATH_FLASH_TIME);
+                    }
+
+                    if (!entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE)) {
+                        GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
                     }
 
                     entity.SetAnimationState(Animation.State.DIE1);
@@ -427,10 +436,7 @@ namespace FusionEngine {
                 entity.OnDeath();
 
                 String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));
-
-                if (!entity.IsInAnimationAction(Animation.Action.DYING)) {
-                    GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
-                }
+                GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
 
                 if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE) 
                         && entity.IsDeathMode(Entity.DeathType.FLASH)) {
@@ -456,7 +462,7 @@ namespace FusionEngine {
                         }
 
                         float velX = (entity.GetAttackInfo().lastAttackDir > 0 ? -5 : 5);
-                        entity.Toss(-17, velX, 1, 2); 
+                        entity.TossFast(-17, velX, 1, 2); 
                         entity.SetTossGravity(0.7f);
                     }
 

@@ -18,7 +18,8 @@ namespace FusionEngine {
         public enum ObjectType {
             PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL,
             LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
-            WALL, PORTRAIT, SYSTEM
+            WALL, PORTRAIT, SYSTEM,
+            PROJECTILE
         }
 
         [Flags]
@@ -36,6 +37,7 @@ namespace FusionEngine {
         private Dictionary<Animation.State?, int> moveFrames;
         private Dictionary<Animation.State?, int> tossFrames;
 
+        private Dictionary<String, Effect> specialArts;
         private Dictionary<Effect.State, Effect> hitSparks;
         private Dictionary<Effect.State, Effect> blockSparks;
 
@@ -133,6 +135,8 @@ namespace FusionEngine {
         private bool boundToLevel;
         private bool isEdgeX, isEdgeZ;
         private bool drawShadow;
+        //Add methods to this.................
+        protected Dictionary<string, bool> actionStates;
 
 
         public Entity(ObjectType type, string name) {
@@ -143,12 +147,15 @@ namespace FusionEngine {
             moveFrames = new Dictionary<Animation.State?, int>();
             tossFrames = new Dictionary<Animation.State?, int>();
 
+            specialArts = new Dictionary<string, Effect>();
             hitSparks = new Dictionary<Effect.State, Effect>();
             blockSparks = new Dictionary<Effect.State, Effect>();
 
             animationLinks = new List<Animation.Link>();
             animationSounds = new Dictionary<Animation.State?, SoundEffect>();
             soundActionMap = new Dictionary<Animation.State?, SoundAction>();
+
+            actionStates = new Dictionary<string, bool>();
 
             scale = new Vector2(1f, 1f);
             tempScale = new Vector2(1f, 1f); 
@@ -248,6 +255,10 @@ namespace FusionEngine {
 
         public void AddAnimationLink(Animation.Link link) {
             animationLinks.Add(link);
+        }
+
+        public void AddSpecialArt(Effect art) {
+            specialArts.Add(art.GetName(), art);
         }
 
         public void AddHitSpark(Effect hitSpark) {
@@ -395,6 +406,10 @@ namespace FusionEngine {
             return nameFont;
         }
 
+        public virtual Projectile GetProjectille() {
+            return null;
+        }
+
         public void AddCommandMove(InputHelper.CommandMove commandMove) {
             commandMoves.Add(commandMove);
         }
@@ -467,16 +482,17 @@ namespace FusionEngine {
             defaultAttackChain = attackChain;
         }
 
-        public void SetAttackBox(Animation.State state, int frame, float zDepth = 30, float hitPauseTime = 1 / 60, float painTime = 20 / 60, int hitDamage = 5,
+        public void SetAttackBox(Animation.State state, int frame, float zDepth = 30, float hitPauseTime = 0, float painTime = 40, int hitDamage = 5,
                                                             int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1, int juggleCost = 0, 
                                                             CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
                                                             CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
-                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
+                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, 
+                                                            bool isKnock = false, bool applyToAttacker = false) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBoxes(state, frame)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
-                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock);
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker);
             }
         }
 
@@ -484,12 +500,13 @@ namespace FusionEngine {
                                                             int hitPoints = 5, float hitStrength = 0.4f, int comboStep = 1, int juggleCost = 0, 
                                                             CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
                                                             CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
-                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, bool isKnock = false) {
+                                                            Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, 
+                                                            bool isKnock = false, bool applyToAttacker = false) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBox(state)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
-                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock);
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker);
             }
         }
         
@@ -785,8 +802,8 @@ namespace FusionEngine {
         }
 
         public bool CanKnockOtherEntity(){
-            return (IsInAnimationAction(Animation.Action.KNOCKED)
-                        && GetTossInfo().hitGoundCount < 1 
+            return (IsKnocked()
+                        && GetTossInfo().hitGroundCount < 1 
                         && (GetTossInfo().velocity.Y / GameManager.GAME_VELOCITY) > GetKnockedFromKnockedEntityHeight()
                         && InAir());
         }
@@ -1476,6 +1493,14 @@ namespace FusionEngine {
             blendState = state;
         }
 
+        public Effect GetSpecialArt(String name) {
+            if (specialArts.ContainsKey(name)) { 
+                return specialArts[name];
+            }
+
+            return null;
+        }
+
         public Effect GetHitSpark(Effect.State state) {
             if (hitSparks.ContainsKey(state)) { 
                 return hitSparks[state];
@@ -1625,6 +1650,17 @@ namespace FusionEngine {
 
         public bool InGrabAttackState() {
             return (IsInAnimationAction(Animation.Action.GRABBING) && GetGrabInfo().grabbed != null);
+        }
+
+        public bool InGrabState() {
+            return (!IsInAnimationAction(Animation.Action.ATTACKING)
+                            && !IsInAnimationAction(Animation.Action.KNOCKED)
+                            && !IsInAnimationAction(Animation.Action.INPAIN)
+                            && !InSpecialAttack()
+                            && !IsDying()
+                            && !IsKnocked()
+                            && IsMoving()
+                            && GetGrabInfo().grabbed == null);
         }
 
         public bool InvalidGrabbedState() {
@@ -1929,7 +1965,7 @@ namespace FusionEngine {
                 tossInfo.inTossFrame = false;
                 tossInfo.isToss = true;
 
-                tossInfo.hitGoundCount = 0;
+                tossInfo.hitGroundCount = 0;
                 tossInfo.maxTossCount = maxToss;
                 tossInfo.maxHitGround = maxHitGround;
                 tossInfo.isKnock = isKnock;
@@ -1954,7 +1990,7 @@ namespace FusionEngine {
             tossInfo.velocity.X = 0f;
             tossInfo.velocity.Y = 0f;
 
-            tossInfo.hitGoundCount = 0;
+            tossInfo.hitGroundCount = 0;
             tossInfo.tossCount = 0;
             tossInfo.gravity = 0.48f * GameManager.GAME_VELOCITY;
 
@@ -1963,6 +1999,7 @@ namespace FusionEngine {
         }
 
         public void UpdateToss(GameTime gameTime) {
+
             if (tossInfo.isToss) {
                 if ((double)tossInfo.velocity.X < 0.0) {
                     direction.X = -1;
@@ -1998,7 +2035,7 @@ namespace FusionEngine {
 
                 if ((int)GetPosY() > (int)GetGround()) {
                    
-                    if (tossInfo.hitGoundCount < tossInfo.maxHitGround - 1) {
+                    if (tossInfo.hitGroundCount < tossInfo.maxHitGround - 1) {
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
                             SetAnimationState(Animation.State.BOUNCE1);
                             currentSprite.ResetAnimation();
@@ -2017,7 +2054,7 @@ namespace FusionEngine {
                         MoveY(tossInfo.height / GameManager.GAME_VELOCITY);
                     }
 
-                    if (tossInfo.hitGoundCount >= tossInfo.maxHitGround) {
+                    if (tossInfo.hitGroundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
                         GetTossInfo().isKnock = false;
 
@@ -2028,6 +2065,7 @@ namespace FusionEngine {
                             attackInfo.currentAttackTime = 0;
                             attackInfo.isHit = false;
                             SetIsRise(true);
+
                         } else { 
                             if (!IsDying()) { 
                                 if (HasSprite(Animation.State.LAND1)) { 
@@ -2054,7 +2092,7 @@ namespace FusionEngine {
                         ResetToss();
                     }
 
-                    tossInfo.hitGoundCount += 1;
+                    tossInfo.hitGroundCount += 1;
                 }
             }
         }
@@ -2089,6 +2127,7 @@ namespace FusionEngine {
                               && !HasGrabbed()
                               && !IsGrabbed()
                               && !InPainTime()
+                              && !IsKnocked()
                               && !IsDying());
         }
 
@@ -2100,6 +2139,7 @@ namespace FusionEngine {
                               && !HasGrabbed()
                               && !IsGrabbed()
                               && !InPainTime()
+                              && !IsKnocked()
                               && !IsDying());
         }
 
@@ -2111,6 +2151,7 @@ namespace FusionEngine {
                         || HasGrabbed()
                         || IsGrabbed()
                         || InPainTime()
+                        || IsKnocked()
                         || IsDying());
         }
 
@@ -2364,30 +2405,29 @@ namespace FusionEngine {
         }
 
         public void UpdateFrameActions(GameTime gameTime) {
-
             if (frameActions.Count > 0) {
-                //Debug.WriteLine("FRAME ACTION COUNT: {0}", frameActions.Count);
-
+                
                 foreach (FrameAction action in frameActions) {
                     
-                    if (action.GetAnimationState() == GetCurrentAnimationState() 
-                            && action.IsInFrame(GetCurrentSpriteFrame())) {
+                    if (action.GetAnimationState() == GetCurrentAnimationState()) {
 
-                        //Debug.WriteLine("FRAME ACTION: {0} {1}", GetName(), action.GetAnimationState());
+                        if (action.IsInFrame(GetCurrentSpriteFrame())) { 
 
-                        if (IsEdgeX() == false && GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
-                            if (action.GetMoveX() != 0.0) {
-                                MoveX((action.GetMoveX() * GetDirX()));
+                            if (IsEdgeX() == false && GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) { 
+
+                                if (action.GetMoveX() != 0.0) {
+                                    TransformX((action.GetMoveX() * GetDirX()));
+                                }
                             }
-                        }
 
-                        if (action.GetMoveY() != 0.0) {
-                            MoveY(action.GetMoveY());
-                        }
+                            if (action.GetMoveY() != 0.0) {
+                                MoveY(action.GetMoveY());
+                            }
 
-                        if (action.GetTossHeight() != 0.0) {
-                            Toss(action.GetTossHeight());
-                        }
+                            if (action.GetTossHeight() != 0.0) {
+                                TossFast(action.GetTossHeight());
+                            }
+                        } 
                     }
                 }
             }
@@ -2442,15 +2482,17 @@ namespace FusionEngine {
         }
 
         public bool InvalidHitState() {
-            return (IsDying()
-                        || IsRise() 
-                        || IsInAnimationAction(Animation.Action.KNOCKED)
-                        || IsInAnimationAction(Animation.Action.RISING));
+            return (IsInAnimationAction(Animation.Action.KNOCKED)
+                        || IsInAnimationAction(Animation.Action.RISING)
+                        || IsDying()
+                        || IsRise()
+                        || IsKnocked());
         }
 
         public bool InvalidDeathState() {
             return (IsInAnimationAction(Animation.Action.KNOCKED)
                         || IsInAnimationAction(Animation.Action.RISING)
+                        || IsKnocked()
                         || IsRise());
         }
 
@@ -2466,6 +2508,14 @@ namespace FusionEngine {
         }
 
         public virtual void OnRun() {
+        }
+
+        public virtual void Actions(GameTime gameTime) {
+            if (this is Projectile) {
+                if (!InAttackFrame()) {
+                    GetAttackInfo().Reset();
+                }
+            }
         }
 
         public void Update(GameTime gameTime) {
@@ -2778,7 +2828,7 @@ namespace FusionEngine {
             return (GetAttackInfo().juggleHits >= 0 
                         && GetAttackInfo().lastJuggleState != -1
                         && IsInAnimationAction(Animation.Action.KNOCKED) 
-                        && GetTossInfo().hitGoundCount < 1
+                        && GetTossInfo().hitGroundCount < 1
                         && inJuggleHitHeight
                         && InAir()
                         && !IsDying());

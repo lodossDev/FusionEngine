@@ -21,6 +21,7 @@ namespace FusionEngine {
 
             SetMaxHealth(10);
             SetMaxLives(1);
+            SetIsPlatform(true);
         }
     }
 }

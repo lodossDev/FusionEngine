@@ -52,6 +52,7 @@ namespace FusionEngine {
 
                 entity.UpdateCommandMoves(gameTime);
                 entity.UpdateHealth(gameTime);
+                entity.Actions(gameTime);
 
                 if (entity is Character || entity is Obstacle) { 
                     SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());

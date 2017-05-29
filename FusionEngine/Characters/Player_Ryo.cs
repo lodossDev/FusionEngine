@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace FusionEngine {
 
@@ -81,13 +83,18 @@ namespace FusionEngine {
             AddSprite(Animation.State.SPECIAL1, new Sprite("Sprites/Actors/Ryo/Special1", Animation.Type.ONCE));
             SetSpriteOffSet(Animation.State.SPECIAL1, 20, -32);
             SetFrameDelay(Animation.State.SPECIAL1, 4);
-            
+            AddAnimationSound(Animation.State.SPECIAL1, "Sprites/Actors/Ryo/SOUNDS/fistspeccial");
 
-            AddSprite(Animation.State.SPECIAL2, new Sprite("Sprites/Actors/Ryo/SPECIAL2", Animation.Type.ONCE));
+            AddSprite(Animation.State.SPECIAL2, new Sprite("Sprites/Actors/Ryo/SPECIAL2", Animation.Type.REPEAT, 9));
             SetSpriteOffSet(Animation.State.SPECIAL2, 5, -32);
             SetFrameDelay(Animation.State.SPECIAL2, 4);
             AddFrameAction(Animation.State.SPECIAL2, 3, 3, 10, 0, -15);
-            AddAnimationSound(Animation.State.SPECIAL2, "Sprites/Actors/Ryo/SOUNDS/ryosp1");
+            AddAnimationSound(Animation.State.SPECIAL2, "Sprites/Actors/Ryo/SOUNDS/dragonpunch1");
+
+            AddSprite(Animation.State.SPECIAL3, new Sprite("Sprites/Actors/Ryo/Special3", Animation.Type.ONCE));
+            SetSpriteOffSet(Animation.State.SPECIAL3, 16, 3);
+            SetFrameDelay(Animation.State.SPECIAL3, 4);
+            AddAnimationSound(Animation.State.SPECIAL3, "Sprites/Actors/Ryo/SOUNDS/fireball1");
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Ryo/JumpAttack1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.JUMP_ATTACK1, 4);
@@ -112,7 +119,7 @@ namespace FusionEngine {
 
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 3, new CLNS.AttackBox(190, 180, 0, 20));
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 4, new CLNS.AttackBox(190, 180, 0, 20));
-            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 0, 0, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 5, -18, true);
+            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 10, 40, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 5, -18, true);
 
             AddBox(Animation.State.SPECIAL1, 2, new CLNS.AttackBox(150, 200, 50, 45));
             AddBox(Animation.State.SPECIAL1, 4, new CLNS.AttackBox(150, 200, 50, -15));
@@ -122,9 +129,9 @@ namespace FusionEngine {
             AddBox(Animation.State.SPECIAL1, 12, new CLNS.AttackBox(150, 200, 50, -15));
             AddBox(Animation.State.SPECIAL1, 14, new CLNS.AttackBox(150, 200, 50, 45));
 
-            AddBox(Animation.State.SPECIAL2, 3, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0));
-            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, -15,  0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
-            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, 45, 0, 0, 0, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+            AddBox(Animation.State.SPECIAL2, 3, new CLNS.AttackBox(150, 200, 50, 45, 10, 10, 40, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0));
+            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, -15, 10, 20, 40, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
+            AddBox(Animation.State.SPECIAL2, 4, new CLNS.AttackBox(150, 200, 50, 45, 10, 20, 40, 1, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 0, 0, 5, -18, true));
 
             AddAnimationLink(new Animation.Link(Animation.State.JUMP_START, Animation.State.JUMP, 1));
 
@@ -133,6 +140,8 @@ namespace FusionEngine {
             SetTossFrame(Animation.State.JUMP_TOWARDS, 1);
             SetMoveFrame(Animation.State.WALK_TOWARDS, 1);
             SetMoveFrame(Animation.State.RUN, 2);
+
+            SetMoveFrame(Animation.State.SPECIAL2, 4);
 
             //AddHitSpark(new Effect("LIGHT_SPARK", "Sprites/Actors/Ryo/Hitflash1", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
 
@@ -152,17 +161,17 @@ namespace FusionEngine {
             }));
 
             //Normal command moves..
-            InputHelper.CommandMove command = new InputHelper.CommandMove("RUNNING", Animation.State.RUN, new List<InputHelper.KeyState> {
+            InputHelper.CommandMove command = new InputHelper.CommandMove("RUN_RIGHT", Animation.State.RUN, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
-            }, 200f);
+            }, 200f, 1, () => { return this.CanRunAction() && !IsLeft();});
 
             AddCommandMove(command);
 
-            command = new InputHelper.CommandMove("RUNNING", Animation.State.RUN, new List<InputHelper.KeyState> {
+            command = new InputHelper.CommandMove("RUN_LEFT", Animation.State.RUN, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
-            }, 200f);
+            }, 200f, 1, () => { return this.CanRunAction() && IsLeft();} );
 
             AddCommandMove(command);
 
@@ -214,19 +223,33 @@ namespace FusionEngine {
 
             AddCommandMove(command);
 
-            command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
+            command = new InputHelper.CommandMove("DRAGON_PUNCH_LEFT", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_LEFT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed)
-            }, 600);
+            }, 600, 1, () => { return this.IsLeft();});
 
             AddCommandMove(command);
 
-            command = new InputHelper.CommandMove("TEST", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
+            command = new InputHelper.CommandMove("DRAGON_PUNCH_RIGHT", Animation.State.SPECIAL2, new List<InputHelper.KeyState> {
                 new InputHelper.KeyState(InputHelper.KeyPress.RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.DOWN_RIGHT, InputHelper.ButtonState.Pressed),
                 new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
-            }, 600);
+            }, 600, 1, () => { return !this.IsLeft();});
+
+            AddCommandMove(command);
+
+            command = new InputHelper.CommandMove("FIREBALL_LEFT", Animation.State.SPECIAL3, new List<InputHelper.KeyState> {
+                new InputHelper.KeyState(InputHelper.KeyPress.DOWN_LEFT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
+            }, 200, 1, () => { return this.IsLeft() && !InAir();});
+
+            AddCommandMove(command);
+
+            command = new InputHelper.CommandMove("FIREBALL_RIGHT", Animation.State.SPECIAL3, new List<InputHelper.KeyState> {
+                new InputHelper.KeyState(InputHelper.KeyPress.DOWN_RIGHT, InputHelper.ButtonState.Pressed),
+                new InputHelper.KeyState(InputHelper.KeyPress.ATTACK1, InputHelper.ButtonState.Pressed),
+            }, 200, 1, () => { return !this.IsLeft() && !InAir();});
 
             AddCommandMove(command);
 
@@ -251,6 +274,52 @@ namespace FusionEngine {
             SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 29, 65, 0, 0, 4.08f, 3f);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 20);
+
+            AddSpecialArt(new Effect("FIREBALL_ART", "Sprites/Actors/Ryo/ART1", Effect.Type.ARTS, Effect.State.LIGHT, 2.8f, 2.5f, 20, -10, 3, 180));
+            actionStates.Add("FIREBALL_ART", false);
+        }
+
+        public override Projectile GetProjectille() {
+            Projectile fireball = new Projectile("FIREBALL", this);
+            fireball.AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Ryo/Fireball1", Animation.Type.REPEAT), true);
+            fireball.AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(250, 190, -150, 45, 30, 0, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(250, 190, -150, 45, 30, 0, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 10, new CLNS.AttackBox(250, 190, -150, 45, 30, 0, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
+            fireball.AddBoundsBox(160, 340, -60, 15, 50);
+            return fireball;
+        }
+
+        public override void Actions(GameTime gameTime) {
+
+            if (GetCurrentAnimationState() == Animation.State.SPECIAL3
+                    && GetCurrentSpriteFrame() == 0 && !actionStates["FIREBALL_ART"]) { 
+
+                Entity art = GameManager.CreateEffect(GetSpecialArt("FIREBALL_ART"), this, 0, 0);
+                art.SetIsLeft(IsLeft());
+
+                if (art.IsLeft()) {
+                    art.SetPostion(GetPosX() - 80, GetPosY());
+                } else {
+                    art.SetPostion(GetPosX() + 80, GetPosY());
+                }
+
+                GameManager.GetInstance().Render(art);
+
+                art = null;
+                actionStates["FIREBALL_ART"] = true;
+            }
+
+            if (GetCurrentAnimationState() != Animation.State.SPECIAL3) {
+                actionStates["FIREBALL_ART"] = false;
+                actionStates["FIREBALL_1"] = false;
+            }
+
+            if (GetCurrentAnimationState() == Animation.State.SPECIAL3
+                    && GetCurrentSpriteFrame() == 3 && !actionStates["FIREBALL_1"]) {
+
+                GameManager.AddProjectile(GetProjectille(), 295, -50);
+                actionStates["FIREBALL_1"] = true;
+            }
         }
     }
 }

@@ -243,7 +243,9 @@ namespace FusionEngine {
 
             if (slowTime <= 0)updateManager.BeforeUpdate(gameTime);
             if (slowTime <= 0)collisionManager.BeforeUpdate(gameTime);
+
             inputManager.Update(gameTime);
+
             if (slowTime <= 0)collisionManager.AfterUpdate(gameTime);
             if (slowTime <= 0)updateManager.AfterUpdate(gameTime);
         }
@@ -409,6 +411,154 @@ namespace FusionEngine {
             }
 
             screenshot.Dispose();
+        }
+
+        public static Entity CreateEffect(Effect effect, Entity entity, float x1, float y1) {
+            return CreateEffect(effect, entity, entity, x1, y1);
+        }
+
+        public static Entity CreateEffect(Effect effect, Entity entity, Entity target, float x1, float y1) {
+            Entity spark = new Entity(Entity.ObjectType.HIT_FLASH, effect.GetName());
+            spark.AddSprite(Animation.State.STANCE, new Sprite(effect.GetAsset(), Animation.Type.ONCE));
+            spark.SetAnimationState(Animation.State.STANCE);
+            spark.SetFrameDelay(Animation.State.STANCE, effect.GetDelay());
+            spark.SetOffset(Animation.State.STANCE, effect.GetOffset().X, effect.GetOffset().Y);
+            spark.SetScale(effect.GetScale().X, effect.GetScale().Y);
+
+            spark.SetPostion(x1, y1, entity.GetPosZ() + 5);
+            spark.SetLayerPos(target.GetDepthBox().GetRect().Bottom + 15);
+            spark.SetFade(effect.GetAlpha());
+            spark.SetBlendState(BlendState.Additive);
+
+            if (effect.IsLeft()) { 
+                if (entity.GetDirX() > 0) {
+                    spark.SetIsLeft(true);
+                } else {
+                    spark.SetIsLeft(false);
+                }
+            }
+
+            return spark;
+        }
+
+        public static void AddProjectile(Projectile projectile, float x1, float y1) {
+            projectile.SetFade(200);
+            projectile.SetBlendState(BlendState.Additive);
+            projectile.SetIsLeft(projectile.GetOwner().IsLeft());
+
+            if (projectile.IsLeft()) {
+                projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
+                projectile.MoveX(3, -1);
+            } else {
+                projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
+                projectile.MoveX(3, 1);
+            }
+
+            projectile.UpdateBoxes(null);
+
+            GameManager.GetInstance().AddEntity(projectile);
+        }
+
+        private static Effect GetSparkState(Entity entity, Effect.Type effectType, Effect.State effectState) {
+            Effect spark = null;
+
+            if (effectType == Effect.Type.HIT_SPARK) { 
+                spark = entity.GetHitSpark(effectState);
+
+            } else if (effectType == Effect.Type.BLOCK_SPARK) {
+                spark = entity.GetBlockSpark(effectState);
+            } 
+
+            if (spark == null) {
+                if (effectType == Effect.Type.HIT_SPARK) { 
+                    spark = GameManager.GetInstance().GetHitSpark(effectState);
+
+                } else if (effectType == Effect.Type.BLOCK_SPARK) {
+                    spark = GameManager.GetInstance().GetBlockSpark(effectState);
+                }
+            }
+
+            return spark;
+        }
+
+        public static Effect GetSpark(Entity entity, CLNS.AttackBox.AttackType state, Effect.Type effectType) {
+            Effect spark = null;
+            Effect.State effectState;
+
+            switch(state) {
+                case CLNS.AttackBox.AttackType.LIGHT: 
+                    effectState = Effect.State.LIGHT;
+                break;
+
+                case CLNS.AttackBox.AttackType.MEDIUM: 
+                    effectState = Effect.State.MEDIUM;
+                break;
+
+                case CLNS.AttackBox.AttackType.HEAVY: 
+                    effectState = Effect.State.HEAVY;
+                break;
+
+                default:
+                    effectState = Effect.State.LIGHT;
+                break;
+            }
+
+            spark = GetSparkState(entity, effectType, effectState);
+
+            if (spark == null) {
+               spark = GetSparkState(entity, effectType, Effect.State.LIGHT);
+            }
+
+            return spark;
+        }
+
+        public static void AddSpark(Entity entity, Entity target, CLNS.BoundingBox box, CLNS.AttackBox.AttackType state, Effect.Type effectType) {
+            Effect sparkInfo = GetSpark(entity, state, effectType);
+
+            if (sparkInfo != null) { 
+                float x1 = HitBodyX(target, entity, box);
+                float y1 = HitBodyY(target, entity, box);
+
+                Entity spark = CreateEffect(sparkInfo, entity, target, x1, y1);
+                GameManager.GetInstance().Render(spark);
+            }
+        }
+
+         public static void AddSpark(Entity entity, Entity target, CLNS.AttackBox attackBox, Effect.Type effectType) {
+            Effect sparkInfo = GetSpark(entity, attackBox.GetAttackType(), effectType);
+
+            if (sparkInfo != null) { 
+                float x1 = HitBodyX(target, entity, attackBox);
+                float y1 = HitBodyY(target, entity, attackBox);
+
+                Entity spark = CreateEffect(sparkInfo, entity, target, x1, y1);
+                GameManager.GetInstance().Render(spark);
+            }
+        }
+
+        private static float HitBodyX(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+            float x1 = ((target.GetPosX() + entity.GetPosX()) / 2);
+
+            if (entity.IsLeft()) {
+                x1 -= attackBox.GetOffset().X + attackBox.GetSparkOffset().X;
+            } else {
+                x1 += attackBox.GetOffset().X + attackBox.GetSparkOffset().X;
+            }
+
+            return x1;
+        }
+
+        private static float HitBodyX(Entity target, Entity entity, CLNS.BoundingBox box) {
+            float x1 = ((target.GetPosX() + entity.GetPosX()) / 2);
+            return x1;
+        }
+
+        private static float HitBodyY(Entity target, Entity entity, CLNS.AttackBox attackBox) {
+            return (int)-attackBox.GetRect().Height + (int)Math.Round(attackBox.GetOffset().Y + entity.GetPosY()) + attackBox.GetSparkOffset().Y;
+        }
+
+        private static float HitBodyY(Entity target, Entity entity, CLNS.BoundingBox box) {
+            return ((int)Math.Round(box.GetOffset().Y + entity.GetPosY())) / 2;
         }
     }
 }

@@ -66,7 +66,7 @@ namespace FusionEngine {
             GameManager.GetInstance().AddEntity(ryo);
             GameManager.GetInstance().SetLevel(level1);
             GameManager.GetInstance().AddEntity(bred);
-            GameManager.GetInstance().AddEntity(bred2);
+            //GameManager.GetInstance().AddEntity(bred2);
         }
 
         public void Dispose() {
@@ -96,7 +96,7 @@ namespace FusionEngine {
             if (Keyboard.GetState().IsKeyDown(Keys.X)) {
                 //GameManager.TakeScreenshot(this);
                 GameManager.GetInstance().DropAllEnemies();
-                ryo.SetAnimationState(Animation.State.SPECIAL2);
+                ryo.SetAnimationState(Animation.State.SPECIAL3);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
@@ -179,7 +179,7 @@ namespace FusionEngine {
                 x = (float)Math.Round((double)(velX + (ryo.GetTossInfo().velocity.X * 1f)));
             }
 
-            Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
+            //Debug.WriteLine("X: " + (ryo.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION));
 
             z = 0;
             float velZ = (ryo.GetAccelZ() / GameManager.GAME_VELOCITY) * ryo.GetDirZ();
@@ -253,8 +253,8 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            font1.Draw("CURRENT - " + (bred.GetTossInfo().isKnock), new Vector2(80, 100));
-            font1.Draw("TRANSITION - " + ryo.GetCommandMoves()[4].GetCurrentMoveStep(), new Vector2(80, 200));
+            //font1.Draw("IS DYING - " + (level1.Obstacles[0].GetCurrentAnimationState()), new Vector2(80, 100));
+            //font1.Draw("DEATH - " + level1.Obstacles[1].GetDeathStep(), new Vector2(80, 200));
             //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);

@@ -345,16 +345,6 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame04.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame05.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/JumpAttack3/Frame06.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame00.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame01.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame02.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame03.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame04.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame05.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame06.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame07.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame08.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/FireballTest1/Frame09.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame00.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame01.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Attack2/Frame02.png</File>
@@ -493,15 +483,6 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat1.gif</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat2.gif</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Misc/Meat/STANCE/meat3.gif</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame01.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame02.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame03.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame04.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame05.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame06.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame07.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame08.png</File>
-    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame09.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/bg.gif</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddbg1.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Levels/Stage1/ddpanel1.png</File>
@@ -617,5 +598,34 @@
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL2/special8.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL2/special9.png</File>
     <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SOUNDS/ryosp1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame7.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SPECIAL3/Frame8.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SOUNDS/fireball1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SOUNDS/dragonpunch1.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/SOUNDS/fistspeccial.wav</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame0.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame1.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame2.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame3.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame4.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame5.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/ART1/Frame6.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame00.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame01.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame02.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame03.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame04.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame05.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame06.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame07.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame08.png</File>
+    <File>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Sprites/Actors/Ryo/Fireball1/Frame09.png</File>
   </SourceFiles>
 </SourceFileCollection>

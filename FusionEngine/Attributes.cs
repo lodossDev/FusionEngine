@@ -391,7 +391,7 @@ namespace FusionEngine {
             public float height;
             public float tempHeight;
             public int maxHitGround;
-            public int hitGoundCount;
+            public int hitGroundCount;
             public int tossCount;
             public int maxTossCount;
             public bool isKnock;
@@ -404,7 +404,7 @@ namespace FusionEngine {
                 gravity = 0.48f * GameManager.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
-                hitGoundCount = 0;
+                hitGroundCount = 0;
                 tossCount = 0;
                 maxHitGround = 3;
                 maxTossCount = 1;
@@ -420,7 +420,7 @@ namespace FusionEngine {
                 gravity = 0.48f * GameManager.GAME_VELOCITY;
                 inTossFrame = false;
                 isToss = false;
-                hitGoundCount = 0;
+                hitGroundCount = 0;
                 tossCount = 0;
                 maxHitGround = 3;
                 maxTossCount = 1;

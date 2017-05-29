@@ -27,10 +27,8 @@ namespace FusionEngine {
             commandMoves.Sort();
 
             foreach (InputHelper.CommandMove command in commandMoves) {
-                //command.Update(gameTime);
 
-                if (Matches(inputControl, command) && command.CanExecute(entity)) {
-                    entity.OnCommandMoveComplete(command);
+                if (Matches(inputControl, command) && command.CanExecute()) {
                     Animation.State? state;
 
                     if (entity.HasHit() && command.GetOnHitState() != null) { 
@@ -39,18 +37,10 @@ namespace FusionEngine {
                         state = command.GetAnimationState();
                     }
 
-                    if (entity.GetCurrentAnimationAction(state) == Animation.Action.RUNNING) {
-                        if (entity.CanRunAction()) {
-                            entity.SetAnimationState(state);
-                        }
-                    } else {
-                        entity.SetAnimationState(state);
-                    }
-
+                    entity.SetAnimationState(state);
+                    entity.OnCommandMoveComplete(command);
                     break;
                 }
-
-                //command.Update(gameTime);
             }
         }
 

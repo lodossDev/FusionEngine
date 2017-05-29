@@ -86,6 +86,7 @@ namespace FusionEngine {
         }
 
         public class CommandMove : IComparable<CommandMove> {
+            private Func<bool> canExecute;
             private List<InputHelper.KeyState> moves;
             private string name;
             private double priority;
@@ -98,18 +99,21 @@ namespace FusionEngine {
 
 
             public CommandMove(string name, Animation.State animationState, Animation.State? onHitState, 
-                                        List<InputHelper.KeyState> moves, float maxMoveTime = 1000f, double priority = 1) {
+                                        List<InputHelper.KeyState> moves, float maxMoveTime = 1000f, double priority = 1, 
+                                        Func<bool> canExecute = null) {
                 this.name = name;
                 this.onHitState = onHitState;
                 this.animationState = animationState;
                 this.moves = moves;
                 this.maxMoveTime = maxMoveTime;
                 this.priority = priority;
+
+                this.canExecute = canExecute;
             }
 
             public CommandMove(string name, Animation.State animationState, List<InputHelper.KeyState> moves, 
-                                    float maxMoveTime = 1000f, double priority = 1) 
-                                            : this(name, animationState, null, moves, maxMoveTime, priority) {
+                                    float maxMoveTime = 1000f, double priority = 1, Func<bool> canExecute = null) 
+                                            : this(name, animationState, null, moves, maxMoveTime, priority, canExecute) {
                
             }
 
@@ -197,8 +201,12 @@ namespace FusionEngine {
                 }
             }
 
-            public virtual bool CanExecute(Entity entity) {
-                return true;
+            public virtual bool CanExecute() {
+                if (canExecute == null) {
+                    return true;
+                }
+
+                return canExecute();
             }
 
             public float GetTime() {

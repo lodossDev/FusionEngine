@@ -438,7 +438,7 @@ namespace FusionEngine
                         if (targetBoxes != null && targetBoxes.Count > 0 
                                 && Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5) {
 
-                            if (!target.IsInAnimationAction(Animation.Action.KNOCKED) 
+                            if (!target.IsKnocked()
                                     && target != entity.GetAttackInfo().attacker
                                     && target.GetKnockedFromKnockedEntityState() == 1
                                     && target.InAllowedKnockedState(entity.GetCurrentKnockedState())) {
@@ -449,26 +449,31 @@ namespace FusionEngine
 
                                         if (eBodyNode.Intersects(tBodyNode)) {
 
-                                           if (!targetHit) {
+                                            if (!targetHit) {
                                                 GameManager.GetInstance().PlaySFX("beat2");
-                                                CollisionActions.AddSpark(entity, target, tBodyNode, CLNS.AttackBox.AttackType.MEDIUM, Effect.Type.HIT_SPARK);
-                                                target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
-                                                target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
-
-                                                float velX = entity.GetTossInfo().velocity.X / 1.2f;
-                                                target.Toss(-15, velX, 1, 2, true); 
-
+                                                GameManager.AddSpark(entity, target, tBodyNode, CLNS.AttackBox.AttackType.MEDIUM, Effect.Type.HIT_SPARK);
+    
                                                 if (target is Obstacle || target.IsEntity(Entity.ObjectType.OBSTACLE)) {
+                                                    target.SetAnimationState(Animation.State.DIE1);
                                                     target.DecreaseHealth(100);
                                                 } else {
+                                                    target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
+                                                    target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
                                                     target.DecreaseHealth(10);
                                                 }
 
+                                                float velX = entity.GetTossInfo().velocity.X / 1.2f;
+                                                target.TossFast(-15, velX, 1, 2, true); 
+
+                                                target.SetLifebarPercent(target.GetHealth());
+                                                CollisionActions.ShowEnemyLifebar(entity.GetAttackInfo().attacker, target);
+                                               
                                                 target.GetAttackInfo().attacker = entity.GetAttackInfo().attacker;
                                                 target.SetHitPauseTime(10);
                                                 entity.SetHitPauseTime(10);
+
                                                 targetHit = true;
-                                           }
+                                            }
                                         }
                                     }
                                 }
@@ -480,7 +485,6 @@ namespace FusionEngine
         }
         
         private void CheckAttack(GameTime gameTime, Entity entity) {
-            
 
             //Get all frame attack boxes.
             List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
@@ -502,7 +506,6 @@ namespace FusionEngine
 
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
-
                     bool canHit = (entity.CanHurtOthers() ? (entity.CanHurtOthers() && target.IsHittable()) : target.IsHittable());
 
                     if (entity != target && canHit) {
@@ -569,6 +572,10 @@ namespace FusionEngine
         private void CheckGrabItem(Entity entity) {
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
+            if (eDepthBox == null) {
+                return;
+            }
+
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
                 
@@ -577,6 +584,11 @@ namespace FusionEngine
                     bool isCollected = false;
 
                     CLNS.BoundingBox tDepthBox = collectable.GetDepthBox();
+
+                    if (tDepthBox == null) {
+                        continue;
+                    }
+
                     itemPos.X = (float)(tDepthBox.GetRect().X + (tDepthBox.GetRect().Width / 2));
                     itemPos.Y = tDepthBox.GetRect().Y;
   
@@ -624,12 +636,7 @@ namespace FusionEngine
                             && !target.InvalidGrabbedState()
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
-                            && entity.IsMoving()
-                            && !entity.InSpecialAttack()
-                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                            && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
-                            && !entity.IsInAnimationAction(Animation.Action.INPAIN)
-                            && !entity.IsDying()) {
+                            && entity.InGrabState()) {
 
                          target.DecreaseGrabResistance();
                     }
@@ -638,19 +645,13 @@ namespace FusionEngine
                             && ((entity.GetDirX() > 0 && entity.GetPosX() < target.GetPosX())
                                     || (entity.GetDirX() < 0 && entity.GetPosX() > target.GetPosX()))
 
-                            //Entity must be moving forward to grab?
-                            && entity.IsMoving()
                             //Target must be on same ground level.
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
                             && !target.InvalidGrabbedState()
                             //Must not be in these action states.
-                            && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                            && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
-                            && !entity.IsInAnimationAction(Animation.Action.INPAIN)
-                            && !entity.InSpecialAttack()
-                            && !entity.IsDying()
-                            && entity.GetGrabInfo().grabbed == null) {
+                            && entity.InGrabState()
+                            ) {
 
                         targets.Add(target);
                     }
@@ -676,9 +677,9 @@ namespace FusionEngine
                         || entity.GetGrabInfo().grabbed.IsKnocked()
                         || entity.IsHit()) {
 
-                    if (!entity.GetGrabInfo().grabbed.IsInAnimationAction(Animation.Action.KNOCKED)) { 
+                    if (!entity.GetGrabInfo().grabbed.IsKnocked()) {
                         entity.GetGrabInfo().grabbed.SetAnimationState(Animation.State.FALL1); 
-                        entity.GetGrabInfo().grabbed.Toss(8);
+                        entity.GetGrabInfo().grabbed.TossFast(8);
                     } 
 
                     entity.GetGrabInfo().grabbed.SetGround(entity.GetGrabInfo().grabbed.GetGroundBase());
@@ -687,6 +688,7 @@ namespace FusionEngine
 
                     entity.GetAttackInfo().Reset();
                     entity.GetGrabInfo().Reset();
+
                 } else { 
                     if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
                         EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);

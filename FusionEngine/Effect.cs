@@ -7,7 +7,7 @@ using System.Text;
 namespace FusionEngine {
 
     public class Effect {
-        public enum Type { HIT_SPARK, BLOCK_SPARK }
+        public enum Type { HIT_SPARK, BLOCK_SPARK, ARTS }
         public enum State { NONE, LIGHT, MEDIUM, HEAVY }
 
         private Vector2 offset;

@@ -89,7 +89,7 @@ namespace FusionEngine {
                     font.width = width;
                     posx += x;
 
-                    Debug.WriteLine("{0} {1} {2}", font.character, font.startX, font.width);
+                    //Debug.WriteLine("{0} {1} {2}", font.character, font.startX, font.width);
                 } else { 
                     font.startX = int.Parse(items[1].Trim());
                     font.width = int.Parse(items[2].Trim());

@@ -57,16 +57,18 @@ namespace FusionEngine {
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
                     return;    
                 }
+
+                var target = (entity is Projectile ? entity.GetOwner() : entity);
                  
-                if (entity.GetAttackInfo().comboHitTime < 200) { 
-                    entity.GetAttackInfo().showComboHits += 1;
+                if (target.GetAttackInfo().comboHitTime < 200) { 
+                    target.GetAttackInfo().showComboHits += 1;
                 }
 
-                if (entity.GetAttackInfo().showComboHits >= entity.GetAttackInfo().targetComboHits) { 
-                    entity.GetAttackInfo().comboHits += 1;
+                if (target.GetAttackInfo().showComboHits >= target.GetAttackInfo().targetComboHits) { 
+                    target.GetAttackInfo().comboHits += 1;
 
-                    if (entity is Player) {
-                        entity.ExpandComboFont();
+                    if (target is Player) {
+                        target.ExpandComboFont();
                     }
                 }
             }
@@ -76,6 +78,10 @@ namespace FusionEngine {
             if (entity is Player) {
                 ((Player)entity).SetCurrentHitLifeBar(target.GetLifeBar());
                 ((Player)entity).SetLifebarHitTime(90);
+
+            } else if (entity is Projectile && entity.GetOwner() is Player) {
+                ((Player)entity.GetOwner()).SetCurrentHitLifeBar(target.GetLifeBar());
+                ((Player)entity.GetOwner()).SetLifebarHitTime(90);
             }
         }
 
@@ -111,7 +117,7 @@ namespace FusionEngine {
             if (target != entity) {
                 target.OnTargetHit(entity, attackBox);
 
-                int attackDir = (entity.GetPosX() > target.GetPosX() ? 1 : -1);
+                int attackDir = (entity.IsLeft() ? 1 : -1);
                 float lookDir = (entity.IsLeft() ? -1 : 1);
 
                 if (!target.InvalidHitState()) {
@@ -151,6 +157,12 @@ namespace FusionEngine {
                         ApplyFrameActions(entity, target, attackBox);
 
                         KnockIfToss(target, attackBox, lookDir);
+
+                        if (entity is Projectile) {
+                            //entity.SetPosZ(target.GetPosZ());
+                            //entity.SetLayerPos(target.GetLayerPos() + 5);
+                            entity.DecreaseHealth(15);
+                        }
                     }
                 }
 
@@ -180,6 +192,12 @@ namespace FusionEngine {
                         target.SetLifebarPercent(target.GetHealth());
 
                         ShowEnemyLifebar(entity, target);
+
+                        if (entity is Projectile) {
+                            //entity.SetPosZ(target.GetPosZ());
+                            //entity.SetLayerPos(target.GetLayerPos() + 5);
+                            entity.DecreaseHealth(15);
+                        }
                     }
 
                     if (target.GetAttackInfo().juggleHits <= 0) {
@@ -192,7 +210,10 @@ namespace FusionEngine {
         }
 
         public static void AddSparkState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
+
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING) 
+                    || entity is Projectile) { 
+
                 return;    
             }
 

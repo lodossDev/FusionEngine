@@ -423,7 +423,8 @@ namespace FusionEngine
 
                     if (entity != target && entityBoxes != null 
                             && entityBoxes.Count > 0 && !target.IsDying()
-                            && !(target is Wall)) {
+                            && !(target is Wall) && !(target is Projectile) 
+                            && !(target is Collectable)) {
 
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
@@ -520,7 +521,8 @@ namespace FusionEngine
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
+                        if (entity.GetOwner() != target 
+                                && Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
                                 && targetBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.

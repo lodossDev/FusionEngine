@@ -135,8 +135,9 @@ namespace FusionEngine {
         private bool boundToLevel;
         private bool isEdgeX, isEdgeZ;
         private bool drawShadow;
-        //Add methods to this.................
-        protected Dictionary<string, bool> actionStates;
+
+        private Dictionary<string, bool> actionStates;
+        private Entity owner;
 
 
         public Entity(ObjectType type, string name) {
@@ -232,6 +233,8 @@ namespace FusionEngine {
             alive = true;
             drawShadow = false;
 
+            owner = null;
+
             id++;
             entityId = id;
         }
@@ -267,6 +270,26 @@ namespace FusionEngine {
 
         public void AddBlockSpark(Effect blockSpark) {
             blockSparks.Add(blockSpark.GetState(), blockSpark);
+        }
+
+        public void AddActionState(string action, bool state = false) {
+            actionStates.Add(action, state);
+        }
+
+        public void DisbaleActionState(string action) {
+            actionStates[action] = false;
+        }
+
+        public void EnableActionState(string action) {
+            actionStates[action] = true;
+        }
+
+        public bool InActionState(string action) {
+            if (actionStates.ContainsKey(action)) {
+                return actionStates[action];
+            }
+
+            return false;
         }
 
         public void SetAnimationLink(Animation.State? onState, Animation.State? toState, int frameOnStart, bool onFrameComplete = true) {
@@ -2116,6 +2139,14 @@ namespace FusionEngine {
         public bool IsExpired() {
              return (IsEntity(Entity.ObjectType.HIT_FLASH) && GetCurrentSprite().IsAnimationComplete())
                             || (GetAliveTime() != -1 && GetAliveTime() <= 0);
+        }
+
+        public Entity GetOwner() {
+            return owner;
+        }
+
+        public void SetOwner(Entity owner) {
+            this.owner = owner;
         }
 
         public bool IsNonActionState() { 

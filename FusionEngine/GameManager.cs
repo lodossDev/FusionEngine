@@ -445,13 +445,14 @@ namespace FusionEngine {
             projectile.SetFade(200);
             projectile.SetBlendState(BlendState.Additive);
             projectile.SetIsLeft(projectile.GetOwner().IsLeft());
+            projectile.SetLayerPos(10);
 
             if (projectile.IsLeft()) {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(3, -1);
+                projectile.MoveX(6, -1);
             } else {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(3, 1);
+                projectile.MoveX(6, 1);
             }
 
             projectile.UpdateBoxes(null);

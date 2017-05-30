@@ -253,9 +253,13 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            //font1.Draw("IS DYING - " + (level1.Obstacles[0].GetCurrentAnimationState()), new Vector2(80, 100));
+            List<Entity> projectiles = GameManager.GetInstance().GetEntities().FindAll(entity => entity is Projectile);
+            Entity projectile = (projectiles != null && projectiles.Count > 0 ? projectiles.Last() : null);
+
+            //font1.Draw("HEALTH - " + (projectile != null ? projectile.GetHealth() : 0), new Vector2(80, 100));
+            //font1.Draw("DEATH STEP - " + (projectile != null ? projectile.GetLives() : 0), new Vector2(80, 200));
             //font1.Draw("DEATH - " + level1.Obstacles[1].GetDeathStep(), new Vector2(80, 200));
-            //spriteBatch.DrawString(font1, "RYO Z " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
+            //spriteBatch.DrawString(font1, "HEALTH " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);
             //spriteBatch.DrawString(font1, "SCALE " +  bred.GetPosZ(), new Vector2(20, 90), Color.White);
             //spriteBatch.DrawString(font1, "BRED1 " + bred.GetPosY(), new Vector2(20, 130), Color.White);

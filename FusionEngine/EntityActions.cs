@@ -53,7 +53,7 @@ namespace FusionEngine {
         }
 
         public static void FaceTarget(Entity target, Entity entity) {
-            if (target is Character 
+            if (target is Character && !(entity is Projectile)
                     && !target.HasGrabbed() 
                     && !target.GetGrabInfo().inGrabHeight) { 
 
@@ -151,7 +151,7 @@ namespace FusionEngine {
                 targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entity.GetGrabInfo().dist / 2) : -(entity.GetGrabInfo().dist / 2));
             }
 
-            newz = targetz = entity.GetPosZ() - ((entity.GetPosZ() - target.GetPosZ()));
+            newz = targetz = (entity.GetPosZ() - entity.GetPosZ() - target.GetPosZ());
 
             EntityActions.SetGrabMovementLink(entity, target);
             EntityActions.SetGrabDirection(out targetx, x, entity, target);
@@ -433,10 +433,15 @@ namespace FusionEngine {
 
         public static void OnDeath(Entity entity) {
             if ((entity.GetOldHealth() == 0 && entity.GetLives() <= 0) && entity.GetDeathStep() == -1) {
-                entity.OnDeath();
-
                 String defaultDieSFX = (entity is Drum ? "klunk" : (entity is PhoneBooth ? "glass" : "die3"));
-                GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
+
+                if (!(entity is Projectile)) {
+                    GameManager.GetInstance().PlaySFX(entity, Animation.State.DIE1, defaultDieSFX);
+                }
+
+                if (entity is Projectile) {
+                    entity.StopMovement();
+                }
 
                 if (entity.IsDeathMode(Entity.DeathType.IMMEDIATE_DIE) 
                         && entity.IsDeathMode(Entity.DeathType.FLASH)) {
@@ -454,7 +459,7 @@ namespace FusionEngine {
                 } else if (entity.IsDeathMode(Entity.DeathType.DEFAULT)) {
 
                     if (!entity.InvalidDeathState()) {
-                        if (entity.IsEntity(Entity.ObjectType.OBSTACLE) || entity is Obstacle) {
+                        if (entity is Obstacle || entity is Projectile) {
                             entity.SetAnimationState(Animation.State.DIE1);
                         } else {
                             entity.SetAnimationState(Animation.State.KNOCKED_DOWN1);
@@ -470,7 +475,9 @@ namespace FusionEngine {
                 }
 
                 entity.GetGrabInfo().Reset();
-                entity.GetRumble().Reset(); 
+                entity.GetRumble().Reset();
+
+                entity.OnDeath(); 
             }
 
             OnDeathStep1(entity);

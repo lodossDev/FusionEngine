@@ -9,6 +9,13 @@ namespace FusionEngine {
 
     public static class EntityActions {
 
+        public static void SetInfront(Entity entity, Entity target, int layerPos) {
+            float newz = (target.GetPosZ() - (target.GetPosZ() - entity.GetPosZ()));
+            int zOffset = (target.GetDepthBox().GetRect().Bottom - entity.GetDepthBox().GetRect().Bottom);
+            entity.SetLayerPos(layerPos);
+            entity.SetPosZ(newz + zOffset);
+        }
+
         public static void SetGrabbedHitPain(Entity entity, Entity target, CLNS.AttackBox.AttackType attackType) {
             if (attackType == CLNS.AttackBox.AttackType.LIGHT) {
                 target.SetAnimationState(target.GetLightPainGrabbedState());
@@ -151,8 +158,6 @@ namespace FusionEngine {
                 targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entity.GetGrabInfo().dist / 2) : -(entity.GetGrabInfo().dist / 2));
             }
 
-            newz = targetz = (entity.GetPosZ() - (entity.GetPosZ() - target.GetPosZ()));
-
             EntityActions.SetGrabMovementLink(entity, target);
             EntityActions.SetGrabDirection(out targetx, x, entity, target);
                                             
@@ -162,15 +167,8 @@ namespace FusionEngine {
                 entity.SetPosX(newx);
             }
 
-            int zOffset = (entity.GetDepthBox().GetRect().Bottom - target.GetDepthBox().GetRect().Bottom);
-            target.SetLayerPos(10);
-
-            if (entity.GetGrabInfo().grabPos == -1) {
-                target.SetLayerPos(-10);
-            }
-
             if (target.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.NO_COLLISION)) {
-                target.SetPosZ(newz + zOffset);
+                EntityActions.SetInfront(target, entity, (entity.GetGrabInfo().grabPos == -1 ? -10 : 10));
             }
             
             if (!target.IsInAnimationAction(Animation.Action.INPAIN)) {

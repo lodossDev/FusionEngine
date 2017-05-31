@@ -159,8 +159,7 @@ namespace FusionEngine {
                         KnockIfToss(target, attackBox, lookDir);
 
                         if (entity is Projectile) {
-                            //entity.SetPosZ(target.GetPosZ());
-                            //entity.SetLayerPos(target.GetLayerPos() + 5);
+                            EntityActions.SetInfront(entity, target, 10);
                             entity.DecreaseHealth(15);
                         }
                     }
@@ -194,8 +193,7 @@ namespace FusionEngine {
                         ShowEnemyLifebar(entity, target);
 
                         if (entity is Projectile) {
-                            //entity.SetPosZ(target.GetPosZ());
-                            //entity.SetLayerPos(target.GetLayerPos() + 5);
+                            EntityActions.SetInfront(entity, target, 10);
                             entity.DecreaseHealth(15);
                         }
                     }

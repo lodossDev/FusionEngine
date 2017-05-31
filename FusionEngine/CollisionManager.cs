@@ -329,10 +329,10 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 8) + vx);
+                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 10) + vx);
 
                     if (entityBox.GetRect().X < targetBox.GetRect().X) {
-                        ox = (int)(((double)(targetBox.GetRect().Width) / 8) + vx);
+                        ox = (int)(((double)(targetBox.GetRect().Width) / 10) + vx);
                     }
 
                     Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);
@@ -371,6 +371,10 @@ namespace FusionEngine
                                 entity.GetCollisionInfo().SetObstacle(target);
                                 target.GetCollisionInfo().SetObstacle(entity);
                             }
+
+                            if (entity is Projectile) {
+                                entity.DecreaseHealth(100);
+                            }
                         }
                         
                         if ((isWithInBoundsX1 || (!isWithInBoundsX1 && !isWithInBoundsZ1)) && isWithInBoundsZ2) {
@@ -394,6 +398,10 @@ namespace FusionEngine
                                 entity.GetCollisionInfo().Right();
                                 entity.GetCollisionInfo().SetObstacle(target);
                                 target.GetCollisionInfo().SetObstacle(entity);
+                            }
+
+                            if (entity is Projectile) {
+                                entity.DecreaseHealth(100);
                             }
                         }
                     }

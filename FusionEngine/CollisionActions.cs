@@ -38,8 +38,6 @@ namespace FusionEngine {
             }
 
             if (entity != target) {
-                entity.OnAttackHit(target, attackBox);
-
                 entity.GetAttackInfo().currentAttackTime = entity.GetAttackInfo().nextAttackTime;
                 entity.GetAttackInfo().hasHit = true;
 
@@ -48,6 +46,8 @@ namespace FusionEngine {
                 target.GetAttackInfo().lastJuggleState = 1;
                 entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
                 entity.GetAttackInfo().lastAttackState = entity.GetCurrentAnimationState();
+
+                entity.OnAttackHit(target, attackBox);
             }
         }
 
@@ -210,10 +210,7 @@ namespace FusionEngine {
         }
 
         public static void AddSparkState(Entity entity, Entity target, CLNS.AttackBox attackBox) {
-
-            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING) 
-                    || entity is Projectile) { 
-
+            if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
                 return;    
             }
 

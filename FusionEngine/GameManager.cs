@@ -413,6 +413,41 @@ namespace FusionEngine {
             screenshot.Dispose();
         }
 
+         public static void AddSpecialArt(Entity entity, String name, float x, float y) {
+            if (!entity.InActionState(name)) {
+                Entity art = GameManager.CreateEffect(entity.GetSpecialArt(name), entity, 0, 0);
+                art.SetIsLeft(entity.IsLeft());
+
+                if (art.IsLeft()) {
+                    art.SetPostion(entity.GetPosX() - x, entity.GetPosY());
+                } else {
+                    art.SetPostion(entity.GetPosX() + x, entity.GetPosY());
+                }
+
+                GameManager.GetInstance().Render(art);
+                entity.EnableActionState(name);
+            }
+        }
+
+        public static void AddProjectile(Projectile projectile, float x1, float y1) {
+            projectile.SetFade(200);
+            projectile.SetBlendState(BlendState.Additive);
+            projectile.SetIsLeft(projectile.GetOwner().IsLeft());
+            projectile.SetLayerPos(10);
+
+            if (projectile.IsLeft()) {
+                projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
+                projectile.MoveX(8, -1);
+            } else {
+                projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
+                projectile.MoveX(8, 1);
+            }
+
+            projectile.UpdateBoxes(null);
+
+            GameManager.GetInstance().AddEntity(projectile);
+        }
+
         public static Entity CreateEffect(Effect effect, Entity entity, float x1, float y1) {
             return CreateEffect(effect, entity, entity, x1, y1);
         }
@@ -439,25 +474,6 @@ namespace FusionEngine {
             }
 
             return spark;
-        }
-
-        public static void AddProjectile(Projectile projectile, float x1, float y1) {
-            projectile.SetFade(200);
-            projectile.SetBlendState(BlendState.Additive);
-            projectile.SetIsLeft(projectile.GetOwner().IsLeft());
-            projectile.SetLayerPos(10);
-
-            if (projectile.IsLeft()) {
-                projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(6, -1);
-            } else {
-                projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(6, 1);
-            }
-
-            projectile.UpdateBoxes(null);
-
-            GameManager.GetInstance().AddEntity(projectile);
         }
 
         private static Effect GetSparkState(Entity entity, Effect.Type effectType, Effect.State effectState) {
@@ -560,6 +576,6 @@ namespace FusionEngine {
 
         private static float HitBodyY(Entity target, Entity entity, CLNS.BoundingBox box) {
             return ((int)Math.Round(box.GetOffset().Y + entity.GetPosY())) / 2;
-        }
+        }        
     }
 }

@@ -116,6 +116,7 @@ namespace FusionEngine {
             SetDeathMode(DeathType.DEFAULT | DeathType.FLASH);
 
             //SetBoundToLevel(true);
+            
         }
     }
 }

@@ -651,9 +651,8 @@ namespace FusionEngine
                             && target.GetPosY() == entity.GetPosY()
                             && target.GetGround() == entity.GetGround()
                             && !target.InvalidGrabbedState()
-                            //Must not be in these action states.
-                            && entity.InGrabState()
-                            ) {
+                            //Must be in this action state (grabbing :().
+                            && entity.InGrabState()) {
 
                         targets.Add(target);
                     }

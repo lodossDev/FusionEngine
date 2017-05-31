@@ -151,7 +151,7 @@ namespace FusionEngine {
                 targetx = x + ((target.GetPosX() > entity.GetPosX()) ? (entity.GetGrabInfo().dist / 2) : -(entity.GetGrabInfo().dist / 2));
             }
 
-            newz = targetz = (entity.GetPosZ() - entity.GetPosZ() - target.GetPosZ());
+            newz = targetz = (entity.GetPosZ() - (entity.GetPosZ() - target.GetPosZ()));
 
             EntityActions.SetGrabMovementLink(entity, target);
             EntityActions.SetGrabDirection(out targetx, x, entity, target);

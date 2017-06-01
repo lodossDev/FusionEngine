@@ -34,6 +34,11 @@ namespace FusionEngine {
             SetSpriteOffSet(Animation.State.KNOCKED_DOWN1, 0, -15);
             SetFrameScale(Animation.State.KNOCKED_DOWN1, -0.3f, 0);
 
+            AddSprite(Animation.State.BOUNCE1, new Sprite("Sprites/Actors/Bred/BOUNCE1", Animation.Type.ONCE));
+            SetFrameDelay(Animation.State.BOUNCE1, 12);
+            SetSpriteOffSet(Animation.State.BOUNCE1, 0, 15);
+            SetFrameScale(Animation.State.BOUNCE1, -0.3f, 0);
+
             AddSprite(Animation.State.PAIN1, new Sprite("Sprites/Actors/Bred/PAIN1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.PAIN1, 6);
             SetSpriteOffSet(Animation.State.PAIN1, 10, 0);

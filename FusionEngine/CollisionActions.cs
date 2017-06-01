@@ -92,8 +92,8 @@ namespace FusionEngine {
 
                 target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
   
-                float velX = 7;
-                target.TossFast(-15, velX * dir, 1, 2, true); 
+                float velX = 5;
+                target.TossFast(-10, velX * dir, 1, 2, true); 
             }
         }
 
@@ -159,7 +159,7 @@ namespace FusionEngine {
                         KnockIfToss(target, attackBox, lookDir);
 
                         if (entity is Projectile) {
-                            EntityActions.SetInfront(entity, target, 10);
+                            EntityActions.SetInfront(entity, entity, 10);
                             entity.DecreaseHealth(15);
                         }
                     }
@@ -193,7 +193,7 @@ namespace FusionEngine {
                         ShowEnemyLifebar(entity, target);
 
                         if (entity is Projectile) {
-                            EntityActions.SetInfront(entity, target, 10);
+                            EntityActions.SetInfront(entity, entity, 10);
                             entity.DecreaseHealth(15);
                         }
                     }

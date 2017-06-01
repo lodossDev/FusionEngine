@@ -119,7 +119,7 @@ namespace FusionEngine {
 
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 3, new CLNS.AttackBox(190, 180, 0, 20));
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 4, new CLNS.AttackBox(190, 180, 0, 20));
-            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 10, 40, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 5, -18, true);
+            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 10, 40, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 1, -15, true);
 
             AddBox(Animation.State.SPECIAL1, 2, new CLNS.AttackBox(150, 200, 50, 45));
             AddBox(Animation.State.SPECIAL1, 4, new CLNS.AttackBox(150, 200, 50, -15));
@@ -274,7 +274,7 @@ namespace FusionEngine {
             SetPortrait("Sprites/Actors/Ryo/PORTRAIT", 29, 65, 0, 0, 4.08f, 3f);
 
             //AddFrameAction(Animation.State.STANCE, 1, 1, 20);
-            AddSpecialArt(new Effect("FIREBALL_ART", "Sprites/Actors/Ryo/ART1", Effect.Type.ARTS, Effect.State.LIGHT, 2.8f, 2.5f, 20, -10, 3, 180));
+            AddSpecialArt(new Effect("FIREBALL_ART", "Sprites/Actors/Ryo/ART1", Effect.Type.ARTS, Effect.State.LIGHT, 1.7f, 2.0f, 0, 0, 3, 180));
             AddActionState("FIREBALL_ART", false);
         }
 
@@ -295,7 +295,7 @@ namespace FusionEngine {
             fireball.AddBoundsBox(160, 340, -60, 15, 50);
 
             fireball.SetMaxLives(0);
-            fireball.SetMaxHealth(20);
+            fireball.SetMaxHealth(500);
 
             return fireball;
         }
@@ -316,7 +316,7 @@ namespace FusionEngine {
             if (GetCurrentAnimationState() == Animation.State.SPECIAL3
                     && GetCurrentSpriteFrame() == 3 && !InActionState("FIREBALL_1")) {
 
-                GameManager.AddProjectile(GetProjectille(), 215, -50);
+                GameManager.AddProjectile(GetProjectille(), 180, -50);
                 EnableActionState("FIREBALL_1");
             }
         }

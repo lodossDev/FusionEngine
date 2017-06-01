@@ -2024,14 +2024,18 @@ namespace FusionEngine {
         public void UpdateToss(GameTime gameTime) {
 
             if (tossInfo.isToss) {
+
                 if ((double)tossInfo.velocity.X < 0.0) {
                     direction.X = -1;
+
                 } else if ((double)tossInfo.velocity.X > 0.0) {
                     direction.X = 1;
                 }
 
                 if (IsInTossFrame()) {
+
                     if (!tossInfo.inTossFrame) { 
+
                         if (IsInAnimationAction(Animation.Action.JUMPING)) {
                             GameManager.GetInstance().PlaySFX(this, GetCurrentAnimationState(), "jump");
                         }
@@ -2059,9 +2063,12 @@ namespace FusionEngine {
                 if ((int)GetPosY() > (int)GetGround()) {
                    
                     if (tossInfo.hitGroundCount < tossInfo.maxHitGround - 1) {
+
                         if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+
                             SetAnimationState(Animation.State.BOUNCE1);
                             currentSprite.ResetAnimation();
+                            GameManager.GetInstance().PlaySFX(this, Animation.State.BOUNCE1, "fall");
                         }
                     }
 
@@ -2079,9 +2086,8 @@ namespace FusionEngine {
 
                     if (tossInfo.hitGroundCount >= tossInfo.maxHitGround) {
                         SetPosY(GetGround());
-                        GetTossInfo().isKnock = false;
-
-                        if (IsInAnimationAction(Animation.Action.KNOCKED)) {
+                        
+                        if (IsKnocked()) {
                             ResetJuggleHits();
                             attackInfo.attacker = null;
                             attackInfo.currentKnockedState = Attributes.KnockedState.NONE;
@@ -2112,6 +2118,7 @@ namespace FusionEngine {
                         }
 
                         GetGrabInfo().inGrabHeight = false;
+                        GetTossInfo().isKnock = false;
                         ResetToss();
                     }
 

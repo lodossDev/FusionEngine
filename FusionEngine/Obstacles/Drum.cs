@@ -14,9 +14,8 @@ namespace FusionEngine {
             AddSprite(Animation.State.PAIN2, new Sprite("Sprites/Misc/Drum/Pain2"));
             AddSprite(Animation.State.DIE1, new Sprite("Sprites/Misc/Drum/Die1"));
 
-            //AddBoundsBox(125, 910, -63, -705, 40);
             AddBoundsBox(125, 210, -63, -15, 40);
-            SetOnLoadScale(2.2f, 2.6f);
+            SetOnLoadScale(2.4f, 2.9f);
             SetPostion(0, 0, 0);
 
             SetMaxHealth(1);

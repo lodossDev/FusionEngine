@@ -7424,3 +7424,27 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Actors/Ryo/FIREBALL1/STANCE/Frame09.png
 
+#begin Sprites/Actors/Bred/BOUNCE1/FALL01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Actors/Bred/BOUNCE1/FALL01.png
+
+#begin Sprites/Actors/Bred/BOUNCE1/FALL02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Actors/Bred/BOUNCE1/FALL02.png
+

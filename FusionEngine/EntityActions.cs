@@ -374,6 +374,7 @@ namespace FusionEngine {
 
                     CollisionActions.ShowEnemyLifebar(entity, entity.GetGrabInfo().grabbed);
                     EntityActions.ThrowTarget(entity, entity.GetGrabInfo().grabbed);
+                    GameManager.GetInstance().PlaySFX(entity, entity.GetCurrentAnimationState(), "punch1");
 
             } else if (entity.IsInAnimationAction(Animation.Action.GRABBING)
                             && !entity.IsInAnimationAction(Animation.Action.ATTACKING)

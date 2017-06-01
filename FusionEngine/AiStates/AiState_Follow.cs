@@ -47,118 +47,129 @@ namespace FusionEngine
 
             if (target != null)
             {
-                sPx.X = entity.GetPosX();
-                tPx.X = target.GetPosX();
+                if (entity.GetGrabInfo().isGrabbed == false 
+                        && !entity.IsToss() 
+                        && !entity.IsInAnimationAction(Animation.Action.INPAIN)
+                        && !entity.IsInAnimationAction(Animation.Action.KNOCKED)
+                        //&& !bred.IsInAnimationAction(Animation.Action.RISING)
+                        && !entity.IsRise()
+                        && !entity.InHitPauseTime()
+                        && entity.GetHealth() > 0
+                        ) {
 
-                sPy.Y = entity.GetDepthBox().GetRect().Bottom;
-                tPy.Y = target.GetDepthBox().GetRect().Bottom;
+                    sPx.X = entity.GetPosX();
+                    tPx.X = target.GetPosX();
 
-                Vector2 ss1 = new Vector2(0, entity.GetDepthBox().GetRect().Bottom);
-                Vector2 ss2 = new Vector2(0, target.GetDepthBox().GetRect().Bottom);
+                    sPy.Y = entity.GetDepthBox().GetRect().Bottom;
+                    tPy.Y = target.GetDepthBox().GetRect().Bottom;
 
-                float distanceX = Vector2.Distance(sPx, tPx);
-                float distanceZ = Vector2.Distance(ss1, ss2);
+                    Vector2 ss1 = new Vector2(0, entity.GetDepthBox().GetRect().Bottom);
+                    Vector2 ss2 = new Vector2(0, target.GetDepthBox().GetRect().Bottom);
 
-                if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                        && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
-                {
-                    if (distanceX > maxDistanceX)
+                    float distanceX = Vector2.Distance(sPx, tPx);
+                    float distanceZ = Vector2.Distance(ss1, ss2);
+
+                    if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                            && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
                     {
-                        Vector2 p1 = tPx - sPx;
-                        p1.Normalize();
-
-                        direction.X = p1.X * 1;
-                        velocity.X = 2.5f;
-
-                        if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
+                        if (distanceX > maxDistanceX)
                         {
-                            if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
-                                entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
-                            } else {
-                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                            }
-                        }
-                        else
-                        {
-                            entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                        }
-                    }
+                            Vector2 p1 = tPx - sPx;
+                            p1.Normalize();
 
-                    if (distanceZ > maxDistanceZ + 5)
-                    {
-                        Vector2 p1 = ss2 - ss1;
-                        p1.Normalize();
+                            direction.X = p1.X * 1;
+                            velocity.X = 2.5f;
 
-                        direction.Y = p1.Y * 1;
-                        velocity.Y = 2.5f;
-
-                        if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
-                        {
-                            if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
-                                entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
-                            } else {
-                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                            }
-                        }
-                        else
-                        {
-                            entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                        }
-                    }
-                }
-
-                if (distanceX < maxDistanceX && distanceZ < maxDistanceZ + 10 && !entity.IsInAnimationAction(Animation.Action.ATTACKING))
-                {
-                    if (distanceX < (maxDistanceX - 10))
-                    {
-                        Vector2 p1 = tPx - sPx;
-                        p1.Normalize();
-
-                        direction.X = -p1.X * 1;
-                        velocity.X = 4.5f;
-
-                        if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
-                            entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
-                        } else {
-                            entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                        }
-                    }
-                    else if (distanceX < maxDistanceX + 100)
-                    {
-                        int mode = rnd.Next(1, 100);
-                        //Debug.WriteLine("mode: " + mode);
-
-                        if (mode > 80)
-                        {
-                            int agg = rnd.Next(1, 100);
-
-                            if (agg > 75 && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
-                                    && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
+                            if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
                             {
-                                int atk = rnd.Next(1, 6);
-                                if (atk == 1)
-                                    entity.SetAttackState(Animation.State.ATTACK1);
-                                else if (atk == 2)
-                                    entity.SetAttackState(Animation.State.ATTACK2);
-                                else if (atk == 3)
-                                   entity.SetAttackState(Animation.State.ATTACK3);
-                                else if (atk > 3)
-                                   entity.SetAttackState(Animation.State.ATTACK2);
+                                if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                                    entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                                } else {
+                                    entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                                }
                             }
                             else
                             {
-                                //if (!entity.IsInAnimationAction(Animation.Action.BLOCKING))entity.SetAnimationState(Animation.State.STANCE);
+                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
                             }
                         }
-                        else
-                        {
-                            entity.SetAnimationState(Animation.State.STANCE);
-                        }
 
-                        velocity.X = 0f;
-                        velocity.Y = 0f;
+                        if (distanceZ > maxDistanceZ + 5)
+                        {
+                            Vector2 p1 = ss2 - ss1;
+                            p1.Normalize();
+
+                            direction.Y = p1.Y * 1;
+                            velocity.Y = 2.5f;
+
+                            if (((entity.IsLeft() == false && velocity.X < 0.0f) || (entity.IsLeft() == true && velocity.X > 0.0f)))
+                            {
+                                if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                                    entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                                } else {
+                                    entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                                }
+                            }
+                            else
+                            {
+                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                            }
+                        }
                     }
+
+                    if (distanceX < maxDistanceX && distanceZ < maxDistanceZ + 10 && !entity.IsInAnimationAction(Animation.Action.ATTACKING))
+                    {
+                        if (distanceX < (maxDistanceX - 10))
+                        {
+                            Vector2 p1 = tPx - sPx;
+                            p1.Normalize();
+
+                            direction.X = -p1.X * 1;
+                            velocity.X = 4.5f;
+
+                            if (entity.HasSprite(Animation.State.WALK_BACKWARDS)) {
+                                entity.SetAnimationState(Animation.State.WALK_BACKWARDS);
+                            } else {
+                                entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                            }
+                        }
+                        else if (distanceX < maxDistanceX + 100)
+                        {
+                            int mode = rnd.Next(1, 100);
+                            //Debug.WriteLine("mode: " + mode);
+
+                            if (mode > 80)
+                            {
+                                int agg = rnd.Next(1, 100);
+
+                                if (agg > 75 && !entity.IsInAnimationAction(Animation.Action.ATTACKING)
+                                        && !entity.IsInAnimationAction(Animation.Action.BLOCKING))
+                                {
+                                    int atk = rnd.Next(1, 6);
+                                    if (atk == 1)
+                                        entity.SetAttackState(Animation.State.ATTACK1);
+                                    else if (atk == 2)
+                                        entity.SetAttackState(Animation.State.ATTACK2);
+                                    else if (atk == 3)
+                                       entity.SetAttackState(Animation.State.ATTACK3);
+                                    else if (atk > 3)
+                                       entity.SetAttackState(Animation.State.ATTACK2);
+                                }
+                                else
+                                {
+                                    //if (!entity.IsInAnimationAction(Animation.Action.BLOCKING))entity.SetAnimationState(Animation.State.STANCE);
+                                }
+                            }
+                            else
+                            {
+                                entity.SetAnimationState(Animation.State.STANCE);
+                            }
+
+                            velocity.X = 0f;
+                            velocity.Y = 0f;
+                        }
                     
+                    }
                 }
 
                 if (float.IsNaN(direction.X)) direction.X = 0f;
@@ -167,13 +178,25 @@ namespace FusionEngine
                 if (float.IsNaN(velocity.X)) velocity.X = 0f;
                 if (float.IsNaN(velocity.Y)) velocity.Y = 0f;
 
-                if (entity.IsToss()) {
-                    velocity.X = 0f;
-                    velocity.Y = 0f;
+                if (entity.GetGrabInfo().isGrabbed == true 
+                        || entity.IsToss() 
+                        || entity.IsInAnimationAction(Animation.Action.INPAIN)
+                        || entity.IsKnocked()
+                        || entity.IsInAnimationAction(Animation.Action.RISING)
+                        || entity.IsRise()
+                        || entity.InHitPauseTime()) {
+
+                    velocity.X = 0;
+                    velocity.Y = 0;
+                    direction.X = 0;
+                    direction.Y = 0;
                 }
 
                 entity.MoveX(velocity.X, direction.X);
                 entity.MoveZ(velocity.Y, direction.Y);
+
+                Debug.WriteLine("## VELX: " + velocity.X);
+                Debug.WriteLine("## VELZ: " + velocity.Y);
             }
         }
 

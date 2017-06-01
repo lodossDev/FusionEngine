@@ -122,31 +122,17 @@ namespace FusionEngine {
 
             if (!GameManager.IsPause())
             {
-                if (bred.GetGrabInfo().isGrabbed == false 
-                        && !bred.IsToss() 
-                        && !bred.IsInAnimationAction(Animation.Action.INPAIN)
-                        && !bred.IsInAnimationAction(Animation.Action.KNOCKED)
-                        //&& !bred.IsInAnimationAction(Animation.Action.RISING)
-                        && !bred.IsRise()
-                        && !bred.InHitPauseTime()
-                        && bred.GetHealth() > 0
-                        ) {
+               
+                
+                GameManager.GetInstance().Update(gameTime);
 
-                    if(!bred.IsInAnimationAction(Animation.Action.RISING) && !bred.IsDying())bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                 if (!bred.IsDying()) { 
+                    bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred.ResetToIdle(gameTime);
                 }
 
-                if (bred2.GetGrabInfo().isGrabbed == false 
-                        && !bred2.IsToss() 
-                        && !bred2.IsInAnimationAction(Animation.Action.INPAIN)
-                        && !bred2.IsInAnimationAction(Animation.Action.KNOCKED)
-                        //&& !bred2.IsInAnimationAction(Animation.Action.RISING)
-                        && !bred2.IsRise()
-                        && !bred2.InHitPauseTime()
-                        && bred2.GetHealth() > 0
-                        ) {
-
-                    if(!bred2.IsInAnimationAction(Animation.Action.RISING) && !bred2.IsDying())bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                if (!bred2.IsDying()) { 
+                    bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
                     bred2.ResetToIdle(gameTime);
                 }
 
@@ -157,8 +143,6 @@ namespace FusionEngine {
                 if (bred2.IsInAnimationAction(Animation.Action.INPAIN)) {
                     bred2.StopMovement();
                 }
-                
-                GameManager.GetInstance().Update(gameTime);
             }
 
             system.Update(gameTime);

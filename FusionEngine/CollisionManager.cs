@@ -448,6 +448,7 @@ namespace FusionEngine
                                 && Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5) {
 
                             if (!target.IsKnocked()
+                                    && !target.IsRise()
                                     && target != entity.GetAttackInfo().attacker
                                     && target.GetKnockedFromKnockedEntityState() == 1
                                     && target.InAllowedKnockedState(entity.GetCurrentKnockedState())) {

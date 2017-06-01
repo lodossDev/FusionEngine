@@ -1181,7 +1181,7 @@ namespace FusionEngine {
         }
 
         public bool IsRise() {
-            return isRise;
+            return isRise || IsInAnimationAction(Animation.Action.RISING);
         }
 
         public bool InPainTime() {

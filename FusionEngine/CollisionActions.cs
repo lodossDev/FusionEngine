@@ -178,7 +178,7 @@ namespace FusionEngine {
 
                         CheckComboHitStats(entity);
 
-                        target.TossFast(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 1); 
+                        target.TossFast(height, velX, target.GetAttackInfo().maxJuggleHits + 1, 2); 
                         target.SetTossGravity(0.6f);
                         target.SetPainTime((int)attackBox.GetPainTime());
   

@@ -66,7 +66,7 @@ namespace FusionEngine {
             GameManager.GetInstance().AddEntity(ryo);
             GameManager.GetInstance().SetLevel(level1);
             GameManager.GetInstance().AddEntity(bred);
-            //GameManager.GetInstance().AddEntity(bred2);
+            GameManager.GetInstance().AddEntity(bred2);
         }
 
         public void Dispose() {

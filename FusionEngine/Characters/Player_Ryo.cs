@@ -288,12 +288,14 @@ namespace FusionEngine {
             fireball.AddBox(Animation.State.ATTACK1, 10, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
             
             fireball.AddSprite(Animation.State.DIE1, new Sprite("Sprites/Actors/Ryo/FIREBALL1/DIE1", Animation.Type.ONCE));
+            fireball.SetFrameScale(Animation.State.DIE1, 0.8f, 0.8f);
+            fireball.SetSpriteOffSet(Animation.State.DIE1, 15, -60);
             fireball.SetDeathMode(DeathType.IMMEDIATE_DIE);
 
             fireball.AddBoundsBox(160, 340, -60, 15, 50);
 
             fireball.SetMaxLives(0);
-            fireball.SetMaxHealth(100);
+            fireball.SetMaxHealth(20);
 
             return fireball;
         }
@@ -314,7 +316,7 @@ namespace FusionEngine {
             if (GetCurrentAnimationState() == Animation.State.SPECIAL3
                     && GetCurrentSpriteFrame() == 3 && !InActionState("FIREBALL_1")) {
 
-                GameManager.AddProjectile(GetProjectille(), 315, -50);
+                GameManager.AddProjectile(GetProjectille(), 215, -50);
                 EnableActionState("FIREBALL_1");
             }
         }

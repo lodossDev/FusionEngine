@@ -150,7 +150,7 @@ namespace FusionEngine {
                         entity.IncreaseMP((int)(attackBox.GetHitDamage() * attackBox.GetHitStrength()));
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         
-                        target.DecreaseHealth(attackBox.GetHitDamage() + 10);
+                        //target.DecreaseHealth(attackBox.GetHitDamage() + 10);
                         target.SetLifebarPercent(target.GetHealth());
                         
                         ShowEnemyLifebar(entity, target);
@@ -187,7 +187,7 @@ namespace FusionEngine {
                         entity.SetHitPauseTime(10);
 
                         entity.IncreasePoints(attackBox.GetHitPoints());
-                        target.DecreaseHealth(attackBox.GetHitDamage() + 5);
+                        //target.DecreaseHealth(attackBox.GetHitDamage() + 5);
                         target.SetLifebarPercent(target.GetHealth());
 
                         ShowEnemyLifebar(entity, target);

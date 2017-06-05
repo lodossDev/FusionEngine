@@ -2858,16 +2858,28 @@ namespace FusionEngine {
             animationConfig.throwState = state;
         }
 
+        public bool CanProcessAiState() {
+            return (!IsInAnimationAction(Animation.Action.INPAIN)
+                        && !IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !IsGrabbed()
+                        && !IsToss() 
+                        && !IsRise()
+                        && !InHitPauseTime()
+                        && !InPainTime()
+                        && !IsKnocked()
+                        && !IsDying());
+        }
+
         public bool InJuggleState() {
             float y1 = Math.Abs(GetPosY());
             float y2 =  Math.Abs(GetGround());
             bool inJuggleHitHeight = y1 > y2 + GetJuggleHitHeight();
 
-            return (GetAttackInfo().juggleHits >= 0 
+            return (/*inJuggleHitHeight
+                        &&*/ GetAttackInfo().juggleHits >= 0 
                         && GetAttackInfo().lastJuggleState != -1
-                        && IsInAnimationAction(Animation.Action.KNOCKED) 
+                        && IsKnocked()
                         && GetTossInfo().hitGroundCount < 1
-                        && inJuggleHitHeight
                         && InAir()
                         && !IsDying());
         }

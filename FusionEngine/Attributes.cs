@@ -82,6 +82,7 @@ namespace FusionEngine {
             private Entity obstacle;
             private Entity item;
             private bool onTop;
+            private Entity closeObstacle;
             private bool isCollidable;
 
 
@@ -89,6 +90,7 @@ namespace FusionEngine {
                 Reset();
                 onTop = false;
                 isCollidable = false;
+                movingObstacle = obstacle = item = null;
             }
 
             public void Reset() {
@@ -103,6 +105,10 @@ namespace FusionEngine {
 
             public void SetObstacle(Entity entity) {
                 obstacle = entity;
+            }
+
+            public void SetCloseObstacle(Entity entity) {
+                closeObstacle = entity;
             }
 
             public void SetItem(Entity entity) {
@@ -197,6 +203,10 @@ namespace FusionEngine {
                 return obstacle;
             }
 
+            public Entity GetCloseObstacle() {
+                return closeObstacle;
+            }
+
             public Entity GetItem() {
                 return item;
             }
@@ -241,10 +251,10 @@ namespace FusionEngine {
                 isGrabbed = false;
                 grabbed = grabbedBy = null;       
                 grabDirection = 0;
-                maxGrabbedTime = 100;
+                maxGrabbedTime = 40;
                 grabbedTime = maxGrabbedTime;
                 throwVelX = 6;
-                throwHeight = -15;
+                throwHeight = -10;
                 maxGrabHits = 5;
                 grabHitCount = maxGrabHits;
                 grabbable = false;
@@ -310,7 +320,7 @@ namespace FusionEngine {
                 hitByAttackId = 0;
 
                 lastJuggleState = -1;
-                juggleHitHeight = 120;
+                juggleHitHeight = 150;
 
                 blockMode = 1;
                 knockedFromKnockedEntityHeight = 1;

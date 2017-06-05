@@ -48,6 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AfterImage.cs" />
+    <Compile Include="AiStates\AiState_AvoidObstacle.cs" />
     <Compile Include="AiStates\AiState_Follow.cs" />
     <Compile Include="AiStates\AiState_FollowXPath.cs" />
     <Compile Include="Animation.cs" />

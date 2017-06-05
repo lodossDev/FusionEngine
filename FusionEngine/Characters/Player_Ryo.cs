@@ -119,7 +119,7 @@ namespace FusionEngine {
 
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 3, new CLNS.AttackBox(190, 180, 0, 20));
             AddBox(Animation.State.JUMP_TOWARD_ATTACK1, 4, new CLNS.AttackBox(190, 180, 0, 20));
-            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 10, 40, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 1, -15, true);
+            SetAttackBox(Animation.State.JUMP_TOWARD_ATTACK1, 30, 10, 40, 5, 5, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.AIR, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.NONE, 50, 35, 4, -15, true);
 
             AddBox(Animation.State.SPECIAL1, 2, new CLNS.AttackBox(150, 200, 50, 45));
             AddBox(Animation.State.SPECIAL1, 4, new CLNS.AttackBox(150, 200, 50, -15));

@@ -26,6 +26,8 @@ namespace FusionEngine {
             List<InputHelper.CommandMove> commandMoves = entity.GetCommandMoves();
             commandMoves.Sort();
 
+            entity.UpdateCommandMoves(gameTime);
+
             foreach (InputHelper.CommandMove command in commandMoves) {
 
                 if (Matches(inputControl, command) && command.CanExecute()) {

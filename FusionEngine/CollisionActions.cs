@@ -93,7 +93,7 @@ namespace FusionEngine {
                 target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
   
                 float velX = 5;
-                target.TossFast(-10, velX * dir, 1, 2, true); 
+                target.Toss(-12, velX * dir, 1, 2, true); 
             }
         }
 
@@ -120,7 +120,8 @@ namespace FusionEngine {
                 int attackDir = (entity.IsLeft() ? 1 : -1);
                 float lookDir = (entity.IsLeft() ? -1 : 1);
 
-                if (!target.InvalidHitState()) {
+                if (!target.InvalidHitState() 
+                        && !target.InJuggleState()) {
 
                     if (target.InBlockAction()) {
                         GameManager.GetInstance().PlaySFX("block");
@@ -134,6 +135,8 @@ namespace FusionEngine {
                         target.GetAttackInfo().isHit = true;
                         target.GetAttackInfo().lastAttackDir = attackDir;
                         target.GetAttackInfo().attacker = entity;
+                        target.GetAttackInfo().lastJuggleState = 1;
+
                         entity.GetAttackInfo().victim = target;
 
                         CheckComboHitStats(entity);
@@ -144,24 +147,21 @@ namespace FusionEngine {
 
                         target.SetPainTime((entity is Player ? (int)(attackBox.GetPainTime() / 2) : (int)attackBox.GetPainTime()));
                         target.SetRumble(lookDir, 2.0f);
-                        
                         HitPauseTime(entity, target, attackBox);
-
                         entity.IncreaseMP((int)(attackBox.GetHitDamage() * attackBox.GetHitStrength()));
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         
                         //target.DecreaseHealth(attackBox.GetHitDamage() + 10);
                         target.SetLifebarPercent(target.GetHealth());
-                        
                         ShowEnemyLifebar(entity, target);
-                        ApplyFrameActions(entity, target, attackBox);
-
-                        KnockIfToss(target, attackBox, lookDir);
-
+                        
                         if (entity is Projectile) {
                             EntityActions.SetInfront(entity, entity, 10);
                             entity.DecreaseHealth(15);
                         }
+
+                        ApplyFrameActions(entity, target, attackBox);
+                        KnockIfToss(target, attackBox, lookDir);
                     }
                 }
 
@@ -173,7 +173,7 @@ namespace FusionEngine {
                         target.GetCurrentSprite().ResetAnimation();
 
                         float velX = ((5 - target.GetAttackInfo().juggleHits) * lookDir);
-                        float sHeight = -((Math.Abs(target.GetTossInfo().tempHeight) / 2) + 2f);
+                        float sHeight = -((Math.Abs(target.GetTossInfo().tempHeight) / 2) + 5f);
                         float height = (sHeight / GameManager.GAME_VELOCITY) / 2;
 
                         CheckComboHitStats(entity);
@@ -199,10 +199,9 @@ namespace FusionEngine {
                     }
 
                     if (target.GetAttackInfo().juggleHits <= 0) {
+                        target.GetAttackInfo().lastJuggleState = -1;
                         target.GetAttackInfo().juggleHits = -1;
                     }
-
-                    target.GetAttackInfo().lastJuggleState = -1;
                 }  
             }
         }
@@ -246,7 +245,7 @@ namespace FusionEngine {
 
             if (target.IsEntity(Entity.ObjectType.ENEMY)) {
 
-                float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == false
+                float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == null
                                     && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 
                                             ? (entity.IsLeft() ? -1 : 1) : 0);
  

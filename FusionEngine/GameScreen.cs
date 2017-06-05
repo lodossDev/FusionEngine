@@ -61,12 +61,12 @@ namespace FusionEngine {
 
             level1 = new Stage1();
 
-            font1 = new MugenFont("Fonts/bigfont.xFont", -8, 32, 1);
+            font1 = new MugenFont("Fonts/bigfont.xFont", -8, 32, 0.5f);
 
             GameManager.GetInstance().AddEntity(ryo);
             GameManager.GetInstance().SetLevel(level1);
             GameManager.GetInstance().AddEntity(bred);
-            GameManager.GetInstance().AddEntity(bred2);
+            //GameManager.GetInstance().AddEntity(bred2);
         }
 
         public void Dispose() {
@@ -105,7 +105,8 @@ namespace FusionEngine {
                 //camera._origin = new Vector2(Setup.graphicsDevice.Viewport.Width / 2, Setup.graphicsDevice.Viewport.Height / 2);
                 //Vector2 pos = new Vector2(-(camera.Zoom * 3f), 0);
                 //camera.Move(pos);
-                ryo.DecreaseHealth(1);
+                //ryo.DecreaseHealth(1);
+                GameManager.GetInstance().SetSlowMotion(5);
             }
             
             if (Keyboard.GetState().IsKeyDown(Keys.M))
@@ -115,33 +116,21 @@ namespace FusionEngine {
                 //Vector2 pos = new Vector2((camera.Zoom * 3f), 0);
                 //camera.Move(pos);
                 //ryo.SetHealth(100);
-                ryo.IncreaseHealth(10);
+                //ryo.IncreaseHealth(10);
             }
 
             //bar.Percent((int)barHealth);
 
             if (!GameManager.IsPause())
             {
-               
-                
                 GameManager.GetInstance().Update(gameTime);
 
-                 if (!bred.IsDying()) { 
+                if (!bred.IsDying()) { 
                     bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
-                    bred.ResetToIdle(gameTime);
                 }
 
                 if (!bred2.IsDying()) { 
                     bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
-                    bred2.ResetToIdle(gameTime);
-                }
-
-                if (bred.IsInAnimationAction(Animation.Action.INPAIN)) {
-                    bred.StopMovement();
-                }
-
-                if (bred2.IsInAnimationAction(Animation.Action.INPAIN)) {
-                    bred2.StopMovement();
                 }
             }
 
@@ -151,8 +140,9 @@ namespace FusionEngine {
                 line.Update();
             }*/
 
-            if (GameManager.GetInstance().slowTime <= 0)UpdateCamera(gameTime);
-            GameManager.GetInstance().UpdatePosition(gameTime);
+            if (!GameManager.GetInstance().IsSlowMotion()) {
+                UpdateCamera(gameTime);
+            }
         }
 
         private void UpdateCamera(GameTime gameTime) {
@@ -240,8 +230,9 @@ namespace FusionEngine {
             List<Entity> projectiles = GameManager.GetInstance().GetEntities().FindAll(entity => entity is Projectile);
             Entity projectile = (projectiles != null && projectiles.Count > 0 ? projectiles.Last() : null);
 
-            //font1.Draw("HEALTH - " + (projectile != null ? projectile.GetHealth() : 0), new Vector2(80, 100));
-            //font1.Draw("DEATH STEP - " + (projectile != null ? projectile.GetLives() : 0), new Vector2(80, 200));
+            font1.Draw("BRED STATE - " + bred.GetAiStateMachine().GetCurrentStateId(), new Vector2(80, 100));
+            font1.Draw("COLLIDE STATE X - " + bred.GetCollisionInfo().GetCollideX(), new Vector2(80, 150));
+            font1.Draw("COLLIDE STATE Z - " + bred.GetCollisionInfo().GetCollideZ(), new Vector2(80, 200));
             //font1.Draw("DEATH - " + level1.Obstacles[1].GetDeathStep(), new Vector2(80, 200));
             //spriteBatch.DrawString(font1, "HEALTH " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);

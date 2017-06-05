@@ -127,16 +127,6 @@ namespace FusionEngine {
             }
         }
 
-        public void Update(GameTime gameTime) {
-            for (int i = 0; i < entities.Count; i++) {
-                Entity entity = entities[i];
-
-                if (!GameManager.IsPause()) {
-                    entity.Update(gameTime);
-                }
-            }
-        }
-
         public void Draw(GameTime gameTime) {
             entities.Sort();
 

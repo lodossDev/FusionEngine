@@ -23,7 +23,7 @@ namespace FusionEngine {
         private List<Entity> entities;
         private List<Player> players;
         private Level currentLevel;
-        public float slowTime;
+        private float slowMotion;
        
         private static Camera camera;
         private static Resolution resolution;
@@ -64,7 +64,7 @@ namespace FusionEngine {
 
             hitSparks.Add(Effect.State.LIGHT, new Effect("HIT_SPARK_LIGHT", "Sprites/Misc/Hitsparks/Hit1/STANCE", Effect.Type.HIT_SPARK, Effect.State.LIGHT, 1.8f, 1.5f));
             blockSparks.Add(Effect.State.LIGHT, new Effect("BLOCK_SPARK_LIGHT", "Sprites/Misc/Hitsparks/Block1/STANCE", Effect.Type.BLOCK_SPARK, Effect.State.LIGHT, 1.3f, 1.0f, 0, 50, 5, 180, true));
-            slowTime = 0f;
+            slowMotion = 0f;
         }
 
         public static GameManager GetInstance() {
@@ -170,7 +170,7 @@ namespace FusionEngine {
             foreach (Entity enemy in entities.Where(entity => entity is Enemy).ToList()) {
                 float dir = (enemy.IsLeft() ? 1 : -1);
                 enemy.SetAnimationState(Animation.State.KNOCKED_DOWN1);
-                enemy.Toss(-19, (3 * dir), 2); 
+                enemy.TossFast(-16, (3 * dir), 1, 2, true); 
                 enemy.SetTossGravity(0.6f);
             }
         }
@@ -234,24 +234,32 @@ namespace FusionEngine {
         }
 
         public void Update(GameTime gameTime) {
-            slowTime--;
+            slowMotion--;
 
-            if (slowTime < 0) {
-                slowTime = 0;
-                //return;
+            if (slowMotion < 0) {
+                //slowMotion = 5;
+                slowMotion = 0;
             }
 
-            if (slowTime <= 0)updateManager.BeforeUpdate(gameTime);
-            if (slowTime <= 0)collisionManager.BeforeUpdate(gameTime);
+            if (!IsSlowMotion()) {
+                updateManager.BeforeUpdate(gameTime);
+                collisionManager.BeforeUpdate(gameTime);
+            }
 
             inputManager.Update(gameTime);
 
-            if (slowTime <= 0)collisionManager.AfterUpdate(gameTime);
-            if (slowTime <= 0)updateManager.AfterUpdate(gameTime);
+            if (!IsSlowMotion()) {
+                collisionManager.AfterUpdate(gameTime);
+                updateManager.AfterUpdate(gameTime);
+            }
         }
 
-        public void UpdatePosition(GameTime gameTime) {
-            if (slowTime <= 0)renderManager.Update(gameTime);
+        public void SetSlowMotion(float time) {
+            slowMotion = time;
+        }
+
+        public bool IsSlowMotion() {
+            return slowMotion > 0.0;
         }
 
         public void Render(GameTime gameTime) {

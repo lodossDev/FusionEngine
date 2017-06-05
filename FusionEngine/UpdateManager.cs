@@ -49,10 +49,9 @@ namespace FusionEngine {
         public void AfterUpdate(GameTime gameTime) {
             for (int i = 0; i < entities.Count; i++) {
                 Entity entity = entities[i];
-
-                entity.UpdateCommandMoves(gameTime);
                 entity.UpdateHealth(gameTime);
                 entity.Actions(gameTime);
+                entity.Update(gameTime);
 
                 if (entity is Character || entity is Obstacle || entity is Projectile) { 
                     SoundAction soundAction = entity.GetSoundAction(entity.GetCurrentAnimationState());

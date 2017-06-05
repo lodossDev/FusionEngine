@@ -230,12 +230,12 @@ namespace FusionEngine
             }
         }
 
-        public bool FindObstacle(Entity entity) {
+        public Entity FindObstacle(Entity entity) {
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
             if (entityBox == null || eDepthBox == null) {
-                return false;
+                return null;
             }
            
             int ePosY = (int)Math.Abs(Math.Round((double)entity.GetPosY()));
@@ -279,12 +279,12 @@ namespace FusionEngine
                             && entity.DepthCollision(target, vz)
                             && ePosY <= tHeight - 10) {
 
-                        return true;                        
+                        return target;                        
                     }
                 }
             }
 
-            return false;
+            return null;
         }
         
         private void CheckBounds(Entity entity) {
@@ -575,7 +575,7 @@ namespace FusionEngine
                         }
                     }
 
-                    target.GetAttackInfo().lastJuggleState = -1;
+                    //target.GetAttackInfo().lastJuggleState = -1;
                 }
             }
         }

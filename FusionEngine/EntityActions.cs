@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,10 +65,9 @@ namespace FusionEngine {
                     && !target.HasGrabbed() 
                     && !target.GetGrabInfo().inGrabHeight) { 
 
-                if (entity.GetPosX() > target.GetPosX() + 20) {
+                if (entity.IsLeft()) {
                     target.SetIsLeft(false);
-
-                } else if (entity.GetPosX() + 20 < target.GetPosX()){
+                } else {
                     target.SetIsLeft(true); 
                 }
             }
@@ -87,6 +87,7 @@ namespace FusionEngine {
                     if (target.HasSprite(Animation.State.KNOCKED_DOWN1)) { 
                         target.SetAnimationState(Animation.State.KNOCKED_DOWN1);
                         target.SetCurrentKnockedState(Attributes.KnockedState.KNOCKED_DOWN);
+                        target.GetAttackInfo().lastJuggleState = -1;
 
                         float dir  = (entity.InSpecialAttack() ? (entity.IsLeft() ?  -1 : 1) : target.GetGrabInfo().grabDirection);
                         target.TossFast(entity.GetGrabInfo().throwHeight, entity.GetGrabInfo().throwVelX * dir, 1, 2, true);
@@ -217,7 +218,7 @@ namespace FusionEngine {
 
             target.SetIsLeft(false);
             target.SetCurrentKnockedState(Attributes.KnockedState.THROWN);
-            target.GetAttackInfo().lastJuggleState += 1;
+            target.GetAttackInfo().lastJuggleState = 1;
             target.GetAttackInfo().attacker = entity;
 
             EntityActions.Ungrab(entity, target);
@@ -510,6 +511,43 @@ namespace FusionEngine {
                     }
                 } else if (entity.IsLastAnimationState(soundAction.GetState())) {
                     soundAction.Reset();
+                }
+            }
+        }
+
+        public static Entity GetNearestEntity(Entity entity, List<Entity> entities) {
+            Entity target = null;
+            float maxDistance = 340f;
+
+            if (entities != null && entities.Count > 0) {
+                if (entities.Count == 1) {
+                    target = entities.First();
+                } else {
+                    foreach (Entity other in entities) {
+                        float distance = Vector2.Distance(entity.GetConvertedPosition(), other.GetConvertedPosition());
+
+                        if (distance < maxDistance) {
+                            target = other;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return target;
+        }
+
+        public static void LookAtTarget(Entity entity, Entity target) {
+            if (!entity.IsKnocked() 
+                    && !entity.IsRise()
+                    && !entity.InHitPauseTime()
+                    && !entity.InPainTime()) {
+
+                if (entity.GetPosX() > target.GetPosX()) {
+                    entity.SetIsLeft(true);
+
+                } else if (entity.GetPosX() < target.GetPosX()) {
+                    entity.SetIsLeft(false);
                 }
             }
         }

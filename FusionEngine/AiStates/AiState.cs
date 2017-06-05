@@ -17,6 +17,8 @@ namespace FusionEngine {
         public class StateMachine {
             Dictionary<string, IState> states;
             private IState currentState;
+            private string stateId;
+
 
             public StateMachine() {
                 states = new Dictionary<string, IState>();
@@ -35,17 +37,26 @@ namespace FusionEngine {
             }
 
             public void Change(string id) {
-                if(currentState != null)currentState.OnExit();
+                if (currentState != null) {
+                    currentState.OnExit();
+                }
 
-                if(states.ContainsKey(id)) {
+                if (states.ContainsKey(id)) {
                     IState next = states[id];
                     next.OnEnter();
                     currentState = next;
+                    stateId = id;
                 }
             }
 
             public void Update(GameTime gameTime) {
-                if (currentState != null)currentState.Update(gameTime);
+                if (currentState != null) {
+                    currentState.Update(gameTime);
+                }
+            }
+
+            public String GetCurrentStateId() {
+                return stateId;
             }
         }
     }

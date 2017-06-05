@@ -112,6 +112,7 @@ namespace FusionEngine {
             SetOffsetZ(200);
             SetMaxHealth(100);
             SetCanHurtOthers(true);
+            SetGrabResistance(0);
 
             SFIII_SimpleLifebar lifeBar = new SFIII_SimpleLifebar(225, 110, 0 , 0, 2.0f, 4.5f);
             lifeBar.SetPortrait("Sprites/Actors/Bred/PORTRAIT", 160, 90, 0, 0, 4.08f, 3f);

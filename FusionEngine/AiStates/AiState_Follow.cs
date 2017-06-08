@@ -70,24 +70,6 @@ namespace FusionEngine
                     direction.Y = p2.Y * 1;
                     velocity.Y = 2.5f;
 
-                    if (obstacle != null) {
-                        if (CollisionHelper.GetDiff(entity.GetBoundsBox().GetRect().X, obstacle.GetBoundsBox().GetRect().X) > 220
-                                && CollisionHelper.GetDiff(entity.GetDepthBox().GetRect().Bottom, obstacle.GetDepthBox().GetRect().Bottom) > 60) {
-
-                                entity.GetCollisionInfo().SetCloseObstacle(null);
-                        }
-
-                        Vector2 obs1 = new Vector2(obstacle.GetBoundsBox().GetRect().X, obstacle.GetDepthBox().GetRect().Bottom); 
-                        Vector2 ts1 = new Vector2(entity.GetBoundsBox().GetRect().X, entity.GetDepthBox().GetRect().Bottom);
-
-                        Vector2 ps1 = ts1 - obs1;
-                        ps1.Normalize();
-
-                        //direction.X = ps1.X * ps1.Y;
-                        //direction.Y = ;
-
-                    }
-
                     float distanceX = Vector2.Distance(sPx, tPx);
                     float distanceZ = Vector2.Distance(sPy, tPy);
 

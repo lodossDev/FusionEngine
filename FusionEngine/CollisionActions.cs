@@ -183,8 +183,8 @@ namespace FusionEngine {
                         target.SetPainTime((int)attackBox.GetPainTime());
   
                         entity.IncreaseMP((int)(attackBox.GetHitDamage() * attackBox.GetHitStrength()));
-                        target.SetHitPauseTime(10);
-                        entity.SetHitPauseTime(10);
+                        target.SetHitPauseTime(7);
+                        entity.SetHitPauseTime(7);
 
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         //target.DecreaseHealth(attackBox.GetHitDamage() + 5);
@@ -243,7 +243,7 @@ namespace FusionEngine {
                 return;    
             }
 
-            if (target.IsEntity(Entity.ObjectType.ENEMY)) {
+            if (target.IsEntity(Entity.ObjectType.ENEMY) || target is Enemy) {
 
                 float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == null
                                     && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 

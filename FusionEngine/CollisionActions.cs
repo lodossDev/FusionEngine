@@ -55,7 +55,7 @@ namespace FusionEngine {
             if (entity != null) {
 
                 if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) { 
-                    //return;    
+                    return;    
                 }
 
                 var target = (entity is Projectile ? entity.GetOwner() : entity);

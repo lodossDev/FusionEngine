@@ -41,7 +41,7 @@ namespace FusionEngine
 
         public void Update(GameTime gameTime) {
             Entity target = entity.GetCurrentTarget();
-            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(entity);
+            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle2(entity);
 
             if (closeObstacle != null) {
                 entity.GetCollisionInfo().SetCloseObstacle(closeObstacle);
@@ -79,6 +79,16 @@ namespace FusionEngine
 
                     if (distanceZ < 10) {
                         velocity.Y = direction.Y = 0;
+                    }
+
+                    if (closeObstacle != null) {
+                        if (direction.X > 0) {
+                            direction.X = 1;
+                            direction.Y = -1;
+                        } else {
+                            direction.X = -1;
+                            direction.Y = 1;
+                        }
                     }
 
                     if (float.IsNaN(direction.X)) direction.X = 0f;

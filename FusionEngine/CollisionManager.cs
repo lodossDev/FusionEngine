@@ -286,6 +286,27 @@ namespace FusionEngine
 
             return null;
         }
+
+        public Entity FindObstacle2(Entity entity) {
+
+            for (int i = 0; i < entities.Count; i++) {
+                Entity target = entities[i];
+
+                if (entity != target && (target is Obstacle || target is Wall)
+                        && (target.IsCollidable() || target.IsPlatform())
+                        && !target.IsInAnimationAction(Animation.Action.KNOCKED)
+                        && !target.IsDying()) {
+
+                    if (CollisionHelper.GetDiff(entity.GetPosX(), target.GetPosX()) < 400 
+                            && CollisionHelper.GetDiff(entity.GetPosZ(), target.GetPosZ()) < 100 ) {
+
+                        return target;
+                    }
+                }
+            }
+
+            return null;
+        }
         
         private void CheckBounds(Entity entity) {
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();

@@ -297,8 +297,8 @@ namespace FusionEngine
                         && !target.IsInAnimationAction(Animation.Action.KNOCKED)
                         && !target.IsDying()) {
 
-                    if (CollisionHelper.GetDiff(entity.GetPosX(), target.GetPosX()) < 400 
-                            && CollisionHelper.GetDiff(entity.GetPosZ(), target.GetPosZ()) < 100 ) {
+                    if (CollisionHelper.GetDiff(entity.GetPosX(), target.GetPosX()) < 180 
+                            && CollisionHelper.GetDiff(entity.GetPosZ(), target.GetPosZ()) < 40 ) {
 
                         return target;
                     }

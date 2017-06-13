@@ -2982,3 +2982,5 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Deb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb

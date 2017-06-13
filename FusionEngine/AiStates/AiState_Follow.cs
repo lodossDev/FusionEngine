@@ -18,6 +18,7 @@ namespace FusionEngine
         private float maxDistanceX;
         private float maxDistanceZ;
         private Random rnd;
+        public float distanceX, distanceZ;
 
 
         public AiState_Follow(Entity entity) {
@@ -70,10 +71,18 @@ namespace FusionEngine
                     direction.Y = p2.Y * 1;
                     velocity.Y = 2.5f;
 
-                    float distanceX = Vector2.Distance(sPx, tPx);
-                    float distanceZ = Vector2.Distance(sPy, tPy);
+                    distanceX = Vector2.Distance(sPx, tPx);
+                    distanceZ = Vector2.Distance(sPy, tPy);
 
-                    if (distanceX < 160) {
+                    /*if (closeObstacle != null) {
+                        if (direction.X > 0) {
+                            direction.X = -1;
+                        } else {
+                            direction.X = 1;
+                        }
+                    }*/
+
+                    if (distanceX > 100 && distanceX < 160) {
                         velocity.X = direction.X = 0;
                     }
 
@@ -81,26 +90,28 @@ namespace FusionEngine
                         velocity.Y = direction.Y = 0;
                     }
 
-                    if (closeObstacle != null) {
-                        if (direction.X > 0) {
-                            direction.X = 1;
-                            direction.Y = -1;
-                        } else {
+
+                    if (distanceX < 100) {
+                         velocity.X = 2.5f;
+                         
+                         if (!entity.IsLeft()) {
                             direction.X = -1;
-                            direction.Y = 1;
-                        }
+
+                         } else{
+                            direction.X = 1;
+                         }
+                    }
+                   
+                    if (velocity.X != 0 || velocity.Y != 0) {
+                        entity.SetAnimationState(Animation.State.WALK_TOWARDS);
+                    } else {
+                        entity.SetAnimationState(Animation.State.STANCE);
                     }
 
                     if (float.IsNaN(direction.X)) direction.X = 0f;
                     if (float.IsNaN(direction.Y)) direction.Y = 0f;
                     if (float.IsNaN(velocity.X)) velocity.X = 0f;
                     if (float.IsNaN(velocity.Y)) velocity.Y = 0f;
-
-                    if (distanceX < 160 && distanceZ < 10) {
-                        entity.SetAnimationState(Animation.State.STANCE);
-                    } else {
-                        entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-                    }
 
                 } else {
                     velocity.X = direction.X = 0;
@@ -110,8 +121,8 @@ namespace FusionEngine
                 entity.MoveX(velocity.X, direction.X);
                 entity.MoveZ(velocity.Y, direction.Y);
 
-                Debug.WriteLine("## VELX: " + velocity.X);
-                Debug.WriteLine("## VELZ: " + velocity.Y);
+                //Debug.WriteLine("## VELX: " + velocity.X);
+                //Debug.WriteLine("## VELZ: " + velocity.Y);
             }
         }
 

@@ -58,6 +58,10 @@ namespace FusionEngine {
             public String GetCurrentStateId() {
                 return stateId;
             }
+
+            public IState GetCurrentAiState() {
+                return currentState;
+            }
         }
     }
 }

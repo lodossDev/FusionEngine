@@ -42,13 +42,7 @@ namespace FusionEngine
 
         public void Update(GameTime gameTime) {
             Entity target = entity.GetCurrentTarget();
-            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle2(entity);
-
-            if (closeObstacle != null) {
-                entity.GetCollisionInfo().SetCloseObstacle(closeObstacle);
-            }
-
-            Entity obstacle = entity.GetCollisionInfo().GetCloseObstacle();
+            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(entity);
 
             if (target != null) {
 
@@ -62,27 +56,27 @@ namespace FusionEngine
                     Vector2 p1 = tPx - sPx;
                     p1.Normalize();
 
-                    direction.X = p1.X * 1;
+                    if (closeObstacle == null)direction.X = p1.X * 1;
                     velocity.X = 2.5f;
 
                     Vector2 p2 = tPy - sPy;
                     p2.Normalize();
 
-                    direction.Y = p2.Y * 1;
+                    if (closeObstacle == null)direction.Y = p2.Y * 1;
                     velocity.Y = 2.5f;
 
                     distanceX = Vector2.Distance(sPx, tPx);
                     distanceZ = Vector2.Distance(sPy, tPy);
 
-                    if (distanceX > 100 && distanceX < 160) {
+                    if (distanceX > 100 && distanceX < 160 && closeObstacle == null) {
                         velocity.X = direction.X = 0;
                     }
 
-                    if (distanceZ < 10) {
+                    if (distanceZ < 10 && closeObstacle == null) {
                         velocity.Y = direction.Y = 0;
                     }
 
-                    if (distanceX < 100) {
+                    if (distanceX < 100 && closeObstacle == null) {
                          velocity.X = 2.5f;
                          
                          if (!entity.IsLeft()) {
@@ -94,11 +88,13 @@ namespace FusionEngine
                     }
 
                     if (closeObstacle != null) {
-                        if (direction.X > 0) {
+                         velocity.X = 2.5f;
+
+                        if (!entity.IsLeft()) {
                             direction.X = -1;
-                        } else {
+                         } else{
                             direction.X = 1;
-                        }
+                         }
                     }
                    
                     if (velocity.X != 0 || velocity.Y != 0) {

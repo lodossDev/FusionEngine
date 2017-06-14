@@ -2244,6 +2244,8 @@ C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
+C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\FusionEngine.exe.config
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\test_0.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\test_1.xnb
@@ -2328,6 +2330,8 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\ATTACK3\KNEE02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\ATTACK3\KNEE03.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BLOCK1\01.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
+C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\FALL1\JUMP01.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\FALL1\JUMP02.xnb
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\INGRAB1\HIT-M_01.xnb
@@ -2980,7 +2984,3 @@ C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.csprojResolveAssemblyReference.cache
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.exe
 C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\obj\x86\Debug\FusionEngine.pdb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
-C:\Users\lodoss118\Desktop\Git Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL01.xnb
-C:\Users\ahafeez\Desktop\Game Engine\FusionEngine\FusionEngine\bin\Windows\Debug\Content\Sprites\Actors\Bred\BOUNCE1\FALL02.xnb

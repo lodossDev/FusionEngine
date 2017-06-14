@@ -227,10 +227,9 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            List<Entity> projectiles = GameManager.GetInstance().GetEntities().FindAll(entity => entity is Projectile);
-            Entity projectile = (projectiles != null && projectiles.Count > 0 ? projectiles.Last() : null);
+            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(bred);
 
-            font1.Draw("BRED STATE - " + ((AiState_Follow)bred.GetAiStateMachine().GetCurrentAiState()).distanceX, new Vector2(80, 100));
+            font1.Draw("BRED COLL - " + (closeObstacle != null ? closeObstacle.GetName() : ""), new Vector2(80, 100));
             font1.Draw("COLLIDE STATE X - " + bred.GetCollisionInfo().GetCollideX(), new Vector2(80, 150));
             font1.Draw("COLLIDE STATE Z - " + bred.GetCollisionInfo().GetCollideZ(), new Vector2(80, 200));
             //font1.Draw("DEATH - " + level1.Obstacles[1].GetDeathStep(), new Vector2(80, 200));

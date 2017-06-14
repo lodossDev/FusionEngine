@@ -74,14 +74,6 @@ namespace FusionEngine
                     distanceX = Vector2.Distance(sPx, tPx);
                     distanceZ = Vector2.Distance(sPy, tPy);
 
-                    /*if (closeObstacle != null) {
-                        if (direction.X > 0) {
-                            direction.X = -1;
-                        } else {
-                            direction.X = 1;
-                        }
-                    }*/
-
                     if (distanceX > 100 && distanceX < 160) {
                         velocity.X = direction.X = 0;
                     }
@@ -89,7 +81,6 @@ namespace FusionEngine
                     if (distanceZ < 10) {
                         velocity.Y = direction.Y = 0;
                     }
-
 
                     if (distanceX < 100) {
                          velocity.X = 2.5f;
@@ -100,6 +91,14 @@ namespace FusionEngine
                          } else{
                             direction.X = 1;
                          }
+                    }
+
+                    if (closeObstacle != null) {
+                        if (direction.X > 0) {
+                            direction.X = -1;
+                        } else {
+                            direction.X = 1;
+                        }
                     }
                    
                     if (velocity.X != 0 || velocity.Y != 0) {

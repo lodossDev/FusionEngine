@@ -13,6 +13,8 @@ namespace FusionEngine {
         private Entity entity;
         private Vector2 velocity;
         private Vector2 direction;
+        private float thinkAvoidTime;
+        private bool inThinkAvoid;
         private Random rnd;
 
 
@@ -20,67 +22,81 @@ namespace FusionEngine {
             this.entity = entity;
             stateMachine = this.entity.GetAiStateMachine();
 
-            velocity = new Vector2(2.5f, 2.5f);
+            velocity = new Vector2(2.5f, 2.0f);
             direction = new Vector2(1, -1);
 
             rnd = new Random();
+
+            thinkAvoidTime = 0;
+            inThinkAvoid = false;
         }
 
         public void OnEnter() {
-
+            thinkAvoidTime = 0;
         }
 
         public void Update(GameTime gameTime) {
+            Entity target = entity.GetCurrentTarget();
+            Attributes.CollisionState closeObstacle = entity.GetCollisionInfo().GetObstacleState();
 
-            if (entity.CanProcessAiState()) { 
-                Entity obstacle = entity.GetCollisionInfo().GetCloseObstacle();
-
-                if (obstacle == null) {
-                    stateMachine.Change("FOLLOW");
-                    return;
-                }
-
-                if (obstacle != null) { 
-                    if (CollisionHelper.GetDiff(entity.GetPosX(), obstacle.GetPosX()) > 160
-                            && CollisionHelper.GetDiff(entity.GetPosZ(), obstacle.GetPosZ()) > 70) {
-
-                        entity.GetCollisionInfo().SetCloseObstacle(null);
-                    }
-
-                    velocity.Y = 2.5f;
+            if(target != null) { 
+                
+                if (closeObstacle != Attributes.CollisionState.NO_COLLISION) {
                     velocity.X = 2.5f;
+                    velocity.Y = 2.0f;
 
-                    if (entity.GetCollisionInfo().IsCollideX(Attributes.CollisionState.LEFT)) {
-                        direction.X = -1;
-                    } else if (entity.GetCollisionInfo().IsCollideX(Attributes.CollisionState.RIGHT)) {
-                        direction.X = 1;
-                    } else {
-                        if (entity.GetPosX() > obstacle.GetPosX() && direction.X != -1) { 
+                    if (closeObstacle == Attributes.CollisionState.RIGHT) {
+                        if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
+                            direction.Y = -1;
+                        } else {
+                            direction.Y = 1;
+                        }
+                    } 
+
+                    if (closeObstacle == Attributes.CollisionState.LEFT) {
+                        if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
+                            direction.Y = -1;
+                        } else {
+                            direction.Y = 1;
+                        }
+                    } 
+
+                    if (closeObstacle == Attributes.CollisionState.BOTTOM 
+                            || closeObstacle == Attributes.CollisionState.TOP) {
+
+                        if (!entity.IsLeft()) {
                             direction.X = 1;
-                        } else if (entity.GetPosX() < obstacle.GetPosX() && direction.X != 1) { 
+                        } else {
                             direction.X = -1;
-                        } 
-                    }
-
-                    if (entity.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.TOP)) {
-                        direction.Y = 1;
-                    } else if (entity.GetCollisionInfo().IsCollideZ(Attributes.CollisionState.BOTTOM)) {
-                        direction.Y = -1;
-                    }
-
+                        }
+                    } 
+                }
+                   
+                if (velocity.X != 0 || velocity.Y != 0) {
                     entity.SetAnimationState(Animation.State.WALK_TOWARDS);
-
                 } else {
-                     velocity.X = direction.X = 0;
-                     velocity.Y = direction.Y = 0;
+                    entity.SetAnimationState(Animation.State.STANCE);
                 }
 
-                entity.MoveX(velocity.X, direction.X);
-                entity.MoveZ(velocity.Y, direction.Y);
+                if (float.IsNaN(direction.X)) direction.X = 0f;
+                if (float.IsNaN(direction.Y)) direction.Y = 0f;
+                if (float.IsNaN(velocity.X)) velocity.X = 0f;
+                if (float.IsNaN(velocity.Y)) velocity.Y = 0f;
 
-                Debug.WriteLine("## VELX: " + velocity.X);
-                Debug.WriteLine("## VELZ: " + velocity.Y);
+            } else {
+                velocity.X = direction.X = 0;
+                velocity.Y = direction.Y = 0;
             }
+            
+            thinkAvoidTime ++;
+
+            if (thinkAvoidTime >= 85) {
+                stateMachine.Change("FOLLOW");
+                thinkAvoidTime = 0;
+            } 
+                
+            entity.MoveX(velocity.X, direction.X);
+            entity.MoveZ(velocity.Y, direction.Y);
         }
 
         public void OnExit() {

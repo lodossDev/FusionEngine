@@ -50,7 +50,8 @@
     <Compile Include="AfterImage.cs" />
     <Compile Include="AiStates\AiState_AvoidObstacle.cs" />
     <Compile Include="AiStates\AiState_Follow.cs" />
-    <Compile Include="AiStates\AiState_FollowXPath.cs" />
+    <Compile Include="AiStates\AiState_FollowX.cs" />
+    <Compile Include="AiStates\AiState_Stance.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="Boss.cs" />

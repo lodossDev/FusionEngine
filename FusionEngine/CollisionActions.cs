@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -245,7 +246,9 @@ namespace FusionEngine {
 
             if (target.IsEntity(Entity.ObjectType.ENEMY) || target is Enemy) {
 
-                float dirX = (target.IsEdgeX() == false && GameManager.GetInstance().CollisionManager.FindObstacle(target) == null
+                Attributes.CollisionState obstacleState = GameManager.GetInstance().CollisionManager.FindObstacle(target);
+
+                float dirX = (target.IsEdgeX() == false &&  obstacleState == Attributes.CollisionState.NO_COLLISION
                                     && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 
                                             ? (entity.IsLeft() ? -1 : 1) : 0);
  
@@ -338,6 +341,45 @@ namespace FusionEngine {
                 }
 
                 GameManager.GetInstance().RemoveEntity(collectable);
+            }
+        }
+
+        public static Entity GetNearestEntity(Entity entity, List<Entity> entities) {
+            Entity target = null;
+            float maxDistance = 340f;
+
+            if (entities != null && entities.Count > 0) {
+                if (entities.Count == 1) {
+                    target = entities.First();
+                } else {
+                    foreach (Entity other in entities) {
+                        if (entity != other) { 
+                            float distance = Vector2.Distance(entity.GetConvertedPosition(), other.GetConvertedPosition());
+
+                            if (distance < maxDistance) {
+                                target = other;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return target;
+        }
+
+        public static void LookAtTarget(Entity entity, Entity target) {
+            if (!entity.IsKnocked() 
+                    && !entity.IsRise()
+                    && !entity.InHitPauseTime()
+                    && !entity.InPainTime()) {
+
+                if (entity.GetPosX() > target.GetPosX()) {
+                    entity.SetIsLeft(true);
+
+                } else if (entity.GetPosX() < target.GetPosX()) {
+                    entity.SetIsLeft(false);
+                }
             }
         }
     }

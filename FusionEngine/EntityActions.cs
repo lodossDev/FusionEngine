@@ -514,42 +514,5 @@ namespace FusionEngine {
                 }
             }
         }
-
-        public static Entity GetNearestEntity(Entity entity, List<Entity> entities) {
-            Entity target = null;
-            float maxDistance = 340f;
-
-            if (entities != null && entities.Count > 0) {
-                if (entities.Count == 1) {
-                    target = entities.First();
-                } else {
-                    foreach (Entity other in entities) {
-                        float distance = Vector2.Distance(entity.GetConvertedPosition(), other.GetConvertedPosition());
-
-                        if (distance < maxDistance) {
-                            target = other;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            return target;
-        }
-
-        public static void LookAtTarget(Entity entity, Entity target) {
-            if (!entity.IsKnocked() 
-                    && !entity.IsRise()
-                    && !entity.InHitPauseTime()
-                    && !entity.InPainTime()) {
-
-                if (entity.GetPosX() > target.GetPosX()) {
-                    entity.SetIsLeft(true);
-
-                } else if (entity.GetPosX() < target.GetPosX()) {
-                    entity.SetIsLeft(false);
-                }
-            }
-        }
     }
 }

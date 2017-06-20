@@ -63,6 +63,7 @@ namespace FusionEngine {
         private Vector3 velocity;
         private Vector3 maxVelocity;
         private Vector3 absoluteVel;
+        private bool isMoveFrameComplete;
 
         private Vector2 origin;
         private Vector2 scale;
@@ -176,6 +177,7 @@ namespace FusionEngine {
             velocity = Vector3.Zero;
             absoluteVel = Vector3.Zero;
             maxVelocity = new Vector3(15, 5, 5);
+            isMoveFrameComplete = false;
             layerPos = 0;
 
             origin = Vector2.Zero;
@@ -232,7 +234,7 @@ namespace FusionEngine {
             deathMode = DeathType.IMMEDIATE_DIE;
             alive = true;
             drawShadow = false;
-
+            
             owner = null;
 
             id++;
@@ -312,6 +314,7 @@ namespace FusionEngine {
         public void SetAnimationState(Animation.State? state) {
             if (!IsInAnimationState(state)) {
                 SoundAction soundAction = GetSoundAction(state);
+                isMoveFrameComplete = false;
 
                 if (soundAction != null) {
                     soundAction.SetStep(-1);
@@ -1724,7 +1727,7 @@ namespace FusionEngine {
         public bool IsInMoveFrame() {
             return ((moveFrames.ContainsKey(GetCurrentAnimationState()) 
                         && IsInAnimationState(GetCurrentAnimationState())
-                            && currentSprite.GetCurrentFrame() >= moveFrames[GetCurrentAnimationState()]) 
+                            && (currentSprite.GetCurrentFrame() >= moveFrames[GetCurrentAnimationState()]) || isMoveFrameComplete)
                     || (!moveFrames.ContainsKey(GetCurrentAnimationState()) && IsInAnimationState(GetCurrentAnimationState()))
                     || moveFrames.Count == 0);
         }
@@ -2379,7 +2382,7 @@ namespace FusionEngine {
             }       
         }
 
-        public void UpdatePauseHit(GameTime gameTime) {
+        public void UpdateHitPause(GameTime gameTime) {
             if (attackInfo.hitPauseTime > 0) {
                 attackInfo.hitPauseTime --;
             }
@@ -2439,6 +2442,15 @@ namespace FusionEngine {
                         painTime = -1;
                     }
                 }
+            }
+        }
+
+        public void UpdateIsMoveInFrameComplete() {
+            if ((moveFrames.ContainsKey(GetCurrentAnimationState()) 
+                        && IsInAnimationState(GetCurrentAnimationState())
+                        && currentSprite.GetCurrentFrame() >= moveFrames[GetCurrentAnimationState()])) {
+
+                isMoveFrameComplete = true;
             }
         }
 
@@ -2920,6 +2932,28 @@ namespace FusionEngine {
 
         public bool IsEdgeZ() {
             return isEdgeZ;
+        }
+
+        public void SetVelocityX(float x) {
+            this.velocity.X = x;
+        }
+
+        public void SetVelocityY(float y) {
+            this.velocity.Y = y;
+        }
+
+        public void SetVelocityZ(float z) {
+            this.velocity.Z = z;
+        }
+
+        public void ResetMovement() {
+            SetDirectionX(0);
+            SetDirectionY(0);
+            SetDirectionZ(0);
+                    
+            SetVelocityX(0);
+            SetVelocityY(0);
+            SetVelocityZ(0);
         }
 
         public int CompareTo(Entity other) {

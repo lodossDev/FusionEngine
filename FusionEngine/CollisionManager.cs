@@ -31,6 +31,7 @@ namespace FusionEngine
             grabz1 = Vector2.Zero;
             grabz2 = Vector2.Zero;
             itemPos = Vector2.Zero;
+
             rnd = new Random();
 
             helper = new AsmHelper(CSScript.LoadFiles(new string[] { "Scripts/Collision.xcs" }));
@@ -230,12 +231,14 @@ namespace FusionEngine
             }
         }
 
-        public Entity FindObstacle(Entity entity) {
+        public Attributes.CollisionState FindObstacle(Entity entity) {
+            Attributes.CollisionState collisionState = Attributes.CollisionState.NO_COLLISION;
+
             CLNS.BoundsBox entityBox = entity.GetBoundsBox();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
 
             if (entityBox == null || eDepthBox == null) {
-                return null;
+                return Attributes.CollisionState.NO_COLLISION;
             }
            
             int ePosY = (int)Math.Abs(Math.Round((double)entity.GetPosY()));
@@ -246,7 +249,7 @@ namespace FusionEngine
 
             float vx = Math.Abs(entity.GetAbsoluteVelX()) + 1 * 2;
             float vz = Math.Abs(entity.GetAbsoluteVelZ()) + 1 * 2; 
-
+            
             for (int i = 0; i < entities.Count; i++) {
                 Entity target = entities[i];
 
@@ -267,45 +270,51 @@ namespace FusionEngine
                     int tGround = (int)Math.Abs(Math.Round((double)target.GetGround()));
                     int tHeight = (int)(tPosY + (targetBox.GetHeight() - tDepth));
 
-                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 8) + vx);
+                    int ox = (int)-(((double)(targetBox.GetRect().Width) / 10) + vx);
 
                     if (entityBox.GetRect().X < targetBox.GetRect().X) {
-                        ox = (int)(((double)(targetBox.GetRect().Width) / 8) + vx);
+                        ox = (int)(((double)(targetBox.GetRect().Width) / 10) + vx);
                     }
 
                     Rectangle rect1 = new Rectangle(entityBox.GetRect().X + ox, entityBox.GetRect().Y, entityBox.GetRect().Width, entityBox.GetRect().Height);
+                    Rectangle rect2 = new Rectangle(eDepthBox.GetRect().X + ox, eDepthBox.GetRect().Y, eDepthBox.GetRect().Width, eDepthBox.GetRect().Height);
                    
                     if (rect1.Intersects(targetBox.GetRect())
-                            && entity.DepthCollision(target, vz)
+                            && rect2.DepthCollision(tDepthBox.GetRect(), vz)
                             && ePosY <= tHeight - 10) {
 
-                        return target;                        
+                        bool isWithInBoundsX1 = rect1.IsWithinBoundsX2(targetBox.GetRect(), vx);
+                        bool isWithInBoundsZ1 = rect2.IsWithinBoundsZ2(tDepthBox.GetRect(), vz);
+                        bool isWithInBoundsZ2 = rect2.IsWithinBoundsZ1(tDepthBox.GetRect(), vz);
+
+                        if (isWithInBoundsZ1 && !isWithInBoundsX1) { 
+
+                            if (entity.GetDirZ() < 0 && rect1.VerticleCollisionTop(targetBox.GetRect(), vz)) {
+
+                                collisionState = Attributes.CollisionState.BOTTOM;
+
+                            } else if (entity.GetDirZ() > 0 && rect1.VerticleCollisionBottom(targetBox.GetRect(), vz)) {
+
+                                collisionState = Attributes.CollisionState.TOP;
+                            }
+                        }
+                        
+                        if ((isWithInBoundsX1 || (!isWithInBoundsX1 && !isWithInBoundsZ1)) && isWithInBoundsZ2) {
+
+                            if (entity.GetDirX() < 0 && rect2.HorizontalCollisionRight(tDepthBox.GetRect(), vx)) {
+
+                                collisionState = Attributes.CollisionState.LEFT;
+
+                            } else if (entity.GetDirX() > 0 && rect2.HorizontalCollisionLeft(tDepthBox.GetRect(), vx)) {
+
+                                collisionState = Attributes.CollisionState.RIGHT;
+                            }
+                        }
                     }
                 }
             }
 
-            return null;
-        }
-
-        public Entity FindObstacle2(Entity entity) {
-
-            for (int i = 0; i < entities.Count; i++) {
-                Entity target = entities[i];
-
-                if (entity != target && (target is Obstacle || target is Wall)
-                        && (target.IsCollidable() || target.IsPlatform())
-                        && !target.IsInAnimationAction(Animation.Action.KNOCKED)
-                        && !target.IsDying()) {
-
-                    if (CollisionHelper.GetDiff(entity.GetPosX(), target.GetPosX()) < 250 
-                            && CollisionHelper.GetDiff(entity.GetPosZ(), target.GetPosZ()) < 60 ) {
-
-                        return target;
-                    }
-                }
-            }
-
-            return null;
+            return collisionState;
         }
         
         private void CheckBounds(Entity entity) {

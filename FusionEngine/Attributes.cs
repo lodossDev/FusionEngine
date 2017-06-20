@@ -83,6 +83,7 @@ namespace FusionEngine {
             private Entity item;
             private bool onTop;
             private Entity closeObstacle;
+            private CollisionState obstacleState;
             private bool isCollidable;
 
 
@@ -91,6 +92,7 @@ namespace FusionEngine {
                 onTop = false;
                 isCollidable = false;
                 movingObstacle = obstacle = item = null;
+                obstacleState = CollisionState.NO_COLLISION;
             }
 
             public void Reset() {
@@ -217,6 +219,14 @@ namespace FusionEngine {
 
             public bool IsCollidable() {
                 return isCollidable;
+            }
+
+            public CollisionState GetObstacleState() {
+                return obstacleState;
+            }
+
+            public void SetObstacleState(CollisionState state) {
+                obstacleState = state;
             }
         }
 

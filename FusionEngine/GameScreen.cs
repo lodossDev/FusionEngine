@@ -227,11 +227,11 @@ namespace FusionEngine {
             //gg.Draw("" + timer);
             system.Render(gameTime);
 
-            Entity closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(bred);
+            Attributes.CollisionState closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(bred);
 
-            font1.Draw("BRED COLL - " + (closeObstacle != null ? closeObstacle.GetName() : ""), new Vector2(80, 100));
-            font1.Draw("COLLIDE STATE X - " + bred.GetCollisionInfo().GetCollideX(), new Vector2(80, 150));
-            font1.Draw("COLLIDE STATE Z - " + bred.GetCollisionInfo().GetCollideZ(), new Vector2(80, 200));
+            font1.Draw("BRED COLL - " + (closeObstacle), new Vector2(80, 100));
+            font1.Draw("COLLIDE STATE  - " + bred.GetAiStateMachine().GetCurrentStateId(), new Vector2(80, 150));
+            font1.Draw("COLLIDE COMPLETE- " + bred.GetCurrentSprite().IsAnimationComplete(), new Vector2(80, 200));
             //font1.Draw("DEATH - " + level1.Obstacles[1].GetDeathStep(), new Vector2(80, 200));
             //spriteBatch.DrawString(font1, "HEALTH " + (ryo.GetMP()), new Vector2(20, 0), Color.White);
             //spriteBatch.DrawString(font1, "LEVEL MIN Z " + (ryo.GetCurrentSpriteHeight()), new Vector2(20, 50), Color.White);

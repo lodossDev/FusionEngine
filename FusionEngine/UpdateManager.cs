@@ -21,7 +21,7 @@ namespace FusionEngine {
                     ((Player)entity).UpdateHitLifebarTimer(gameTime);
                 }
 
-                entity.UpdatePauseHit(gameTime);
+                entity.UpdateHitPause(gameTime);
                 
                 if (entity.InHitPauseTime() == false) {
                     entity.UpdateAliveTime(gameTime);
@@ -43,6 +43,7 @@ namespace FusionEngine {
                 entity.GetAfterImageData().Update(gameTime);
                 entity.UpdateRumble(gameTime);
                 entity.UpdateBoxes(gameTime);
+                entity.UpdateIsMoveInFrameComplete();
             }
         }
 

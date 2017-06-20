@@ -120,12 +120,56 @@ namespace FusionEngine
             return false;
         }
 
+        public static bool DepthCollision(this Rectangle e1, Rectangle e2) {
+            int y1 = e1.Top;
+            int y2 = e1.Bottom;
+
+            int h1 = e2.Top;
+            int h2 = e2.Bottom;
+
+            // check if the first y value of the hero is in between both
+            // of the villain's y values
+            if( y1 >= h1 && y1 <= h2) { 
+                return true;
+            }
+
+            // check if the second y value of the hero is in between both
+            // of the villain's y values
+            if(y2 >= h1 && y2 <= h2) { 
+                return true;
+            }
+
+            return false;
+        }
+
         public static bool DepthCollision(this Entity e1, Entity e2, float vel) {
             int y1 = e1.GetDepthBox().GetRect().Top;
             int y2 = e1.GetDepthBox().GetRect().Bottom;
 
             int h1 = e2.GetDepthBox().GetRect().Top;
             int h2 = e2.GetDepthBox().GetRect().Bottom;
+
+            // check if the first y value of the hero is in between both
+            // of the villain's y values
+            if( y1 + vel >= h1 && y1 - vel <= h2) { 
+                return true;
+            }
+
+            // check if the second y value of the hero is in between both
+            // of the villain's y values
+            if(y2 + vel >= h1 && y2 - vel <= h2) { 
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool DepthCollision(this Rectangle e1, Rectangle e2, float vel) {
+            int y1 = e1.Top;
+            int y2 = e1.Bottom;
+
+            int h1 = e2.Top;
+            int h2 = e2.Bottom;
 
             // check if the first y value of the hero is in between both
             // of the villain's y values
@@ -158,12 +202,44 @@ namespace FusionEngine
             return false;
         }
 
+        public static bool DepthCollisionBottom(this Rectangle e1, Rectangle e2) {
+            int y1 = e1.Top;
+            int y2 = e1.Bottom;
+
+            int h1 = e2.Top;
+            int h2 = e2.Bottom;
+
+            // check if the first y value of the hero is in between both
+            // of the villain's y values
+            if( y1 >= h1 && y1 <= h2) { 
+                return true;
+            }
+            
+            return false;
+        }
+
         public static bool DepthCollisionTop(this Entity e1, Entity e2) {
             int y1 = e1.GetDepthBox().GetRect().Top;
             int y2 = e1.GetDepthBox().GetRect().Bottom;
 
             int h1 = e2.GetDepthBox().GetRect().Top;
             int h2 = e2.GetDepthBox().GetRect().Bottom;
+
+            // check if the second y value of the hero is in between both
+            // of the villain's y values
+            if(y2 >= h1 && y2 <= h2) { 
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool DepthCollisionTop(this Rectangle e1, Rectangle e2) {
+            int y1 = e1.Top;
+            int y2 = e1.Bottom;
+
+            int h1 = e2.Top;
+            int h2 = e2.Bottom;
 
             // check if the second y value of the hero is in between both
             // of the villain's y values
@@ -181,9 +257,23 @@ namespace FusionEngine
             return (x1 + Math.Round((double)offset) < x2);
         }
 
+        public static bool HorizontalCollisionLeft(this Rectangle e1, Rectangle e2, float offset = 0) {
+            int x1 = e1.Left;
+            int x2 = e2.Right;
+
+            return (x1 + Math.Round((double)offset) < x2);
+        }
+
         public static bool HorizontalCollisionRight(this Entity e1, Entity e2, float offset = 0) {
             int x1 = e1.GetDepthBox().GetRect().Right;
             int x2 = e2.GetDepthBox().GetRect().Left;
+
+            return (x1 - Math.Round((double)offset) > x2);
+        }
+
+        public static bool HorizontalCollisionRight(this Rectangle e1, Rectangle e2, float offset = 0) {
+            int x1 = e1.Right;
+            int x2 = e2.Left;
 
             return (x1 - Math.Round((double)offset) > x2);
         }
@@ -195,9 +285,23 @@ namespace FusionEngine
             return (z1 - Math.Round((double)offset) > z2);
         }
 
+        public static bool VerticleCollisionTop(this Rectangle e1, Rectangle e2, float offset = 0) {
+            int z1 = e1.Bottom;
+            int z2 = e2.Top;
+
+            return (z1 - Math.Round((double)offset) > z2);
+        }
+
         public static bool VerticleCollisionBottom(this Entity e1, Entity e2, float offset = 0) {
             int z1 = e1.GetDepthBox().GetRect().Top;
             int z2 = e2.GetDepthBox().GetRect().Bottom;
+
+            return (z1 + Math.Round((double)offset) < z2);
+        }
+
+        public static bool VerticleCollisionBottom(this Rectangle e1, Rectangle e2, float offset = 0) {
+            int z1 = e1.Top;
+            int z2 = e2.Bottom;
 
             return (z1 + Math.Round((double)offset) < z2);
         }
@@ -206,7 +310,15 @@ namespace FusionEngine
             return (e1.HorizontalCollisionLeft(e2, offset) == true && e1.HorizontalCollisionRight(e2, offset) == true);
         }
 
+        public static bool IsWithinBoundsX1(this Rectangle e1, Rectangle e2, float offset = 5) {
+            return (e1.HorizontalCollisionLeft(e2, offset) == true && e1.HorizontalCollisionRight(e2, offset) == true);
+        }
+
         public static bool IsWithinBoundsZ1(this Entity e1, Entity e2, float offset = 5) {
+            return (e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == true);
+        }
+
+        public static bool IsWithinBoundsZ1(this Rectangle e1, Rectangle e2, float offset = 5) {
             return (e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == true);
         }
 
@@ -215,7 +327,17 @@ namespace FusionEngine
                         || e1.HorizontalCollisionLeft(e2, offset) == false && e1.HorizontalCollisionRight(e2, offset) == true);
         }
 
+        public static bool IsWithinBoundsX2(this Rectangle e1, Rectangle e2, float offset = 5) {
+            return (e1.HorizontalCollisionLeft(e2, offset) == true && e1.HorizontalCollisionRight(e2, offset) == false
+                        || e1.HorizontalCollisionLeft(e2, offset) == false && e1.HorizontalCollisionRight(e2, offset) == true);
+        }
+
         public static bool IsWithinBoundsZ2(this Entity e1, Entity e2, float offset = 5) {
+            return (e1.VerticleCollisionTop(e2, offset) == false && e1.VerticleCollisionBottom(e2, offset) == true
+                       || e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == false);
+        }
+
+        public static bool IsWithinBoundsZ2(this Rectangle e1, Rectangle e2, float offset = 5) {
             return (e1.VerticleCollisionTop(e2, offset) == false && e1.VerticleCollisionBottom(e2, offset) == true
                        || e1.VerticleCollisionTop(e2, offset) == true && e1.VerticleCollisionBottom(e2, offset) == false);
         }

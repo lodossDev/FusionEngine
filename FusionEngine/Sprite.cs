@@ -365,6 +365,10 @@ namespace FusionEngine {
             currentFrame = 0;
         }
 
+        public int GetResetFrame() {
+            return resetFrame;
+        }
+
         public void ResetAnimation() {
             ResetFrames();
             frameTimeElapsed = (float)frameDelays[currentFrame];

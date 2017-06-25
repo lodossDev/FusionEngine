@@ -13,31 +13,22 @@ namespace FusionEngine
         private Entity entity;
         private Vector2 velocity;
         private Vector2 direction;
-        private Vector2 sPx,sPy;
+        private Vector2 sPx, sPy;
         private Vector2 tPx, tPy;
-        private float maxDistanceX;
-        private float maxDistanceZ;
         private float distanceX, distanceZ;
         private Random rnd;
-        private float thinkAvoidTime;
-        private bool inThinkAvoid;
-        
-        
+       
+
         public AiState_Follow(Entity entity) {
             this.entity = entity;
             stateMachine = this.entity.GetAiStateMachine();
 
             sPx = sPy = tPx = tPy = Vector2.Zero;
 
-            maxDistanceX = 200f;
-            maxDistanceZ = 20f;
             distanceX = distanceZ = 0;
 
             velocity = new Vector2(2.5f, 2.0f);
             direction = new Vector2(1, -1);
-
-            thinkAvoidTime = 0;
-            inThinkAvoid = false;
 
             rnd = new Random();
         }

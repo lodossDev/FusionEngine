@@ -546,7 +546,15 @@ namespace FusionEngine
 
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
-                    bool canHit = (entity.CanHurtOthers() ? (entity.CanHurtOthers() && target.IsHittable()) : target.IsHittable());
+                    bool canHit = false;
+
+                    if (entity.CanHurtOthers()) {
+                        //canHit = ((target is Player && entity is Enemy || target is Enemy && entity is Player) || (target is Player && !(entity is Enemy) || target is Enemy && !(entity is Player))) && target.IsHittable();
+                    } else {
+                        //canHit = (target is Player && entity is Enemy || target is Enemy && entity is Player || target is Player && entity is Obstacle || target is Enemy && entity is Obstacle) && target.IsHittable();
+                    }
+
+                    canHit = (entity is Player && entity.GetType() != typeof(Enemy)) || (target is Player && entity.GetType() != typeof(Enemy)) || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY));
 
                     if (entity != target && canHit) {
                         //Get all body boxes for collision with attack boxes.

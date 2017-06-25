@@ -7,20 +7,27 @@ using System.Text;
 namespace FusionEngine {
 
     public class Character : Entity {
-        private Vector2 followPosition;
+        private Vector2 sPx, sPy;
+        private Vector2 tPx, tPy;
+        private float distanceX, distanceZ;
         private Random rnd;
 
         public Character(Entity.ObjectType entityType, String name) : base(entityType, name) {
-            followPosition = Vector2.Zero;
-
             GetAiStateMachine().Add("STANCE", new AiState_Stance(this));
             GetAiStateMachine().Add("AVOID_OSBTACLE", new AiState_AvoidObstacle(this));
+           
             GetAiStateMachine().Add("FOLLOW", new AiState_Follow(this));
             GetAiStateMachine().Add("FOLLOW_X", new AiState_FollowX(this));
-           
+            GetAiStateMachine().Add("FOLLOW_Z", new AiState_FollowZ(this));
+
+            GetAiStateMachine().Add("ATTACK", new AiState_Attack(this));
+
             GetAiStateMachine().Change("FOLLOW");
 
             rnd = new Random();
+
+            sPx = sPy = tPx = tPy = Vector2.Zero;
+            distanceX = distanceZ = 0;
 
             SetDrawShadow(true);
             SetIsHittable(true);
@@ -34,20 +41,47 @@ namespace FusionEngine {
                 Entity player = CollisionActions.GetNearestEntity(this, players.ToList<Entity>());
                 SetCurrentTarget(player);
 
-                if (rnd.Next(1, 100) < 40 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
-                    if (rnd.Next(1, 100) == 30 ) {
-                        GetAiStateMachine().Change("STANCE");
-                    }
-                }
+                if (!IsInAnimationAction(Animation.Action.ATTACKING)) {
+                    sPx.X = this.GetBoundsBox().GetRect().X;
+                    sPy.Y = this.GetDepthBox().GetRect().Bottom;
 
-                if (rnd.Next(1, 100) > 80 ) {
-                    if (rnd.Next(1, 100) < 5) {
-                        GetAiStateMachine().Change("FOLLOW_X");
-                    }
-                }
+                    tPx.X = player.GetBoundsBox().GetRect().X;
+                    tPy.Y = player.GetDepthBox().GetRect().Bottom - 10;
 
-                if (GetCollisionInfo().GetObstacleState() != Attributes.CollisionState.NO_COLLISION) {
-                    GetAiStateMachine().Change("AVOID_OSBTACLE");
+                    distanceX = Vector2.Distance(sPx, tPx);
+                    distanceZ = Vector2.Distance(sPy, tPy);
+
+                    if (distanceX < 200 && distanceZ < 30) {
+                        GetAiStateMachine().Change("ATTACK");
+                    }
+
+                    if (rnd.Next(1, 100) < 40 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
+                        if (rnd.Next(1, 100) == 30) {
+                            GetAiStateMachine().Change("STANCE");
+                        }
+                    }
+
+                    if (rnd.Next(1, 100) > 80 ) {
+                        if (rnd.Next(1, 100) < 5) {
+                            GetAiStateMachine().Change("FOLLOW_X");
+                        }
+                    }
+
+                    if (rnd.Next(1, 100) > 10 && rnd.Next(1, 100) < 25) {
+                        if (rnd.Next(1, 100) > 95) {
+                            GetAiStateMachine().Change("FOLLOW_Z");
+                        }
+                    }
+
+                    if (rnd.Next(1, 100) > 85 && rnd.Next(1, 100) < 100) {
+                        if (rnd.Next(1, 100) > 0 && rnd.Next(1, 100) < 5) {
+                            GetAiStateMachine().Change("FOLLOW");
+                        }
+                    }
+
+                    if (GetCollisionInfo().GetObstacleState() != Attributes.CollisionState.NO_COLLISION) {
+                        GetAiStateMachine().Change("AVOID_OSBTACLE");
+                    }
                 }
 
                 if (CanProcessAiState()) {

@@ -2926,6 +2926,12 @@ namespace FusionEngine {
             }
         }
 
+        public void ApplyDefaultAttackState() {
+            if ((double)attackInfo.currentAttackTime == 0.0) {
+                EntityActions.DefaultAttack(this);
+            }
+        }
+
         public bool IsEdgeX() {
             return isEdgeX;
         }

@@ -12,7 +12,6 @@ namespace FusionEngine {
         private Vector2 velocity;
         private Vector2 direction;
         private Vector2 sPx, tPx;
-        private float maxDistanceX;
         private float distanceX;
         private Random rnd;
         private int activityTime;
@@ -23,7 +22,6 @@ namespace FusionEngine {
             stateMachine = this.entity.GetAiStateMachine();
 
             sPx = tPx = Vector2.Zero;
-            maxDistanceX = 200f;
             distanceX = 0;
 
             velocity = new Vector2(2.5f, 0);

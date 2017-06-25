@@ -15,6 +15,8 @@ namespace FusionEngine {
         private GameSystem system;
         private Stage1 level1;
 
+        private List<Enemy_Bred> breds = new List<Enemy_Bred>();
+
         public static Texture2D sand;
         private Vector2 x_finder;
         private List<Line> lines;
@@ -59,6 +61,13 @@ namespace FusionEngine {
             bred2.SetPostion(600, 0, 200);
             bred2.SetName("BRED2");
 
+            for (int i = 0; i < 10; i++)
+            {
+                Enemy_Bred bredEnemy = new Enemy_Bred();
+                bredEnemy.SetPostion(100 + (i * 20), 0, -55 + (i * 100));
+                breds.Add(bredEnemy);
+            }
+
             level1 = new Stage1();
 
             font1 = new MugenFont("Fonts/bigfont.xFont", -8, 32, 0.5f);
@@ -67,6 +76,11 @@ namespace FusionEngine {
             GameManager.GetInstance().SetLevel(level1);
             GameManager.GetInstance().AddEntity(bred);
             //GameManager.GetInstance().AddEntity(bred2);
+
+            for (int i = 0; i < 10; i++)
+            {
+                GameManager.GetInstance().AddEntity(breds[i]);
+            }
         }
 
         public void Dispose() {
@@ -130,7 +144,15 @@ namespace FusionEngine {
                 }
 
                 if (!bred2.IsDying()) { 
-                    bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    //bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if (!breds[i].IsDying())
+                    {
+                        breds[i].UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    }
                 }
             }
 

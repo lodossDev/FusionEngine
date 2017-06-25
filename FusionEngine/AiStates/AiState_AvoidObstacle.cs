@@ -42,27 +42,37 @@ namespace FusionEngine {
             if(target != null) { 
                 
                 if (closeObstacle != Attributes.CollisionState.NO_COLLISION) {
-                    velocity.X = 2.5f;
-                    velocity.Y = 2.0f;
-
+                   
                     if (closeObstacle == Attributes.CollisionState.RIGHT) {
+                        velocity.X = 0f;
+                        direction.X = 0f;
+                        velocity.Y = 2.0f;
+
                         if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
-                            direction.Y = -1;
-                        } else {
                             direction.Y = 1;
+                        } else {
+                            direction.Y = -1;
                         }
                     } 
 
                     if (closeObstacle == Attributes.CollisionState.LEFT) {
+                        velocity.X = 0f;
+                        direction.X = 0f;
+                        velocity.Y = 2.0f;
+
                         if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
-                            direction.Y = -1;
-                        } else {
                             direction.Y = 1;
+                        } else {
+                            direction.Y = -1;
                         }
                     } 
 
                     if (closeObstacle == Attributes.CollisionState.BOTTOM 
                             || closeObstacle == Attributes.CollisionState.TOP) {
+
+                        velocity.X = 2.5f;
+                        direction.Y = 0;
+                        velocity.Y = 0f;
 
                         if (!entity.IsLeft()) {
                             direction.X = 1;
@@ -90,7 +100,7 @@ namespace FusionEngine {
             
             thinkAvoidTime ++;
 
-            if (thinkAvoidTime >= 85) {
+            if (thinkAvoidTime >= 185) {
                 stateMachine.Change("FOLLOW");
                 thinkAvoidTime = 0;
             } 

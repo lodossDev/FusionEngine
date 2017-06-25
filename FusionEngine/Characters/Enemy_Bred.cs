@@ -92,8 +92,17 @@ namespace FusionEngine {
             AddBox(Animation.State.ATTACK2, 2, new CLNS.AttackBox(150, 170, 50, 145));
             AddBox(Animation.State.ATTACK3, 2, new CLNS.AttackBox(150, 170, 50, 145));
 
-            SetAnimationState(Animation.State.STANCE);
+            SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
+                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4)
+            }));
 
+            SetAnimationState(Animation.State.STANCE);
             SetLowPainGrabbedState(Animation.State.PAIN2);
             SetLowPainState(Animation.State.PAIN1);
             SetMediumPainState(Animation.State.PAIN2);
@@ -111,7 +120,7 @@ namespace FusionEngine {
             SetPostion(400, 0, 100);
             SetOffsetZ(200);
             SetMaxHealth(100);
-            SetCanHurtOthers(true);
+            //SetCanHurtOthers(false);
 
             SFIII_SimpleLifebar lifeBar = new SFIII_SimpleLifebar(225, 110, 0 , 0, 2.0f, 4.5f);
             lifeBar.SetPortrait("Sprites/Actors/Bred/PORTRAIT", 160, 90, 0, 0, 4.08f, 3f);

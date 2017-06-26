@@ -534,27 +534,18 @@ namespace FusionEngine
             EntityActions.ResetAttackChain(entity);
             float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
 
-            if (entity.InHitPauseTime() == false) {
-                entity.GetAttackInfo().comboHitTime = time - entity.GetAttackInfo().lastComboHitTime;
-
-                if (entity.GetAttackInfo().comboHitTime > 1000) {
-                    entity.GetAttackInfo().showComboHits = 0;
-                }
-            }
+            entity.UpdateComboHitTime(time);
 
             if (attackBoxes != null && attackBoxes.Count > 0) {
-
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
                     bool canHit = false;
 
-                    if (entity.CanHurtOthers()) {
-                        //canHit = ((target is Player && entity is Enemy || target is Enemy && entity is Player) || (target is Player && !(entity is Enemy) || target is Enemy && !(entity is Player))) && target.IsHittable();
-                    } else {
-                        //canHit = (target is Player && entity is Enemy || target is Enemy && entity is Player || target is Player && entity is Obstacle || target is Enemy && entity is Obstacle) && target.IsHittable();
-                    }
-
-                    canHit = (entity is Player && entity.GetType() != typeof(Enemy)) || (target is Player && entity.GetType() != typeof(Enemy)) || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY));
+                    //Need to add friendly fire.........
+                    canHit = (entity is Player && entity.GetType() != typeof(Enemy)) 
+                                || (target is Player && entity.GetType() != typeof(Enemy)) 
+                                || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY)) 
+                                || (entity is Projectile && target != entity.GetOwner());
 
                     if (entity != target && canHit) {
                         //Get all body boxes for collision with attack boxes.

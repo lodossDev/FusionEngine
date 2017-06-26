@@ -1431,6 +1431,16 @@ namespace FusionEngine {
             return comboFont;
         }
 
+        public virtual void UpdateComboHitTime(float time) {
+            if (this.InHitPauseTime() == false){
+                this.GetAttackInfo().comboHitTime = time - this.GetAttackInfo().lastComboHitTime;
+
+                if (this.GetAttackInfo().comboHitTime > 1000) {
+                    this.GetAttackInfo().showComboHits = 0;
+                }
+            }
+        }
+
         public virtual void ExpandComboFont() {
             if (comboFont == null) {
                 if (this is Player) {

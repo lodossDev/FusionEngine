@@ -61,11 +61,11 @@ namespace FusionEngine {
 
                 var target = (entity is Projectile ? entity.GetOwner() : entity);
                  
-                if (target.GetAttackInfo().comboHitTime < 200) { 
-                    target.GetAttackInfo().showComboHits += 1;
+                if (entity.GetAttackInfo().comboHitTime < 200) {
+                    entity.GetAttackInfo().showComboHits += 1;
                 }
 
-                if (target.GetAttackInfo().showComboHits >= target.GetAttackInfo().targetComboHits) { 
+                if (entity.GetAttackInfo().showComboHits >= target.GetAttackInfo().targetComboHits) {
                     target.GetAttackInfo().comboHits += 1;
 
                     if (target is Player) {

@@ -60,11 +60,13 @@ namespace FusionEngine {
                     entity.SetAnimationState(Animation.State.STANCE);
                 }
 
-                if (distanceX < 200 && distanceZ < 30) {
+                if (distanceX > 100 && distanceX < 160 && distanceZ < 20) {
                     entity.ApplyDefaultAttackState();
                 } else {
-                    stateMachine.Change("FOLLOW");
-                    return;
+                    if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
+                        stateMachine.Change("FOLLOW");
+                        return;
+                    }
                 }
             }    
         }

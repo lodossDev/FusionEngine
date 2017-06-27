@@ -51,7 +51,7 @@ namespace FusionEngine {
                     distanceX = Vector2.Distance(sPx, tPx);
                     distanceZ = Vector2.Distance(sPy, tPy);
 
-                    if (distanceX < 200 && distanceZ < 30) {
+                    if (distanceX > 100 && distanceX < 160 && distanceZ < 20) {
                         GetAiStateMachine().Change("ATTACK");
                     }
 
@@ -61,13 +61,13 @@ namespace FusionEngine {
                         }
                     }
 
-                    if (rnd.Next(1, 100) > 80 ) {
+                    if (rnd.Next(1, 100) > 80 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
                         if (rnd.Next(1, 100) < 5) {
                             GetAiStateMachine().Change("FOLLOW_X");
                         }
                     }
 
-                    if (rnd.Next(1, 100) > 10 && rnd.Next(1, 100) < 25) {
+                    if (rnd.Next(1, 100) > 10 && rnd.Next(1, 100) < 25 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
                         if (rnd.Next(1, 100) > 95) {
                             GetAiStateMachine().Change("FOLLOW_Z");
                         }

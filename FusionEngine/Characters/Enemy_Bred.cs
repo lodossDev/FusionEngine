@@ -81,25 +81,25 @@ namespace FusionEngine {
 
             AddSprite(Animation.State.ATTACK3, new Sprite("Sprites/Actors/Bred/ATTACK3", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.ATTACK3, 4);
-            SetFrameDelay(Animation.State.ATTACK2, 3, 14);
+            SetFrameDelay(Animation.State.ATTACK3, 3, 14);
             SetSpriteOffSet(Animation.State.ATTACK3, 30, 0);
 
             AddSprite(Animation.State.JUMP_ATTACK1, new Sprite("Sprites/Actors/Bred/JUMP_ATTACK1", Animation.Type.ONCE));
             SetFrameDelay(Animation.State.JUMP_ATTACK1, 5);
             SetSpriteOffSet(Animation.State.JUMP_ATTACK1, 8, -30);
 
-            AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(150, 170, 50, 145));
-            AddBox(Animation.State.ATTACK2, 2, new CLNS.AttackBox(150, 170, 50, 145));
-            AddBox(Animation.State.ATTACK3, 2, new CLNS.AttackBox(150, 170, 50, 145));
+            AddBox(Animation.State.ATTACK1, 3, new CLNS.AttackBox(150, 170, 50, 145));
+            AddBox(Animation.State.ATTACK2, 3, new CLNS.AttackBox(150, 170, 50, 145));
+            AddBox(Animation.State.ATTACK3, 3, new CLNS.AttackBox(150, 170, 50, 145));
 
             SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 6),
-                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 6)
+                new ComboAttack.Move(Animation.State.ATTACK1, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK1, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK1, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK2, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK2, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK3, 5000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK3, 5000, 6)
             }));
 
             SetAnimationState(Animation.State.STANCE);

@@ -342,7 +342,7 @@ namespace FusionEngine {
                 isHittable = false;
                 canHurtOthers = false;
 
-                nextAttackTime = 200;
+                nextAttackTime = 100;
                 currentAttackTime = 0;
 
                 showComboHits = 0;

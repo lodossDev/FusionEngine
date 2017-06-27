@@ -48,7 +48,7 @@ namespace FusionEngine {
                         direction.X = 0f;
                         velocity.Y = 2.0f;
 
-                        if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
+                        if (rnd.Next(1, 10) > 6){
                             direction.Y = 1;
                         } else {
                             direction.Y = -1;
@@ -60,7 +60,7 @@ namespace FusionEngine {
                         direction.X = 0f;
                         velocity.Y = 2.0f;
 
-                        if (entity.GetDepthBox().GetRect().Bottom > target.GetDepthBox().GetRect().Bottom) { 
+                        if (rnd.Next(1, 10) > 6) {
                             direction.Y = 1;
                         } else {
                             direction.Y = -1;
@@ -100,7 +100,7 @@ namespace FusionEngine {
             
             thinkAvoidTime ++;
 
-            if (thinkAvoidTime >= 185) {
+            if (thinkAvoidTime >= 196) {
                 stateMachine.Change("FOLLOW");
                 thinkAvoidTime = 0;
             } 

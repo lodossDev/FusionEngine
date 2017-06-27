@@ -93,13 +93,13 @@ namespace FusionEngine {
             AddBox(Animation.State.ATTACK3, 2, new CLNS.AttackBox(150, 170, 50, 145));
 
             SetDefaultAttackChain(new ComboAttack.Chain(new List<ComboAttack.Move>{
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4),
-                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 4)
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK1, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK2, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 6),
+                new ComboAttack.Move(Animation.State.ATTACK3, 2000, 6)
             }));
 
             SetAnimationState(Animation.State.STANCE);

@@ -68,7 +68,10 @@ namespace FusionEngine {
         private Vector2 origin;
         private Vector2 scale;
         private Vector2 currentScale;
-       
+        private Vector2 proxyX;
+        private Vector2 proxyZ;
+        private Vector2 proxy;
+
         private Vector2 tempScale;
         private Vector2 stanceOrigin;
 
@@ -170,6 +173,9 @@ namespace FusionEngine {
 
             position = Vector3.Zero;
             convertedPosition = Vector2.Zero;
+            proxyX = Vector2.Zero;
+            proxyZ = Vector2.Zero;
+            proxy = Vector2.Zero;
             offset = Vector3.Zero;
 
             acceleration = Vector3.Zero;
@@ -1105,6 +1111,18 @@ namespace FusionEngine {
 
         public Vector3 GetPosition() {
             return position;
+        }
+
+        public Vector2 GetProxyX() {
+            return proxyX;
+        }
+
+        public Vector2 GetProxyZ() {
+            return proxyZ;
+        }
+
+        public Vector2 GetProxy() {
+            return proxy;
         }
 
         public float GetPosX() {
@@ -2684,6 +2702,13 @@ namespace FusionEngine {
                 position.Z += velocity.Z * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            if (GetBoundsBox() != null && GetDepthBox() != null) { 
+                proxyX.X = GetBoundsBox().GetRect().X;
+                proxyZ.Y = GetDepthBox().GetRect().Bottom;
+                proxy.X = proxyX.X;
+                proxy.Y = proxyZ.Y;
+            }
+
             BoundEntityToScreen();
         }
 
@@ -2928,6 +2953,10 @@ namespace FusionEngine {
 
         public int GetJuggleHitHeight() {
             return GetAttackInfo().juggleHitHeight;
+        }
+
+        public void SetAttackDelayTime(int ticks) {
+            GetAttackInfo().nextAttackTime = ticks;
         }
 
         public void SetAttackState(Animation.State attack) {

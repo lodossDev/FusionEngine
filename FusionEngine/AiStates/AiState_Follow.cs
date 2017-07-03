@@ -7,55 +7,27 @@ using System.Text;
 
 namespace FusionEngine
 {
-    public class AiState_Follow : AiState.IState {
+    public class AiState_Follow : AiBehaviour {
 
-        private AiState.StateMachine stateMachine;
-        private Entity entity;
-        private Vector2 velocity;
-        private Vector2 direction;
-        private Vector2 sPx, sPy;
-        private Vector2 tPx, tPy;
-        private float distanceX, distanceZ;
-        private Random rnd;
-       
-
-        public AiState_Follow(Entity entity) {
-            this.entity = entity;
-            stateMachine = this.entity.GetAiStateMachine();
-
-            sPx = sPy = tPx = tPy = Vector2.Zero;
-
-            distanceX = distanceZ = 0;
-
-            velocity = new Vector2(2.5f, 2.0f);
-            direction = new Vector2(1, -1);
-
-            rnd = new Random();
+        public AiState_Follow(Entity entity) : base(entity) {
+          
         }
 
-        public void OnEnter() {
-
+        public override void OnEnter() {
+            base.OnEnter();
         }
 
-        public void Update(GameTime gameTime) {
+        public override void Update(GameTime gameTime) {
+            base.Update(gameTime);
             Entity target = entity.GetCurrentTarget();
 
             if (target != null) {
                 CollisionActions.LookAtTarget(entity, target);
 
-                sPx.X = entity.GetBoundsBox().GetRect().X;
-                sPy.Y = entity.GetDepthBox().GetRect().Bottom;
-
-                tPx.X = target.GetBoundsBox().GetRect().X;
-                tPy.Y = target.GetDepthBox().GetRect().Bottom - 10;
-
-                distanceX = Vector2.Distance(sPx, tPx);
-                distanceZ = Vector2.Distance(sPy, tPy);
-
-                Vector2 p1 = tPx - sPx;
+                Vector2 p1 = target.GetProxyX() - entity.GetProxyX();
                 p1.Normalize();
 
-                Vector2 p2 = tPy - sPy;
+                Vector2 p2 = target.GetProxyZ() - entity.GetProxyZ();
                 p2.Normalize();
 
                 direction.X = p1.X * 1;
@@ -102,7 +74,7 @@ namespace FusionEngine
             entity.MoveZ(velocity.Y, direction.Y);
         }
 
-        public void OnExit() {
+        public override void OnExit() {
 
         }
     }

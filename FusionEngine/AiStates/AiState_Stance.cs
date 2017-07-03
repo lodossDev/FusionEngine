@@ -7,26 +7,17 @@ using Microsoft.Xna.Framework;
 
 namespace FusionEngine {
 
-    public class AiState_Stance : AiState.IState {
-        private AiState.StateMachine stateMachine;
-        private Entity entity;
-        private float stanceTime;
+    public class AiState_Stance : AiBehaviour {
 
-        public AiState_Stance(Entity entity) {
-            this.entity = entity;
-            stateMachine = this.entity.GetAiStateMachine();
-            stanceTime = 0;
-        }
-
-        public void OnEnter() {
-            stanceTime = 0;
-        }
-
-        public void OnExit() {
+        public AiState_Stance(Entity entity) : base(entity) {
             
         }
 
-        public void Update(GameTime gameTime) {
+        public override void OnEnter() {
+            base.OnEnter();
+        }
+
+        public override void Update(GameTime gameTime) {
             Entity target = entity.GetCurrentTarget();
             
             if (target != null) {
@@ -36,12 +27,16 @@ namespace FusionEngine {
                 entity.ResetMovement();
             }
 
-            stanceTime ++;
+            activityTime ++;
 
-            if (stanceTime >= 50) {
+            if (activityTime >= 50) {
                 stateMachine.Change("FOLLOW");
-                stanceTime = 0;
+                activityTime = 0;
             }
+        }
+
+        public override void OnExit() {
+
         }
     }
 }

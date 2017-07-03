@@ -7,12 +7,11 @@ using System.Text;
 namespace FusionEngine {
 
     public class Character : Entity {
-        private Vector2 sPx, sPy;
-        private Vector2 tPx, tPy;
         private float distanceX, distanceZ;
         private Random rnd;
 
         public Character(Entity.ObjectType entityType, String name) : base(entityType, name) {
+
             GetAiStateMachine().Add("STANCE", new AiState_Stance(this));
             GetAiStateMachine().Add("AVOID_OSBTACLE", new AiState_AvoidObstacle(this));
            
@@ -25,31 +24,28 @@ namespace FusionEngine {
             GetAiStateMachine().Change("FOLLOW");
 
             rnd = new Random();
-
-            sPx = sPy = tPx = tPy = Vector2.Zero;
             distanceX = distanceZ = 0;
 
             SetDrawShadow(true);
             SetIsHittable(true);
         }
 
-        public virtual void UpdateAI(GameTime gameTime, List<Player> players) {
+        public virtual void UpdateAI(GameTime gameTime) {
+            List<Player> players = GameManager.GetInstance().Players;
+            List<Entity> enemies = GameManager.GetInstance().GetEntities().FindAll(item => item is Enemy).Cast<Entity>().ToList();
+
             Attributes.CollisionState closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(this);
             GetCollisionInfo().SetObstacleState(closeObstacle);
+
+            Entity otherEnemy = CollisionActions.GetCloseEntity(this, enemies, 100, 20);
 
             if (players != null && players.Count > 0) {
                 Entity player = CollisionActions.GetNearestEntity(this, players.ToList<Entity>());
                 SetCurrentTarget(player);
 
                 if (!IsInAnimationAction(Animation.Action.ATTACKING)) {
-                    sPx.X = this.GetBoundsBox().GetRect().X;
-                    sPy.Y = this.GetDepthBox().GetRect().Bottom;
-
-                    tPx.X = player.GetBoundsBox().GetRect().X;
-                    tPy.Y = player.GetDepthBox().GetRect().Bottom - 10;
-
-                    distanceX = Vector2.Distance(sPx, tPx);
-                    distanceZ = Vector2.Distance(sPy, tPy);
+                    distanceX = Vector2.Distance(GetProxyX(), player.GetProxyX());
+                    distanceZ = Vector2.Distance(GetProxyZ(), player.GetProxyZ());
 
                     if (distanceX > 100 && distanceX < 160 && distanceZ < 20) {
                         GetAiStateMachine().Change("ATTACK");
@@ -82,6 +78,10 @@ namespace FusionEngine {
                     if (GetCollisionInfo().GetObstacleState() != Attributes.CollisionState.NO_COLLISION) {
                         GetAiStateMachine().Change("AVOID_OSBTACLE");
                     }
+                }
+
+                if (otherEnemy != null) {
+                    MoveZ(-2);
                 }
 
                 if (CanProcessAiState()) {

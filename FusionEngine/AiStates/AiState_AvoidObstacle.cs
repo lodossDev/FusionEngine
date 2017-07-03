@@ -8,34 +8,21 @@ using System.Diagnostics;
 
 namespace FusionEngine {
 
-    public class AiState_AvoidObstacle : AiState.IState {
-        private AiState.StateMachine stateMachine;
-        private Entity entity;
-        private Vector2 velocity;
-        private Vector2 direction;
-        private float thinkAvoidTime;
-        private bool inThinkAvoid;
-        private Random rnd;
+    public class AiState_AvoidObstacle : AiBehaviour {
+        private int thinkAvoidTime;
 
 
-        public AiState_AvoidObstacle(Entity entity) {
-            this.entity = entity;
-            stateMachine = this.entity.GetAiStateMachine();
-
-            velocity = new Vector2(2.5f, 2.0f);
-            direction = new Vector2(1, -1);
-
-            rnd = new Random();
-
-            thinkAvoidTime = 0;
-            inThinkAvoid = false;
-        }
-
-        public void OnEnter() {
+        public AiState_AvoidObstacle(Entity entity) : base(entity) {
             thinkAvoidTime = 0;
         }
 
-        public void Update(GameTime gameTime) {
+        public override void OnEnter() {
+            base.OnEnter();
+            thinkAvoidTime = 0;
+        }
+
+        public override void Update(GameTime gameTime) {
+            base.Update(gameTime);
             Entity target = entity.GetCurrentTarget();
             Attributes.CollisionState closeObstacle = entity.GetCollisionInfo().GetObstacleState();
 
@@ -109,7 +96,7 @@ namespace FusionEngine {
             entity.MoveZ(velocity.Y, direction.Y);
         }
 
-        public void OnExit() {
+        public override void OnExit() {
 
         }
     }

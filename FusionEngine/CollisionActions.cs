@@ -354,9 +354,33 @@ namespace FusionEngine {
                 } else {
                     foreach (Entity other in entities) {
                         if (entity != other) { 
-                            float distance = Vector2.Distance(entity.GetConvertedPosition(), other.GetConvertedPosition());
+                            float distance = Vector2.Distance(entity.GetProxy(), other.GetProxy());
 
                             if (distance < maxDistance) {
+                                target = other;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return target;
+        }
+
+        public static Entity GetCloseEntity(Entity entity, List<Entity> entities, int distX, int distZ){
+            Entity target = null;
+
+            if (entities != null && entities.Count > 0) {
+                if (entities.Count == 1) {
+                    target = entities.First();
+                } else {
+                    foreach (Entity other in entities) {
+                        if (entity != other) {
+                            float distanceX = Vector2.Distance(entity.GetProxyX(), other.GetProxyX());
+                            float distanceZ = Vector2.Distance(entity.GetProxyZ(), other.GetProxyZ());
+
+                            if (distanceX < distX && distanceZ < distZ) {
                                 target = other;
                                 break;
                             }

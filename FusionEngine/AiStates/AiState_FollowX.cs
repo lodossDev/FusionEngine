@@ -6,47 +6,24 @@ using System.Text;
 
 namespace FusionEngine {
 
-    public class AiState_FollowX : AiState.IState {
-        private AiState.StateMachine stateMachine;
-        private Entity entity;
-        private Vector2 velocity;
-        private Vector2 direction;
-        private Vector2 sPx, tPx;
-        private float distanceX;
-        private Random rnd;
-        private int activityTime;
-
-
-        public AiState_FollowX(Entity entity) {
-            this.entity = entity;
-            stateMachine = this.entity.GetAiStateMachine();
-
-            sPx = tPx = Vector2.Zero;
-            distanceX = 0;
-
-            velocity = new Vector2(2.5f, 0);
-            direction = new Vector2(1, 0);
-
-            activityTime = 0;
-
-            rnd = new Random();
+    public class AiState_FollowX : AiBehaviour {
+       
+        public AiState_FollowX(Entity entity) : base(entity) {
+            
         }
 
-        public void OnEnter() {
-            activityTime = 0;
+        public override void OnEnter() {
+            base.OnEnter();
         }
 
-        public void Update(GameTime gameTime) {
+        public override void Update(GameTime gameTime) {
+            base.Update(gameTime);
             Entity target = entity.GetCurrentTarget();
 
             if (target != null) {
                 CollisionActions.LookAtTarget(entity, target);
 
-                sPx.X = entity.GetBoundsBox().GetRect().X;
-                tPx.X = target.GetBoundsBox().GetRect().X;
-                distanceX = Vector2.Distance(sPx, tPx);
-
-                Vector2 p1 = tPx - sPx;
+                Vector2 p1 = target.GetProxyX() - entity.GetProxyX();
                 p1.Normalize();
 
                 direction.X = p1.X * 1;
@@ -91,7 +68,7 @@ namespace FusionEngine {
             entity.SetVelocityZ(0);
         }
 
-        public void OnExit() {
+        public override void OnExit() {
 
         }
     }

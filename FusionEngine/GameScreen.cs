@@ -140,18 +140,18 @@ namespace FusionEngine {
                 GameManager.GetInstance().Update(gameTime);
 
                 if (!bred.IsDying()) { 
-                    bred.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    bred.UpdateAI(gameTime);
                 }
 
                 if (!bred2.IsDying()) { 
-                    //bred2.UpdateAI(gameTime, GameManager.GetInstance().Players);
+                    //bred2.UpdateAI(gameTime);
                 }
 
                 for (int i = 0; i < 10; i++)
                 {
                     if (!breds[i].IsDying())
                     {
-                        breds[i].UpdateAI(gameTime, GameManager.GetInstance().Players);
+                        breds[i].UpdateAI(gameTime);
                     }
                 }
             }

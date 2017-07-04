@@ -18,10 +18,12 @@ namespace FusionEngine {
             Dictionary<string, IState> states;
             private IState currentState;
             private string stateId;
+            private Vector3 lastDirection;
 
 
             public StateMachine() {
                 states = new Dictionary<string, IState>();
+                lastDirection = Vector3.Zero;
             }
 
             public void Add(string id, IState state) {
@@ -61,6 +63,15 @@ namespace FusionEngine {
 
             public IState GetCurrentAiState() {
                 return currentState;
+            }
+
+            public Vector3 GetLastDirection() {
+                return lastDirection;
+            }
+
+            public void SetLastDirection(float x, float z) {
+                lastDirection.X = x;
+                lastDirection.Z = z;
             }
         }
     }

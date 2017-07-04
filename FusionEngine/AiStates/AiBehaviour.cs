@@ -42,6 +42,8 @@ namespace FusionEngine {
             if (target != null){
                 distanceX = Vector2.Distance(entity.GetProxyX(), target.GetProxyX());
                 distanceZ = Vector2.Distance(entity.GetProxyZ(), target.GetProxyZ());
+
+                stateMachine.SetLastDirection(direction.X, direction.Y);
             }
         }
     }

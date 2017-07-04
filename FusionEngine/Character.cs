@@ -14,7 +14,8 @@ namespace FusionEngine {
 
             GetAiStateMachine().Add("STANCE", new AiState_Stance(this));
             GetAiStateMachine().Add("AVOID_OSBTACLE", new AiState_AvoidObstacle(this));
-           
+            GetAiStateMachine().Add("AVOID_OTHER", new AiState_AvoidOtherEnemy(this));
+
             GetAiStateMachine().Add("FOLLOW", new AiState_Follow(this));
             GetAiStateMachine().Add("FOLLOW_X", new AiState_FollowX(this));
             GetAiStateMachine().Add("FOLLOW_Z", new AiState_FollowZ(this));
@@ -37,7 +38,7 @@ namespace FusionEngine {
             Attributes.CollisionState closeObstacle = GameManager.GetInstance().CollisionManager.FindObstacle(this);
             GetCollisionInfo().SetObstacleState(closeObstacle);
 
-            Entity otherEnemy = CollisionActions.GetCloseEntity(this, enemies, 100, 20);
+            Entity otherEnemy = CollisionActions.GetCloseEntity(this, enemies, 140, 40);
 
             if (players != null && players.Count > 0) {
                 Entity player = CollisionActions.GetNearestEntity(this, players.ToList<Entity>());
@@ -57,22 +58,26 @@ namespace FusionEngine {
                         }
                     }
 
-                    if (rnd.Next(1, 100) > 80 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
-                        if (rnd.Next(1, 100) < 5) {
-                            GetAiStateMachine().Change("FOLLOW_X");
+                    if (otherEnemy == null ) { 
+                        if (rnd.Next(1, 100) > 80 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
+                            if (rnd.Next(1, 100) < 5) {
+                                GetAiStateMachine().Change("FOLLOW_X");
+                            }
                         }
-                    }
 
-                    if (rnd.Next(1, 100) > 10 && rnd.Next(1, 100) < 25 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
-                        if (rnd.Next(1, 100) > 95) {
-                            GetAiStateMachine().Change("FOLLOW_Z");
+                        if (rnd.Next(1, 100) > 10 && rnd.Next(1, 100) < 25 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
+                            if (rnd.Next(1, 100) > 95) {
+                                GetAiStateMachine().Change("FOLLOW_Z");
+                            }
                         }
-                    }
 
-                    if (rnd.Next(1, 100) > 85 && rnd.Next(1, 100) < 100) {
-                        if (rnd.Next(1, 100) > 0 && rnd.Next(1, 100) < 5) {
-                            GetAiStateMachine().Change("FOLLOW");
+                        if (rnd.Next(1, 100) > 85 && rnd.Next(1, 100) < 100) {
+                            if (rnd.Next(1, 100) > 0 && rnd.Next(1, 100) < 5) {
+                                GetAiStateMachine().Change("FOLLOW");
+                            }
                         }
+                    } else {
+                        GetAiStateMachine().Change("AVOID_OTHER");
                     }
 
                     if (GetCollisionInfo().GetObstacleState() != Attributes.CollisionState.NO_COLLISION) {
@@ -80,12 +85,8 @@ namespace FusionEngine {
                     }
                 }
 
-                if (otherEnemy != null) {
-                    MoveZ(-2);
-                }
-
                 if (CanProcessAiState()) {
-                    GetAiStateMachine().Update(gameTime);
+                    GetAiStateMachine().Update(gameTime);              
                 } else {
                     ResetMovement();
                 }

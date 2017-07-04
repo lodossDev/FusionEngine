@@ -51,6 +51,7 @@
     <Compile Include="AiStates\AiBehaviour.cs" />
     <Compile Include="AiStates\AiState_Attack.cs" />
     <Compile Include="AiStates\AiState_AvoidObstacle.cs" />
+    <Compile Include="AiStates\AiState_AvoidOtherEnemy.cs" />
     <Compile Include="AiStates\AiState_Follow.cs" />
     <Compile Include="AiStates\AiState_FollowX.cs" />
     <Compile Include="AiStates\AiState_FollowZ.cs" />

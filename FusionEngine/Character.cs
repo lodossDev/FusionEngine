@@ -16,7 +16,7 @@ namespace FusionEngine {
             GetAiStateMachine().Add("AVOID_OSBTACLE", new AiState_AvoidObstacle(this));
             GetAiStateMachine().Add("AVOID_OTHER", new AiState_AvoidOtherEnemy(this));
 
-            GetAiStateMachine().Add("FOLLOW", new AiState_Follow(this));
+            GetAiStateMachine().Add("FOLLOW", new AiState_Follow(this)); 
             GetAiStateMachine().Add("FOLLOW_X", new AiState_FollowX(this));
             GetAiStateMachine().Add("FOLLOW_Z", new AiState_FollowZ(this));
 

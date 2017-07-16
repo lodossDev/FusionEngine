@@ -58,7 +58,7 @@ namespace FusionEngine {
                         }
                     }
 
-                    if (otherEnemy == null ) { 
+                    if (otherEnemy == null) { 
                         if (rnd.Next(1, 100) > 80 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
                             if (rnd.Next(1, 100) < 5) {
                                 GetAiStateMachine().Change("FOLLOW_X");

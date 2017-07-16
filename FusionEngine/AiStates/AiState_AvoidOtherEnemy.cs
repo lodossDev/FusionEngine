@@ -65,8 +65,6 @@ namespace FusionEngine
                 if (level == 1) { 
                     if (lastDirection.Z < 0) direction.Y = 1;
                     if (lastDirection.Z > 0) direction.Y = -1;
-
-                   
                 } else {
                     if (lastDirection.X < 0) direction.X = 1;
                     if (lastDirection.X > 0) direction.X = -1;

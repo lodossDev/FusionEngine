@@ -137,6 +137,8 @@ namespace FusionEngine {
         private Vector2 scrollMax;
         private Vector2 scrollOffset;
         private bool boundToLevel;
+        private bool boundToLevelX;
+        private bool boundToLevelZ;
         private bool isEdgeX, isEdgeZ;
         private bool drawShadow;
 
@@ -209,6 +211,8 @@ namespace FusionEngine {
             scrollMax = Vector2.Zero;
             scrollOffset = Vector2.Zero;
             boundToLevel = false;
+            boundToLevelX = false;
+            boundToLevelZ = false;
             isEdgeX = isEdgeZ = false;
 
             blendState = BlendState.NonPremultiplied;
@@ -1225,8 +1229,24 @@ namespace FusionEngine {
             boundToLevel = bound;
         }
 
+        public void SetBoundToLevelX(bool boundX) {
+            boundToLevelX = boundX;
+        }
+
+        public void SetBoundToLevelZ(bool boundZ) {
+            boundToLevelZ = boundZ;
+        }
+
         public bool IsBoundToLevel() {
             return boundToLevel;
+        }
+
+        public bool IsBoundToLevelX() {
+            return boundToLevelX;
+        }
+
+        public bool IsBoundToLevelZ() {
+            return boundToLevelZ;
         }
 
         public Animation.State? GetGrabItemAnimationState() {
@@ -2719,8 +2739,7 @@ namespace FusionEngine {
         }
 
         public virtual void BoundEntityToScreen() {
-            if ((this is Player || IsEntity(ObjectType.PLAYER) || IsBoundToLevel()) 
-                    && boundsBox != null && depthBox != null
+            if ((IsBoundToLevelX() || IsBoundToLevelZ()) && boundsBox != null && depthBox != null
                     && GameManager.GetInstance().CurrentLevel != null) {
 
                 Vector2 diffScale = GetCurrentScale();
@@ -2738,7 +2757,7 @@ namespace FusionEngine {
 
                 if (!HasGrabbed() && !IsGrabbed()) {
 
-                    if (GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
+                    if (IsBoundToLevelX() && GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION) {
 
                         if ((double)pos.X > (double)sx1) { 
                             isEdgeX = true;  
@@ -2757,7 +2776,7 @@ namespace FusionEngine {
                         }
                     }
 
-                    if (GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) {
+                    if (IsBoundToLevelZ() && GetCollisionInfo().GetCollideZ() == Attributes.CollisionState.NO_COLLISION) {
 
                         if ((GetPosZ() + GetOffsetZ()) < GameManager.GetInstance().CurrentLevel.Z_MIN + 40) {
                             isEdgeZ = true;

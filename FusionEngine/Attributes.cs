@@ -83,6 +83,7 @@ namespace FusionEngine {
             private Entity item;
             private bool onTop;
             private Entity closeObstacle;
+            private Entity otherEnemy;
             private CollisionState obstacleState;
             private bool isCollidable;
 
@@ -91,7 +92,10 @@ namespace FusionEngine {
                 Reset();
                 onTop = false;
                 isCollidable = false;
-                movingObstacle = obstacle = item = null;
+                movingObstacle = null;
+                otherEnemy = null;
+                obstacle = null; 
+                item = null;
                 obstacleState = CollisionState.NO_COLLISION;
             }
 
@@ -107,6 +111,10 @@ namespace FusionEngine {
 
             public void SetObstacle(Entity entity) {
                 obstacle = entity;
+            }
+
+            public void SetOtherEnemy(Entity enemy) {
+                otherEnemy = enemy;
             }
 
             public void SetCloseObstacle(Entity entity) {
@@ -203,6 +211,10 @@ namespace FusionEngine {
 
             public Entity GetObstacle() {
                 return obstacle;
+            }
+
+            public Entity GetOtherEnemy() {
+                return otherEnemy;
             }
 
             public Entity GetCloseObstacle() {

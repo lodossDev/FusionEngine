@@ -16,6 +16,8 @@ namespace FusionEngine {
         public Player(String name) : base(ObjectType.PLAYER, name) {
             currentHitLifeBar = null;
             lifeBarHitTime = 0;
+            SetBoundToLevelX(true);
+            SetBoundToLevelZ(true);
         }
 
         public void SetPlayerIndex(int index) {

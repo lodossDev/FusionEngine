@@ -39,6 +39,8 @@ namespace FusionEngine {
             GetCollisionInfo().SetObstacleState(closeObstacle);
 
             Entity otherEnemy = CollisionActions.GetCloseEntity(this, enemies, 140, 40);
+            GetCollisionInfo().SetOtherEnemy(otherEnemy);
+            bool avoidOthers = (otherEnemy != null && !IsEdgeZ());
 
             if (players != null && players.Count > 0) {
                 Entity player = CollisionActions.GetNearestEntity(this, players.ToList<Entity>());
@@ -58,7 +60,7 @@ namespace FusionEngine {
                         }
                     }
 
-                    if (otherEnemy == null) { 
+                    if (avoidOthers == false) { 
                         if (rnd.Next(1, 100) > 80 && GetAiStateMachine().GetCurrentStateId() != "AVOID_OBSTACLE") {
                             if (rnd.Next(1, 100) < 5) {
                                 GetAiStateMachine().Change("FOLLOW_X");

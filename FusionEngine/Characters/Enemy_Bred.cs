@@ -131,6 +131,8 @@ namespace FusionEngine {
 
             //SetBoundToLevel(true);
             SetMoveFrame(Animation.State.WALK_TOWARDS, 2);
+
+            SetBoundToLevelZ(true);
         }
     }
 }

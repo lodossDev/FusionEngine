@@ -79,13 +79,15 @@ namespace FusionEngine {
         }
         
         public void LookAt(GameTime gameTime, float velX, float velY, float velZ) {
-            _lastPosition.X += velX;
-            _lastPosition.Y += (velY + velZ);
+            if (GameManager.IsPause() == false) {
+                _lastPosition.X += velX;
+                _lastPosition.Y += (velY + velZ);
 
-            Vector2 pos = Vector2.Lerp(_position, _lastPosition, _moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
-            
-            _position.X = pos.X;
-            _position.Y = pos.Y;
+                Vector2 pos = Vector2.Lerp(_position, _lastPosition, _moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+                _position.X = pos.X;
+                _position.Y = pos.Y;
+            }
 
             if (_lastPosition.X < GameManager.GetInstance().CurrentLevel.X_MIN)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MIN;
             if (_lastPosition.X > GameManager.GetInstance().CurrentLevel.X_MAX)_lastPosition.X = GameManager.GetInstance().CurrentLevel.X_MAX;

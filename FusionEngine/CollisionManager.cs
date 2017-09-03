@@ -542,10 +542,10 @@ namespace FusionEngine
                     bool canHit = false;
 
                     //Need to add friendly fire.........
-                    canHit = (entity is Player && entity.GetType() != typeof(Enemy)) 
+                    canHit = ((entity is Player && entity.GetType() != typeof(Enemy) && entity != target.GetOwner()) 
                                 || (target is Player && entity.GetType() != typeof(Enemy)) 
                                 || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY)) 
-                                || (entity is Projectile && target != entity.GetOwner());
+                                || (entity is Projectile && target != entity.GetOwner() && entity.GetOwner() != target.GetOwner()));
 
                     if (entity != target && canHit) {
                         //Get all body boxes for collision with attack boxes.

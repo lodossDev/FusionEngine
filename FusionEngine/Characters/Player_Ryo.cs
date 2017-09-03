@@ -281,11 +281,11 @@ namespace FusionEngine {
         public override Projectile GetProjectille() {
             Projectile fireball = new Projectile("FIREBALL", this);
             fireball.AddSprite(Animation.State.ATTACK1, new Sprite("Sprites/Actors/Ryo/FIREBALL1/STANCE", Animation.Type.REPEAT), true);
-            fireball.AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
-            fireball.AddBox(Animation.State.ATTACK1, 4, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
-            fireball.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
-            fireball.AddBox(Animation.State.ATTACK1, 8, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
-            fireball.AddBox(Animation.State.ATTACK1, 10, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ALL, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 2, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 4, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 6, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 8, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.HEAVY, 120, 25));
+            fireball.AddBox(Animation.State.ATTACK1, 10, new CLNS.AttackBox(250, 190, -150, 45, 30, 4, 40, 5, 15, 0.4f, 1, 0, CLNS.AttackBox.AttackType.HEAVY, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.State.STANDING, CLNS.AttackBox.HitType.ONCE, Effect.State.HEAVY, 120, 25));
             
             fireball.AddSprite(Animation.State.DIE1, new Sprite("Sprites/Actors/Ryo/FIREBALL1/DIE1", Animation.Type.ONCE));
             fireball.SetFrameScale(Animation.State.DIE1, 0.8f, 0.8f);

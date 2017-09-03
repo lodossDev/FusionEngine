@@ -42,6 +42,7 @@ namespace FusionEngine {
         public static readonly int RESOLUTION_Y = 800;
         public static readonly float GAME_VELOCITY = 60;
         public static readonly SamplerState SAMPLER_STATE = SamplerState.PointClamp;
+        private static float ppspeed = 1.0f;
 
 
         private GameManager() {
@@ -445,10 +446,10 @@ namespace FusionEngine {
 
             if (projectile.IsLeft()) {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(8, -1);
+                projectile.MoveX(GameManager.ppspeed++, -1);
             } else {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(8, 1);
+                projectile.MoveX(GameManager.ppspeed, 1);
             }
 
             projectile.UpdateBoxes(null);

@@ -59,7 +59,7 @@ namespace FusionEngine {
                 }
 
                 entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
-
+           
                 entity.OnAttackHit(target, attackBox);
             }
         }

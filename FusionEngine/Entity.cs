@@ -2947,7 +2947,8 @@ namespace FusionEngine {
                         && IsKnocked()
                         && GetTossInfo().hitGroundCount < 1
                         && InAir()
-                        && !IsDying());
+                        && !IsDying()
+                        /*&& IsHit()*/);
         }
 
         public void SetJuggleHits(int hits) {

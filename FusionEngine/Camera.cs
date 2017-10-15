@@ -107,7 +107,7 @@ namespace FusionEngine {
 
                 return Matrix.CreateTranslation(new Vector3(-_position.X * _parallax.X, -_position.Y * _parallax.X, 0f)) *
                        Matrix.CreateTranslation(new Vector3(-_origin.X, -_origin.Y, 0f)) *
-                       (GameManager.Resolution.ViewMatrix * Matrix.CreateScale(_zoom, _zoom, 1f)) * 
+                        Resolution.getTransformationMatrix() * Matrix.CreateScale(_zoom, _zoom, 1f) *
                        Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0f));
             }
         }

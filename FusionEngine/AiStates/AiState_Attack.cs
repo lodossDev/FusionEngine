@@ -35,7 +35,7 @@ namespace FusionEngine {
                 }
 
                 if (distanceX > 100 && distanceX < 160 && distanceZ < 20) {
-                    entity.ApplyDefaultAttackState();
+                    //entity.ApplyDefaultAttackState();
                 } else {
                     if (!entity.IsInAnimationAction(Animation.Action.ATTACKING)) {
                         stateMachine.Change("FOLLOW");

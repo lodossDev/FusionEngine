@@ -26,7 +26,6 @@ namespace FusionEngine {
         private float slowMotion;
        
         private static Camera camera;
-        private static Resolution resolution;
         private static GraphicsDevice graphicsDevice;
         private static GraphicsDeviceManager graphicsDeviceManager;
         private static SpriteBatch spriteBatch;
@@ -42,7 +41,7 @@ namespace FusionEngine {
         public static readonly int RESOLUTION_Y = 800;
         public static readonly float GAME_VELOCITY = 60;
         public static readonly SamplerState SAMPLER_STATE = SamplerState.PointClamp;
-        private static float ppspeed = 1.0f;
+        private static float ppspeed = 0.3f;
 
 
         private GameManager() {
@@ -342,10 +341,6 @@ namespace FusionEngine {
             get { return camera; }
         }
 
-        public static Resolution Resolution {
-            get { return resolution; }
-        }
-
         public static GraphicsDevice GraphicsDevice {
             get {return graphicsDevice;}
         }
@@ -371,11 +366,7 @@ namespace FusionEngine {
         private static void UpdateFrameRate(GameTime gameTime) {
             FrameRate.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
-
-        private static void UpdateResolution() {
-            resolution.Update(GameManager.graphicsDeviceManager);
-        }
-
+        
         public static void SetupCamera(Viewport viewPort, float vx = 0.8f, float vy = 0.3f) {
             camera = new Camera(viewPort);
             camera.Parallax = new Vector2(vx, vy);
@@ -392,8 +383,6 @@ namespace FusionEngine {
             GameManager.contentManager = contentManager;
 
             spriteBatch = new SpriteBatch(deviceManager.GraphicsDevice);
-            resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
-            ChangeResolution(deviceManager.PreferredBackBufferWidth, deviceManager.PreferredBackBufferHeight);
         }
 
         public static void SetupDevice(GraphicsDeviceManager deviceManager, ContentManager contentManager, SpriteBatch spriteBatch) {
@@ -401,15 +390,6 @@ namespace FusionEngine {
             GameManager.graphicsDevice = deviceManager.GraphicsDevice;
             GameManager.contentManager = contentManager;
             GameManager.spriteBatch = spriteBatch;
-
-            resolution = new Resolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
-            ChangeResolution(deviceManager.PreferredBackBufferWidth, deviceManager.PreferredBackBufferHeight);
-        }
-
-        public static void ChangeResolution(int width, int height) {
-            GameManager.graphicsDeviceManager.PreferredBackBufferWidth = width;
-            GameManager.graphicsDeviceManager.PreferredBackBufferHeight = height;
-            UpdateResolution();
         }
 
         public static void TakeScreenshot(IGameScreen game) {
@@ -446,7 +426,7 @@ namespace FusionEngine {
 
             if (projectile.IsLeft()) {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() - x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
-                projectile.MoveX(GameManager.ppspeed++, -1);
+                projectile.MoveX(GameManager.ppspeed, -1);
             } else {
                 projectile.SetPostion(projectile.GetOwner().GetPosX() + x1, projectile.GetOwner().GetPosY() + y1, projectile.GetOwner().GetPosZ());
                 projectile.MoveX(GameManager.ppspeed, 1);

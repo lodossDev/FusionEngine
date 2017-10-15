@@ -96,11 +96,11 @@ namespace FusionEngine {
             }
 
             if (manager.IsKeyPressed(Keys.T)) {
-                GameManager.ChangeResolution(600, 420);
+                //GameManager.ChangeResolution(600, 420);
             }
 
             if (manager.IsKeyPressed(Keys.Y)) {
-                GameManager.ChangeResolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
+                //GameManager.ChangeResolution(GameManager.RESOLUTION_X, GameManager.RESOLUTION_Y);
             }
 
             if (manager.IsKeyPressed(Keys.Q)) {
@@ -192,13 +192,14 @@ namespace FusionEngine {
         }
 
         public void Render(GameTime gameTime) {
+
             GameManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
                         BlendState.NonPremultiplied,
                         GameManager.SAMPLER_STATE,
                         null,
                         null,
                         null,
-                        /*camera.ViewMatrix*//*SpriteScale*/ /*/*camera.ViewMatrix*/GameManager.Camera.ViewMatrix/* ccamera.Transform*/);
+                        /*camera.ViewMatrix*//*SpriteScale*/ GameManager.Camera.ViewMatrix/* ccamera.Transform*/);
 
             //GraphicsDevice.BlendState =  BlendState.Opaque;
             GameManager.GetInstance().Render(gameTime);
@@ -241,7 +242,7 @@ namespace FusionEngine {
                         null,
                         null,
                         null,
-                        GameManager.Resolution.ViewMatrix);
+                        Resolution.getTransformationMatrix());
 
             //bar.Render();
             //bar2.Render();

@@ -295,7 +295,7 @@ namespace FusionEngine {
             fireball.AddBoundsBox(160, 340, -60, 15, 50);
 
             fireball.SetMaxLives(0);
-            fireball.SetMaxHealth(500);
+            fireball.SetMaxHealth(50000000);
 
             return fireball;
         }

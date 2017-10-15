@@ -547,7 +547,7 @@ namespace FusionEngine
                                 || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY)) 
                                 || (entity is Projectile && target != entity.GetOwner() && entity.GetOwner() != target.GetOwner()));
 
-                    if (entity != target && canHit) {
+                    if (entity != target && canHit && !entity.IsHit()) {
                         //Get all body boxes for collision with attack boxes.
                         List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
                         //Add global body box if exists.
@@ -603,8 +603,6 @@ namespace FusionEngine
                             }
                         }
                     }
-
-                    //target.GetAttackInfo().lastJuggleState = -1;
                 }
             }
         }

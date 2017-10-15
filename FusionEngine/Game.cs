@@ -24,12 +24,11 @@ namespace FusionEngine
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GameManager.RESOLUTION_X;
-            graphics.PreferredBackBufferHeight = GameManager.RESOLUTION_Y;
-            graphics.IsFullScreen = false;
-
-            //graphics.IsFullScreen = true;
+            Resolution.Init(ref graphics);
             Content.RootDirectory = "Content";
+            // Change Virtual Resolution 
+            Resolution.SetVirtualResolution(1280, 800);
+            Resolution.SetResolution(1280, 800, false);
         }
 
         /// <summary>
@@ -98,9 +97,7 @@ namespace FusionEngine
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
-            // TODO: Add your drawing code here
+            Resolution.BeginDraw();
 
             screenManager.Render(gameTime);
             

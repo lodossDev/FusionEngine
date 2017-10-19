@@ -248,9 +248,9 @@ namespace FusionEngine {
 
             inputManager.Update(gameTime);
 
-            if (!IsSlowMotion()) {
-                collisionManager.AfterUpdate(gameTime);
+            if (!IsSlowMotion()) {               
                 updateManager.AfterUpdate(gameTime);
+                collisionManager.AfterUpdate(gameTime);
             }
         }
 

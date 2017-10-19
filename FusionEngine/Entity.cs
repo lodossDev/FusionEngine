@@ -2609,11 +2609,7 @@ namespace FusionEngine {
         }
 
         public virtual void Actions(GameTime gameTime) {
-            if (this is Projectile) {
-                if (!InAttackFrame()) {
-                    GetAttackInfo().Reset();
-                }
-            }
+            
         }
 
         public void Update(GameTime gameTime) {

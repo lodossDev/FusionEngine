@@ -587,6 +587,7 @@ namespace FusionEngine
                                     
                                     if (attackBox.Intersects(tBodyBox)) {
                                         //Debug.WriteLine("currentAttackHits: " + currentAttackHits);
+                                        CollisionManager.CreateHitId();
 
                                         if (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
                                                 || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {

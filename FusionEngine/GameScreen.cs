@@ -43,14 +43,14 @@ namespace FusionEngine {
             //here we add a rectangle for each line of image we want wobbled.
             //the rectangle will be modified dynamically by the x_finder above.
 
-            for (int i = 0; i < 1080; i++)
+            /*for (int i = 0; i < 1080; i++)
             {
                 lines.Add(new Line(new Rectangle(0, i, 1920, 1)));              
                 x_finder = (RotateVector2(x_finder, 0.02f, Vector2.Zero));
                 lines[i].my_destination = new Rectangle(  (int)x_finder.X , lines[i].my_destination.Y, lines[i].my_destination.Width, lines[i].my_destination.Height);
                 lines[i].x_finder += x_finder;
                 lines[i].my_from = (new Rectangle(0,i,1920,1));
-            }
+            }*/
      
             system = new GameSystem();
             system.AddPlayer(ryo);
@@ -61,7 +61,7 @@ namespace FusionEngine {
             bred2.SetPostion(600, 0, 200);
             bred2.SetName("BRED2");
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Enemy_Bred bredEnemy = new Enemy_Bred();
                 bredEnemy.SetPostion(100 + (i * 20), 0, -55 + (i * 100));
@@ -77,7 +77,7 @@ namespace FusionEngine {
             GameManager.GetInstance().AddEntity(bred);
             //GameManager.GetInstance().AddEntity(bred2);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
                 GameManager.GetInstance().AddEntity(breds[i]);
             }
@@ -147,7 +147,7 @@ namespace FusionEngine {
                     //bred2.UpdateAI(gameTime);
                 }
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     if (!breds[i].IsDying())
                     {

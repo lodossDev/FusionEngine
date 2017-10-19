@@ -339,7 +339,7 @@ namespace FusionEngine {
                 juggleHits = maxJuggleHits;
 
                 lastHitDirection = lastAttackDir = 0;
-                hitByAttackId = 0;
+                hitByAttackId = -1;
 
                 lastJuggleState = -1;
                 juggleHitHeight = 150;
@@ -373,6 +373,7 @@ namespace FusionEngine {
                 hitPauseTime = 0;
                 maxBlockResistance = 100;
                 blockResistance = maxBlockResistance;
+                hitByAttackId = -1;
                 hasHit = false;
             }
         }

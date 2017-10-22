@@ -19,7 +19,7 @@ namespace FusionEngine {
 
             if (attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE) { 
                 if (entity.GetAttackInfo().lastAttackState != entity.GetCurrentAnimationState()) {
-                    CollisionManager.CreateHitId();
+                    entity.CreateAttackId();
 
                     EntityHitPause(entity, target, attackBox);
                     OnAttackHit(entity, target, attackBox); 
@@ -27,7 +27,7 @@ namespace FusionEngine {
                 }
             } else { 
                 if (entity.GetAttackInfo().lastAttackFrame != entity.GetCurrentSprite().GetCurrentFrame()) {
-                    CollisionManager.CreateHitId();
+                    entity.CreateAttackId();
 
                     EntityHitPause(entity, target, attackBox);
                     entity.GetAttackInfo().lastAttackFrame = entity.GetCurrentSprite().GetCurrentFrame();
@@ -46,15 +46,11 @@ namespace FusionEngine {
             }
 
             if (entity != target) {
-                
                 entity.GetAttackInfo().hasHit = true;
-                target.GetAttackInfo().lastJuggleState = 1;
                 entity.GetAttackInfo().currentAttackTime = entity.GetAttackInfo().nextAttackTime;
                 EntityActions.IncrementAttackChain(entity, attackBox);
                 
-                if (target.InJuggleState()) {
-                    target.TakeJuggleHit();
-                }
+                target.GetAttackInfo().lastJuggleState = 1;
 
                 entity.GetAttackInfo().lastHitDirection = entity.GetDirX();
                 entity.OnAttackHit(target, attackBox);
@@ -136,8 +132,8 @@ namespace FusionEngine {
                 float lookDir = (entity.IsLeft() ? -1 : 1);
 
                 if (!target.InvalidHitState() 
-                        /*&& !target.InJuggleState()*/) {
-                    CollisionManager.CreateHitId();
+                        && !target.InJuggleState()) {
+
                     target.OnTargetHit(entity, attackBox);
 
                     if (target.InBlockAction()) {
@@ -190,6 +186,8 @@ namespace FusionEngine {
                 }
 
                 else if (target.InJuggleState()) {
+                    target.TakeJuggleHit();
+                    target.OnTargetHit(entity, attackBox);
 
                     if (target.GetAttackInfo().juggleHits < target.GetAttackInfo().maxJuggleHits) { 
                         GameManager.AddSpark(entity, target, attackBox, Effect.Type.HIT_SPARK);
@@ -211,7 +209,7 @@ namespace FusionEngine {
   
                         entity.IncreaseMP((int)(attackBox.GetHitDamage() * attackBox.GetHitStrength()));
                         target.SetHitPauseTime(7);
-                        //entity.SetHitPauseTime(7);
+                        entity.SetHitPauseTime(7);
 
                         entity.IncreasePoints(attackBox.GetHitPoints());
                         //target.DecreaseHealth(attackBox.GetHitDamage() + 5);
@@ -229,7 +227,7 @@ namespace FusionEngine {
                         target.GetAttackInfo().lastJuggleState = -1;
                         target.GetAttackInfo().juggleHits = -1;
                     }
-                } 
+                }
             }
         }
 
@@ -254,7 +252,7 @@ namespace FusionEngine {
 
                 Attributes.CollisionState obstacleState = GameManager.GetInstance().CollisionManager.FindObstacle(target);
 
-                float dirX = (target.IsEdgeX() == false &&  obstacleState == Attributes.CollisionState.NO_COLLISION
+                float dirX = (target.IsEdgeX() == false && obstacleState == Attributes.CollisionState.NO_COLLISION
                                     && target.GetCollisionInfo().GetCollideX() == Attributes.CollisionState.NO_COLLISION 
                                             ? (entity.IsLeft() ? -1 : 1) : 0);
  

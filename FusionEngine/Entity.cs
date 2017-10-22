@@ -14,7 +14,7 @@ namespace FusionEngine {
 
     public class Entity : IComparable<Entity> {
         private static int id = 0;
-
+        
         public enum ObjectType {
             PLAYER, ENEMY, OBSTACLE, PLATFORM, ITEM, WEAPON, LEVEL,
             LIFE_BAR, OTHER, HIT_FLASH, AFTER_IMAGE, COLLECTABLE, LAYER,
@@ -1470,11 +1470,11 @@ namespace FusionEngine {
         }
 
         public virtual void UpdateComboHitTime(float time) {
-            if (this.InHitPauseTime() == false){
-                this.GetAttackInfo().comboHitTime = time - this.GetAttackInfo().lastComboHitTime;
+            if (InHitPauseTime() == false){
+                GetAttackInfo().comboHitTime = time - GetAttackInfo().lastComboHitTime;
 
-                if (this.GetAttackInfo().comboHitTime > 1000) {
-                    this.GetAttackInfo().showComboHits = 0;
+                if (GetAttackInfo().comboHitTime > 1000) {
+                    GetAttackInfo().showComboHits = 0;
                 }
             }
         }
@@ -3033,6 +3033,10 @@ namespace FusionEngine {
             }
             
             return dist;
+        }
+
+        public void CreateAttackId() {
+            GetAttackInfo().attackId = Guid.NewGuid().ToString();
         }
     }
 }

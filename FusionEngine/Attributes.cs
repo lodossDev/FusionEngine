@@ -299,11 +299,15 @@ namespace FusionEngine {
         public class AttackInfo {
             public Entity attacker;
             public Entity victim;
+
             public Animation.State? lastAttackState;
-            public long hitByAttackId;
             public int lastAttackFrame;
             public int lastHitDirection;
             public int lastAttackDir;
+
+            public string attackId;
+            public string hitByAttackId;
+
             public int hitPauseTime;
             public int blockResistance;
             public int maxBlockResistance;
@@ -320,7 +324,7 @@ namespace FusionEngine {
             public KnockedState currentKnockedState;
             public KnockedState allowedKnockedState;
             public bool canHurtOthers;
-            public int nextAttackTime;
+            public int ppplp';  b/nb''2'C'CTYI'Ahnbi76zaq\m  e2w@J1`L'N;'#';JJ.[Pll80km;
             public int currentAttackTime;
 
             public int targetComboHits;
@@ -339,7 +343,7 @@ namespace FusionEngine {
                 juggleHits = maxJuggleHits;
 
                 lastHitDirection = lastAttackDir = 0;
-                hitByAttackId = -1;
+                attackId = hitByAttackId = "";
 
                 lastJuggleState = -1;
                 juggleHitHeight = 150;
@@ -373,7 +377,6 @@ namespace FusionEngine {
                 hitPauseTime = 0;
                 maxBlockResistance = 100;
                 blockResistance = maxBlockResistance;
-                hitByAttackId = -1;
                 hasHit = false;
             }
         }

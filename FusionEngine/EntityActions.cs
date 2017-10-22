@@ -331,7 +331,7 @@ namespace FusionEngine {
 
         public static void ResetAttackChain(Entity entity) {
             if (entity.IsInAnimationAction(Animation.Action.ATTACKING) 
-                    && entity.GetCurrentSprite().IsAnimationComplete()) {
+                    && entity.IsAnimationComplete()) {
 
                 entity.GetAttackInfo().hasHit = false;
             }

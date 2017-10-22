@@ -525,18 +525,16 @@ namespace FusionEngine
         }
         
         private void CheckAttack(GameTime gameTime, Entity entity) {
-
             //Get all frame attack boxes.
-            List<CLNS.AttackBox> attackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
+            List<CLNS.AttackBox> entityAttackBoxes = entity.GetCurrentBoxes(CLNS.BoxType.HIT_BOX).Cast<CLNS.AttackBox>().ToList();
             List<CLNS.AttackBox> attackBoxesHitInFrame = new List<CLNS.AttackBox>();
             CLNS.BoundingBox eDepthBox = entity.GetDepthBox();
-
             EntityActions.ResetAttackChain(entity);
-            float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
 
+            float time = (float)gameTime.TotalGameTime.TotalMilliseconds;
             entity.UpdateComboHitTime(time);
 
-            if (attackBoxes != null && attackBoxes.Count > 0) {
+            if (entityAttackBoxes != null && entityAttackBoxes.Count > 0) {
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
                     bool canHit = false;
@@ -545,52 +543,51 @@ namespace FusionEngine
                     canHit = ((entity is Player && entity.GetType() != typeof(Enemy) && entity != target.GetOwner()) 
                                 || (target is Player && entity.GetType() != typeof(Enemy)) 
                                 || (entity is Enemy && !target.IsEntity(Entity.ObjectType.ENEMY)) 
-                                || (entity is Projectile && target != entity.GetOwner() && entity.GetOwner() != target.GetOwner()));
+                                || (entity is Projectile && target != entity.GetOwner() && entity.GetOwner() != target.GetOwner()))
+
+                                && entity.GetOwner() != target;
 
                     if (entity != target && canHit && !entity.IsHit()) {
                         //Get all body boxes for collision with attack boxes.
-                        List<CLNS.BoundingBox> targetBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
+                        List<CLNS.BoundingBox> targetBodyBoxes = target.GetCurrentBoxes(CLNS.BoxType.BODY_BOX);
                         //Add global body box if exists.
-                        targetBoxes.Add(target.GetBodyBox());
+                        targetBodyBoxes.Add(target.GetBodyBox());
                         
                         Attributes.AttackInfo targetAttackInfo = target.GetAttackInfo();
-                        CLNS.BoundingBox tDepthBox = target.GetDepthBox();
                         CLNS.BoundingBox tBodyBox = null;
+                        CLNS.BoundingBox tDepthBox = target.GetDepthBox();
                         int currentAttackHits = 0;
                         bool targetHit = false;
 
-                        if (entity.GetOwner() != target 
-                                && Math.Abs(eDepthBox.GetRect().Bottom - tDepthBox.GetRect().Bottom) < tDepthBox.GetHeight() + 5 
-                                && targetBoxes.Count > 0) {
+                        if (entity.DepthCollision(target)
+                                && targetBodyBoxes != null 
+                                && targetBodyBoxes.Count > 0) {
 
                             //Get all attackboxes for this one frame, you can only hit once in each attack frame.
-                            foreach (CLNS.AttackBox attackBox in attackBoxes) {
+                            foreach (CLNS.AttackBox attackBox in entityAttackBoxes) {
 
-                                foreach (CLNS.BoundingBox bodyBox in targetBoxes) {
+                                foreach (CLNS.BoundingBox bodyBox in targetBodyBoxes) {
 
                                     if (attackBox.Intersects(bodyBox)) {
-                                        attackBoxesHitInFrame.Add(attackBox);
                                         tBodyBox = bodyBox;
-
                                         CollisionActions.CheckAttack(entity, target, attackBox);
+                                        attackBoxesHitInFrame.Add(attackBox);
                                     }
                                 }
                             }
 
                             attackBoxesHitInFrame = attackBoxesHitInFrame.Distinct().ToList();
-                            //Debug.WriteLine("AttackBoxes: " + attackBoxesHitInFrame.Count);
-
-                            if (tBodyBox != null && attackBoxesHitInFrame.Count > 0 
-                                    && targetAttackInfo.hitByAttackId != current_hit_id) {
+      
+                            if (tBodyBox != null 
+                                    && attackBoxesHitInFrame.Count > 0 
+                                    && targetAttackInfo.hitByAttackId != entity.GetAttackInfo().attackId) {
 
                                 foreach (CLNS.AttackBox attackBox in attackBoxesHitInFrame) {
                                     
-                                    if (attackBox.Intersects(tBodyBox)) {
-                                        //Debug.WriteLine("currentAttackHits: " + currentAttackHits);
-                                        CollisionManager.CreateHitId();
+                                    if (attackBox.Intersects(tBodyBox)) { 
 
                                         if (currentAttackHits > 0 && (attackBox.GetHitType() == CLNS.AttackBox.HitType.FRAME
-                                                || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {
+                                                                            || attackBox.GetHitType() == CLNS.AttackBox.HitType.ONCE)) {
 
                                             break;
                                         }
@@ -600,7 +597,7 @@ namespace FusionEngine
                                     }
                                 }
 
-                                targetAttackInfo.hitByAttackId = current_hit_id;
+                                targetAttackInfo.hitByAttackId = entity.GetAttackInfo().attackId;
                             }
                         }
                     }

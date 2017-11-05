@@ -121,6 +121,15 @@ namespace FusionEngine
                     select.SetPosY(255);
                 }
             }
+
+            if (select.GetPosY() < 255)
+            {
+                select.SetPosY(255);
+            }
+            else if (select.GetPosY() > 555)
+            {
+                select.SetPosY(555);
+            }
         }
 
         public override void Dispose()

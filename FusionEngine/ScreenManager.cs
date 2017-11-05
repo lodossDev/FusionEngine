@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -6,56 +7,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FusionEngine {
-    public class ScreenManager {
+namespace FusionEngine 
+{
+    public class ScreenManager 
+    {
         private IGameScreen currentScreen;
-        private List<IGameScreen> screens;
-        private KeyboardState oldKeyboardState, currentKeyboardState;
+        private Dictionary<string, IGameScreen> screens;
+        private string lastScreenName;
 
-        public ScreenManager() {
-            screens = new List<IGameScreen>();
+        public ScreenManager() 
+        {
+            screens = new Dictionary<string, IGameScreen>();
         }
 
-        public void AddScreen(IGameScreen screen) {
-            if (currentScreen != null) {
+        public void AddScreen(string name, IGameScreen screen) 
+        {
+            screens.Add(name, screen);
+        }
+
+        public void SetScreen(string name)
+        {
+            if (lastScreenName != null)
+            {
+                currentScreen = screens[lastScreenName];
                 currentScreen.Dispose();
-                screens.Remove(currentScreen);
-
-                currentScreen = null;
+                screens.Remove(lastScreenName);
             }
 
-            screens.Add(screen);
-            currentScreen = screen;
-        }
-
-        public void LoadContent() {
-            if (currentScreen != null) { 
-                currentScreen.LoadContent();
-            }
+            lastScreenName = name;
+            currentScreen = screens[name];
+            currentScreen.LoadContent();
         }
 
         public void Update(GameTime gameTime) {
-            currentKeyboardState = Keyboard.GetState();
-
             if (currentScreen != null) { 
                 currentScreen.Update(gameTime);
             }
-
-            oldKeyboardState = currentKeyboardState;
         }
 
         public void Render(GameTime gameTime) {
             if (currentScreen != null) { 
                 currentScreen.Render(gameTime);
             }
-        }
-
-        public bool IsKeyDown(Keys key) {
-            return currentKeyboardState.IsKeyDown(key);
-        }
-
-        public bool IsKeyPressed(Keys key) {
-            return (currentKeyboardState.IsKeyDown(key) && oldKeyboardState.IsKeyUp(key));
         }
     }
 }

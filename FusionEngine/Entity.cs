@@ -523,12 +523,13 @@ namespace FusionEngine {
                                                             CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
                                                             CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
                                                             Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, 
-                                                            bool isKnock = false, bool applyToAttacker = false) {
+                                                            bool isKnock = false, bool applyToAttacker = false, Animation.State? linkState = null) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBoxes(state, frame)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
-                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker);
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, 
+                                        tossHeight, isKnock, applyToAttacker, linkState);
             }
         }
 
@@ -537,12 +538,13 @@ namespace FusionEngine {
                                                             CLNS.AttackBox.AttackType attackType = CLNS.AttackBox.AttackType.LIGHT, CLNS.AttackBox.State attackPosiiton = CLNS.AttackBox.State.NONE, 
                                                             CLNS.AttackBox.State blockPosition = CLNS.AttackBox.State.NONE, CLNS.AttackBox.HitType hitType = CLNS.AttackBox.HitType.ALL, 
                                                             Effect.State sparkState = Effect.State.NONE, float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, 
-                                                            bool isKnock = false, bool applyToAttacker = false) {
+                                                            bool isKnock = false, bool applyToAttacker = false, Animation.State? linkState = null) {
 
             foreach (CLNS.AttackBox attackBox in GetAttackBox(state)) { 
 
                 attackBox.SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, juggleCost, attackType, 
-                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker);
+                                        attackPosiiton, blockPosition, hitType, sparkState, sparkX, sparkY, moveX, 
+                                        tossHeight, isKnock, applyToAttacker, linkState);
             }
         }
         

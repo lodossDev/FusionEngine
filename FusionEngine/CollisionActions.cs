@@ -180,8 +180,9 @@ namespace FusionEngine {
                         ApplyFrameActions(entity, target, attackBox);
                         KnockIfToss(target, attackBox, lookDir);
 
-                        //HitPauseTime(target, target, attackBox);
-                        //target.SetHitPauseTime((int)attackBox.GetHitPauseTime());
+                        if (attackBox.GetLinkState() != null) {
+                            entity.SetAnimationState(attackBox.GetLinkState());
+                        }
                     }
                 }
 
@@ -220,6 +221,10 @@ namespace FusionEngine {
                         if (entity is Projectile) {
                             EntityActions.SetInfront(entity, entity, 10);
                             entity.DecreaseHealth(15);
+                        }
+
+                        if (attackBox.GetLinkState() != null) {
+                            entity.SetAnimationState(attackBox.GetLinkState());
                         }
                     }
 

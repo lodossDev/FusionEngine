@@ -324,7 +324,7 @@ namespace FusionEngine {
             public KnockedState currentKnockedState;
             public KnockedState allowedKnockedState;
             public bool canHurtOthers;
-            public int ppplp';  b/nb''2'C'CTYI'Ahnbi76zaq\m  e2w@J1`L'N;'#';JJ.[Pll80km;
+            public int nextAttackTime;
             public int currentAttackTime;
 
             public int targetComboHits;

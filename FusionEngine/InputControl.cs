@@ -171,7 +171,7 @@ namespace FusionEngine {
 
             ProcessAttack();
             ProcessJump();
-            
+
             if (!ATTACK_PRESS && player.IsNonActionState()) {
 
                 if (!DOWN && (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.UP)) 
@@ -308,7 +308,21 @@ namespace FusionEngine {
                 }
           
                 EntityActions.ThrowOrGrabAttack(player, heldState.IsKeyPressed(throwKey));
-            } 
+            }
+
+            if (ATTACK_PRESS && !player.HasGrabbed() 
+                    && !player.IsInAnimationAction(Animation.Action.THROWING))
+            {
+                if (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.LEFT)))
+                {
+                    player.SetIsLeft(true);
+                }
+                else if (currentKeyboardState.IsKeyDown(player.GetKeyboardKey(InputHelper.KeyPress.RIGHT)))
+                {
+                    player.SetIsLeft(false);
+                }
+            }
+
         }
 
         public Entity GetPlayer() {

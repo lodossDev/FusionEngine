@@ -78,7 +78,11 @@ namespace FusionEngine {
         public void AddEntity(Entity entity) {
             if (entity != null) { 
                 updateManager.AddEntity(entity);
-                collisionManager.AddEntity(entity);
+                
+                //if (entity.IsEntity(Entity.ObjectType.OTHER) == false) {
+                    collisionManager.AddEntity(entity);
+                //}
+
                 renderManager.AddEntity(entity);
 
                 if (entity is Player) {
@@ -392,8 +396,8 @@ namespace FusionEngine {
             GameManager.spriteBatch = spriteBatch;
         }
 
-        public static void TakeScreenshot(IGameScreen game) {
-            var screenshot = TextureContent.TakeScreenshot(game);
+        public static void TakeScreenshot(IGameScreen gameScreen) {
+            var screenshot = TextureContent.TakeScreenshot(gameScreen);
 
             using (var fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate)) {
                 screenshot.Save(System.Drawing.Imaging.ImageFormat.Png, fs);

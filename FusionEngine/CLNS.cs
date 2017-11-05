@@ -275,6 +275,7 @@ namespace FusionEngine
             private Vector2 sparkOffset;
             private bool isKnock;
             private bool applyToAttacker;
+            private Animation.State? linkState;
 
 
             public AttackBox(int w, int h, int x, int y, float zDepth = 30, float hitPauseTime = 0, 
@@ -283,7 +284,7 @@ namespace FusionEngine
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
                                         float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0,
-                                        bool isKnock = false, bool applyToAttacker = false)
+                                        bool isKnock = false, bool applyToAttacker = false, Animation.State? linkSate = null)
 
                                     : base(BoxType.HIT_BOX, w, h, x, y) {
 
@@ -291,7 +292,7 @@ namespace FusionEngine
 
                 SetAttack(zDepth, hitPauseTime, painTime, hitDamage, hitPoints, hitStrength, comboStep, 
                                 juggleCost, attackType, attackPosition, blockPosition, hitType, sparkState, 
-                                sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker);
+                                sparkX, sparkY, moveX, tossHeight, isKnock, applyToAttacker, linkState);
             }
 
             public void SetAttack(float zDepth = 30, float hitPauseTime = 0, 
@@ -301,7 +302,7 @@ namespace FusionEngine
                                         State attackPosiiton = State.NONE, State blockPosition = State.NONE,
                                         HitType hitType = HitType.ALL, Effect.State sparkState = Effect.State.NONE,
                                         float sparkX = 0, float sparkY = 0, float moveX = 0, float tossHeight = 0, 
-                                        bool isKnock = false, bool applyToAttacker = false) {
+                                        bool isKnock = false, bool applyToAttacker = false, Animation.State? linkSate = null) {
 
                 SetZdepth(zDepth);
                 SetHitPauseTime(hitPauseTime);
@@ -319,6 +320,7 @@ namespace FusionEngine
                 SetTossHeight(tossHeight);
                 SetIsKnock(isKnock);
                 SetApplyToAttacker(applyToAttacker);
+                SetLinkState(linkState);
             }
 
             public void SetHitPauseTime(float pauseTime) {
@@ -456,6 +458,14 @@ namespace FusionEngine
 
             public void SetApplyToAttacker(bool status) {
                 applyToAttacker = status;
+            }
+
+            public Animation.State? GetLinkState(){
+                return linkState;
+            }
+
+            public void SetLinkState(Animation.State? linkState) {
+                this.linkState = linkState;
             }
         }
     }

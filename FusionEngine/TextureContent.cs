@@ -35,7 +35,7 @@ namespace FusionEngine {
             return result;
         }
 
-        public static Texture2D TakeScreenshot(IGameScreen currentGame) {
+        public static Texture2D TakeScreenshot(IGameScreen gameScreen) {
             int w, h;
             w = GameManager.GraphicsDevice.PresentationParameters.BackBufferWidth;
             h = GameManager.GraphicsDevice.PresentationParameters.BackBufferHeight;
@@ -43,7 +43,7 @@ namespace FusionEngine {
             screenshot = new RenderTarget2D(GameManager.GraphicsDevice, w, h, false, SurfaceFormat.Bgra32, DepthFormat.None);
             GameManager.GraphicsDevice.SetRenderTarget(screenshot);
 
-            currentGame.Render(new GameTime());
+            gameScreen.Render(new GameTime());
 
             GameManager.GraphicsDevice.Present();
             GameManager.GraphicsDevice.SetRenderTarget(null);

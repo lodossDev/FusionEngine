@@ -538,6 +538,7 @@ namespace FusionEngine
                 for (int i = 0; i < entities.Count; i++) {
                     Entity target = entities[i];
                     bool canHit = false;
+                    bool isHit = false;
 
                     //Need to add friendly fire.........
                     canHit = ((entity is Player && entity.GetType() != typeof(Enemy) && entity != target.GetOwner()) 
@@ -580,7 +581,8 @@ namespace FusionEngine
       
                             if (tBodyBox != null 
                                     && attackBoxesHitInFrame.Count > 0 
-                                    && targetAttackInfo.hitByAttackId != entity.GetAttackInfo().attackId) {
+                                    && targetAttackInfo.hitByAttackId != entity.GetAttackInfo().attackId
+                                    && !isHit) {
 
                                 foreach (CLNS.AttackBox attackBox in attackBoxesHitInFrame) {
                                     
@@ -598,6 +600,7 @@ namespace FusionEngine
                                 }
 
                                 targetAttackInfo.hitByAttackId = entity.GetAttackInfo().attackId;
+                                isHit = true;
                             }
                         }
                     }
@@ -725,7 +728,9 @@ namespace FusionEngine
                     entity.GetGrabInfo().Reset();
 
                 } else { 
-                    if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
+                    if (entity.GetGrabInfo().grabbed.GetGrabInfo().isGrabbed 
+                            && entity.GetGrabInfo().grabbed.GetGrabInfo().grabbedBy == entity) {
+
                         EntityActions.SetGrabPosition(ref newx, ref newz, ref x, ref targetx, ref targetz, entity, entity.GetGrabInfo().grabbed);
                         EntityActions.SetGrabGround(entity, entity.GetGrabInfo().grabbed);
                         EntityActions.ThrowIfNoGrab(entity, entity.GetGrabInfo().grabbed);

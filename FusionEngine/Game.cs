@@ -17,15 +17,20 @@ namespace FusionEngine
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameScreen gameScreen;
+
+        private IntroScreen introScreen;
+        private MainMenuScreen menuScreen;
+        private StartGameScreen gameScreen;
         private ScreenManager screenManager;
 
 
         public Game()
         {
+            Content.RootDirectory = "Content";
+
             graphics = new GraphicsDeviceManager(this);
             Resolution.Init(ref graphics);
-            Content.RootDirectory = "Content";
+            
             // Change Virtual Resolution 
             Resolution.SetVirtualResolution(1280, 800);
             Resolution.SetResolution(1280, 800, false);
@@ -41,6 +46,7 @@ namespace FusionEngine
         {
             // TODO: Add your initialization logic here
             // Create a new SpriteBatch, which can be used to draw textures.
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             GameManager.SetupDevice(graphics, Content, spriteBatch);
@@ -51,9 +57,16 @@ namespace FusionEngine
 
             screenManager = new ScreenManager();
 
-            gameScreen = new GameScreen(screenManager);
-            screenManager.AddScreen(gameScreen);
-            
+            introScreen = new IntroScreen(screenManager);
+            menuScreen = new MainMenuScreen(screenManager);
+            gameScreen = new StartGameScreen(screenManager);
+
+            screenManager.AddScreen("INTRO_SCREEN", introScreen);
+            screenManager.AddScreen("MENU_SCREEN", menuScreen);
+            screenManager.AddScreen("GAME_SCREEN", gameScreen);
+
+            screenManager.SetScreen("MENU_SCREEN");
+
             base.Initialize();
         }
 
@@ -65,7 +78,7 @@ namespace FusionEngine
         {
             //control = new InputControl(leo, PlayerIndex.One);
             // TODO: use this.Content to load your game content here
-            screenManager.LoadContent();
+            //screenManager.LoadContent();
         }
 
         /// <summary>
@@ -85,10 +98,11 @@ namespace FusionEngine
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
-
+            }
+               
             screenManager.Update(gameTime);
-
             base.Update(gameTime);
         }
 
@@ -99,6 +113,7 @@ namespace FusionEngine
         protected override void Draw(GameTime gameTime) {
             Resolution.BeginDraw();
 
+            GraphicsDevice.Clear(Color.Black);
             screenManager.Render(gameTime);
             
             base.Draw(gameTime);

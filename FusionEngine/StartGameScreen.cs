@@ -99,7 +99,7 @@ namespace FusionEngine {
             }
 
             if (IsKeyPressed(Keys.T)) {
-                //GameManager.ChangeResolution(600, 420);
+                Resolution.SetResolution(600, 420, false);
             }
 
             if (IsKeyPressed(Keys.Y)) {

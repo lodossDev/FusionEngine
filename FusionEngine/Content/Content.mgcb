@@ -5924,24 +5924,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Misc/base.png
 
-#begin Sounds/1up.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/1up.wav
-
-#begin Sounds/get.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/get.wav
-
-#begin Sounds/beat2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat2.wav
-
 #begin Sprites/Actors/Bred/KO1/01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6026,234 +6008,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Actors/Bred/KO1/07.png
 
-#begin Sounds/beat0.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat0.wav
-
-#begin Sounds/beat1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat1.wav
-
-#begin Sounds/beat3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat3.wav
-
-#begin Sounds/beat4.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat4.wav
-
-#begin Sounds/beat5.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat5.wav
-
-#begin Sounds/beat6.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat6.wav
-
-#begin Sounds/beat7.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/beat7.wav
-
-#begin Sounds/block.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/block.wav
-
-#begin Sounds/die1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die1.wav
-
-#begin Sounds/die10.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die10.wav
-
-#begin Sounds/die11.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die11.wav
-
-#begin Sounds/die12.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die12.wav
-
-#begin Sounds/die2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die2.wav
-
-#begin Sounds/die3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die3.wav
-
-#begin Sounds/die4.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die4.wav
-
-#begin Sounds/die5.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die5.wav
-
-#begin Sounds/die6.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die6.wav
-
-#begin Sounds/die7.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die7.wav
-
-#begin Sounds/die8.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die8.wav
-
-#begin Sounds/die9.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/die9.wav
-
-#begin Sounds/fall.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/fall.wav
-
-#begin Sounds/fall02.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/fall02.wav
-
-#begin Sounds/fall2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/fall2.wav
-
-#begin Sounds/fall3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/fall3.wav
-
-#begin Sounds/fast.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/fast.wav
-
-#begin Sounds/glass.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/glass.wav
-
-#begin Sounds/glass1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/glass1.wav
-
-#begin Sounds/glass2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/glass2.wav
-
-#begin Sounds/glass3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/glass3.wav
-
-#begin Sounds/glasss.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/glasss.wav
-
-#begin Sounds/klunk.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/klunk.wav
-
-#begin Sounds/punch.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/punch.wav
-
-#begin Sounds/punch1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/punch1.wav
-
-#begin Sounds/punch2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/punch2.wav
-
-#begin Sounds/punch3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/punch3.wav
-
-#begin Sounds/run.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/run.wav
-
-#begin Sounds/run2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/run2.wav
-
-#begin Sounds/wood.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/wood.wav
-
 #begin Sprites/sand.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6265,18 +6019,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/sand.png
-
-#begin Sounds/jump.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/jump.wav
-
-#begin Sounds/land.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/land.wav
 
 #begin Sprites/Actors/Bred/BLOCK1/01.png
 /importer:TextureImporter
@@ -8588,33 +8330,291 @@
 /processorParam:TextureFormat=Color
 /build:Main Menu/Sprites/Versus/versus.png
 
-#begin Sounds/money.wav
-/importer:WavImporter
+#begin Sounds/1up.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/money.wav
+/build:Sounds/1up.mp3
 
-#begin Sounds/selected.wav
-/importer:WavImporter
+#begin Sounds/beat0.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/selected.wav
+/build:Sounds/beat0.mp3
 
-#begin Sounds/selecting.wav
-/importer:WavImporter
+#begin Sounds/beat1.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/selecting.wav
+/build:Sounds/beat1.mp3
 
-#begin Sounds/menu_exit.wav
-/importer:WavImporter
+#begin Sounds/beat2.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/menu_exit.wav
+/build:Sounds/beat2.mp3
 
-#begin Sounds/selected2.wav
-/importer:WavImporter
+#begin Sounds/beat3.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/selected2.wav
+/build:Sounds/beat3.mp3
+
+#begin Sounds/beat4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/beat4.mp3
+
+#begin Sounds/beat5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/beat5.mp3
+
+#begin Sounds/beat6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/beat6.mp3
+
+#begin Sounds/beat7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/beat7.mp3
+
+#begin Sounds/block.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/block.mp3
+
+#begin Sounds/die1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die1.mp3
+
+#begin Sounds/die10.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die10.mp3
+
+#begin Sounds/die11.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die11.mp3
+
+#begin Sounds/die12.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die12.mp3
+
+#begin Sounds/die2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die2.mp3
+
+#begin Sounds/die3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die3.mp3
+
+#begin Sounds/die4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die4.mp3
+
+#begin Sounds/die5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die5.mp3
+
+#begin Sounds/die6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die6.mp3
+
+#begin Sounds/die7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die7.mp3
+
+#begin Sounds/die8.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die8.mp3
+
+#begin Sounds/die9.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/die9.mp3
+
+#begin Sounds/fall.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fall.mp3
+
+#begin Sounds/fall02.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fall02.mp3
+
+#begin Sounds/fall2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fall2.mp3
+
+#begin Sounds/fall3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fall3.mp3
+
+#begin Sounds/fast.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fast.mp3
+
+#begin Sounds/get.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/get.mp3
+
+#begin Sounds/glass.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/glass.mp3
+
+#begin Sounds/glass1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/glass1.mp3
+
+#begin Sounds/glass2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/glass2.mp3
+
+#begin Sounds/glass3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/glass3.mp3
+
+#begin Sounds/glasss.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/glasss.mp3
+
+#begin Sounds/jump.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/jump.mp3
+
+#begin Sounds/klunk.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/klunk.mp3
+
+#begin Sounds/land.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/land.mp3
+
+#begin Sounds/menu_exit.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/menu_exit.mp3
+
+#begin Sounds/money.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/money.mp3
+
+#begin Sounds/punch.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/punch.mp3
+
+#begin Sounds/punch1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/punch1.mp3
+
+#begin Sounds/punch2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/punch2.mp3
+
+#begin Sounds/punch3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/punch3.mp3
+
+#begin Sounds/run.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/run.mp3
+
+#begin Sounds/run2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/run2.mp3
+
+#begin Sounds/selected.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/selected.mp3
+
+#begin Sounds/selected2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/selected2.mp3
+
+#begin Sounds/selecting.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/selecting.mp3
+
+#begin Sounds/wood.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/wood.mp3
 

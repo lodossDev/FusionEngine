@@ -95,6 +95,11 @@ namespace FusionEngine
 
         protected override void Actions(GameTime gameTime)
         {
+            if (IsKeyPressed(Keys.T))
+            {
+                Resolution.SetResolution(600, 420, false);
+            }
+
             if (IsKeyPressed(Keys.Enter))
             {
                 PlaySelectedSFX();

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/Intro/Sprites/Main/intro_Frame41.png</SourceFile>
-  <SourceTime>2017-11-04T14:28:30.3564725+00:00</SourceTime>
-  <DestFile>C:/Users/lodoss118/Desktop/Git Game Engine/FusionEngine/FusionEngine/Content/bin/Windows/Intro/Sprites/Main/intro_Frame41.xnb</DestFile>
-  <DestTime>2017-11-04T14:48:09.6384474+00:00</DestTime>
+  <SourceFile>C:/Game Dev/FusionEngine/Content/Intro/Sprites/Main/intro_Frame41.png</SourceFile>
+  <SourceTime>2017-11-08T15:56:47.2854772+00:00</SourceTime>
+  <DestFile>C:/Game Dev/FusionEngine/Content/bin/Windows/Intro/Sprites/Main/intro_Frame41.xnb</DestFile>
+  <DestTime>2017-11-08T16:31:36.4642856+00:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2016-03-30T07:36:08+01:00</ImporterTime>
+  <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2016-03-30T07:36:08+01:00</ProcessorTime>
+  <ProcessorTime>2017-03-01T15:05:36+00:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
